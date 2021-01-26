@@ -1,0 +1,33 @@
+plugins {
+	id 'com.github.johnrengelman.shadow'
+}
+
+repositories {
+	jcenter()
+	mavenCentral()
+	maven {
+		name = 'sponge'
+		url = 'https://repo.spongepowered.org/maven'
+	}
+}
+
+group = 'com.enderzombi102.loadercomplex.sponge'
+description = '`A very simple mod that aims to be compatible with almost every mod/plugin loader`'
+
+dependencies {
+
+	compileOnly( project(path: ":loadercomplex-common") ) {
+		transitive = false
+	}
+
+	compileOnly 'org.spongepowered:spongeapi:7.3.0'
+	annotationProcessor 'org.spongepowered:spongeapi:7.3.0'
+}
+
+shadowJar {
+	dependencies {
+		exclude( project(':loadercomplex-common') )
+	}
+}
+
+tasks.build.dependsOn tasks.shadowJar

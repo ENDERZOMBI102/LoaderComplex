@@ -1,0 +1,18 @@
+[
+	{
+		"modid": "loadercomplex-forge",
+		"name": "Loadercomplex",
+		"description": "A very simple mod that aims to be compatible with almost every mod/plugin loader",
+		"version": "${version}",
+		"mcversion": "${mcversion}",
+		"url": "",
+		"updateUrl": "",
+		"authorList": [
+			"ENDERZOMBI102"
+		],
+		"credits": "",
+		"logoFile": "",
+		"screenshots": [],
+		"dependencies": []
+	}
+]

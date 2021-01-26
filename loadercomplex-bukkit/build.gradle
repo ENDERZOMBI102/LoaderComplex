@@ -1,0 +1,37 @@
+plugins {
+	id 'com.github.johnrengelman.shadow'
+}
+
+repositories {
+	jcenter()
+	mavenCentral()
+	maven {
+		name = 'spigotmc-repo'
+		url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
+	}
+}
+
+group = 'com.enderzombi102.loadercomplex.bukkit'
+
+dependencies {
+
+	compileOnly( project(path: ":loadercomplex-common") ) {
+		transitive = false
+	}
+
+	compileOnly 'org.bukkit:bukkit:1.12.2-R0.1-SNAPSHOT'
+}
+
+processResources {
+	from(sourceSets.main.resources.srcDirs) {
+		expand 'version': project.version
+	}
+}
+
+shadowJar {
+	dependencies {
+		include(dependency(':loadercomplex-common'))
+	}
+}
+
+tasks.build.dependsOn tasks.shadowJar
