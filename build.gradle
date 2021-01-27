@@ -66,7 +66,7 @@ task merge {
 					rootProject.archives_base_name +
 							"-" +
 							rootProject.mod_version +
-							".jar"
+							"-shadow.jar"
 			)
 			unzip(path.toFile(), bigJar.toFile())
 		}
@@ -90,6 +90,8 @@ rootProject.subprojects.forEach {
 
 static def compress(Path sourceDir, File zipFile) {
 	try {
+		if ( zipFile.exists() ) zipFile.delete()
+
 		final ZipOutputStream outputStream = new ZipOutputStream(new FileOutputStream(zipFile))
 		Files.walkFileTree(sourceDir, new SimpleFileVisitor<Path>() {
 			@Override
@@ -113,8 +115,8 @@ static def compress(Path sourceDir, File zipFile) {
 }
 
 static def unzip(File zipFile, File destDir) {
-	if (!destDir.exists())
-		destDir.mkdirs()
+	new File( destDir.getPath() ).renameTo('old')
+	destDir.mkdirs()
 	FileInputStream fis
 	byte[] buffer = new byte[1024]
 	try {
@@ -122,7 +124,7 @@ static def unzip(File zipFile, File destDir) {
 		ZipInputStream zis = new ZipInputStream(fis)
 		ZipEntry zipEntry = zis.getNextEntry()
 		while (zipEntry != null) {
-			if (!zipEntry.isDirectory()) {
+			if (! zipEntry.isDirectory() ) {
 				File newFile = new File(destDir, zipEntry.getName())
 				if ( zipEntry.getName().equals("META-INF/MANIFEST.MF") ) {
 					if (! zipFile.path.contains("-forge-") ) {
@@ -131,10 +133,10 @@ static def unzip(File zipFile, File destDir) {
 						continue
 					}
 				}
-				new File(newFile.getParent()).mkdirs()
+				new File( newFile.getParent() ).mkdirs()
 				FileOutputStream fos = new FileOutputStream(newFile)
 				int len
-				while ((len = zis.read(buffer)) > 0) {
+				while ( (len = zis.read(buffer) ) > 0) {
 					fos.write(buffer, 0, len)
 				}
 				fos.close()
