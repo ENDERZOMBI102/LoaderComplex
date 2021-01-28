@@ -1,6 +1,6 @@
-name: Loader Complex
-version: @version@
-main: com.enderzombi102.loadercomplex.LoaderComplexBukkit
+name: LoaderComplex
+version: ${version}
+main: com.enderzombi102.loadercomplex.bukkit.LoaderComplexBukkit
 prefix: LC
 load: STARTUP
 authors: [ ENDERZOMBI102 ]

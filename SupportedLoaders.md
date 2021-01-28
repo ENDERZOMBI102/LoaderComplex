@@ -8,10 +8,10 @@ the "recent" version includes every version starting from 1.12.2
 | [Forge](https://minecraftforge.net) | 1.16.4 | not yet | java |
 | [Fabric](https://fabricmc.net) | 1.12.2 | WIP support | java |
 | [Fabric](https://fabricmc.net) | 1.16.4 | not yet | java |
-| [Bukkit](dev.bukkit.org) | recent | WIP support | java |
+| [Bukkit](https://dev.bukkit.org) | recent | WIP support | java |
 | [Spigot](https://spigotmc.org) | recent | WIP support | java |
 | [Paper](https://papermc.io) | recent | WIP support | java |
-| [Sponge](https://www.spongepowered.org/) | recent | WIP support | java |
+| [Sponge](https://www.spongepowered.org/) | 1.12.2 | WIP support | java |
 | [LiteLoader](https://liteloader.com) | 1.12.2 | not yet | java |
 | [BlazeLoader](https://blazeloader.com) | 1.8.9 | not yet | java |
 | [ChocoMint](https://github.com/UnderVolt/chocomint) | ? | not yet | java |

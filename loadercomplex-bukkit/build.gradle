@@ -23,8 +23,18 @@ dependencies {
 }
 
 processResources {
+
+	// replace stuff in plugin.yml, nothing else
 	from(sourceSets.main.resources.srcDirs) {
+		include 'plugin.yml'
+
+		// replace version
 		expand 'version': project.version
+	}
+
+	// copy everything else, thats not the mcmod.info
+	from(sourceSets.main.resources.srcDirs) {
+		exclude 'plugin.yml'
 	}
 }
 

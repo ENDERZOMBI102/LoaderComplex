@@ -15,20 +15,22 @@ public class RegistryHandler {
 	 * Listen for the register event for creating custom items
 	 */
 	@SubscribeEvent
-	public static void addItems(RegistryEvent.Register<Item> event) {
+	public static void addItems(RegistryEvent.Register<Item> evt) {
 	   /*
 		 event.getRegistry().register(new ItemBlock(Blocks.myBlock).setRegistryName(MOD_ID, "myBlock"));
 		 event.getRegistry().register(new MySpecialItem().setRegistryName(MOD_ID, "mySpecialItem"));
 		*/
+		LoaderComplexForge.INSTANCE.registry.onItemRegistry(evt);
 	}
 
 	/**
 	 * Listen for the register event for creating custom blocks
 	 */
 	@SubscribeEvent
-	public static void addBlocks(RegistryEvent.Register<Block> event) {
+	public static void addBlocks(RegistryEvent.Register<Block> evt) {
 	   /*
 		 event.getRegistry().register(new MySpecialBlock().setRegistryName(MOD_ID, "mySpecialBlock"));
 		*/
+		LoaderComplexForge.INSTANCE.registry.onBlockRegistry(evt);
 	}
 }

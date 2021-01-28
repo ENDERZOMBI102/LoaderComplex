@@ -1,5 +1,8 @@
 package com.enderzombi102.loadercomplex.forge12;
 
+import com.enderzombi102.loadercomplex.common.Content;
+import com.enderzombi102.loadercomplex.forge12.impl.ForgeLoader;
+import com.enderzombi102.loadercomplex.forge12.impl.ForgeRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -15,9 +18,11 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 )
 public class LoaderComplexForge {
 
-	public static final String MOD_ID = "loadercomplex-forge";
-	public static final String MOD_NAME = "Loader Complex";
-	public static final String VERSION = "1.0-SNAPSHOT";
+	public static final String MOD_ID = "loadercomplex";
+	public static final String MOD_NAME = "Loader Complex (Forge)";
+	public static final String VERSION = "1.0.0";
+	public ForgeLoader loader;
+	public ForgeRegistry registry;
 
 	/**
 	 * This is the instance of your mod as created by Forge. It will never be null.
@@ -30,15 +35,17 @@ public class LoaderComplexForge {
 	 * The registry events below will have fired prior to entry to this method.
 	 */
 	@Mod.EventHandler
-	public void preinit(FMLPreInitializationEvent event) {
-
+	public void preinit(FMLPreInitializationEvent evt) {
+		this.registry = new ForgeRegistry();
+		this.loader = new ForgeLoader(this.registry);
+		new Content(this.loader);
 	}
 
 	/**
 	 * This is the second initialization event. Register custom recipes
 	 */
 	@Mod.EventHandler
-	public void init(FMLInitializationEvent event) {
+	public void init(FMLInitializationEvent evt) {
 
 	}
 
@@ -46,7 +53,7 @@ public class LoaderComplexForge {
 	 * This is the final initialization event. Register actions from other mods here
 	 */
 	@Mod.EventHandler
-	public void postinit(FMLPostInitializationEvent event) {
+	public void postinit(FMLPostInitializationEvent evt) {
 
 	}
 }
