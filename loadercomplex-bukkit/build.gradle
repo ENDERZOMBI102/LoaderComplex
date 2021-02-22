@@ -1,6 +1,6 @@
-plugins {
-	id 'com.github.johnrengelman.shadow'
-}
+//plugins {
+//	id 'com.github.johnrengelman.shadow'
+//}
 
 repositories {
 	jcenter()
@@ -15,9 +15,7 @@ group = 'com.enderzombi102.loadercomplex.bukkit'
 
 dependencies {
 
-	compileOnly( project(path: ":loadercomplex-common") ) {
-		transitive = false
-	}
+	compileOnly( project(path: ":loadercomplex-common") )
 
 	compileOnly 'org.bukkit:bukkit:1.12.2-R0.1-SNAPSHOT'
 }
@@ -38,10 +36,10 @@ processResources {
 	}
 }
 
-shadowJar {
-	dependencies {
-		include(dependency(':loadercomplex-common'))
-	}
-}
-
-tasks.build.dependsOn tasks.shadowJar
+//shadowJar {
+//	dependencies {
+//		include( dependency(':loadercomplex-common') )
+//	}
+//}
+//
+//tasks.build.dependsOn tasks.shadowJar

@@ -27,11 +27,7 @@ subprojects {
 
 	apply plugin: 'java'
 	apply plugin: 'maven'
-	apply plugin: 'com.github.johnrengelman.shadow'
-
-	configurations {
-		shadow
-	}
+//	apply plugin: 'com.github.johnrengelman.shadow'
 
 	version = rootProject.mod_version
 	archivesBaseName = rootProject.archives_base_name
@@ -43,36 +39,41 @@ subprojects {
 		options.encoding = "UTF-8"
 	}
 
-	shadowJar {
-		configurations = [project.configurations.shadow]
-		classifier "shadow"
-
-		dependencies {
-			exclude( project(':loadercomplex-common') )
-		}
-	}
-
-	tasks.build.dependsOn tasks.shadowJar
+//	shadowJar {
+//		configurations = [project.configurations.shadow]
+//		classifier "shadow"
+//
+//		dependencies {
+//			exclude( project(':loadercomplex-common') )
+//		}
+//	}
+//
+//	tasks.build.dependsOn tasks.shadowJar
 }
 
 dependencies {
-	compile project('loadercomplex-common')
-	compile( project('loadercomplex-bukkit') ) {
+	runtime project('loadercomplex-common')
+	runtime( project('loadercomplex-bukkit') ) {
 		transitive = false
 	}
-	compile( project('loadercomplex-forge-12') ) {
+	runtime( project('loadercomplex-forge-12') ) {
 		transitive = false
 	}
-	compile( project('loadercomplex-fabric-12') ) {
+	runtime( project('loadercomplex-fabric-12') ) {
 		transitive = false
 	}
-	compile( project('loadercomplex-sponge') ) {
+	runtime( project('loadercomplex-sponge') ) {
 		transitive = false
 	}
 }
 
+shadowJar {
+	
+}
 
-tasks.jar.dependsOn(project('loadercomplex-forge-12').tasks.build)
+
+tasks.jar.dependsOn( project('loadercomplex-fabric-12').tasks.build )
+tasks.jar.dependsOn( project('loadercomplex-forge-12').tasks.build )
 tasks.jar.finalizedBy( tasks.shadowJar )
 
 task merge2 {

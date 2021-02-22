@@ -91,3 +91,14 @@ publishing {
 		// mavenLocal()
 	}
 }
+
+task devRemover {
+	File devJar = new File("${buildDir}/libs/${archivesBaseName}-dev.jar")
+	if ( devJar.exists() ) {
+		devJar.delete()
+	}
+}
+
+tasks.getByName("remapJar").dependsOn(tasks.jar)
+tasks.build.dependsOn(tasks.remapJar)
+tasks.build.finalizedBy(devRemover)
