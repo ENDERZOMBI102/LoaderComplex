@@ -3,14 +3,10 @@ package com.enderzombi102.loadercomplex.forge12.impl.block;
 import com.enderzombi102.loadercomplex.common.abstraction.block.Block;
 import com.enderzombi102.loadercomplex.common.abstraction.block.BlockMaterial;
 import com.enderzombi102.loadercomplex.forge12.impl.utils.BlockUtils;
-import com.enderzombi102.loadercomplex.common.abstraction.utils.Identifer;
-import net.minecraft.block.material.MapColor;
+import com.enderzombi102.loadercomplex.common.abstraction.utils.CIdentifier;
+import org.jetbrains.annotations.NotNull;
 
 public class ForgeBlock extends net.minecraft.block.Block implements Block {
-
-	public ForgeBlock(BlockMaterial mat, MapColor col) {
-		super( BlockUtils.getMat(mat), col);
-	}
 
 	public ForgeBlock(BlockMaterial mat) {
 		super( BlockUtils.getMat(mat) );
@@ -22,7 +18,12 @@ public class ForgeBlock extends net.minecraft.block.Block implements Block {
 	}
 
 	@Override
-	public void setIdentifier(Identifer id) {
+	public void setIdentifier(@NotNull CIdentifier id) {
 		this.setUnlocalizedName( id.get() );
 	}
+
+	public void setIdentifier(String id) {
+		this.setUnlocalizedName( id );
+	}
+
 }
