@@ -55,6 +55,22 @@ subprojects {
 	tasks.build.dependsOn tasks.shadowJar
 }
 
+dependencies {
+	compile project('loadercomplex-common')
+	compile( project('loadercomplex-bukkit') ) {
+		transitive = false
+	}
+	compile( project('loadercomplex-forge-12') ) {
+		transitive = false
+	}
+	compile( project('loadercomplex-fabric-12') ) {
+		transitive = false
+	}
+	compile( project('loadercomplex-sponge') ) {
+		transitive = false
+	}
+}
+
 
 tasks.jar.dependsOn(project('loadercomplex-forge-12').tasks.build)
 tasks.jar.finalizedBy( tasks.shadowJar )
