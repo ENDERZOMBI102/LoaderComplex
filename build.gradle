@@ -48,15 +48,13 @@ subprojects {
 
 	def artifact = file("${buildDir}/libs/${archivesBaseName}-${version}.jar")
 
-	artifacts {
-		archives(artifact) {
-			configurations {
-				jarz
-			}
+	task compJar(type: Jar) {
+		baseName = archivesBaseName
+		from sourceSets.main.output
+	}
 
-			type 'jar'
-			builtBy build
-		}
+	artifacts {
+		jarz compJar
 	}
 }
 
