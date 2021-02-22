@@ -5,7 +5,7 @@ import com.enderzombi102.loadercomplex.common.abstraction.block.Block;
 import com.enderzombi102.loadercomplex.common.abstraction.block.BlockMaterial;
 import com.enderzombi102.loadercomplex.common.abstraction.command.Command;
 import com.enderzombi102.loadercomplex.common.abstraction.item.Item;
-import com.enderzombi102.loadercomplex.common.abstraction.utils.Identifer;
+import com.enderzombi102.loadercomplex.common.abstraction.utils.RegistryType;
 import com.enderzombi102.loadercomplex.forge12.impl.block.ForgeBlock;
 import com.enderzombi102.loadercomplex.forge12.impl.item.ForgeItem;
 import net.minecraft.item.ItemBlock;
@@ -13,6 +13,7 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.registries.GameData;
 import net.minecraftforge.registries.RegistryManager;
 
+import javax.naming.OperationNotSupportedException;
 import java.util.ArrayList;
 
 public class ForgeRegistry implements Registry {
@@ -42,8 +43,8 @@ public class ForgeRegistry implements Registry {
 	}
 
 	@Override
-	public boolean isRegistered(Identifer.IdType type, String id) throws IllegalStateException{
-		throw new IllegalStateException("Forge doesn't support this, please, check the loader type before calling this method");
+	public boolean isRegistered(RegistryType type, String id) throws OperationNotSupportedException {
+		throw new OperationNotSupportedException("Forge doesn't support this, please, check the loader type before calling this method");
 	}
 
 	@Override
@@ -67,7 +68,7 @@ public class ForgeRegistry implements Registry {
 	}
 
 	@Override
-	public Object getVanillaRegistry(Identifer.IdType type) {
+	public Object getVanillaRegistry(RegistryType type) {
 		switch (type) {
 			case Item:
 				return RegistryManager.VANILLA.getRegistry(GameData.ITEMS);
