@@ -1,17 +1,17 @@
 package com.enderzombi102.loadercomplex.common.abstraction.utils;
 
-public class Identifer {
+public class CIdentifier {
 
 	private final String namespace;
 	private final String path;
 
-	public Identifer(String namespace, String path) {
+	public CIdentifier(String namespace, String path) {
 		this.namespace = namespace;
 		this.path = path;
 	}
 
-	public static Identifer fromString(String id) {
-		return new Identifer( id.substring( 0, id.indexOf(':') ), id.substring( id.indexOf(':') + 1 ) );
+	public static CIdentifier fromString(String id) {
+		return new CIdentifier( id.substring( 0, id.indexOf(':') ), id.substring( id.indexOf(':') + 1 ) );
 	}
 
 	public String getNamespace() {
@@ -29,13 +29,6 @@ public class Identifer {
 	public String get() {
 		return this.namespace + ":" + this.path;
 	}
-
-	public enum IdType {
-		Command,
-		Block,
-		Item
-	}
-
 
 
 }
