@@ -33,3 +33,5 @@ the "recent" version includes every version starting from 1.12.2
 | [Zenova](https://github.com/MinecraftZenova/) | ? | not yet | Windows 10 |
 | [InnerCore](https://icmods.mineprogramming.org/dev) | ? | not yet | Bedrock (android) |
 | [Bedrock Addon](https://bedrock.dev) | ? | not yet | Bedrock |
+| [5Zig](https://5zigreborn.eu/) | ? | not yet | java |
+| [LabyMod](https://www.labymod.net/index) | ? | not yet | java |
