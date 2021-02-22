@@ -2,7 +2,8 @@ package com.enderzombi102.loadercomplex.common;
 
 import com.enderzombi102.loadercomplex.common.abstraction.Loader;
 import com.enderzombi102.loadercomplex.common.abstraction.block.Block;
-import com.enderzombi102.loadercomplex.common.abstraction.utils.Identifer;
+import com.enderzombi102.loadercomplex.common.abstraction.item.Item;
+import com.enderzombi102.loadercomplex.common.abstraction.utils.CIdentifier;
 
 public class Content {
 
@@ -18,8 +19,10 @@ public class Content {
 
 	public void initStuff() {
 		Block block = this.loader.getRegistry().createBlock();
-		block.setIdentifier( new Identifer( NAMESPACE, "test") );
+		block.setIdentifier( new CIdentifier( NAMESPACE, "block") );
 		this.loader.getRegistry().register( block );
+		Item item = this.loader.getRegistry().createItem();
+		item.setIdentifier( new CIdentifier( NAMESPACE, "item" ) );
 	}
 
 }
