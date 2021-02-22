@@ -4,7 +4,6 @@ import com.enderzombi102.loadercomplex.common.abstraction.block.Block;
 import com.enderzombi102.loadercomplex.common.abstraction.block.BlockMaterial;
 import com.enderzombi102.loadercomplex.forge12.impl.utils.BlockUtils;
 import com.enderzombi102.loadercomplex.common.abstraction.utils.CIdentifier;
-import org.jetbrains.annotations.NotNull;
 
 public class ForgeBlock extends net.minecraft.block.Block implements Block {
 
@@ -18,7 +17,7 @@ public class ForgeBlock extends net.minecraft.block.Block implements Block {
 	}
 
 	@Override
-	public void setIdentifier(@NotNull CIdentifier id) {
+	public void setIdentifier(CIdentifier id) {
 		this.setUnlocalizedName( id.get() );
 	}
 
