@@ -1,5 +1,4 @@
 plugins {
-	id 'maven-publish'
 	id 'fabric-loom' version "0.4.1"
 }
 
@@ -63,8 +62,12 @@ jar {
 	from "LICENSE"
 }
 
+compJar {
+	finalizedBy(remapJar)
+}
+
 artifacts {
-	jarz remapJar
+	jarz compJar
 }
 
 
