@@ -27,7 +27,6 @@ subprojects {
 
 	apply plugin: 'java'
 	apply plugin: 'maven'
-//	apply plugin: 'com.github.johnrengelman.shadow'
 
 	version = rootProject.mod_version
 	archivesBaseName = rootProject.archives_base_name
@@ -35,40 +34,54 @@ subprojects {
 	sourceCompatibility = JavaVersion.VERSION_1_8
 	targetCompatibility = JavaVersion.VERSION_1_8
 
+	configurations {
+		runtimeElements.canBeConsumed = false
+		jarz {
+			canBeConsumed = true
+			canBeResolved = false
+		}
+	}
+
 	tasks.withType(JavaCompile) {
 		options.encoding = "UTF-8"
 	}
 
-//	shadowJar {
-//		configurations = [project.configurations.shadow]
-//		classifier "shadow"
-//
-//		dependencies {
-//			exclude( project(':loadercomplex-common') )
-//		}
-//	}
-//
-//	tasks.build.dependsOn tasks.shadowJar
+	def artifact = file("${buildDir}/libs/${archivesBaseName}-${version}.jar")
+
+	artifacts {
+		archives(artifact) {
+			configurations {
+				jarz
+			}
+
+			type 'jar'
+			builtBy build
+		}
+	}
 }
 
 dependencies {
-	runtime project('loadercomplex-common')
-	runtime( project('loadercomplex-bukkit') ) {
+	compile project(path: 'loadercomplex-common', configuration: 'jarz')
+	compile( project(path: 'loadercomplex-bukkit', configuration: 'jarz') ) {
 		transitive = false
 	}
-	runtime( project('loadercomplex-forge-12') ) {
+	compile( project(path: 'loadercomplex-forge-12', configuration: 'jarz') ) {
 		transitive = false
 	}
-	runtime( project('loadercomplex-fabric-12') ) {
+	compile( project(path: 'loadercomplex-fabric-12', configuration: 'jarz') ) {
 		transitive = false
 	}
-	runtime( project('loadercomplex-sponge') ) {
+	compile( project(path: 'loadercomplex-sponge', configuration: 'jarz') ) {
 		transitive = false
 	}
 }
 
 shadowJar {
-	
+
+	configurations {
+		jarz
+	}
+
 }
 
 
