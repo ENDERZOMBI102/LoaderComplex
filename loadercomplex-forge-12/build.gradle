@@ -103,6 +103,5 @@ artifacts {
 	jarz compJar
 }
 
-jar.finalizedBy('reobfJar')
 compJar.finalizedBy('reobfJar')
 assemble.taskDependencies.getDependencies().remove(build)

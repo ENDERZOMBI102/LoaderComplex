@@ -1,9 +1,3 @@
-import java.nio.file.*
-import java.nio.file.attribute.BasicFileAttributes
-import java.util.jar.JarEntry
-import java.util.jar.JarInputStream
-import java.util.jar.JarOutputStream
-
 buildscript {
 	repositories {
 		jcenter()
@@ -82,168 +76,168 @@ tasks.jar.dependsOn( project('loadercomplex-fabric-12').tasks.build )
 tasks.jar.dependsOn( project('loadercomplex-forge-12').tasks.build )
 tasks.jar.finalizedBy( tasks.shadowJar )
 
-task merge2 {
-	doLast {
-		try {
-			// out jar path
-			final Path outPath = rootProject.buildDir.toPath().getFileSystem().getPath(
-					rootProject.buildDir.getPath() + '/libs',
-					( (String) (Object) rootProject.archives_base_name ) +
-							"-merged-" +
-							( (String) (Object) rootProject.mod_version ) +
-							".jar"
-			)
-
-			// create out jar
-			JarOutputStream out = new JarOutputStream( new FileOutputStream( outPath.toFile() ) )
-			JarEntry e = new JarEntry("jarer")
-			out.putNextEntry(e)
-
-			byte[] data = "this file is useless".getBytes()
-			out.write( data, 0, data.length )
-			out.closeEntry()
-
-			out.close()
-
-
-			// get a filesystem for the output jar
-			final FileSystem jar
-			try {
-				jar = FileSystems.newFileSystem(
-						URI.create(
-								"jar:" + outPath.toUri().toString()
-						),
-						Collections.emptyMap()
-				)
-			} catch(FileSystemAlreadyExistsException ignored) {
-				jar = outPath.getFileSystem()
-			}
-			final Path outRoot = jar.getPath("/")
-			// cicle in all subprojects
-			for (Project proj : subprojects) {
-				// get filesystem for subproject artifact jar
-				final FileSystem inputJar = FileSystems.newFileSystem( getArtifactPath(proj), null )
-				final Path toWalk = inputJar.getPath("/")
-				// copy everything
-				Files.walkFileTree(toWalk, new SimpleFileVisitor<Path>() {
-					@Override
-					FileVisitResult visitFile(Path file, BasicFileAttributes attributes) {
-						Path path = file.relativize( toWalk )
-						if (! ( path.toString().contains("..") || file.toString().contains("..") ) ) {
-							print("Path: " + path + "\n")
-							print("File: " + file + "\n")
-							Files.copy( file, outRoot.resolve(path), StandardCopyOption.REPLACE_EXISTING )
-						}
-						return FileVisitResult.CONTINUE
-					}
-				})
-			}
-		} catch (Exception e) {
-			e.printStackTrace()
-		}
-	}
-}
-
-task merge {
-
-	doLast {
-
-		final Path bigJar = rootProject.buildDir.toPath().getFileSystem().getPath(rootProject.buildDir.path, "/tmp/bigjar")
-		for (Project proj : subprojects) {
-			Path path = proj.buildDir.toPath().getFileSystem().getPath(
-					proj.buildDir.getPath() + '/libs',
-					( (String) (Object) rootProject.archives_base_name ) +
-							"-" +
-							( (String) (Object) rootProject.mod_version ) +
-							"-shadow.jar"
-			)
-			unzip(path.toFile(), bigJar.toFile())
-		}
-		compress(
-				bigJar,
-				rootProject.buildDir.toPath().getFileSystem().getPath(
-						rootProject.buildDir.getPath() +
-								"/libs",
-						( (String) (Object) rootProject.archives_base_name ) +
-								"-merged-" +
-								( (String) (Object) rootProject.mod_version ) +
-								".jar"
-				).toFile()
-		)
-	}
-}
-
-rootProject.subprojects.forEach {
-	merge.mustRunAfter it.tasks.getByName("build")
-}
-
-static def getArtifactPath(Project proj) {
-	String folder = proj.buildDir.getPath() + '/libs'
-	String file = ( (String) (Object) proj.archives_base_name ) +
-			"-" +
-			( (String) (Object) proj.mod_version ) +
-			".jar"
-	return proj.buildDir.toPath().getFileSystem().getPath(folder, file)
-}
-
-static def compress(Path sourceDir, File zipFile) {
-	try {
-		if ( zipFile.exists() ) zipFile.delete()
-
-		final JarOutputStream outputStream = new JarOutputStream(new FileOutputStream(zipFile))
-		Files.walkFileTree(sourceDir, new SimpleFileVisitor<Path>() {
-			@Override
-			FileVisitResult visitFile(Path file, BasicFileAttributes attributes) {
-				try {
-					Path targetFile = sourceDir.relativize(file)
-					outputStream.putNextEntry(new JarEntry(targetFile.toString()))
-					byte[] bytes = Files.readAllBytes(file)
-					outputStream.write(bytes, 0, bytes.length)
-					outputStream.closeEntry()
-				} catch (IOException e) {
-					e.printStackTrace()
-				}
-				return FileVisitResult.CONTINUE
-			}
-		})
-		outputStream.close()
-	} catch (IOException e) {
-		e.printStackTrace()
-	}
-}
-
-static def unzip(File zipFile, File destDir) {
-	new File( destDir.getPath() ).renameTo('old')
-	destDir.mkdirs()
-	FileInputStream fis
-	try {
-		fis = new FileInputStream(zipFile)
-		JarInputStream zis = new JarInputStream(fis)
-		JarEntry zipEntry = (JarEntry) zis.getNextEntry()
-		while (zipEntry != null) {
-			if (! zipEntry.isDirectory() ) {
-				File newFile = new File(destDir, zipEntry.getName())
-				if ( zipEntry.getName() == "META-INF/MANIFEST.MF" ) {
-					if (! zipFile.path.contains("-forge-") ) {
-						zis.closeEntry()
-						zipEntry = (JarEntry) zis.getNextEntry()
-						continue
-					}
-				}
-				new File( newFile.getParent() ).mkdirs()
-				FileOutputStream fos = new FileOutputStream(newFile)
-				byte[] buf = zis.readAllBytes()
-				fos.write( buf, 0, buf.length )
-				fos.close()
-			}
-			zis.closeEntry()
-			zipEntry = (JarEntry) zis.getNextEntry()
-		}
-		zis.closeEntry()
-		zis.close()
-	} catch (IOException e) {
-		e.printStackTrace()
-	} finally {
-		if (fis) fis.close()
-	}
-}
+//task merge2 {
+//	doLast {
+//		try {
+//			// out jar path
+//			final Path outPath = rootProject.buildDir.toPath().getFileSystem().getPath(
+//					rootProject.buildDir.getPath() + '/libs',
+//					( (String) (Object) rootProject.archives_base_name ) +
+//							"-merged-" +
+//							( (String) (Object) rootProject.mod_version ) +
+//							".jar"
+//			)
+//
+//			// create out jar
+//			JarOutputStream out = new JarOutputStream( new FileOutputStream( outPath.toFile() ) )
+//			JarEntry e = new JarEntry("jarer")
+//			out.putNextEntry(e)
+//
+//			byte[] data = "this file is useless".getBytes()
+//			out.write( data, 0, data.length )
+//			out.closeEntry()
+//
+//			out.close()
+//
+//
+//			// get a filesystem for the output jar
+//			final FileSystem jar
+//			try {
+//				jar = FileSystems.newFileSystem(
+//						URI.create(
+//								"jar:" + outPath.toUri().toString()
+//						),
+//						Collections.emptyMap()
+//				)
+//			} catch(FileSystemAlreadyExistsException ignored) {
+//				jar = outPath.getFileSystem()
+//			}
+//			final Path outRoot = jar.getPath("/")
+//			// cicle in all subprojects
+//			for (Project proj : subprojects) {
+//				// get filesystem for subproject artifact jar
+//				final FileSystem inputJar = FileSystems.newFileSystem( getArtifactPath(proj), null )
+//				final Path toWalk = inputJar.getPath("/")
+//				// copy everything
+//				Files.walkFileTree(toWalk, new SimpleFileVisitor<Path>() {
+//					@Override
+//					FileVisitResult visitFile(Path file, BasicFileAttributes attributes) {
+//						Path path = file.relativize( toWalk )
+//						if (! ( path.toString().contains("..") || file.toString().contains("..") ) ) {
+//							print("Path: " + path + "\n")
+//							print("File: " + file + "\n")
+//							Files.copy( file, outRoot.resolve(path), StandardCopyOption.REPLACE_EXISTING )
+//						}
+//						return FileVisitResult.CONTINUE
+//					}
+//				})
+//			}
+//		} catch (Exception e) {
+//			e.printStackTrace()
+//		}
+//	}
+//}
+//
+//task merge {
+//
+//	doLast {
+//
+//		final Path bigJar = rootProject.buildDir.toPath().getFileSystem().getPath(rootProject.buildDir.path, "/tmp/bigjar")
+//		for (Project proj : subprojects) {
+//			Path path = proj.buildDir.toPath().getFileSystem().getPath(
+//					proj.buildDir.getPath() + '/libs',
+//					( (String) (Object) rootProject.archives_base_name ) +
+//							"-" +
+//							( (String) (Object) rootProject.mod_version ) +
+//							"-shadow.jar"
+//			)
+//			unzip(path.toFile(), bigJar.toFile())
+//		}
+//		compress(
+//				bigJar,
+//				rootProject.buildDir.toPath().getFileSystem().getPath(
+//						rootProject.buildDir.getPath() +
+//								"/libs",
+//						( (String) (Object) rootProject.archives_base_name ) +
+//								"-merged-" +
+//								( (String) (Object) rootProject.mod_version ) +
+//								".jar"
+//				).toFile()
+//		)
+//	}
+//}
+//
+//rootProject.subprojects.forEach {
+//	merge.mustRunAfter it.tasks.getByName("build")
+//}
+//
+//static def getArtifactPath(Project proj) {
+//	String folder = proj.buildDir.getPath() + '/libs'
+//	String file = ( (String) (Object) proj.archives_base_name ) +
+//			"-" +
+//			( (String) (Object) proj.mod_version ) +
+//			".jar"
+//	return proj.buildDir.toPath().getFileSystem().getPath(folder, file)
+//}
+//
+//static def compress(Path sourceDir, File zipFile) {
+//	try {
+//		if ( zipFile.exists() ) zipFile.delete()
+//
+//		final JarOutputStream outputStream = new JarOutputStream(new FileOutputStream(zipFile))
+//		Files.walkFileTree(sourceDir, new SimpleFileVisitor<Path>() {
+//			@Override
+//			FileVisitResult visitFile(Path file, BasicFileAttributes attributes) {
+//				try {
+//					Path targetFile = sourceDir.relativize(file)
+//					outputStream.putNextEntry(new JarEntry(targetFile.toString()))
+//					byte[] bytes = Files.readAllBytes(file)
+//					outputStream.write(bytes, 0, bytes.length)
+//					outputStream.closeEntry()
+//				} catch (IOException e) {
+//					e.printStackTrace()
+//				}
+//				return FileVisitResult.CONTINUE
+//			}
+//		})
+//		outputStream.close()
+//	} catch (IOException e) {
+//		e.printStackTrace()
+//	}
+//}
+//
+//static def unzip(File zipFile, File destDir) {
+//	new File( destDir.getPath() ).renameTo('old')
+//	destDir.mkdirs()
+//	FileInputStream fis
+//	try {
+//		fis = new FileInputStream(zipFile)
+//		JarInputStream zis = new JarInputStream(fis)
+//		JarEntry zipEntry = (JarEntry) zis.getNextEntry()
+//		while (zipEntry != null) {
+//			if (! zipEntry.isDirectory() ) {
+//				File newFile = new File(destDir, zipEntry.getName())
+//				if ( zipEntry.getName() == "META-INF/MANIFEST.MF" ) {
+//					if (! zipFile.path.contains("-forge-") ) {
+//						zis.closeEntry()
+//						zipEntry = (JarEntry) zis.getNextEntry()
+//						continue
+//					}
+//				}
+//				new File( newFile.getParent() ).mkdirs()
+//				FileOutputStream fos = new FileOutputStream(newFile)
+//				byte[] buf = zis.readAllBytes()
+//				fos.write( buf, 0, buf.length )
+//				fos.close()
+//			}
+//			zis.closeEntry()
+//			zipEntry = (JarEntry) zis.getNextEntry()
+//		}
+//		zis.closeEntry()
+//		zis.close()
+//	} catch (IOException e) {
+//		e.printStackTrace()
+//	} finally {
+//		if (fis) fis.close()
+//	}
+//}
