@@ -46,16 +46,11 @@ subprojects {
 		options.encoding = "UTF-8"
 	}
 
-	def artifact = file("${buildDir}/libs/${archivesBaseName}-${version}.jar")
-
 	task compJar(type: Jar) {
 		baseName = archivesBaseName
 		from sourceSets.main.output
 	}
 
-	artifacts {
-		jarz compJar
-	}
 }
 
 dependencies {

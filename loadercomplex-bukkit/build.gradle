@@ -36,6 +36,10 @@ processResources {
 	}
 }
 
+artifacts {
+	jarz compJar
+}
+
 //shadowJar {
 //	dependencies {
 //		include( dependency(':loadercomplex-common') )
