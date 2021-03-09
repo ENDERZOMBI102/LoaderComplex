@@ -5,6 +5,7 @@ buildscript {
 		maven { url = 'https://files.minecraftforge.net/maven' }
 	}
 	dependencies {
+//		classpath 'net.minecraftforge.gradle:ForgeGradle:4.0.23'
 		classpath 'net.minecraftforge.gradle:ForgeGradle:3.+'
 	}
 }
@@ -12,6 +13,11 @@ buildscript {
 apply plugin: 'net.minecraftforge.gradle'
 
 group = 'com.enderzombi102.loadercomplex.forge12'
+
+configurations {
+	runtimeElements.canBeConsumed = false
+}
+
 
 minecraft {
 	// The mappings can be changed at any time, and must be in the following format.
@@ -98,6 +104,12 @@ jar {
 		])
 	}
 }
+
+reobf {
+	compJar{}
+}
+tasks.build.dependsOn reobfCompJar
+
 
 artifacts {
 	jarz compJar

@@ -55,7 +55,7 @@ dependencies {
 	compile( project(path: 'loadercomplex-forge-12', configuration: 'jarz') ) {
 		transitive = false
 	}
-	compile( project(path: 'loadercomplex-fabric-12', configuration: 'jarz') ) {
+	compile( project(path: 'loadercomplex-fabric-12', configuration: 'jarz' ) ) {
 		transitive = false
 	}
 	compile( project(path: 'loadercomplex-sponge', configuration: 'jarz') ) {
