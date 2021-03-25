@@ -5,7 +5,6 @@ buildscript {
 		maven { url = 'https://files.minecraftforge.net/maven' }
 	}
 	dependencies {
-//		classpath 'net.minecraftforge.gradle:ForgeGradle:4.0.23'
 		classpath 'net.minecraftforge.gradle:ForgeGradle:3.+'
 	}
 }
@@ -13,10 +12,6 @@ buildscript {
 apply plugin: 'net.minecraftforge.gradle'
 
 group = 'com.enderzombi102.loadercomplex.forge12'
-
-configurations {
-	runtimeElements.canBeConsumed = false
-}
 
 
 minecraft {
@@ -76,9 +71,7 @@ dependencies {
 	// The userdev artifact is a special name and will get all sorts of transformations applied to it.
 	minecraft 'net.minecraftforge:forge:1.12.2-14.23.5.2854'
 
-	compileOnly( project(path: ":loadercomplex-common") ) {
-		transitive = false
-	}
+	compileOnly project( ':loadercomplex-common' )
 
 	// Real examples
 	// compile 'com.mod-buildcraft:buildcraft:6.0.8:dev'  // adds buildcraft to the dev env
@@ -90,30 +83,4 @@ dependencies {
 	// deobf 'com.mod-buildcraft:buildcraft:6.0.8:dev'
 }
 
-// Example for how to get properties into the manifest for reading by the runtime..
-jar {
-	manifest {
-		attributes([
-				"Specification-Title"     : "LoaderComplex",
-				"Specification-Vendor"    : "ENDERZOMBI102",
-				"Specification-Version"   : "1", // We are version 1 of ourselves
-				"Implementation-Title"    : "LoaderComplex",
-				"Implementation-Version"  : version,
-				"Implementation-Vendor"   : "ENDERZOMBI102",
-				"Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
-		])
-	}
-}
-
-reobf {
-	compJar{}
-}
-tasks.build.dependsOn reobfCompJar
-
-
-artifacts {
-	jarz compJar
-}
-
-compJar.finalizedBy('reobfJar')
-assemble.taskDependencies.getDependencies().remove(build)
+jar.finalizedBy('reobfJar')

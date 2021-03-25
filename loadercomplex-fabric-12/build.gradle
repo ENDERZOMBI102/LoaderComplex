@@ -1,3 +1,14 @@
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+        maven {
+            name = 'Fabric'
+            url = 'https://maven.fabricmc.net/'
+        }
+    }
+}
+
 plugins {
 	id 'fabric-loom' version "0.4.1"
 }
@@ -5,20 +16,14 @@ plugins {
 group = project.maven_group
 
 repositories {
-	jcenter()
-	mavenCentral()
-	maven {
-		name = 'Fabric'
-		url = 'https://maven.fabricmc.net/'
-	}
-	maven {
-		name = 'Jitpack'
-		url = 'https://jitpack.io'
-	}
-	maven {
-		name = 'legacy-fabric'
-		url = 'https://dl.bintray.com/legacy-fabric/Legacy-Fabric-Maven'
-	}
+    maven {
+        name = 'legacy-fabric'
+        url = 'https://dl.bintray.com/legacy-fabric/Legacy-Fabric-Maven'
+    }
+    maven {
+        name = 'Jitpack'
+        url = 'https://jitpack.io'
+    }
 }
 
 minecraft {
@@ -29,13 +34,11 @@ minecraft {
 
 dependencies {
 	implementation "com.google.guava:guava:23.5-jre"
-	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
-	modImplementation("com.github.shedaniel:fabric-loader:${project.loader_version}")
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+    modImplementation("com.github.shedaniel:fabric-loader:${project.loader_version}")
 
-	compileOnly( project(path: ":loadercomplex-common") ) {
-		transitive = false
-	}
+	compileOnly project( ':loadercomplex-common' )
 }
 
 processResources {
@@ -53,22 +56,6 @@ processResources {
 
 // ensure that the encoding is set to UTF-8, no matter what the system default is
 // this fixes some edge cases with special characters not displaying correctly
-// see http://yodaconditions.net/blog/fix-for-java-file-encoding-problems-with-gradle.html
 tasks.withType(JavaCompile) {
 	options.encoding = "UTF-8"
 }
-
-jar {
-	from "LICENSE"
-}
-
-compJar {
-	finalizedBy(remapJar)
-}
-
-artifacts {
-	jarz compJar
-}
-
-
-

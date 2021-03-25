@@ -12,6 +12,5 @@ public class LoaderComplexFabric implements ModInitializer {
 	public void onInitialize() {
 		this.loader = new FabricLoader();
 		new Content(this.loader);
-		net.minecraft
 	}
 }

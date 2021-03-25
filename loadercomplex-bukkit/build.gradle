@@ -11,7 +11,7 @@ group = 'com.enderzombi102.loadercomplex.bukkit'
 
 dependencies {
 
-	compileOnly( project(path: ":loadercomplex-common") )
+	compileOnly project( ':loadercomplex-common' )
 
 	compileOnly 'org.bukkit:bukkit:1.12.2-R0.1-SNAPSHOT'
 }
@@ -30,8 +30,4 @@ processResources {
 	from(sourceSets.main.resources.srcDirs) {
 		exclude 'plugin.yml'
 	}
-}
-
-artifacts {
-	jarz compJar
 }

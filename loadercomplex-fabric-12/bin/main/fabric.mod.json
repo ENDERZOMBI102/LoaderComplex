@@ -1,0 +1,31 @@
+{
+	"schemaVersion": 1,
+	"id": "loadercomplex-fabric",
+	"version": "${version}",
+
+	"name": "Loadercomplex",
+	"description": "A very simple mod that aims to be compatible with almost every mod/plugin loader",
+	"authors": [
+		"ENDERZOMBI102"
+	],
+	"contact": {},
+
+	"license": "MIT",
+	"icon": "assets/loadercomplex-fabric/icon.png",
+
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.enderzombi102.loaderComplex.fabric12.LoaderComplexFabric"
+		]
+	},
+
+	"mixins": [
+		"loadercomplex-fabric.mixins.json"
+	],
+
+	"depends": {
+		"fabricloader": "*",
+		"minecraft": "*"
+	}
+}

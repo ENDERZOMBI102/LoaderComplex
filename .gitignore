@@ -116,3 +116,10 @@ run/
 
 # Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
 !gradle-wrapper.jar
+
+
+**/.classpath
+**/.project
+**/.settings
+.theia
+loadercomplex-forge-12/bin

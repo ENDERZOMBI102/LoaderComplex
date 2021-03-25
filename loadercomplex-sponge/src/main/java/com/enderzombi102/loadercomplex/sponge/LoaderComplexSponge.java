@@ -22,5 +22,6 @@ public class LoaderComplexSponge {
 
 	@Listener
 	public void onServerStart(GameStartedServerEvent event) {
-	}
+        logger.error("Works!");
+    }
 }
