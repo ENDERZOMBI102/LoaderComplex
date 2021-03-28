@@ -31,3 +31,7 @@ processResources {
 		exclude 'plugin.yml'
 	}
 }
+
+artifacts {
+	jarz jar
+}

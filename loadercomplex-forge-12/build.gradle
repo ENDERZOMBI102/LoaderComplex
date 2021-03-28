@@ -84,3 +84,9 @@ dependencies {
 }
 
 jar.finalizedBy('reobfJar')
+
+afterEvaluate {
+	artifacts {
+		jarz file( "${project.buildDir}/reobfJar/output.jar" )
+	}
+}

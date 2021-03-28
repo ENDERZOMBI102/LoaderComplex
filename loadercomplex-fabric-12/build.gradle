@@ -54,8 +54,6 @@ processResources {
 	}
 }
 
-// ensure that the encoding is set to UTF-8, no matter what the system default is
-// this fixes some edge cases with special characters not displaying correctly
-tasks.withType(JavaCompile) {
-	options.encoding = "UTF-8"
+artifacts {
+	jarz remapJar
 }
