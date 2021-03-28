@@ -1,6 +1,6 @@
 This is a list of loaders with their support status
 
-the "recent" version includes every version starting from 1.12.2
+the "recent" version includes every version starting from 1.12.2, older is untested
 
 | Loader | MC Version | Status | Minecraft Edition |
 | ------ | ---------- | ------ | -------------- |
