@@ -1,12 +1,12 @@
 This is a list of loaders with their support status
 
-the "recent" version includes every version starting from 1.12.2
+the "recent" version includes every version starting from 1.12.2, older is untested
 
 | Loader | MC Version | Status | Minecraft Edition |
 | ------ | ---------- | ------ | -------------- |
 | [Forge](https://minecraftforge.net) | 1.12.2 | WIP support | java |
 | [Forge](https://minecraftforge.net) | 1.16.4 | not yet | java |
-| [Fabric](https://fabricmc.net) | 1.12.2 | WIP support | java |
+| [Fabric](https://github.com/Legacy-Fabric/) | 1.12.2 | WIP support | java |
 | [Fabric](https://fabricmc.net) | 1.16.4 | not yet | java |
 | [Bukkit](https://dev.bukkit.org) | recent | WIP support | java |
 | [Spigot](https://spigotmc.org) | recent | WIP support | java |
