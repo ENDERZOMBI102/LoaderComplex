@@ -1,9 +1,10 @@
 {
 	"required": true,
 	"minVersion": "0.8",
-	"package": "com.enderzombi102.loadercomplexfabric.mixin",
+	"package": "com.enderzombi102.loaderComplex.fabric12.mixin",
 	"compatibilityLevel": "JAVA_8",
 	"mixins": [
+		"SimpleRegistryMixin"
 	],
 	"client": [
 	],

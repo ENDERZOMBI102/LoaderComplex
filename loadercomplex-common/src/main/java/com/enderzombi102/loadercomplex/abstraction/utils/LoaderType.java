@@ -1,14 +1,14 @@
-package com.enderzombi102.loadercomplex.common.abstraction.utils;
+package com.enderzombi102.loadercomplex.abstraction.utils;
 
 public enum LoaderType {
 	Bukkit,
 	Spigot,
 	Paper,
 	Sponge,
-	Forge12,
 	Forge,
-	Fabric12,
+	ForgeLegacy,
 	Fabric,
+	FabricLegacy,
 	LiteLoader,
 	BlazeLoader,
 	ChocoMint,

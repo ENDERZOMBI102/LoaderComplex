@@ -2,50 +2,57 @@ package com.enderzombi102.loaderComplex.fabric12.impl;
 
 import com.enderzombi102.loaderComplex.fabric12.impl.block.FabricBlock;
 import com.enderzombi102.loaderComplex.fabric12.impl.item.FabricItem;
-import com.enderzombi102.loadercomplex.common.abstraction.Registry;
-import com.enderzombi102.loadercomplex.common.abstraction.block.Block;
-import com.enderzombi102.loadercomplex.common.abstraction.block.BlockMaterial;
-import com.enderzombi102.loadercomplex.common.abstraction.command.Command;
-import com.enderzombi102.loadercomplex.common.abstraction.item.Item;
-import com.enderzombi102.loadercomplex.common.abstraction.utils.RegistryType;
+import com.enderzombi102.loadercomplex.abstraction.Registry;
+import com.enderzombi102.loadercomplex.abstraction.block.Block;
+import com.enderzombi102.loadercomplex.abstraction.entity.Entity;
+import com.enderzombi102.loadercomplex.abstraction.item.Item;
+import com.enderzombi102.loadercomplex.abstraction.utils.RegistryKey;
+import com.enderzombi102.loadercomplex.abstraction.utils.ResourceIdentifier;
 import net.minecraft.item.BlockItem;
 import net.minecraft.util.Identifier;
 
+import javax.naming.OperationNotSupportedException;
+
 public class FabricRegistry implements Registry {
 
+
 	@Override
-	public void register(Block block) {
-		register(block, true);
+	public void register(Block block, ResourceIdentifier identifier) {
+		this.register(block, true, identifier);
 	}
 
 	@Override
-	public void register(Block block, boolean registerItem) {
-		FabricBlock blockImpl = (FabricBlock) block;
-		blockImpl.setTranslationKey( blockImpl.getIdentifier().get() );
-		net.minecraft.block.Block.REGISTRY.put( new Identifier( blockImpl.getIdentifier().get() ) , blockImpl);
-		if (registerItem) {
-			net.minecraft.item.Item.REGISTRY.put(
-					new Identifier( blockImpl.getIdentifier().get() ),
-					new BlockItem( blockImpl ).setTranslationKey( blockImpl.getIdentifier().get() )
-			);
-		}
+	public void register(Block block, boolean registerItem, ResourceIdentifier identifier) {
+		final Identifier id = new Identifier( identifier.toString() );
+		net.minecraft.block.Block.REGISTRY.set(
+				net.minecraft.block.Block.REGISTRY.getIds().size(),
+				id,
+				(FabricBlock) (Object) block
+		);
+		if (registerItem) net.minecraft.item.Item.REGISTRY.set(
+				net.minecraft.item.Item.REGISTRY.getIds().size(),
+				id,
+				new BlockItem( (FabricBlock) (Object) block )
+		);
 	}
 
 	@Override
-	public void register(Item item) {
-		FabricItem itemImpl = (FabricItem) item;
-		itemImpl.setTranslationKey( itemImpl.getIdentifier().get() );
-		net.minecraft.item.Item.REGISTRY.put( new Identifier( itemImpl.getIdentifier().get() ), itemImpl );
+	public void register(Item item, ResourceIdentifier identifier) {
+		net.minecraft.item.Item.REGISTRY.set(
+				net.minecraft.item.Item.REGISTRY.getIds().size(),
+				new Identifier( identifier.toString() ),
+				(FabricItem) (Object) item
+		);
 	}
 
 	@Override
-	public void register(Command command) {
+	public void register(Entity entity, ResourceIdentifier identifier) {
 
 	}
 
 	@Override
-	public boolean isRegistered(RegistryType type, String id) throws IllegalStateException {
-		switch (type) {
+	public boolean isRegistered(RegistryKey key, String id) throws OperationNotSupportedException {
+		switch (key) {
 			case Item:
 				return net.minecraft.item.Item.REGISTRY.getIds().contains( new net.minecraft.util.Identifier(id) );
 			case Block:
@@ -56,27 +63,12 @@ public class FabricRegistry implements Registry {
 	}
 
 	@Override
-	public Block createBlock() {
-		return new FabricBlock(BlockMaterial.ROCK);
+	public boolean isRegistered(RegistryKey key, ResourceIdentifier id) throws OperationNotSupportedException {
+		return this.isRegistered( key, id.toString() );
 	}
 
 	@Override
-	public Block createBlock(BlockMaterial mat) {
-		return new FabricBlock(mat);
-	}
-
-	@Override
-	public Item createItem() {
-		return new FabricItem();
-	}
-
-	@Override
-	public Command createCommand() {
-		return null;
-	}
-
-	@Override
-	public Object getVanillaRegistry(RegistryType type) {
+	public Object getVanillaRegistry(RegistryKey type) {
 		switch (type) {
 			case Item:
 				return net.minecraft.item.Item.REGISTRY;

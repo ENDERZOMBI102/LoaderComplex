@@ -1,22 +1,22 @@
 package com.enderzombi102.loaderComplex.fabric12.impl.item;
 
-import com.enderzombi102.loadercomplex.common.abstraction.item.Item;
-import com.enderzombi102.loadercomplex.common.abstraction.utils.CIdentifier;
+
+import com.enderzombi102.loadercomplex.abstraction.item.Item;
+import com.enderzombi102.loadercomplex.abstraction.utils.ResourceIdentifier;
 
 public class FabricItem extends net.minecraft.item.Item implements Item {
 
-	private CIdentifier cIdentifier;
+	private ResourceIdentifier identifier;
 
-	@Override
-	public void setIdentifier(CIdentifier id) {
-		this.cIdentifier = id;
+	public void setIdentifier(ResourceIdentifier id) {
+		this.identifier = id;
 	}
 
-	public void setIdentifier(String id) {
-		this.cIdentifier = CIdentifier.fromString(id);
+	public void setIdentifier(String namespace, String id) {
+		this.identifier = new ResourceIdentifier(namespace, id);
 	}
 
-	public CIdentifier getIdentifier() {
-		return this.cIdentifier;
+	public ResourceIdentifier getIdentifier() {
+		return this.identifier;
 	}
 }

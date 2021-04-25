@@ -1,5 +1,6 @@
 package com.enderzombi102.loadercomplex.forge12;
 
+import com.enderzombi102.loadercomplex.forge12.impl.ForgeRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraftforge.event.RegistryEvent;
@@ -20,7 +21,7 @@ public class RegistryHandler {
 		 event.getRegistry().register(new ItemBlock(Blocks.myBlock).setRegistryName(MOD_ID, "myBlock"));
 		 event.getRegistry().register(new MySpecialItem().setRegistryName(MOD_ID, "mySpecialItem"));
 		*/
-		LoaderComplexForge.INSTANCE.registry.onItemRegistry(evt);
+		( (ForgeRegistry) LoaderComplexForge.INSTANCE.loader.getRegistry() ).onItemRegistry(evt);
 	}
 
 	/**
@@ -31,6 +32,6 @@ public class RegistryHandler {
 	   /*
 		 event.getRegistry().register(new MySpecialBlock().setRegistryName(MOD_ID, "mySpecialBlock"));
 		*/
-		LoaderComplexForge.INSTANCE.registry.onBlockRegistry(evt);
+		( (ForgeRegistry) LoaderComplexForge.INSTANCE.loader.getRegistry() ).onBlockRegistry(evt);
 	}
 }

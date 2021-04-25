@@ -1,21 +1,21 @@
 package com.enderzombi102.loadercomplex.forge12.impl;
 
-import com.enderzombi102.loadercomplex.common.abstraction.Loader;
-import com.enderzombi102.loadercomplex.common.abstraction.Registry;
-import com.enderzombi102.loadercomplex.common.abstraction.utils.LoaderType;
+import com.enderzombi102.loadercomplex.abstraction.Loader;
+import com.enderzombi102.loadercomplex.abstraction.Registry;
+import com.enderzombi102.loadercomplex.abstraction.utils.LoaderType;
 import net.minecraftforge.common.ForgeVersion;
 
 public class ForgeLoader implements Loader {
 
 	private final ForgeRegistry registry;
 
-	public ForgeLoader(ForgeRegistry registry) {
-		this.registry = registry;
+	public ForgeLoader() {
+		this.registry = new ForgeRegistry();
 	}
 
 	@Override
 	public LoaderType getLoaderType() {
-		return LoaderType.Forge12;
+		return LoaderType.ForgeLegacy;
 	}
 
 	@Override

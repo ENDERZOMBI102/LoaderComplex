@@ -1,17 +1,27 @@
 package com.enderzombi102.loaderComplex.fabric12.impl;
 
-import com.enderzombi102.loadercomplex.common.abstraction.Loader;
-import com.enderzombi102.loadercomplex.common.abstraction.Registry;
-import com.enderzombi102.loadercomplex.common.abstraction.utils.LoaderType;
+
+import com.enderzombi102.loadercomplex.abstraction.Loader;
+import com.enderzombi102.loadercomplex.abstraction.Registry;
+import com.enderzombi102.loadercomplex.abstraction.utils.LoaderType;
 
 public class FabricLoader implements Loader {
 
-	final FabricRegistry registry = new FabricRegistry();
-	final String fabricVersion = net.fabricmc.loader.api.FabricLoader.getInstance().getModContainer("fabricloader").get().getMetadata().getVersion().getFriendlyString();
+	private final Registry registry;
+	private static final String FABRIC_VERSION;
+	public static final String MINECRAFT_VERSION = "1.12.2";
+	static {
+		FABRIC_VERSION = net.fabricmc.loader.api.FabricLoader.getInstance().getModContainer("fabricloader")
+				.get().getMetadata().getVersion().getFriendlyString();
+	}
+
+	public FabricLoader() {
+		this.registry = new FabricRegistry();
+	}
 
 	@Override
 	public LoaderType getLoaderType() {
-		return LoaderType.Fabric12;
+		return LoaderType.FabricLegacy;
 	}
 
 	@Override
@@ -21,12 +31,12 @@ public class FabricLoader implements Loader {
 
 	@Override
 	public String getMinecraftVersion() {
-		return "1.12.2";
+		return MINECRAFT_VERSION;
 	}
 
 	@Override
 	public String getLoaderVersion() {
-		return this.fabricVersion;
+		return FABRIC_VERSION;
 	}
 
 	@Override

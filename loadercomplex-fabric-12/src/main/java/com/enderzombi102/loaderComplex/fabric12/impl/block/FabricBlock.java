@@ -1,34 +1,34 @@
 package com.enderzombi102.loaderComplex.fabric12.impl.block;
 
-import com.enderzombi102.loaderComplex.fabric12.impl.utils.BlockUtils;
-import com.enderzombi102.loadercomplex.common.abstraction.block.Block;
-import com.enderzombi102.loadercomplex.common.abstraction.block.BlockMaterial;
-import com.enderzombi102.loadercomplex.common.abstraction.utils.CIdentifier;
+import com.enderzombi102.loadercomplex.abstraction.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Material;
+import net.minecraft.block.MaterialColor;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.Hand;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
+import net.minecraft.world.World;
 
 public class FabricBlock extends net.minecraft.block.Block implements Block {
 
-	private CIdentifier cIdentifier;
+	public FabricBlock(Material material, MaterialColor color) {
+		super(material, color);
+	}
 
-	public FabricBlock(BlockMaterial mat) {
-		super( BlockUtils.getMat(mat) );
+	protected FabricBlock(Material material) {
+		super(material);
 	}
 
 	@Override
-	public BlockMaterial getMaterial() {
-		return BlockUtils.getBLockMat(this.material);
+	public boolean onUse(World world, BlockPos pos, BlockState state, PlayerEntity player, Hand hand, Direction facing, float hitX, float hitY, float hitZ) {
+		this.OnBlockInteracted(player);
+		return false;
 	}
 
 	@Override
-	public void setIdentifier(CIdentifier id) {
-		this.cIdentifier = id;
-	}
-
-	public void setIdentifier(String id) {
-		this.cIdentifier = CIdentifier.fromString(id);
-	}
-
-
-	public CIdentifier getIdentifier() {
-		return this.cIdentifier;
+	public void onSteppedOn(World world, BlockPos pos, Entity entity) {
+		this.OnWalkOn(entity);
 	}
 }

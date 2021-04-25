@@ -1,6 +1,6 @@
-package com.enderzombi102.loadercomplex.common.abstraction;
+package com.enderzombi102.loadercomplex.abstraction;
 
-import com.enderzombi102.loadercomplex.common.abstraction.utils.LoaderType;
+import com.enderzombi102.loadercomplex.abstraction.utils.LoaderType;
 
 public interface Loader {
 
