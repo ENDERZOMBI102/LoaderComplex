@@ -24,15 +24,17 @@ public class FabricRegistry implements Registry {
 	@Override
 	public void register(Block block, boolean registerItem, ResourceIdentifier identifier) {
 		final Identifier id = new Identifier( identifier.toString() );
+		final FabricBlock fabricBlock = new FabricBlock( block );
+		fabricBlock.setTranslationKey( identifier.toString() );
 		net.minecraft.block.Block.REGISTRY.set(
 				net.minecraft.block.Block.REGISTRY.getIds().size(),
 				id,
-				(FabricBlock) (Object) block
+				fabricBlock
 		);
 		if (registerItem) net.minecraft.item.Item.REGISTRY.set(
 				net.minecraft.item.Item.REGISTRY.getIds().size(),
 				id,
-				new BlockItem( (FabricBlock) (Object) block )
+				new BlockItem( fabricBlock ).setTranslationKey( identifier.toString() )
 		);
 	}
 
@@ -41,7 +43,7 @@ public class FabricRegistry implements Registry {
 		net.minecraft.item.Item.REGISTRY.set(
 				net.minecraft.item.Item.REGISTRY.getIds().size(),
 				new Identifier( identifier.toString() ),
-				(FabricItem) (Object) item
+				new FabricItem( item ).setTranslationKey( identifier.toString() )
 		);
 	}
 

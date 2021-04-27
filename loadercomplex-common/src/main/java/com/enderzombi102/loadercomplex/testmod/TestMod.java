@@ -18,15 +18,12 @@ public class TestMod implements ContentMod {
 	}
 
 
-	static class TestBlock implements Block {
-		@Override
-		public void OnBlockInteracted(Object player) {
-			System.out.println("Interacted with testblock!");
-		}
+	static class TestBlock extends Block {
 
 		@Override
-		public void OnWalkOn(Object player) {
-			System.out.println("someone walked on a testblock");
+		public boolean OnBlockInteracted(Object player) {
+			System.out.println("Interacted with testblock!");
+			return true;
 		}
 	}
 }

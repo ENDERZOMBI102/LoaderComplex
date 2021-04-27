@@ -29,13 +29,13 @@ public class ForgeRegistry implements Registry {
 
 	@Override
 	public void register(Block block, boolean registerItem, ResourceIdentifier identifier) {
-		this.blocks.put(identifier, (ForgeBlock) block);
-		this.items.put( identifier, new ItemBlock( (ForgeBlock) block ) );
+//		this.blocks.put(identifier, (ForgeBlock) block);
+//		this.items.put( identifier, new ItemBlock( (ForgeBlock) block ) );
 	}
 
 	@Override
 	public void register(Item item, ResourceIdentifier identifier) {
-		this.items.put( identifier, (ForgeItem) item );
+//		this.items.put( identifier, (ForgeItem) item );
 	}
 
 	@Override
