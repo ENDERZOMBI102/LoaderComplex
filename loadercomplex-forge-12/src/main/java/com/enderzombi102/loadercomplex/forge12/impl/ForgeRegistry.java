@@ -9,6 +9,7 @@ import com.enderzombi102.loadercomplex.abstraction.utils.ResourceIdentifier;
 import com.enderzombi102.loadercomplex.forge12.impl.block.ForgeBlock;
 import com.enderzombi102.loadercomplex.forge12.impl.item.ForgeItem;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.registries.GameData;
 import net.minecraftforge.registries.RegistryManager;
@@ -29,13 +30,21 @@ public class ForgeRegistry implements Registry {
 
 	@Override
 	public void register(Block block, boolean registerItem, ResourceIdentifier identifier) {
-//		this.blocks.put(identifier, (ForgeBlock) block);
-//		this.items.put( identifier, new ItemBlock( (ForgeBlock) block ) );
+		final ForgeBlock forgeBlock = new ForgeBlock( block );
+		forgeBlock.setUnlocalizedName( identifier.getNamespace() + '.' + identifier.getPath() );
+		this.blocks.put(identifier, forgeBlock);
+		if (registerItem) this.items.put(
+				identifier,
+				new ItemBlock( forgeBlock ).setUnlocalizedName( identifier.getNamespace() + '.' + identifier.getPath() )
+		);
 	}
 
 	@Override
 	public void register(Item item, ResourceIdentifier identifier) {
-//		this.items.put( identifier, (ForgeItem) item );
+		this.items.put(
+				identifier,
+				new ForgeItem( item ).setUnlocalizedName( identifier.getNamespace() + '.' + identifier.getPath() )
+		);
 	}
 
 	@Override
