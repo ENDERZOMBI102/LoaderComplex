@@ -21,11 +21,11 @@ public abstract class Block {
 	public Object implementationBlock;
 
 	// methods to be overwritten
-	public void OnBreak(Object player) {}
-	public void OnSteppedOn(Object entity) {}
-	public boolean OnBlockInteracted(Object player) { return false; }
-	public void OnRandomTick(Random random) {}
-	public void OnEntityCollision(Object entity) {}
+	public void OnBreak(Object player, boolean isClient) {}
+	public void OnSteppedOn(Object entity, boolean isClient) {}
+	public boolean OnBlockInteracted(Object player, boolean isClient) { return false; }
+	public void OnRandomTick(Random random, boolean isClient) {}
+	public void OnEntityCollision(Object entity, boolean isClient) {}
 
 	// methods used to set values
 	protected void setLightLevel(float lightLevel) {

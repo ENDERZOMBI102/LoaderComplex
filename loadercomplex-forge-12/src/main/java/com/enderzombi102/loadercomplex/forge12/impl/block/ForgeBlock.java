@@ -37,31 +37,31 @@ public class ForgeBlock extends net.minecraft.block.Block {
 	@Override
 	@ParametersAreNonnullByDefault
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-		return this.blockImpl.OnBlockInteracted(player);
+		return this.blockImpl.OnBlockInteracted(player, world.isRemote);
 	}
 
 	@Override
 	@ParametersAreNonnullByDefault
 	public void onEntityWalk(World world, BlockPos pos, Entity entity) {
-		this.blockImpl.OnSteppedOn(entity);
+		this.blockImpl.OnSteppedOn(entity, world.isRemote);
 	}
 
 	@Override
 	@ParametersAreNonnullByDefault
 	public void onBlockHarvested(World world, BlockPos pos, IBlockState state, EntityPlayer player) {
-		this.blockImpl.OnBreak(player);
+		this.blockImpl.OnBreak(player, world.isRemote);
 	}
 
 	@Override
 	@ParametersAreNonnullByDefault
 	public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState state, Entity entity) {
-		this.blockImpl.OnEntityCollision(entity);
+		this.blockImpl.OnEntityCollision(entity, world.isRemote);
 	}
 
 	@Override
 	@ParametersAreNonnullByDefault
 	public void randomTick(World world, BlockPos pos, IBlockState state, Random random) {
-		this.blockImpl.OnRandomTick(random);
+		this.blockImpl.OnRandomTick(random, world.isRemote);
 	}
 
 	// getter methods overrides
@@ -105,6 +105,7 @@ public class ForgeBlock extends net.minecraft.block.Block {
 	@Override
 	@ParametersAreNonnullByDefault
 	public boolean isOpaqueCube(IBlockState state) {
+		if (this.blockImpl == null) return false;
 		return this.blockImpl.opaque;
 	}
 

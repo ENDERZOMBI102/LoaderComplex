@@ -171,6 +171,7 @@ public class ForgeItem extends net.minecraft.item.Item {
 	@Nullable
 	@Override
 	public CreativeTabs getCreativeTab() {
+		if ( this.itemImpl == null || this.itemImpl.group == null ) return null;
 		switch ( this.itemImpl.group ) {
 			case "minecraft:itemgroup.brewing":
 				return CreativeTabs.BREWING;
@@ -190,6 +191,7 @@ public class ForgeItem extends net.minecraft.item.Item {
 				return CreativeTabs.TOOLS;
 			case "minecraft:itemgroup.transportation":
 				return CreativeTabs.TRANSPORTATION;
+			case "minecraft:itemgroup.misc":
 			default:
 				return CreativeTabs.MISC;
 		}

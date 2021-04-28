@@ -34,27 +34,28 @@ public class FabricBlock extends net.minecraft.block.Block {
 
 	@Override
 	public boolean onUse(World world, BlockPos pos, BlockState state, PlayerEntity player, Hand hand, Direction facing, float hitX, float hitY, float hitZ) {
-		return this.blockImpl.OnBlockInteracted(player);
+		return this.blockImpl.OnBlockInteracted(player, world.isClient);
 	}
 
 	@Override
 	public void onSteppedOn(World world, BlockPos pos, Entity entity) {
-		this.blockImpl.OnSteppedOn(entity);
+		this.blockImpl.OnSteppedOn(entity, world.isClient);
 	}
 
 	@Override
 	public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
-		this.blockImpl.OnBreak(player);
+		this.blockImpl.OnBreak(player, world.isClient);
 	}
 
 	public void onEntityCollision(World world, BlockPos pos, BlockState state, Entity entity) {
-		this.blockImpl.OnEntityCollision(entity);
+		this.blockImpl.OnEntityCollision(entity, world.isClient);
 	}
 
 	@Override
 	public void randomTick(World world, BlockPos pos, BlockState state, Random random) {
-		this.blockImpl.OnRandomTick(random);
+		this.blockImpl.OnRandomTick(random, world.isClient);
 	}
+
 
 	// getter methods overrides
 

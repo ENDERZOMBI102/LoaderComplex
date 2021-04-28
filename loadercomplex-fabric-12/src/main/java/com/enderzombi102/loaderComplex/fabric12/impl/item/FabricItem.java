@@ -143,6 +143,7 @@ public class FabricItem extends net.minecraft.item.Item {
 
 	@Nullable
 	public ItemGroup getGroup() {
+		if ( this.itemImpl == null || this.itemImpl.group == null ) return null;
 		switch ( this.itemImpl.group ) {
 			case "minecraft:itemgroup.brewing":
 				return ItemGroup.BREWING;
@@ -162,6 +163,7 @@ public class FabricItem extends net.minecraft.item.Item {
 				return ItemGroup.TOOLS;
 			case "minecraft:itemgroup.transportation":
 				return ItemGroup.TRANSPORTATION;
+			case "minecraft:itemgroup.misc":
 			default:
 				return ItemGroup.MISC;
 		}
