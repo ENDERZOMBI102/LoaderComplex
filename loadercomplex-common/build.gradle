@@ -3,7 +3,7 @@ repositories {
 }
 
 dependencies {
-
+	compileOnly 'org.apache.logging.log4j:log4j-api:2.8.1'
 	implementation 'org.jetbrains:annotations:16.0.2'
 }
 
