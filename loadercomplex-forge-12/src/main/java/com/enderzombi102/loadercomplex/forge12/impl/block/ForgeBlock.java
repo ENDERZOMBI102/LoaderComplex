@@ -1,6 +1,6 @@
 package com.enderzombi102.loadercomplex.forge12.impl.block;
 
-import com.enderzombi102.loadercomplex.abstraction.block.Block;
+import com.enderzombi102.loadercomplex.api.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;

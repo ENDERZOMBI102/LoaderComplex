@@ -2,12 +2,12 @@ package com.enderzombi102.loaderComplex.fabric12.impl;
 
 import com.enderzombi102.loaderComplex.fabric12.impl.block.FabricBlock;
 import com.enderzombi102.loaderComplex.fabric12.impl.item.FabricItem;
-import com.enderzombi102.loadercomplex.abstraction.Registry;
-import com.enderzombi102.loadercomplex.abstraction.block.Block;
-import com.enderzombi102.loadercomplex.abstraction.entity.Entity;
-import com.enderzombi102.loadercomplex.abstraction.item.Item;
-import com.enderzombi102.loadercomplex.abstraction.utils.RegistryKey;
-import com.enderzombi102.loadercomplex.abstraction.utils.ResourceIdentifier;
+import com.enderzombi102.loadercomplex.api.Registry;
+import com.enderzombi102.loadercomplex.api.block.Block;
+import com.enderzombi102.loadercomplex.api.entity.Entity;
+import com.enderzombi102.loadercomplex.api.item.Item;
+import com.enderzombi102.loadercomplex.api.utils.RegistryKey;
+import com.enderzombi102.loadercomplex.api.utils.ResourceIdentifier;
 import net.minecraft.item.BlockItem;
 import net.minecraft.util.Identifier;
 

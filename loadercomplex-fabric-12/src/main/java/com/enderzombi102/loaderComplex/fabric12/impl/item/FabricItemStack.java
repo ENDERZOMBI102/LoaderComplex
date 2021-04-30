@@ -1,6 +1,6 @@
 package com.enderzombi102.loaderComplex.fabric12.impl.item;
 
-import com.enderzombi102.loadercomplex.abstraction.item.ItemStack;
+import com.enderzombi102.loadercomplex.api.item.ItemStack;
 
 public class FabricItemStack implements ItemStack {
 

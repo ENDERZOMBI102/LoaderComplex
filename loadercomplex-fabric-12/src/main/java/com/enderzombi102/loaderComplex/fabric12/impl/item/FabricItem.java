@@ -2,8 +2,8 @@ package com.enderzombi102.loaderComplex.fabric12.impl.item;
 
 
 import com.enderzombi102.loaderComplex.fabric12.mixin.ItemAccessor;
-import com.enderzombi102.loadercomplex.abstraction.item.Item;
-import com.enderzombi102.loadercomplex.abstraction.utils.Hand;
+import com.enderzombi102.loadercomplex.api.item.Item;
+import com.enderzombi102.loadercomplex.api.utils.Hand;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;

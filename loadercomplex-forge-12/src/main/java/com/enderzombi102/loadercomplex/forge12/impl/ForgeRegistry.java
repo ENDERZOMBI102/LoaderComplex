@@ -1,21 +1,19 @@
 package com.enderzombi102.loadercomplex.forge12.impl;
 
-import com.enderzombi102.loadercomplex.abstraction.Registry;
-import com.enderzombi102.loadercomplex.abstraction.block.Block;
-import com.enderzombi102.loadercomplex.abstraction.entity.Entity;
-import com.enderzombi102.loadercomplex.abstraction.item.Item;
-import com.enderzombi102.loadercomplex.abstraction.utils.RegistryKey;
-import com.enderzombi102.loadercomplex.abstraction.utils.ResourceIdentifier;
+import com.enderzombi102.loadercomplex.api.Registry;
+import com.enderzombi102.loadercomplex.api.block.Block;
+import com.enderzombi102.loadercomplex.api.entity.Entity;
+import com.enderzombi102.loadercomplex.api.item.Item;
+import com.enderzombi102.loadercomplex.api.utils.RegistryKey;
+import com.enderzombi102.loadercomplex.api.utils.ResourceIdentifier;
 import com.enderzombi102.loadercomplex.forge12.impl.block.ForgeBlock;
 import com.enderzombi102.loadercomplex.forge12.impl.item.ForgeItem;
 import net.minecraft.item.ItemBlock;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.registries.GameData;
 import net.minecraftforge.registries.RegistryManager;
 
 import javax.naming.OperationNotSupportedException;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ForgeRegistry implements Registry {

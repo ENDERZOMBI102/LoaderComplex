@@ -1,6 +1,6 @@
 package com.enderzombi102.loaderComplex.fabric12.impl.block;
 
-import com.enderzombi102.loadercomplex.abstraction.block.Block;
+import com.enderzombi102.loadercomplex.api.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
 import net.minecraft.entity.Entity;

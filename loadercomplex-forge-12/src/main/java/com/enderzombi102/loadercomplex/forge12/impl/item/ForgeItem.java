@@ -1,13 +1,11 @@
 package com.enderzombi102.loadercomplex.forge12.impl.item;
 
 
-import com.enderzombi102.loadercomplex.abstraction.item.Item;
-import com.enderzombi102.loadercomplex.abstraction.utils.Hand;
-import mcp.MethodsReturnNonnullByDefault;
+import com.enderzombi102.loadercomplex.api.item.Item;
+import com.enderzombi102.loadercomplex.api.utils.Hand;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;

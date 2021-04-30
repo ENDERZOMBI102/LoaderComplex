@@ -1,13 +1,14 @@
 package com.enderzombi102.loaderComplex.fabric12.impl;
 
 
-import com.enderzombi102.loadercomplex.abstraction.Loader;
-import com.enderzombi102.loadercomplex.abstraction.Registry;
-import com.enderzombi102.loadercomplex.abstraction.utils.LoaderType;
+import com.enderzombi102.loadercomplex.api.Loader;
+import com.enderzombi102.loadercomplex.api.Registry;
+import com.enderzombi102.loadercomplex.api.utils.LoaderType;
 
 public class FabricLoader implements Loader {
 
 	private final Registry registry;
+
 	private static final String FABRIC_VERSION;
 	public static final String MINECRAFT_VERSION = "1.12.2";
 	static {
@@ -43,4 +44,5 @@ public class FabricLoader implements Loader {
 	public boolean isModLoaded(String id) {
 		return net.fabricmc.loader.api.FabricLoader.getInstance().isModLoaded(id);
 	}
+
 }

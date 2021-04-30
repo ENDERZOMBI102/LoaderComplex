@@ -1,0 +1,30 @@
+package com.enderzombi102.loadercomplex.api.utils;
+
+public enum LoaderType {
+	Bukkit,
+	Spigot,
+	Paper,
+	Sponge,
+	Forge,
+	ForgeLegacy,
+	Fabric,
+	FabricLegacy,
+	LiteLoader,
+	BlazeLoader,
+	ChocoMint,
+	CraftLoader,
+	Forcefields,
+	GeneralModLoader,
+	StationLoader,
+	Gypsi,
+	LitLaunch,
+	M3L,
+	ExternalLoader,
+	Vanilla,
+	Quiddity,
+	Rift,
+	RisugamisModLoader,
+	RopeMC,
+	SnapLoader,
+	Textile
+}

@@ -1,6 +1,6 @@
 package com.enderzombi102.loadercomplex.forge12.impl.item;
 
-import com.enderzombi102.loadercomplex.abstraction.item.ItemStack;
+import com.enderzombi102.loadercomplex.api.item.ItemStack;
 
 public class ForgeItemStack implements ItemStack {
 

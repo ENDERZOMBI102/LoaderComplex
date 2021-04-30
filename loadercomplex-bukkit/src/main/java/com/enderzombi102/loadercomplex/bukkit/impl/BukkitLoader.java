@@ -1,21 +1,18 @@
-package com.enderzombi102.loadercomplex.forge12.impl;
+package com.enderzombi102.loadercomplex.bukkit.impl;
 
 import com.enderzombi102.loadercomplex.api.Loader;
 import com.enderzombi102.loadercomplex.api.Registry;
 import com.enderzombi102.loadercomplex.api.utils.LoaderType;
-import net.minecraftforge.common.ForgeVersion;
+import org.bukkit.Bukkit;
 
-public class ForgeLoader implements Loader {
+public class BukkitLoader implements Loader {
 
-	private final ForgeRegistry registry;
+	private final BukkitRegistry registry = new BukkitRegistry();
 
-	public ForgeLoader() {
-		this.registry = new ForgeRegistry();
-	}
 
 	@Override
 	public LoaderType getLoaderType() {
-		return LoaderType.ForgeLegacy;
+		return LoaderType.Bukkit;
 	}
 
 	@Override
@@ -25,16 +22,16 @@ public class ForgeLoader implements Loader {
 
 	@Override
 	public String getMinecraftVersion() {
-		return "1.12.2";
+		return Bukkit.getVersion();
 	}
 
 	@Override
 	public String getLoaderVersion() {
-		return ForgeVersion.getVersion();
+		return Bukkit.getBukkitVersion();
 	}
 
 	@Override
 	public boolean isModLoaded(String id) {
-		return net.minecraftforge.fml.common.Loader.isModLoaded(id);
+		return Bukkit.getPluginManager().getPlugin(id) != null;
 	}
 }
