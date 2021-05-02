@@ -79,18 +79,16 @@ public class BukkitItem implements Listener {
 			return null;
 		}
 		ItemStack stack = new ItemStack( mat );
-		stack.setItemMeta( new BukkitItemMeta( item, this.identifier ) );
 		return stack;
 	}
 
 	protected boolean checkItem(ItemStack stack) {
 		// check if the event has something to do with LC
-		if (! (stack.getItemMeta() instanceof BukkitItemMeta) ) return false;
-
-		final BukkitItemMeta meta = (BukkitItemMeta) stack.getItemMeta();
+		// TODO: use NBT to [serialize/deserialize/check if] an item (is an LC item)
+		if (! (stack.getItemMeta().) ) return false;
 
 		// check if the event is for this item type
-		return meta.itemType.equals(this.identifier);
+//		return meta.itemType.equals(this.identifier);
 	}
 
 }

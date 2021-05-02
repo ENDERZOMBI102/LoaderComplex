@@ -11,6 +11,9 @@ group = 'com.enderzombi102.loadercomplex.bukkit'
 
 dependencies {
 
+	compileOnly 'org.apache.logging.log4j:log4j-api:2.8.1'
+	implementation 'org.jetbrains:annotations:16.0.2'
+
 	compileOnly project( ':loadercomplex-common' )
 
 	compileOnly 'org.bukkit:bukkit:1.12.2-R0.1-SNAPSHOT'
