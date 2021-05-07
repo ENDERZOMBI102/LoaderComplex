@@ -13,4 +13,49 @@ public class FabricItemStack implements ItemStack {
 	public net.minecraft.item.ItemStack getStack() {
 		return stack;
 	}
+
+	@Override
+	public String getDisplayName() {
+		return this.stack.getName();
+	}
+
+	@Override
+	public void setDisplayName(String newName) {
+		this.stack.setCustomName(newName);
+	}
+
+	@Override
+	public Object getType() {
+		return this.stack.getItem();
+	}
+
+	@Override
+	public int getAmount() {
+		return this.stack.getCount();
+	}
+
+	@Override
+	public void setAmount(int amount) {
+		this.stack.setCount(amount);
+	}
+
+	@Override
+	public void setDurability(short durability) {
+		this.stack.setDamage(durability);
+	}
+
+	@Override
+	public int getDurability() {
+		return this.stack.getDamage();
+	}
+
+	@Override
+	public int getMaxDurability() {
+		return this.stack.getMaxDamage();
+	}
+
+	@Override
+	public int getMaxStackSize() {
+		return this.stack.getMaxCount();
+	}
 }

@@ -1,34 +1,30 @@
 package com.enderzombi102.loadercomplex;
 
-import com.enderzombi102.loadercomplex.api.ContentMod;
 import com.enderzombi102.loadercomplex.api.Loader;
 import com.enderzombi102.loadercomplex.modloader.LCModLoader;
-import com.google.common.collect.ImmutableList;
+import com.enderzombi102.loadercomplex.modloader.Mod;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.function.Consumer;
 
 public abstract class LoaderComplex {
 
 	protected Loader loader;
+	protected Consumer<Mod> resourceHelper;
 	private final LCModLoader modLoader = new LCModLoader();
-	private final ArrayList<ContentMod> mods = new ArrayList<>();
 
 	public LoaderComplex() {
 		this.modLoader.loadMods();
-		this.mods.addAll( this.modLoader.getMods() );
 	}
 
 	protected void initMods() {
-		for ( ContentMod mod : mods ) mod.init( this.loader );
+		for ( Mod mod : this.modLoader.getMods() ) {
+			this.resourceHelper.accept(mod);
+			mod.implementation.init( this.loader );
+		}
 	}
 
 	public LCModLoader getModLoader() {
 		return this.modLoader;
-	}
-
-	public List<ContentMod> getMods() {
-		return ImmutableList.copyOf( this.mods );
 	}
 
 }

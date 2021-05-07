@@ -46,10 +46,14 @@ public class MixinPlugin implements IMixinConfigPlugin {
 	 */
 	@Override
 	public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-		if ( mixinClassName.equals("SimpleRegistryMixin") ) {
-			return FabricLoader.MINECRAFT_VERSION.equals("1.12.2");
+		final boolean is1122 = FabricLoader.MINECRAFT_VERSION.equals("1.12.2");
+		switch (mixinClassName) {
+			case "ReloadableResourceManagerImplMixin":
+			case "SimpleRegistryMixin":
+				return is1122;
+			default:
+				return true;
 		}
-		return true;
 	}
 
 	/**

@@ -9,7 +9,7 @@ public interface ItemStack {
 	int getAmount();
 	void setAmount(int amount);
 	void setDurability(final short durability);
-	short getDurability();
+	int getDurability();
 	int getMaxDurability();
 	int getMaxStackSize();
 

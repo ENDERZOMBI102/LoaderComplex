@@ -47,7 +47,7 @@ public class BukkitItemStack implements ItemStack {
 	}
 
 	@Override
-	public short getDurability() {
+	public int getDurability() {
 		return this.stack.getDurability();
 	}
 
