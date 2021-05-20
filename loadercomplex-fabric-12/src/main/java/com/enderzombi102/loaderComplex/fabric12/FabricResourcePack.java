@@ -32,7 +32,7 @@ public class FabricResourcePack extends AbstractFileResourcePack {
 
 	@Override
 	protected InputStream openFile(String name) throws IOException {
-		LOGGER.info("Minecraft is trying to access \"" + name + "\"");
+		LOGGER.debug("Minecraft is trying to access \"" + name + "\"");
 		final JarEntry jarEntry = this.mod.getJarMod().getJarEntry(name);
 		if (jarEntry == null) {
 			throw new ResourceNotFoundException(this.base, name);
@@ -42,10 +42,16 @@ public class FabricResourcePack extends AbstractFileResourcePack {
 	}
 
 	@Override
+	public String getName() {
+		return this.getModID();
+	}
+
+	@Override
 	protected boolean containsFile(String name) {
 		return this.mod.getJarMod().getEntry(name) != null;
 	}
 
+	@Override
 	public Set<String> method_31465() {
 
 		JarFile jarFile = this.mod.getJarMod();
