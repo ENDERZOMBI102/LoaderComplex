@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class StringTag extends Tag {
-   private String field_30791;
+   private String value;
 
    public StringTag() {
       this("");
@@ -14,17 +14,17 @@ public class StringTag extends Tag {
 
    public StringTag(String value) {
       Objects.requireNonNull(value, "Null string not allowed");
-      this.field_30791 = value;
+      this.value = value;
    }
 
    void write(DataOutput output) throws IOException {
-      output.writeUTF(this.field_30791);
+      output.writeUTF(this.value);
    }
 
-   void method_32150(DataInput dataInput, int i, PositionTracker positionTracker) throws IOException {
+   void read(DataInput dataInput, int i, PositionTracker positionTracker) throws IOException {
       positionTracker.add(288L);
-      this.field_30791 = dataInput.readUTF();
-      positionTracker.add((long)(16 * this.field_30791.length()));
+      this.value = dataInput.readUTF();
+      positionTracker.add( 16L * this.value.length() );
    }
 
    public byte getType() {
@@ -32,39 +32,38 @@ public class StringTag extends Tag {
    }
 
    public String toString() {
-      return method_32146(this.field_30791);
+      return escapeString(this.value);
    }
 
    public StringTag copy() {
-      return new StringTag(this.field_30791);
+      return new StringTag(this.value);
    }
 
    public boolean isEmpty() {
-      return this.field_30791.isEmpty();
+      return this.value.isEmpty();
    }
 
    public boolean equals(Object object) {
-      if (!super.equals(object)) {
+      if (! super.equals(object) ) {
          return false;
       } else {
-         StringTag stringTag = (StringTag)object;
-         return this.field_30791 == null && stringTag.field_30791 == null || Objects.equals(this.field_30791, stringTag.field_30791);
+         StringTag stringTag = (StringTag) object;
+         return this.value == null && stringTag.value == null || Objects.equals( this.value, stringTag.value );
       }
    }
 
    public int hashCode() {
-      return super.hashCode() ^ this.field_30791.hashCode();
+      return super.hashCode() ^ this.value.hashCode();
    }
 
    public String asString() {
-      return this.field_30791;
+      return this.value;
    }
 
-   public static String method_32146(String string) {
+   public static String escapeString(String string) {
       StringBuilder stringBuilder = new StringBuilder("\"");
 
-      for(int i = 0; i < string.length(); ++i) {
-         char c = string.charAt(i);
+      for ( char c : string.toCharArray() ) {
          if (c == '\\' || c == '"') {
             stringBuilder.append('\\');
          }

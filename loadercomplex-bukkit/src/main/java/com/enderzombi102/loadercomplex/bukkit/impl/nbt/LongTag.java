@@ -7,8 +7,7 @@ import java.io.IOException;
 public class LongTag extends AbstractNumberTag {
    private long value;
 
-   LongTag() {
-   }
+   LongTag() {}
 
    public LongTag(long value) {
       this.value = value;
@@ -18,7 +17,7 @@ public class LongTag extends AbstractNumberTag {
       output.writeLong(this.value);
    }
 
-   void method_32150(DataInput dataInput, int i, PositionTracker positionTracker) throws IOException {
+   void read(DataInput dataInput, int i, PositionTracker positionTracker) throws IOException {
       positionTracker.add(128L);
       this.value = dataInput.readLong();
    }
@@ -36,11 +35,11 @@ public class LongTag extends AbstractNumberTag {
    }
 
    public boolean equals(Object object) {
-      return super.equals(object) && this.value == ((LongTag)object).value;
+      return super.equals(object) && this.value == ( (LongTag) object ).value;
    }
 
    public int hashCode() {
-      return super.hashCode() ^ (int)(this.value ^ this.value >>> 32);
+      return super.hashCode() ^ (int) ( this.value ^ this.value >>> 32 );
    }
 
    public long getLong() {
@@ -48,22 +47,22 @@ public class LongTag extends AbstractNumberTag {
    }
 
    public int getInt() {
-      return (int)(this.value & -1L);
+      return (int) this.value;
    }
 
    public short getShort() {
-      return (short)((int)(this.value & 65535L));
+      return (short) ( (int) ( this.value & 65535L ) );
    }
 
    public byte getByte() {
-      return (byte)((int)(this.value & 255L));
+      return (byte) ( (int) ( this.value & 255L ) );
    }
 
    public double getDouble() {
-      return (double)this.value;
+      return (double) this.value;
    }
 
    public float getFloat() {
-      return (float)this.value;
+      return (float) this.value;
    }
 }

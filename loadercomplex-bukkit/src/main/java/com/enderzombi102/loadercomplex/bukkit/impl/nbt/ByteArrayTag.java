@@ -17,11 +17,11 @@ public class ByteArrayTag extends Tag {
 	}
 
 	public ByteArrayTag(List<Byte> value) {
-		this(toArray(value));
+		this( toArray(value) );
 	}
 
 	private static byte[] toArray(List<Byte> list) {
-		byte[] bs = new byte[list.size()];
+		byte[] bs = new byte[ list.size() ];
 
 		for(int i = 0; i < list.size(); ++i) {
 			Byte lv = list.get(i);
@@ -36,10 +36,10 @@ public class ByteArrayTag extends Tag {
 		output.write(this.value);
 	}
 
-	void method_32150(DataInput dataInput, int i, PositionTracker positionTracker) throws IOException {
+	void read(DataInput dataInput, int i, PositionTracker positionTracker) throws IOException {
 		positionTracker.add(192L);
 		int j = dataInput.readInt();
-		positionTracker.add(8 * j);
+		positionTracker.add( 8L * j );
 		this.value = new byte[j];
 		dataInput.readFully(this.value);
 	}
@@ -56,7 +56,7 @@ public class ByteArrayTag extends Tag {
 				stringBuilder.append(',');
 			}
 
-			stringBuilder.append(this.value[i]).append('B');
+			stringBuilder.append( this.value[i] ).append('B');
 		}
 
 		return stringBuilder.append(']').toString();

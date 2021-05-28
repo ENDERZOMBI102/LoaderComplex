@@ -7,8 +7,7 @@ import java.io.IOException;
 public class FloatTag extends AbstractNumberTag {
 	private float value;
 
-	FloatTag() {
-	}
+	FloatTag() {}
 
 	public FloatTag(float value) {
 		this.value = value;
@@ -18,7 +17,7 @@ public class FloatTag extends AbstractNumberTag {
 		output.writeFloat(this.value);
 	}
 
-	void method_32150(DataInput dataInput, int i, PositionTracker positionTracker) throws IOException {
+	void read(DataInput dataInput, int i, PositionTracker positionTracker) throws IOException {
 		positionTracker.add(96L);
 		this.value = dataInput.readFloat();
 	}
@@ -36,7 +35,7 @@ public class FloatTag extends AbstractNumberTag {
 	}
 
 	public boolean equals(Object object) {
-		return super.equals(object) && this.value == ((FloatTag)object).value;
+		return super.equals(object) && this.value == ( (FloatTag) object ).value;
 	}
 
 	public int hashCode() {
@@ -44,7 +43,7 @@ public class FloatTag extends AbstractNumberTag {
 	}
 
 	public long getLong() {
-		return (long)this.value;
+		return (long) this.value;
 	}
 
 	public int getInt() {
@@ -52,11 +51,11 @@ public class FloatTag extends AbstractNumberTag {
 	}
 
 	public short getShort() {
-		return (short)(floor(this.value) & '\uffff');
+		return (short) (floor(this.value) & '\uffff');
 	}
 
 	public byte getByte() {
-		return (byte)(floor(this.value) & 255);
+		return (byte) (floor(this.value) & 255);
 	}
 
 	public double getDouble() {

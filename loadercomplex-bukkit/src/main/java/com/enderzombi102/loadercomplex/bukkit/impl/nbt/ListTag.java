@@ -16,37 +16,35 @@ public class ListTag extends Tag {
 	private byte type = 0;
 
 	void write(DataOutput output) throws IOException {
-		if (this.buffer.isEmpty()) {
+		if ( this.buffer.isEmpty() ) {
 			this.type = 0;
 		} else {
 			this.type = this.buffer.get(0).getType();
 		}
 
 		output.writeByte(this.type);
-		output.writeInt(this.buffer.size());
+		output.writeInt( this.buffer.size() );
 
-		for(int i = 0; i < this.buffer.size(); ++i) {
-			this.buffer.get(i).write(output);
-		}
+		for ( Tag tag : this.buffer ) tag.write( output );
 
 	}
 
-	void method_32150(DataInput dataInput, int i, PositionTracker positionTracker) throws IOException {
+	void read(DataInput dataInput, int i, PositionTracker positionTracker) throws IOException {
 		positionTracker.add(296L);
 		if (i > 512) {
 			throw new RuntimeException("Tried to read NBT tag with too high complexity, depth > 512");
 		} else {
 			this.type = dataInput.readByte();
 			int j = dataInput.readInt();
-			if (this.type == 0 && j > 0) {
+			if ( this.type == 0 && j > 0 ) {
 				throw new RuntimeException("Missing type on ListTag");
 			} else {
-				positionTracker.add(32L * (long)j);
+				positionTracker.add( 32L * j );
 				this.buffer = Lists.newArrayListWithCapacity(j);
 
 				for(int k = 0; k < j; ++k) {
-					Tag tag = Tag.method_32149(this.type);
-					tag.method_32150(dataInput, i + 1, positionTracker);
+					Tag tag = Tag.tagFromByte(this.type);
+					tag.read(dataInput, i + 1, positionTracker);
 					this.buffer.add(tag);
 				}
 
@@ -73,12 +71,12 @@ public class ListTag extends Tag {
 	}
 
 	public void add(Tag tag) {
-		if (tag.getType() == 0) {
+		if ( tag.getType() == 0 ) {
 			LOGGER.warn("Invalid TagEnd added to ListTag");
 		} else {
 			if (this.type == 0) {
 				this.type = tag.getType();
-			} else if (this.type != tag.getType()) {
+			} else if ( this.type != tag.getType() ) {
 				LOGGER.warn("Adding mismatching tag types to tag list");
 				return;
 			}
@@ -87,13 +85,13 @@ public class ListTag extends Tag {
 		}
 	}
 
-	public void setIdex(int i, Tag tag) {
+	public void setIndex(int i, Tag tag) {
 		if (tag.getType() == 0) {
 			LOGGER.warn("Invalid TagEnd added to ListTag");
-		} else if (i >= 0 && i < this.buffer.size()) {
+		} else if ( i >= 0 && i < this.buffer.size() ) {
 			if (this.type == 0) {
 				this.type = tag.getType();
-			} else if (this.type != tag.getType()) {
+			} else if ( this.type != tag.getType() ) {
 				LOGGER.warn("Adding mismatching tag types to tag list");
 				return;
 			}
@@ -113,10 +111,10 @@ public class ListTag extends Tag {
 	}
 
 	public CompoundTag getCompound(int index) {
-		if (index >= 0 && index < this.buffer.size()) {
+		if ( index >= 0 && index < this.buffer.size() ) {
 			Tag tag = this.buffer.get(index);
-			if (tag.getType() == 10) {
-				return (CompoundTag)tag;
+			if ( tag.getType() == 10 ) {
+				return (CompoundTag) tag;
 			}
 		}
 
@@ -124,10 +122,10 @@ public class ListTag extends Tag {
 	}
 
 	public int getInt(int i) {
-		if (i >= 0 && i < this.buffer.size()) {
+		if ( i >= 0 && i < this.buffer.size() ) {
 			Tag tag = this.buffer.get(i);
 			if (tag.getType() == 3) {
-				return ((IntTag)tag).getInt();
+				return ( (IntTag) tag ).getInt();
 			}
 		}
 
@@ -135,10 +133,10 @@ public class ListTag extends Tag {
 	}
 
 	public int[] getIntArray(int index) {
-		if (index >= 0 && index < this.buffer.size()) {
+		if ( index >= 0 && index < this.buffer.size() ) {
 			Tag tag = this.buffer.get(index);
 			if (tag.getType() == 11) {
-				return ( (IntArrayTag) tag).getIntArray();
+				return ( (IntArrayTag) tag ).getIntArray();
 			}
 		}
 
@@ -146,10 +144,10 @@ public class ListTag extends Tag {
 	}
 
 	public double getDouble(int index) {
-		if (index >= 0 && index < this.buffer.size()) {
+		if ( index >= 0 && index < this.buffer.size() ) {
 			Tag tag = this.buffer.get(index);
 			if (tag.getType() == 6) {
-				return ( (DoubleTag) tag).getDouble();
+				return ( (DoubleTag) tag ).getDouble();
 			}
 		}
 
@@ -157,10 +155,10 @@ public class ListTag extends Tag {
 	}
 
 	public float getFloat(int index) {
-		if (index >= 0 && index < this.buffer.size()) {
+		if ( index >= 0 && index < this.buffer.size() ) {
 			Tag tag = this.buffer.get(index);
 			if (tag.getType() == 5) {
-				return ( (FloatTag)tag ).getFloat();
+				return ( (FloatTag) tag ).getFloat();
 			}
 		}
 
@@ -168,7 +166,7 @@ public class ListTag extends Tag {
 	}
 
 	public String getString(int index) {
-		if (index >= 0 && index < this.buffer.size()) {
+		if ( index >= 0 && index < this.buffer.size() ) {
 			Tag tag = this.buffer.get(index);
 			return tag.getType() == 8 ? tag.asString() : tag.toString();
 		} else {
@@ -176,7 +174,7 @@ public class ListTag extends Tag {
 		}
 	}
 
-	public Tag method_32113(int i) {
+	public Tag getTag(int i) {
 		return i >= 0 && i < this.buffer.size() ? this.buffer.get(i) : new EndTag();
 	}
 
@@ -197,10 +195,10 @@ public class ListTag extends Tag {
 	}
 
 	public boolean equals(Object object) {
-		if (!super.equals(object)) {
+		if (! super.equals(object) ) {
 			return false;
 		} else {
-			ListTag listTag = (ListTag)object;
+			ListTag listTag = (ListTag) object;
 			return this.type == listTag.type && Objects.equals(this.buffer, listTag.buffer);
 		}
 	}

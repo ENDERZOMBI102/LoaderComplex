@@ -18,7 +18,7 @@ public class ByteTag extends AbstractNumberTag {
 		output.writeByte(this.value);
 	}
 
-	void method_32150(DataInput dataInput, int i, PositionTracker positionTracker) throws IOException {
+	void read(DataInput dataInput, int i, PositionTracker positionTracker) throws IOException {
 		positionTracker.add(72L);
 		this.value = dataInput.readByte();
 	}

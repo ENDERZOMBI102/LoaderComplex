@@ -9,15 +9,14 @@ import java.util.List;
 public class LongArrayTag extends Tag {
 	private long[] value;
 
-	LongArrayTag() {
-	}
+	LongArrayTag() {}
 
 	public LongArrayTag(long[] value) {
 		this.value = value;
 	}
 
 	public LongArrayTag(List<Long> value) {
-		this(toArray(value));
+		this( toArray(value) );
 	}
 
 	private static long[] toArray(List<Long> list) {
@@ -33,20 +32,17 @@ public class LongArrayTag extends Tag {
 
 	void write(DataOutput output) throws IOException {
 		output.writeInt(this.value.length);
-		long[] var2 = this.value;
-		int var3 = var2.length;
 
-		for(int var4 = 0; var4 < var3; ++var4) {
-			long l = var2[var4];
+		for( long l : this.value ) {
 			output.writeLong(l);
 		}
 
 	}
 
-	void method_32150(DataInput dataInput, int i, PositionTracker positionTracker) throws IOException {
+	void read(DataInput dataInput, int i, PositionTracker positionTracker) throws IOException {
 		positionTracker.add(192L);
 		int j = dataInput.readInt();
-		positionTracker.add(64 * j);
+		positionTracker.add(64L * j);
 		this.value = new long[j];
 
 		for(int k = 0; k < j; ++k) {
@@ -67,7 +63,7 @@ public class LongArrayTag extends Tag {
 				stringBuilder.append(',');
 			}
 
-			stringBuilder.append(this.value[i]).append('L');
+			stringBuilder.append( this.value[i] ).append('L');
 		}
 
 		return stringBuilder.append(']').toString();
@@ -80,7 +76,7 @@ public class LongArrayTag extends Tag {
 	}
 
 	public boolean equals(Object object) {
-		return super.equals(object) && Arrays.equals(this.value, ((LongArrayTag)object).value);
+		return super.equals(object) && Arrays.equals( this.value, ( (LongArrayTag) object).value );
 	}
 
 	public int hashCode() {

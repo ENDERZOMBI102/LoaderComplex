@@ -9,15 +9,14 @@ import java.util.List;
 public class IntArrayTag extends Tag {
 	private int[] value;
 
-	IntArrayTag() {
-	}
+	IntArrayTag() {}
 
 	public IntArrayTag(int[] value) {
 		this.value = value;
 	}
 
 	public IntArrayTag(List<Integer> value) {
-		this(toArray(value));
+		this( toArray(value) );
 	}
 
 	private static int[] toArray(List<Integer> list) {
@@ -33,20 +32,17 @@ public class IntArrayTag extends Tag {
 
 	void write(DataOutput output) throws IOException {
 		output.writeInt(this.value.length);
-		int[] var2 = this.value;
-		int var3 = var2.length;
 
-		for(int var4 = 0; var4 < var3; ++var4) {
-			int i = var2[var4];
+		for ( int i : this.value ) {
 			output.writeInt(i);
 		}
 
 	}
 
-	void method_32150(DataInput dataInput, int i, PositionTracker positionTracker) throws IOException {
+	void read(DataInput dataInput, int i, PositionTracker positionTracker) throws IOException {
 		positionTracker.add(192L);
 		int j = dataInput.readInt();
-		positionTracker.add(32 * j);
+		positionTracker.add(32L * j);
 		this.value = new int[j];
 
 		for(int k = 0; k < j; ++k) {
@@ -80,7 +76,7 @@ public class IntArrayTag extends Tag {
 	}
 
 	public boolean equals(Object object) {
-		return super.equals(object) && Arrays.equals(this.value, ((IntArrayTag)object).value);
+		return super.equals(object) && Arrays.equals(this.value, ( (IntArrayTag) object).value );
 	}
 
 	public int hashCode() {

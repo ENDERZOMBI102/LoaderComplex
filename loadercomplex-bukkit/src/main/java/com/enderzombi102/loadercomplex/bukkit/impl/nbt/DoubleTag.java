@@ -18,7 +18,7 @@ public class DoubleTag extends AbstractNumberTag {
 		output.writeDouble(this.value);
 	}
 
-	void method_32150(DataInput dataInput, int i, PositionTracker positionTracker) throws IOException {
+	void read(DataInput dataInput, int i, PositionTracker positionTracker) throws IOException {
 		positionTracker.add(128L);
 		this.value = dataInput.readDouble();
 	}
@@ -36,16 +36,16 @@ public class DoubleTag extends AbstractNumberTag {
 	}
 
 	public boolean equals(Object object) {
-		return super.equals(object) && this.value == ((DoubleTag)object).value;
+		return super.equals(object) && this.value == ( (DoubleTag) object ).value;
 	}
 
 	public int hashCode() {
 		long l = Double.doubleToLongBits(this.value);
-		return super.hashCode() ^ (int)(l ^ l >>> 32);
+		return super.hashCode() ^ (int) (l ^ l >>> 32);
 	}
 
 	public long getLong() {
-		return (long)Math.floor(this.value);
+		return (long) Math.floor(this.value);
 	}
 
 	public int getInt() {
@@ -53,11 +53,11 @@ public class DoubleTag extends AbstractNumberTag {
 	}
 
 	public short getShort() {
-		return (short)( floor(this.value) & '\uffff' );
+		return (short) ( floor(this.value) & '\uffff' );
 	}
 
 	public byte getByte() {
-		return (byte)( floor(this.value) & 255 );
+		return (byte) ( floor(this.value) & 255 );
 	}
 
 	public double getDouble() {
@@ -65,7 +65,7 @@ public class DoubleTag extends AbstractNumberTag {
 	}
 
 	public float getFloat() {
-		return (float)this.value;
+		return (float) this.value;
 	}
 
 	private static int floor(double value) {

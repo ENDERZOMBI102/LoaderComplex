@@ -7,8 +7,7 @@ import java.io.IOException;
 public class ShortTag extends AbstractNumberTag {
    private short value;
 
-   public ShortTag() {
-   }
+   public ShortTag() {}
 
    public ShortTag(short value) {
       this.value = value;
@@ -18,7 +17,7 @@ public class ShortTag extends AbstractNumberTag {
       output.writeShort(this.value);
    }
 
-   void method_32150(DataInput dataInput, int i, PositionTracker positionTracker) throws IOException {
+   void read(DataInput dataInput, int i, PositionTracker positionTracker) throws IOException {
       positionTracker.add(80L);
       this.value = dataInput.readShort();
    }

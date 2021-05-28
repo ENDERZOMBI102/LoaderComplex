@@ -5,15 +5,13 @@ import java.io.DataOutput;
 import java.io.IOException;
 
 public class EndTag extends Tag {
-	EndTag() {
-	}
+	EndTag() {}
 
-	void method_32150(DataInput dataInput, int i, PositionTracker positionTracker) throws IOException {
+	void read(DataInput dataInput, int i, PositionTracker positionTracker) throws IOException {
 		positionTracker.add(64L);
 	}
 
-	void write(DataOutput output) throws IOException {
-	}
+	void write(DataOutput output) throws IOException {}
 
 	public byte getType() {
 		return 0;

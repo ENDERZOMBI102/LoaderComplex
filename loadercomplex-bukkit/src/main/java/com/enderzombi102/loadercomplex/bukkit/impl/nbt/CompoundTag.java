@@ -19,15 +19,13 @@ public class CompoundTag extends Tag {
 
 	void write(DataOutput output) throws IOException {
 
-		for ( String key : this.tagMap.keySet() ) {
-			Tag tag = this.tagMap.get(key);
-			write(key, tag, output);
-		}
+		for ( Map.Entry<String, Tag> entry : this.tagMap.entrySet() )
+			write(entry.getKey(), entry.getValue(), output);
 
 		output.writeByte(0);
 	}
 
-	void method_32150(DataInput dataInput, int i, PositionTracker positionTracker) throws IOException {
+	void read(DataInput dataInput, int i, PositionTracker positionTracker) throws IOException {
 		positionTracker.add(384L);
 		if (i > 512) {
 			throw new RuntimeException("Tried to read NBT tag with too high complexity, depth > 512");
@@ -35,10 +33,10 @@ public class CompoundTag extends Tag {
 			this.tagMap.clear();
 
 			byte b;
-			while((b = readByte(dataInput, positionTracker)) != 0) {
+			while( ( b = readByte(dataInput, positionTracker) ) != 0 ) {
 				String string = readString(dataInput, positionTracker);
-				positionTracker.add((long)(224 + 16 * string.length()));
-				Tag tag = method_32048(b, string, dataInput, i + 1, positionTracker);
+				positionTracker.add( 224 + 16L * string.length() );
+				Tag tag = readTagFrom( b, string, dataInput, i + 1, positionTracker );
 				if (this.tagMap.put(string, tag) != null) {
 					positionTracker.add(288L);
 				}
@@ -64,29 +62,29 @@ public class CompoundTag extends Tag {
 	}
 
 	public void putByte(String key, byte value) {
-		this.tagMap.put(key, new ByteTag(value));
+		this.tagMap.put( key, new ByteTag(value) );
 	}
 
 	public void putShort(String key, short value) {
-		this.tagMap.put(key, new ShortTag(value));
+		this.tagMap.put( key, new ShortTag(value) );
 	}
 
 	public void putInt(String key, int value) {
-		this.tagMap.put(key, new IntTag(value));
+		this.tagMap.put( key, new IntTag(value) );
 	}
 
 	public void putLong(String key, long value) {
-		this.tagMap.put(key, new LongTag(value));
+		this.tagMap.put( key, new LongTag(value) );
 	}
 
 	public void putUuid(String key, UUID uuid) {
-		this.putLong(key + "Most", uuid.getMostSignificantBits());
-		this.putLong(key + "Least", uuid.getLeastSignificantBits());
+		this.putLong( key + "Most", uuid.getMostSignificantBits() );
+		this.putLong( key + "Least", uuid.getLeastSignificantBits() );
 	}
 
 	@Nullable
 	public UUID getUuid(String key) {
-		return new UUID(this.getLong(key + "Most"), this.getLong(key + "Least"));
+		return new UUID( this.getLong(key + "Most"), this.getLong(key + "Least") );
 	}
 
 	public boolean containsUuid(String key) {
@@ -94,35 +92,35 @@ public class CompoundTag extends Tag {
 	}
 
 	public void putFloat(String key, float value) {
-		this.tagMap.put(key, new FloatTag(value));
+		this.tagMap.put( key, new FloatTag(value) );
 	}
 
 	public void putDouble(String key, double value) {
-		this.tagMap.put(key, new DoubleTag(value));
+		this.tagMap.put( key, new DoubleTag(value) );
 	}
 
 	public void putString(String key, String value) {
-		this.tagMap.put(key, new StringTag(value));
+		this.tagMap.put( key, new StringTag(value) );
 	}
 
 	public void putByteArray(String key, byte[] value) {
-		this.tagMap.put(key, new ByteArrayTag(value));
+		this.tagMap.put( key, new ByteArrayTag(value) );
 	}
 
 	public void putIntArray(String key, int[] value) {
-		this.tagMap.put(key, new IntArrayTag(value));
+		this.tagMap.put( key, new IntArrayTag(value) );
 	}
 
 	public void putBoolean(String string, boolean bl) {
-		this.putByte(string, (byte)(bl ? 1 : 0));
+		this.putByte( string, (byte) (bl ? 1 : 0) );
 	}
 
 	public Tag get(String key) {
-		return (Tag)this.tagMap.get(key);
+		return this.tagMap.get(key);
 	}
 
 	public byte getType(String key) {
-		Tag tag = (Tag)this.tagMap.get(key);
+		Tag tag = this.tagMap.get(key);
 		return tag == null ? 0 : tag.getType();
 	}
 
@@ -143,8 +141,8 @@ public class CompoundTag extends Tag {
 
 	public byte getByte(String key) {
 		try {
-			if (this.contains(key, 99)) {
-				return ((AbstractNumberTag)this.tagMap.get(key)).getByte();
+			if ( this.contains(key, 99) ) {
+				return ( (AbstractNumberTag)this.tagMap.get(key) ).getByte();
 			}
 		} catch (ClassCastException var3) {
 		}
@@ -154,8 +152,8 @@ public class CompoundTag extends Tag {
 
 	public short getShort(String key) {
 		try {
-			if (this.contains(key, 99)) {
-				return ((AbstractNumberTag)this.tagMap.get(key)).getShort();
+			if ( this.contains(key, 99) ) {
+				return ( (AbstractNumberTag) this.tagMap.get(key) ).getShort();
 			}
 		} catch (ClassCastException var3) {
 		}
@@ -165,8 +163,8 @@ public class CompoundTag extends Tag {
 
 	public int getInt(String key) {
 		try {
-			if (this.contains(key, 99)) {
-				return ((AbstractNumberTag)this.tagMap.get(key)).getInt();
+			if ( this.contains(key, 99) ) {
+				return ( (AbstractNumberTag) this.tagMap.get(key) ).getInt();
 			}
 		} catch (ClassCastException var3) {
 		}
@@ -176,8 +174,8 @@ public class CompoundTag extends Tag {
 
 	public long getLong(String key) {
 		try {
-			if (this.contains(key, 99)) {
-				return ((AbstractNumberTag)this.tagMap.get(key)).getLong();
+			if ( this.contains(key, 99) ) {
+				return ( (AbstractNumberTag) this.tagMap.get(key) ).getLong();
 			}
 		} catch (ClassCastException var3) {
 		}
@@ -187,8 +185,8 @@ public class CompoundTag extends Tag {
 
 	public float getFloat(String key) {
 		try {
-			if (this.contains(key, 99)) {
-				return ((AbstractNumberTag)this.tagMap.get(key)).getFloat();
+			if ( this.contains(key, 99) ) {
+				return ( (AbstractNumberTag) this.tagMap.get(key) ).getFloat();
 			}
 		} catch (ClassCastException var3) {
 		}
@@ -198,8 +196,8 @@ public class CompoundTag extends Tag {
 
 	public double getDouble(String key) {
 		try {
-			if (this.contains(key, 99)) {
-				return ((AbstractNumberTag)this.tagMap.get(key)).getDouble();
+			if ( this.contains(key, 99) ) {
+				return ( (AbstractNumberTag) this.tagMap.get(key) ).getDouble();
 			}
 		} catch (ClassCastException var3) {
 		}
@@ -209,8 +207,8 @@ public class CompoundTag extends Tag {
 
 	public String getString(String key) {
 		try {
-			if (this.contains(key, 8)) {
-				return ((Tag)this.tagMap.get(key)).asString();
+			if ( this.contains(key, 8) ) {
+				return this.tagMap.get(key).asString();
 			}
 		} catch (ClassCastException var3) {
 		}
@@ -220,8 +218,8 @@ public class CompoundTag extends Tag {
 
 	public byte[] getByteArray(String key) {
 		try {
-			if (this.contains(key, 7)) {
-				return ((ByteArrayTag)this.tagMap.get(key)).getByteArray();
+			if ( this.contains(key, 7) ) {
+				return ( (ByteArrayTag) this.tagMap.get(key) ).getByteArray();
 			}
 		} catch (ClassCastException e) {
 			LOGGER.error(e);
@@ -232,8 +230,8 @@ public class CompoundTag extends Tag {
 
 	public int[] getIntArray(String key) {
 		try {
-			if (this.contains(key, 11)) {
-				return ((IntArrayTag)this.tagMap.get(key)).getIntArray();
+			if ( this.contains(key, 11) ) {
+				return ( (IntArrayTag) this.tagMap.get(key) ).getIntArray();
 			}
 		} catch (ClassCastException e) {
 			LOGGER.error(e);
@@ -244,8 +242,8 @@ public class CompoundTag extends Tag {
 
 	public CompoundTag getCompound(String key) {
 		try {
-			if (this.contains(key, 10)) {
-				return (CompoundTag)this.tagMap.get(key);
+			if ( this.contains(key, 10) ) {
+				return (CompoundTag) this.tagMap.get(key);
 			}
 		} catch (ClassCastException e) {
 			LOGGER.error(e);
@@ -256,8 +254,8 @@ public class CompoundTag extends Tag {
 
 	public ListTag getList(String key, int type) {
 		try {
-			if (this.getType(key) == 9) {
-				ListTag listTag = (ListTag)this.tagMap.get(key);
+			if ( this.getType(key) == 9 ) {
+				ListTag listTag = (ListTag) this.tagMap.get(key);
 				if (!listTag.isEmpty() && listTag.getElementType() != type) {
 					return new ListTag();
 				}
@@ -279,21 +277,21 @@ public class CompoundTag extends Tag {
 		this.tagMap.remove(key);
 	}
 
+	@Override
 	public String toString() {
 		StringBuilder stringBuilder = new StringBuilder("{");
 		Collection<String> collection = this.tagMap.keySet();
-		if (LOGGER.isDebugEnabled()) {
-			List<String> list = Lists.newArrayList(this.tagMap.keySet());
+		if ( LOGGER.isDebugEnabled() ) {
+			List<String> list = Lists.newArrayList( this.tagMap.keySet() );
 			Collections.sort(list);
 			collection = list;
 		}
 
-		String string;
-		for(Iterator var5 = ((Collection)collection).iterator(); var5.hasNext(); stringBuilder.append(escapeTagKey(string)).append(':').append(this.tagMap.get(string))) {
-			string = (String)var5.next();
+		for( String key : collection ) {
 			if (stringBuilder.length() != 1) {
 				stringBuilder.append(',');
 			}
+			stringBuilder.append( escapeTagKey(key) ).append(':').append( this.tagMap.get(key) );
 		}
 
 		return stringBuilder.append('}').toString();
@@ -305,18 +303,19 @@ public class CompoundTag extends Tag {
 
 	public CompoundTag copy() {
 		CompoundTag compoundTag = new CompoundTag();
-		Iterator var2 = this.tagMap.keySet().iterator();
 
-		while(var2.hasNext()) {
-			String string = (String)var2.next();
-			compoundTag.put(string, ((Tag)this.tagMap.get(string)).copy());
-		}
+		this.tagMap.forEach( (key, value) -> {
+			compoundTag.put( key, value.copy() );
+		} );
 
 		return compoundTag;
 	}
 
 	public boolean equals(Object object) {
-		return super.equals(object) && Objects.equals(this.tagMap.entrySet(), ((CompoundTag)object).tagMap.entrySet());
+		return super.equals(object) && Objects.equals(
+				this.tagMap.entrySet(),
+				( (CompoundTag) object ).tagMap.entrySet()
+		);
 	}
 
 	public int hashCode() {
@@ -324,8 +323,8 @@ public class CompoundTag extends Tag {
 	}
 
 	private static void write(String key, Tag tag, DataOutput output) throws IOException {
-		output.writeByte(tag.getType());
-		if (tag.getType() != 0) {
+		output.writeByte( tag.getType() );
+		if ( tag.getType() != 0 ) {
 			output.writeUTF(key);
 			tag.write(output);
 		}
@@ -339,42 +338,35 @@ public class CompoundTag extends Tag {
 		return input.readUTF();
 	}
 
-	static Tag method_32048(byte b, String string, DataInput dataInput, int i, PositionTracker positionTracker) throws IOException {
-		Tag tag = Tag.method_32149(b);
+	static Tag readTagFrom(byte b, String string, DataInput dataInput, int i, PositionTracker positionTracker) throws IOException {
+		Tag tag = Tag.tagFromByte(b);
 
 		try {
-			tag.method_32150(dataInput, i, positionTracker);
+			tag.read(dataInput, i, positionTracker);
 			return tag;
 		} catch (IOException var9) {
-			CrashReport crashReport = CrashReport.create(var9, "Loading NBT data");
-			CrashReportSection crashReportSection = crashReport.addElement("NBT Tag");
-			crashReportSection.add("Tag name", (Object)string);
-			crashReportSection.add("Tag type", (Object)b);
-			throw new CrashException(crashReport);
+			return tag;
 		}
 	}
 
 	public void copyFrom(CompoundTag source) {
-		Iterator var2 = source.tagMap.keySet().iterator();
 
-		while(var2.hasNext()) {
-			String string = (String)var2.next();
-			Tag tag = (Tag)source.tagMap.get(string);
-			if (tag.getType() == 10) {
-				if (this.contains(string, 10)) {
-					CompoundTag compoundTag = this.getCompound(string);
-					compoundTag.copyFrom((CompoundTag)tag);
+		source.tagMap.forEach( (key, value) -> {
+			if ( value.getType() == 10 ) {
+				if ( this.contains(key, 10) ) {
+					CompoundTag compoundTag = this.getCompound(key);
+					compoundTag.copyFrom( (CompoundTag) value );
 				} else {
-					this.put(string, tag.copy());
+					this.put( key, value.copy() );
 				}
 			} else {
-				this.put(string, tag.copy());
+				this.put( key, value.copy() );
 			}
-		}
+		} );
 
 	}
 
 	protected static String escapeTagKey(String key) {
-		return PATTERN.matcher(key).matches() ? key : StringTag.method_32146(key);
+		return PATTERN.matcher(key).matches() ? key : StringTag.escapeString(key);
 	}
 }

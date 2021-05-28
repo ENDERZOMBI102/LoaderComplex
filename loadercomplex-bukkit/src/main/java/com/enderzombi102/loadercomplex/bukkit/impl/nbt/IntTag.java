@@ -7,8 +7,7 @@ import java.io.IOException;
 public class IntTag extends AbstractNumberTag {
    private int value;
 
-   IntTag() {
-   }
+   IntTag() {}
 
    public IntTag(int value) {
       this.value = value;
@@ -18,7 +17,7 @@ public class IntTag extends AbstractNumberTag {
       output.writeInt(this.value);
    }
 
-   void method_32150(DataInput dataInput, int i, PositionTracker positionTracker) throws IOException {
+   void read(DataInput dataInput, int i, PositionTracker positionTracker) throws IOException {
       positionTracker.add(96L);
       this.value = dataInput.readInt();
    }
@@ -52,11 +51,11 @@ public class IntTag extends AbstractNumberTag {
    }
 
    public short getShort() {
-      return (short)(this.value & '\uffff');
+      return (short) (this.value & '\uffff');
    }
 
    public byte getByte() {
-      return (byte)(this.value & 255);
+      return (byte) (this.value & 255);
    }
 
    public double getDouble() {
@@ -64,6 +63,6 @@ public class IntTag extends AbstractNumberTag {
    }
 
    public float getFloat() {
-      return (float)this.value;
+      return (float) this.value;
    }
 }
