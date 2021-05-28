@@ -16,6 +16,8 @@ import java.util.*;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
+
+// FIXME: for some reason only block textures are loaded from mods, no translations or item textures
 public class FabricResourcePack extends AbstractFileResourcePack {
 
 	private static final Splitter TYPE_NAMESPACE_SPLITTER = Splitter.on('/').omitEmptyStrings().limit(3);
