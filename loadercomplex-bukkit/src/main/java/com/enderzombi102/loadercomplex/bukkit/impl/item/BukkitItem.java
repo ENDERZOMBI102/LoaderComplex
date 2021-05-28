@@ -85,8 +85,8 @@ public class BukkitItem implements Listener {
 	protected boolean checkItem(ItemStack stack) {
 		// check if the event has something to do with LC
 		// TODO: use NBT to [serialize/deserialize/check if] an item (is an LC item)
-		if (! (stack.getItemMeta().) ) return false;
-
+//		if (! (stack.getItemMeta().) ) return false;
+		return false;
 		// check if the event is for this item type
 //		return meta.itemType.equals(this.identifier);
 	}
