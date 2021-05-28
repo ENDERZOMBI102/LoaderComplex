@@ -2,6 +2,7 @@ package com.enderzombi102.loaderComplex.fabric12;
 
 import com.enderzombi102.loadercomplex.modloader.Mod;
 import com.google.common.base.Splitter;
+import com.google.common.collect.Iterators;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import net.minecraft.resource.AbstractFileResourcePack;
@@ -56,11 +57,9 @@ public class FabricResourcePack extends AbstractFileResourcePack {
 
 		JarFile jarFile = this.mod.getJarMod();
 
-		Enumeration<? extends JarEntry> enumeration = jarFile.entries();
 		HashSet<String> set = Sets.newHashSet();
 
-		while( enumeration.hasMoreElements() ) {
-			JarEntry jarEntry = enumeration.nextElement();
+		for ( JarEntry jarEntry : Collections.list( jarFile.entries() ) ) {
 			String path = jarEntry.getName();
 			if ( path.startsWith("assets/") ) {
 				List<String> parts = Lists.newArrayList( TYPE_NAMESPACE_SPLITTER.split(path) );
