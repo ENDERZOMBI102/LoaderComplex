@@ -28,14 +28,14 @@ public class LCModLoader {
 	public void loadMods() {
 		final ArrayList<URL> urls = new ArrayList<>();
 
-		this.logger.info("FINDING MODS");
+		this.logger.info("FINDING ADDONS");
 		for ( File file : Objects.requireNonNull( this.MODS_PATH.toFile().listFiles() ) ) {
 			if( file.getName().endsWith(".lc.jar") ) {
 				try {
 					this.classLoader.addURL( file.toURI().toURL() );
 					this.mods.add( new Mod( Paths.get( file.getPath() ) ) );
 				} catch (IOException e) {
-					this.logger.error("Failed to load possible LC mod: " + file.getName() );
+					this.logger.error("Failed to load possible LC addon: " + file.getName() );
 				}
 			}
 		}
@@ -52,7 +52,7 @@ public class LCModLoader {
 					mod.implementation = modToLoad.newInstance();
 				}
 			} catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-				this.logger.error( "can't load mod file: " + mod.getPath() );
+				this.logger.error( "can't load addon file: " + mod.getPath() );
 			}
 		}
 

@@ -11,6 +11,7 @@ public interface Loader {
 	String getMinecraftVersion();
 	String getLoaderVersion();
 	boolean isModLoaded(String id);
+
 	default Logger getLogger(String modid) {
 		return LogManager.getLogger(modid);
 	}
