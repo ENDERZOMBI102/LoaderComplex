@@ -35,3 +35,15 @@ the "recent" version includes every version starting from 1.12.2, older is untes
 | [Bedrock Addon](https://bedrock.dev) | ? | not yet | Bedrock |
 | [5Zig](https://5zigreborn.eu/) | ? | not yet | java |
 | [LabyMod](https://www.labymod.net/index) | ? | not yet | java |
+
+
+Fabric-based Loaders note
+-
+As almost all fabric-based loaders use fabric.mod.json to find and load mods, they might cause problems,
+so they're not guaranteed to work.
+
+Fabric-based loaders are:
+- Fabric
+- Quilt
+- Legacy Fabric
+- Fabric Cursed Legacy
