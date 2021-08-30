@@ -29,7 +29,7 @@ the "recent" version includes every version starting from 1.12.2, older is untes
 | [Risugami's Modloader](https://github.com/coffeenotfound/ModloaderFix-b1.7.3) | Beta 1.7.3 | not yet | java |
 | [RopeMC](https://github.com/RopeMC/Rope) | 1.15.x | not yet | java |
 | [SnapLoader](https://github.com/canitzp/SnapLoader) | 1.9-snapshot | not yet | java |
-| [Textile](https://github.com/TextileLoader/Textile) | 1.16.3 | not yet | java |
+| [Textile](https://github.com/TextileLoader/Textile) | 1.16.3 | dead | java |
 | [Zenova](https://github.com/MinecraftZenova/) | ? | not yet | Windows 10 |
 | [InnerCore](https://icmods.mineprogramming.org/dev) | ? | not yet | Bedrock (android) |
 | [Bedrock Addon](https://bedrock.dev) | ? | not yet | Bedrock |
