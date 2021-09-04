@@ -1,6 +1,5 @@
 package com.enderzombi102.loaderComplex.fabric12.mixin;
 
-import com.enderzombi102.loaderComplex.fabric12.LoaderComplexFabric;
 import com.enderzombi102.loaderComplex.fabric12.impl.FabricLoader;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;

@@ -9,6 +9,7 @@ import com.enderzombi102.loadercomplex.api.utils.ResourceIdentifier;
 import com.enderzombi102.loadercomplex.forge12.impl.block.ForgeBlock;
 import com.enderzombi102.loadercomplex.forge12.impl.item.ForgeItem;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.registries.GameData;
 import net.minecraftforge.registries.RegistryManager;

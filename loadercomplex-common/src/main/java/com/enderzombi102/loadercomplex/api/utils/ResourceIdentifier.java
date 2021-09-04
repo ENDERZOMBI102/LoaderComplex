@@ -1,10 +1,12 @@
 package com.enderzombi102.loadercomplex.api.utils;
 
+import org.jetbrains.annotations.NotNull;
+
 public class ResourceIdentifier {
 
 	private final String namespace, path;
 
-	public ResourceIdentifier(String namespace, String path) {
+	public ResourceIdentifier(@NotNull String namespace, @NotNull String path) {
 		this.namespace = namespace;
 		this.path = path;
 	}
@@ -44,6 +46,5 @@ public class ResourceIdentifier {
 
 		return i;
 	}
-
 
 }
