@@ -40,12 +40,12 @@ public class FabricItemStack implements ItemStack {
 	}
 
 	@Override
-	public void setDurability(short durability) {
-		this.stack.setDamage(durability);
+	public void setDamage(int damage) {
+		this.stack.setDamage(damage);
 	}
 
 	@Override
-	public int getDurability() {
+	public int getDamage() {
 		return this.stack.getDamage();
 	}
 

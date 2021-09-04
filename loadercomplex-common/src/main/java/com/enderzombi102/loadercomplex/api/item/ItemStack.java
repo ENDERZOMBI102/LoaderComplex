@@ -10,11 +10,11 @@ public interface ItemStack {
 	void setAmount(int amount);
 
 	/**
-	 * Sets the durability of this itemstack.
-	 * @param durability new durability, may be casted to short on some platforms.
+	 * Sets the damage of this itemstack.
+	 * @param damage new damage, may be casted to short on some platforms.
 	 */
-	void setDurability(final int durability);
-	int getDurability();
+	void setDamage(final int damage);
+	int getDamage();
 	int getMaxDurability();
 	int getMaxStackSize();
 

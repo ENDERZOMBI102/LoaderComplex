@@ -40,12 +40,12 @@ public class ForgeItemStack implements ItemStack {
 	}
 
 	@Override
-	public void setDurability(int durability) {
-		stack.setItemDamage(durability);
+	public void setDamage(int damage) {
+		stack.setItemDamage(damage);
 	}
 
 	@Override
-	public int getDurability() {
+	public int getDamage() {
 		return stack.getItemDamage();
 	}
 
