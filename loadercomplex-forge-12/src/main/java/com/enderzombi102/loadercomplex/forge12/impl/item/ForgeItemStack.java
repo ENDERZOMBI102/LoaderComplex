@@ -14,4 +14,49 @@ public class ForgeItemStack implements ItemStack {
 		return stack;
 	}
 
+	@Override
+	public String getDisplayName() {
+		return stack.getDisplayName();
+	}
+
+	@Override
+	public void setDisplayName(String newName) {
+		stack.setStackDisplayName(newName);
+	}
+
+	@Override
+	public Object getType() {
+		return stack.getItem();
+	}
+
+	@Override
+	public int getAmount() {
+		return stack.getCount();
+	}
+
+	@Override
+	public void setAmount(int amount) {
+		stack.setCount(amount);
+	}
+
+	@Override
+	public void setDurability(int durability) {
+		stack.setItemDamage(durability);
+	}
+
+	@Override
+	public int getDurability() {
+		return stack.getItemDamage();
+	}
+
+	@Override
+	public int getMaxDurability() {
+		return stack.getMaxDamage();
+	}
+
+	@Override
+	public int getMaxStackSize() {
+		return stack.getMaxStackSize();
+	}
+
 }

@@ -8,7 +8,12 @@ public interface ItemStack {
 	Object getType();
 	int getAmount();
 	void setAmount(int amount);
-	void setDurability(final short durability);
+
+	/**
+	 * Sets the durability of this itemstack.
+	 * @param durability new durability, may be casted to short on some platforms.
+	 */
+	void setDurability(final int durability);
 	int getDurability();
 	int getMaxDurability();
 	int getMaxStackSize();
