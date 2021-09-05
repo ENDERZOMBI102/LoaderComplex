@@ -1,6 +1,7 @@
 package com.enderzombi102.loadercomplex.modloader;
 
 import com.enderzombi102.loadercomplex.api.Addon;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -25,7 +26,7 @@ public class Mod {
 		ID = attributes.getValue("LoaderComplex-Modid");
 	}
 
-	public String getName() {
+	public @NotNull String getName() {
 		return implementation.getName() != null ?
 				implementation.getName() :
 				file.getFileName().toString().replace(".lc.jar", "");

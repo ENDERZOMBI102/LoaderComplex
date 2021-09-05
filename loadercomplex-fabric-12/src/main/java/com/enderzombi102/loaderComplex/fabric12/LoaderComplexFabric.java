@@ -12,13 +12,13 @@ public class LoaderComplexFabric extends LoaderComplex implements ModInitializer
 
 	public LoaderComplexFabric() {
 		super();
-		this.loader = new FabricLoader();
-		this.resourceHelper = mod -> packs.add( new FabricResourcePack(mod) );
+		loader = new FabricLoader();
+		resourceHelper = mod -> packs.add( new FabricResourcePack(mod) );
 	}
 
 	@Override
 	public void onInitialize() {
-		this.initMods();
+		initMods();
 	}
 
 }
