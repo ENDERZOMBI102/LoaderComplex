@@ -2,7 +2,7 @@ package com.enderzombi102.loaderComplex.fabric12.mixin;
 
 import com.enderzombi102.loaderComplex.fabric12.FabricResourcePack;
 import com.enderzombi102.loaderComplex.fabric12.LoaderComplexFabric;
-import net.minecraft.class_6057;
+import net.minecraft.client.resource.metadata.ResourceMetadataRegistry;
 import net.minecraft.resource.NamespaceResourceManager;
 import net.minecraft.resource.ReloadableResourceManagerImpl;
 import net.minecraft.resource.Resource;
@@ -25,14 +25,13 @@ import java.util.Map;
 public abstract class ReloadableResourceManagerImplMixin {
 
 	@Shadow public abstract void addPack(ResourcePack pack);
+	@Shadow @Final private ResourceMetadataRegistry type;
 	@Shadow @Final private Map<String, NamespaceResourceManager> namespaceManagers;
-
-	@Shadow @Final private class_6057 type;
-
 	private final HashMap<String, NamespaceResourceManager> lcNamespaceManagers = new HashMap<>();
 
+
 	@Inject( method = "<init>", at = @At( "TAIL" ) )
-	public void  onConstruct(class_6057 type, CallbackInfo ci) {
+	public void  onConstruct(ResourceMetadataRegistry type, CallbackInfo ci) {
 		for ( FabricResourcePack pack : LoaderComplexFabric.packs ) {
 			this.addPack( pack );
 			NamespaceResourceManager manager = new NamespaceResourceManager(this.type);

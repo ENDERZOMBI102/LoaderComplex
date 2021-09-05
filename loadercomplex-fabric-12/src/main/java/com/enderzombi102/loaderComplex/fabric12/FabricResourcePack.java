@@ -2,7 +2,6 @@ package com.enderzombi102.loaderComplex.fabric12;
 
 import com.enderzombi102.loadercomplex.modloader.Mod;
 import com.google.common.base.Splitter;
-import com.google.common.collect.Iterators;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import net.minecraft.resource.AbstractFileResourcePack;
@@ -55,7 +54,7 @@ public class FabricResourcePack extends AbstractFileResourcePack {
 	}
 
 	@Override
-	public Set<String> method_31465() {
+	public Set<String> getNamespaces() {
 
 		JarFile jarFile = this.mod.getJarMod();
 
