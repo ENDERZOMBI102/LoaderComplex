@@ -5,10 +5,10 @@
 	"compatibilityLevel": "JAVA_8",
 	"mixins": [
 		"ItemAccessor",
-		"ReloadableResourceManagerImplMixin",
 		"SimpleRegistryMixin"
 	],
 	"client": [
+		"MinecraftClientMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
