@@ -26,18 +26,17 @@ repositories {
 }
 
 minecraft {
-	// Comment out this block if you're using Chocoloom
 	intermediaryUrl = {
 		return "https://maven.legacyfabric.net/net/fabricmc/intermediary/" + it + "/intermediary-" + it + "-v2.jar";
 	}
 }
 
 dependencies {
-	implementation "com.google.guava:guava:$project.guava_version"
-	minecraft "com.mojang:minecraft:$project.minecraft_version"
-	mappings "net.fabricmc:yarn:$project.yarn_mappings:v2"
-	modApi "net.fabricmc:fabric-loader:$project.loader_version"
-	modImplementation "net.legacyfabric.legacy-fabric-api:legacy-fabric-api:$project.fabricapi_version"
+	implementation "com.google.guava:guava:$guava_version"
+	minecraft "com.mojang:minecraft:$minecraft_version"
+	mappings "net.fabricmc:yarn:$yarn_mappings:v2"
+	modApi "net.fabricmc:fabric-loader:$loader_version"
+	modImplementation "net.legacyfabric.legacy-fabric-api:legacy-fabric-api:$fabricapi_version"
 
 	compileOnly project( ':loadercomplex-common' )
 }
@@ -45,13 +44,8 @@ dependencies {
 processResources {
 	inputs.property "version", project.version
 
-	from(sourceSets.main.resources.srcDirs) {
-		include "fabric.mod.json"
-		expand "version": project.version
-	}
-
-	from(sourceSets.main.resources.srcDirs) {
-		exclude "fabric.mod.json"
+	filesMatching('fabric.mod.json') {
+		expand 'version': project.version
 	}
 }
 
