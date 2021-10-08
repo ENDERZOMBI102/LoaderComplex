@@ -8,22 +8,23 @@ import java.nio.file.Path;
 import java.util.jar.Attributes;
 import java.util.jar.JarFile;
 
-public class Mod {
+public class AddonContainer {
 
 	private final String mainClass;
 	private final Path file;
-	private final JarFile jarMod;
+	private final JarFile addonJar;
 	private final String ID;
 	private final String version;
 	Addon implementation;
 
-	public Mod(Path file) throws IOException {
+	public AddonContainer
+(Path file) throws IOException {
 		this.file = file;
-		jarMod = new JarFile( file.toFile(), false );
-		Attributes attributes = jarMod.getManifest().getMainAttributes();
+		addonJar = new JarFile( file.toFile(), false );
+		Attributes attributes = addonJar.getManifest().getMainAttributes();
 		mainClass = attributes.getValue("LoaderComplex-Main");
 		version = attributes.getValue("Implementation-Version");
-		ID = attributes.getValue("LoaderComplex-Modid");
+		ID = attributes.getValue("LoaderComplex-AddonId");
 	}
 
 	public @NotNull String getName() {
@@ -40,8 +41,8 @@ public class Mod {
 		return ID;
 	}
 
-	public JarFile getJarMod() {
-		return jarMod;
+	public JarFile getAddonJar() {
+		return addonJar;
 	}
 
 	public Path getPath() {
