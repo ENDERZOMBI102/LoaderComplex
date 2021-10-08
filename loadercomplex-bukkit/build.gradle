@@ -1,3 +1,5 @@
+//file:noinspection GradlePackageUpdate
+//file:noinspection JCenterRepository
 repositories {
 	jcenter()
 	mavenCentral()
@@ -16,11 +18,12 @@ dependencies {
 
 	compileOnly project( ':loadercomplex-common' )
 
-	compileOnly 'org.bukkit:bukkit:1.12.2-R0.1-SNAPSHOT'
+//	compileOnly 'org.bukkit:bukkit:1.12.2-R0.1-SNAPSHOT'
+	implementation files( 'libs/AsynCore-1.0-SNAPSHOT-all.jar' )
+	compileOnly files( 'libs/spigot-1.16.4.jar' )
 }
 
 processResources {
-
 	// replace stuff in plugin.yml, nothing else
 	filesMatching('plugin.yml') {
 		expand 'version': project.version

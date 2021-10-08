@@ -32,7 +32,8 @@ public final class LoaderComplexBukkit extends JavaPlugin {
 
 	@Override
 	public void onLoad() {
-		if ( this.impl.isLoaded ) throw new IllegalPluginAccessException("LoaderComplexBukkit can't be re-loaded!");
+		if ( this.impl.isLoaded )
+			throw new IllegalPluginAccessException("LoaderComplexBukkit can't be re-loaded!");
 		this.impl.initMods();
 	}
 
