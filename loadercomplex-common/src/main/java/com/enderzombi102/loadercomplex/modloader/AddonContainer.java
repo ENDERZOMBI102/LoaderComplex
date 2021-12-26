@@ -17,8 +17,7 @@ public class AddonContainer {
 	private final String version;
 	Addon implementation;
 
-	public AddonContainer
-(Path file) throws IOException {
+	public AddonContainer(Path file) throws IOException {
 		this.file = file;
 		addonJar = new JarFile( file.toFile(), false );
 		Attributes attributes = addonJar.getManifest().getMainAttributes();

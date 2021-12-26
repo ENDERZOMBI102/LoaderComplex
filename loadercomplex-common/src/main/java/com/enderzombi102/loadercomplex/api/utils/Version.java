@@ -2,7 +2,7 @@ package com.enderzombi102.loadercomplex.api.utils;
 
 import org.jetbrains.annotations.NotNull;
 
-public class Version {
+public final class Version {
 
 	private final int major, minor, patch;
 	private final String buildDate;
@@ -21,7 +21,7 @@ public class Version {
 		this.major = Integer.parseInt( parts[0] );
 		this.minor = Integer.parseInt( parts[1] );
 		this.patch = Integer.parseInt( parts[2] );
-		this.buildDate = buildDate;
+		this.buildDate = buildDate.substring(0, buildDate.indexOf('T') );
 	}
 
 	public int getMajor() {
@@ -38,5 +38,19 @@ public class Version {
 
 	public String getBuildDate() {
 		return buildDate;
+	}
+
+	public String asString() {
+		return major + "." + minor + "." + patch + "-build." + buildDate.replaceAll("-", "");
+	}
+
+	@Override
+	public String toString() {
+		return "Version{" +
+				"major=" + major +
+				", minor=" + minor +
+				", patch=" + patch +
+				", buildDate='" + buildDate + '\'' +
+				'}';
 	}
 }
