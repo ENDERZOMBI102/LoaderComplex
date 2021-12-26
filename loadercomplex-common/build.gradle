@@ -5,8 +5,7 @@ repositories {
 dependencies {
 	compileOnly 'org.apache.logging.log4j:log4j-api:2.8.1'
 	implementation 'com.google.guava:guava:21.0'
-	implementation 'org.jetbrains:annotations:16.0.2'
-	compile "com.mojang:brigadier:$rootProject.brigadier_version"
+	compileOnly "com.mojang:brigadier:$rootProject.brigadier_version"
 }
 
 artifacts {

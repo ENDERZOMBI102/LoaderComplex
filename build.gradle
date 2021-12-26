@@ -28,9 +28,7 @@ allprojects {
 }
 
 subprojects {
-
 	apply plugin: 'java'
-	apply plugin: 'maven'
 
 	version = rootProject.mod_version
 	archivesBaseName = rootProject.archives_base_name
@@ -40,6 +38,10 @@ subprojects {
 
 	configurations {
 		jarz {}
+	}
+
+	dependencies {
+		implementation 'org.jetbrains:annotations:16.0.2'
 	}
 
 	// ensure that the encoding is set to UTF-8, no matter what the system default is
@@ -59,13 +61,7 @@ for ( Project proj : rootProject.subprojects ) {
 
 
 dependencies {
-
-//	for ( Project proj : rootProject.subprojects ) {
 	for ( String proj : subProjects ) {
-		// no need for compileOnly, there's no code in the root project
-//		compileOnly( proj ) {
-//			transitive = false
-//		}
 		shade( project( path: proj, configuration: 'jarz' ) ) {
 			transitive = false
 		}
