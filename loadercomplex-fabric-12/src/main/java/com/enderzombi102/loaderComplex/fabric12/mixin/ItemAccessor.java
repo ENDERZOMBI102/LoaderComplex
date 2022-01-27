@@ -1,6 +1,5 @@
 package com.enderzombi102.loaderComplex.fabric12.mixin;
 
-import net.minecraft.client.item.ModelPredicateProvider;
 import net.minecraft.item.Item;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;

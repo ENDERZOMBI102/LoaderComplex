@@ -31,14 +31,14 @@ public class FabricItem extends net.minecraft.item.Item {
 		this.itemImpl = item;
 		item.implementationItem = this;
 		if (this.itemImpl.maxDamage > 0) {
-			this.addModelPredicateProvider(
-					new Identifier("damaged"),
-					ItemAccessor.getDamagedProvider()
-			);
-			this.addModelPredicateProvider(
-					new Identifier("damage"),
-					ItemAccessor.getDamageProvider()
-			);
+//			this.addModelPredicateProvider(
+//					new Identifier("damaged"),
+//					ItemAccessor.getDamagedProvider()
+//			);
+//			this.addModelPredicateProvider(
+//					new Identifier("damage"),
+//					ItemAccessor.getDamageProvider()
+//			);
 		}
 	}
 

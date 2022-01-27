@@ -34,7 +34,7 @@ public class LoaderComplexForge extends LoaderComplex {
 
 	public LoaderComplexForge() {
 		super();
-		this.initMods();
+		this.initAddons();
 	}
 
 	/**

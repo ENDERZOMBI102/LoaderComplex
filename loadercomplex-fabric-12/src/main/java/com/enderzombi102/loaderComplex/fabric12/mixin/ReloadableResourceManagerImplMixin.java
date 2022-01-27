@@ -36,8 +36,8 @@ public abstract class ReloadableResourceManagerImplMixin {
 			this.addPack( pack );
 			NamespaceResourceManager manager = new NamespaceResourceManager(this.type);
 			manager.addPack( pack );
-			this.namespaceManagers.put( pack.getModID(), manager );
-			this.lcNamespaceManagers.put( pack.getModID(), manager );
+			this.namespaceManagers.put( pack.getAddonID(), manager );
+			this.lcNamespaceManagers.put( pack.getAddonID(), manager );
 		}
 	}
 

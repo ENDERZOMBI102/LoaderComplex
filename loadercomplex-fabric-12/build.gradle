@@ -37,7 +37,11 @@ processResources {
 	inputs.property 'repo_url', rootProject.repo_url
 
 	filesMatching('fabric.mod.json') {
-		expand 'version': project.version
+		expand([
+				'version': project.version,
+				'description': rootProject.description,
+				'repo_url': rootProject.repo_url
+		])
 	}
 }
 
