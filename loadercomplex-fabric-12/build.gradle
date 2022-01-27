@@ -1,34 +1,25 @@
-buildscript {
-    repositories {
-        mavenCentral()
-        maven {
-            name = 'Fabric'
-            url = 'https://maven.fabricmc.net/'
-        }
-    }
-}
-
 plugins {
-	id 'fabric-loom' version "0.7-SNAPSHOT"
+	id 'maven-publish'
+	id 'fabric-loom' version '0.10-SNAPSHOT'
 }
 
 group = project.maven_group
 
 repositories {
 	maven {
-		name = "legacy-fabric"
-		url = "https://maven.legacyfabric.net"
+		name 'legacy-fabric'
+		url 'https://maven.legacyfabric.net'
 	}
 	maven {
-		name = 'Jitpack'
-		url = 'https://jitpack.io'
+		name 'Jitpack'
+		url 'https://jitpack.io'
 	}
 }
 
-minecraft {
-	intermediaryUrl = {
-		return "https://maven.legacyfabric.net/net/fabricmc/intermediary/" + it + "/intermediary-" + it + "-v2.jar";
-	}
+loom {
+	setIntermediaryUrl(
+			'https://maven.legacyfabric.net/net/fabricmc/intermediary/%1$s/intermediary-%1$s-v2.jar'
+	)
 }
 
 dependencies {
@@ -42,7 +33,7 @@ dependencies {
 }
 
 processResources {
-	inputs.property "version", project.version
+	inputs.property 'version', project.version
 
 	filesMatching('fabric.mod.json') {
 		expand 'version': project.version
@@ -53,13 +44,33 @@ processResources {
 // this fixes some edge cases with special characters not displaying correctly
 // see http://yodaconditions.net/blog/fix-for-java-file-encoding-problems-with-gradle.html
 tasks.withType(JavaCompile) {
-	options.encoding = "UTF-8"
+	options.encoding = 'UTF-8'
 }
 
 jar {
-	from "LICENSE"
+	from 'LICENSE'
 }
 
 artifacts {
 	jarz remapJar
+}
+
+publishing {
+	publications {
+		mavenJava(MavenPublication) {
+			from components.java
+		}
+	}
+
+	repositories {
+		// mavenLocal()
+		maven {
+			credentials {
+				username = System.getenv('USERNAME')
+				password = System.getenv('PASSWORD')
+			}
+			url 'https://repsy.io/mvn/enderzombi102/mc'
+
+		}
+	}
 }
