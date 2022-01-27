@@ -4,11 +4,13 @@
 	"version": "${version}",
 
 	"name": "Loadercomplex",
-	"description": "A very simple mod that aims to be compatible with almost every mod/plugin loader",
+	"description": "${description}",
 	"authors": [
 		"ENDERZOMBI102"
 	],
-	"contact": {},
+	"contact": {
+		"sources": "${repo_url}"
+	},
 
 	"license": "MIT",
 	"icon": "assets/loadercomplex-fabric/icon.png",

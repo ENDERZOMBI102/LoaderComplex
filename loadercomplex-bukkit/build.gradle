@@ -1,5 +1,4 @@
 repositories {
-	jcenter()
 	mavenCentral()
 	maven {
 		name = 'spigotmc-repo'
@@ -10,9 +9,7 @@ repositories {
 group = 'com.enderzombi102.loadercomplex.bukkit'
 
 dependencies {
-
-	compileOnly 'org.apache.logging.log4j:log4j-api:2.8.1'
-	implementation 'org.jetbrains:annotations:16.0.2'
+	compileOnly "org.apache.logging.log4j:log4j-api:$log4j_version"
 
 	compileOnly project( ':loadercomplex-common' )
 

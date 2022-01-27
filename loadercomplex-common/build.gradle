@@ -7,7 +7,7 @@ repositories {
 }
 
 dependencies {
-	compileOnly 'org.apache.logging.log4j:log4j-api:2.8.1'
+	compileOnly "org.apache.logging.log4j:log4j-api:$log4j_version"
 	implementation 'com.google.guava:guava:21.0'
 	compileOnly "com.mojang:brigadier:$rootProject.brigadier_version"
 }
@@ -19,17 +19,18 @@ artifacts {
 publishing {
 	publications {
 		mavenJava(MavenPublication) {
+			group 'com.enderzombi102'
+			artifactId 'loadercomplex-api'
 			from components.java
 		}
 	}
 
 	repositories {
 		// mavenLocal()
+
 		maven {
-			credentials {
-				username = System.getenv('USERNAME')
-				password = System.getenv('PASSWORD')
-			}
+			name 'Repsy'
+			credentials(PasswordCredentials)
 			url 'https://repsy.io/mvn/enderzombi102/mc'
 		}
 	}

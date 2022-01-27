@@ -17,9 +17,9 @@ public abstract class LoaderComplex {
 	}
 
 	protected void initAddons() {
-		for ( Mod mod : this.addonLoader.getAddons() ) {
-			this.resourceHelper.accept(mod);
-			mod.getImplementation().init(this.loader);
+		for ( AddonContainer container : this.addonLoader.getAddons() ) {
+			this.resourceHelper.accept(container);
+			container.getImplementation().init(this.loader);
 		}
 	}
 
