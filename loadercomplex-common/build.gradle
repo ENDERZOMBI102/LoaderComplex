@@ -1,3 +1,7 @@
+plugins {
+	id 'maven-publish'
+}
+
 repositories {
 	mavenCentral()
 }
@@ -10,4 +14,23 @@ dependencies {
 
 artifacts {
 	jarz jar
+}
+
+publishing {
+	publications {
+		mavenJava(MavenPublication) {
+			from components.java
+		}
+	}
+
+	repositories {
+		// mavenLocal()
+		maven {
+			credentials {
+				username = System.getenv('USERNAME')
+				password = System.getenv('PASSWORD')
+			}
+			url 'https://repsy.io/mvn/enderzombi102/mc'
+		}
+	}
 }

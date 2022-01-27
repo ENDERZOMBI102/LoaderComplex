@@ -1,5 +1,4 @@
 plugins {
-	id 'maven-publish'
 	id 'fabric-loom' version '0.10-SNAPSHOT'
 }
 
@@ -18,7 +17,7 @@ repositories {
 
 loom {
 	setIntermediaryUrl(
-			'https://maven.legacyfabric.net/net/fabricmc/intermediary/%1$s/intermediary-%1$s-v2.jar'
+		'https://maven.legacyfabric.net/net/fabricmc/intermediary/%1$s/intermediary-%1$s-v2.jar'
 	)
 }
 
@@ -53,24 +52,4 @@ jar {
 
 artifacts {
 	jarz remapJar
-}
-
-publishing {
-	publications {
-		mavenJava(MavenPublication) {
-			from components.java
-		}
-	}
-
-	repositories {
-		// mavenLocal()
-		maven {
-			credentials {
-				username = System.getenv('USERNAME')
-				password = System.getenv('PASSWORD')
-			}
-			url 'https://repsy.io/mvn/enderzombi102/mc'
-
-		}
-	}
 }
