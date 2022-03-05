@@ -21,23 +21,30 @@ subprojects {
 	version = rootProject.version
 	archivesBaseName = rootProject.archives_base_name
 
-	sourceCompatibility = JavaVersion.VERSION_1_8
-	targetCompatibility = JavaVersion.VERSION_1_8
-
 	configurations {
 		jarz {}
 	}
 
 	dependencies {
 		implementation "org.jetbrains:annotations:$annotations_version"
+		if ( project.name != 'loadercomplex-common' ) {
+			compileOnly( project( path: ':loadercomplex-common' ) ) {
+				transitive = false
+			}
+		}
 	}
 
 	// ensure that the encoding is set to UTF-8, no matter what the system default is
 	// this fixes some edge cases with special characters not displaying correctly
-	tasks.withType(JavaCompile) {
+	configure([tasks.compileJava]) {
+		sourceCompatibility = 16 // for the IDE support
 		options.encoding = 'UTF-8'
-	}
+		options.release = 8
 
+		javaCompiler = javaToolchains.compilerFor {
+			languageVersion = JavaLanguageVersion.of(16)
+		}
+	}
 }
 
 final ArrayList<String> subProjects = new ArrayList<>();
@@ -58,7 +65,7 @@ dependencies {
 }
 
 shadowJar {
-    configurations = [project.configurations.shade]
+    configurations = [ project.configurations.shade ]
     from sourceSets.main.allSource
     classifier ''
 }

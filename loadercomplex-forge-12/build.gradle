@@ -21,7 +21,7 @@ minecraft {
 
 	runs {
 		client {
-			workingDirectory project.file('run')
+			workingDirectory rootProject.file('run')
 
 			property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
 			property 'forge.logging.console.level', 'debug'
@@ -34,7 +34,7 @@ minecraft {
 		}
 
 		server {
-			workingDirectory project.file('run')
+			workingDirectory rootProject.file('run')
 
 			property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
 			property 'forge.logging.console.level', 'debug'
@@ -54,8 +54,6 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 dependencies {
 	minecraft 'net.minecraftforge:forge:1.12.2-14.23.5.2854'
 
-	compileOnly project( ':loadercomplex-common' )
-
 	// Real mod deobf dependency examples - these get remapped to your current mappings
 	// compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api") // Adds JEI API as a compile dependency
 	// runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}") // Adds the full JEI mod as a runtime dependency
@@ -69,6 +67,6 @@ jar.finalizedBy('reobfJar')
 
 afterEvaluate {
 	artifacts {
-		jarz file( "${project.buildDir}/reobfJar/output.jar" )
+		jarz file( "$buildDir/reobfJar/output.jar" )
 	}
 }
