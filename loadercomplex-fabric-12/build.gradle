@@ -52,6 +52,16 @@ processResources {
 	}
 }
 
+tasks.withType(JavaCompile).configureEach {
+	it.sourceCompatibility = 8 // for the IDE support
+	it.options.encoding = 'UTF-8'
+	it.options.release.set(8)
+
+	it.javaCompiler = javaToolchains.compilerFor {
+		languageVersion = JavaLanguageVersion.of(16)
+	}
+}
+
 artifacts {
 	jarz remapJar
 }

@@ -26,13 +26,13 @@ public class FabricRegistry implements Registry {
 		final Identifier id = new Identifier( identifier.toString() );
 		final FabricBlock fabricBlock = new FabricBlock( block );
 		fabricBlock.setTranslationKey( identifier.getNamespace() + '.' + identifier.getPath() );
-		net.minecraft.block.Block.REGISTRY.set(
-				net.minecraft.block.Block.REGISTRY.getIds().size(),
+		net.minecraft.block.Block.REGISTRY.add(
+				net.minecraft.block.Block.REGISTRY.getKeySet().size(),
 				id,
 				fabricBlock
 		);
-		if (registerItem) net.minecraft.item.Item.REGISTRY.set(
-				net.minecraft.item.Item.REGISTRY.getIds().size(),
+		if (registerItem) net.minecraft.item.Item.REGISTRY.add(
+				net.minecraft.item.Item.REGISTRY.getKeySet().size(),
 				id,
 				new BlockItem( fabricBlock ).setTranslationKey( identifier.getNamespace() + '.' + identifier.getPath() )
 		);
@@ -40,8 +40,8 @@ public class FabricRegistry implements Registry {
 
 	@Override
 	public void register(Item item, ResourceIdentifier identifier) {
-		net.minecraft.item.Item.REGISTRY.set(
-				net.minecraft.item.Item.REGISTRY.getIds().size(),
+		net.minecraft.item.Item.REGISTRY.add(
+				net.minecraft.item.Item.REGISTRY.getKeySet().size(),
 				new Identifier( identifier.toString() ),
 				new FabricItem( item ).setTranslationKey( identifier.getNamespace() + '.' + identifier.getPath() )
 		);
@@ -53,12 +53,12 @@ public class FabricRegistry implements Registry {
 	}
 
 	@Override
-	public boolean isRegistered(RegistryKey key, String id) throws OperationNotSupportedException {
+	public boolean isRegistered(RegistryKey key, String id) {
 		switch (key) {
 			case Item:
-				return net.minecraft.item.Item.REGISTRY.getIds().contains( new net.minecraft.util.Identifier(id) );
+				return net.minecraft.item.Item.REGISTRY.getKeySet().contains( new net.minecraft.util.Identifier(id) );
 			case Block:
-				return net.minecraft.block.Block.REGISTRY.getIds().contains( new net.minecraft.util.Identifier( id ) );
+				return net.minecraft.block.Block.REGISTRY.getKeySet().contains( new net.minecraft.util.Identifier( id ) );
 			default:
 				return false;
 		}

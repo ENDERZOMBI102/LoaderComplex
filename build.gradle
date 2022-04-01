@@ -33,18 +33,6 @@ subprojects {
 			}
 		}
 	}
-
-	// ensure that the encoding is set to UTF-8, no matter what the system default is
-	// this fixes some edge cases with special characters not displaying correctly
-	configure([tasks.compileJava]) {
-		sourceCompatibility = 16 // for the IDE support
-		options.encoding = 'UTF-8'
-		options.release = 8
-
-		javaCompiler = javaToolchains.compilerFor {
-			languageVersion = JavaLanguageVersion.of(16)
-		}
-	}
 }
 
 final ArrayList<String> subProjects = new ArrayList<>();

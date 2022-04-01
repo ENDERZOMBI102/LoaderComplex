@@ -28,12 +28,12 @@ public class FabricBlock extends net.minecraft.block.Block {
 	// logic method overrides
 
 	@Override
-	public boolean is(net.minecraft.block.Block block) {
+	public boolean isEqualTo(net.minecraft.block.Block block) {
 		return block instanceof FabricBlock && ( (FabricBlock) block ).blockImpl == this.blockImpl;
 	}
 
 	@Override
-	public boolean onUse(World world, BlockPos pos, BlockState state, PlayerEntity player, Hand hand, Direction facing, float hitX, float hitY, float hitZ) {
+	public boolean use(World world, BlockPos pos, BlockState state, PlayerEntity player, Hand hand, Direction facing, float hitX, float hitY, float hitZ) {
 		return this.blockImpl.OnBlockInteracted(player, world.isClient);
 	}
 
@@ -43,7 +43,7 @@ public class FabricBlock extends net.minecraft.block.Block {
 	}
 
 	@Override
-	public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+	public void onBreakByPlayer(World world, BlockPos pos, BlockState state, PlayerEntity player) {
 		this.blockImpl.OnBreak(player, world.isClient);
 	}
 
@@ -51,8 +51,11 @@ public class FabricBlock extends net.minecraft.block.Block {
 		this.blockImpl.OnEntityCollision(entity, world.isClient);
 	}
 
+	/**
+	 * onRandomTick?
+	 */
 	@Override
-	public void randomTick(World world, BlockPos pos, BlockState state, Random random) {
+	public void onUpdateTick(World world, BlockPos pos, BlockState state, Random random) {
 		this.blockImpl.OnRandomTick(random, world.isClient);
 	}
 
@@ -60,7 +63,7 @@ public class FabricBlock extends net.minecraft.block.Block {
 	// getter methods overrides
 
 	@Override
-	public float getHardness(BlockState state, World world, BlockPos pos) {
+	public float getStrength(BlockState state, World world, BlockPos pos) {
 		return this.blockImpl.hardness;
 	}
 
@@ -68,34 +71,37 @@ public class FabricBlock extends net.minecraft.block.Block {
 	public BlockSoundGroup getSoundGroup() {
 		switch (this.blockImpl.soundGroup) {
 			case WOOD:
-				return BlockSoundGroup.WOOD;
+				return BlockSoundGroup.field_12759;
 			case GRAVEL:
-				return BlockSoundGroup.GRAVEL;
+				return BlockSoundGroup.field_12760;
 			case GRASS:
-				return BlockSoundGroup.GRASS;
+				return BlockSoundGroup.field_12761;
 			default: // case STONE:
-				return BlockSoundGroup.STONE;
+				return BlockSoundGroup.field_12762;
 			case METAL:
-				return BlockSoundGroup.METAL;
+				return BlockSoundGroup.field_12763;
 			case GLASS:
-				return BlockSoundGroup.GLASS;
+				return BlockSoundGroup.field_12764;
 			case CLOTH:
-				return BlockSoundGroup.CLOTH;
+				return BlockSoundGroup.field_12765;
 			case SAND:
-				return BlockSoundGroup.SAND;
+				return BlockSoundGroup.field_12766;
 			case SNOW:
-				return BlockSoundGroup.SNOW;
+				return BlockSoundGroup.field_12767;
 			case LADDER:
-				return BlockSoundGroup.LADDER;
+				return BlockSoundGroup.field_12768;
 			case ANVIL:
-				return BlockSoundGroup.ANVIL;
+				return BlockSoundGroup.field_12769;
 			case SLIME:
-				return BlockSoundGroup.SLIME;
+				return BlockSoundGroup.field_12770;
 		}
 	}
 
+	/**
+	 * isOpaque
+	 */
 	@Override
-	public boolean isOpaque(BlockState state) {
+	public boolean method_11568(BlockState state) {
 		return this.blockImpl.opaque;
 	}
 
@@ -105,7 +111,7 @@ public class FabricBlock extends net.minecraft.block.Block {
 	}
 
 	@Override
-	public boolean isTranslucent(BlockState state) {
+	public boolean isTransluscent(BlockState state) {
 		return this.blockImpl.translucent;
 	}
 
@@ -115,7 +121,7 @@ public class FabricBlock extends net.minecraft.block.Block {
 	}
 
 	@Override
-	public boolean usesNeighbourLight(BlockState state) {
+	public boolean useNeighbourLight(BlockState state) {
 		return this.blockImpl.useNeighbourLight;
 	}
 
@@ -125,7 +131,7 @@ public class FabricBlock extends net.minecraft.block.Block {
 	}
 
 	@Override
-	public boolean hasRandomTicks() {
+	public boolean ticksRandomly() {
 		return this.blockImpl.randomTicks;
 	}
 

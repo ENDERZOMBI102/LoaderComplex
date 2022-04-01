@@ -1,7 +1,6 @@
 package com.enderzombi102.loaderComplex.fabric12.impl.item;
 
 
-import com.enderzombi102.loaderComplex.fabric12.mixin.ItemAccessor;
 import com.enderzombi102.loadercomplex.api.item.Item;
 import com.enderzombi102.loadercomplex.api.utils.Hand;
 import net.fabricmc.api.EnvType;
@@ -10,11 +9,10 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.item.itemgroup.ItemGroup;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.UseAction;
 import net.minecraft.util.math.BlockPos;
@@ -24,13 +22,12 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 
 public class FabricItem extends net.minecraft.item.Item {
-
 	private final Item itemImpl;
 
-	public FabricItem(Item item) {
+	public FabricItem( Item item ) {
 		this.itemImpl = item;
 		item.implementationItem = this;
-		if (this.itemImpl.maxDamage > 0) {
+//		if (this.itemImpl.maxDamage > 0) {
 //			this.addModelPredicateProvider(
 //					new Identifier("damaged"),
 //					ItemAccessor.getDamagedProvider()
@@ -39,17 +36,25 @@ public class FabricItem extends net.minecraft.item.Item {
 //					new Identifier("damage"),
 //					ItemAccessor.getDamageProvider()
 //			);
-		}
+//		}
 	}
 
 	// logic methods override
 
-	public boolean postProcessTag(CompoundTag tag) {
-		return false;
+
+	@Override
+	public boolean postProcessNbt( NbtCompound nbt ) {
+		return this.itemImpl.postProcesstag( nbt );
 	}
+
 
 	public ActionResult useOnBlock(PlayerEntity player, World world, BlockPos pos, net.minecraft.util.Hand hand, Direction facing, float x, float y, float z) {
 		return ActionResult.valueOf( this.itemImpl.useOnBlock().name() );
+	}
+
+	@Override
+	public ActionResult use(PlayerEntity player, World world, BlockPos pos, net.minecraft.util.Hand hand, Direction direction, float x, float y, float z) {
+		return super.use(player, world, pos, hand, direction, x, y, z);
 	}
 
 	public TypedActionResult<ItemStack> use(World world, PlayerEntity user, net.minecraft.util.Hand hand) {
@@ -90,7 +95,7 @@ public class FabricItem extends net.minecraft.item.Item {
 
 	protected boolean isIn(ItemGroup group) {
 		ItemGroup itemGroup = this.getGroup();
-		return itemGroup != null && (group == ItemGroup.SEARCH || group == itemGroup);
+		return itemGroup != null && ( group == ItemGroup.SEARCH || group == itemGroup );
 	}
 
 	// getter methods override
@@ -143,7 +148,8 @@ public class FabricItem extends net.minecraft.item.Item {
 
 	@Nullable
 	public ItemGroup getGroup() {
-		if ( this.itemImpl == null || this.itemImpl.group == null ) return null;
+		if ( this.itemImpl.group == null )
+			return null;
 		switch ( this.itemImpl.group ) {
 			case "minecraft:itemgroup.brewing":
 				return ItemGroup.BREWING;
@@ -164,6 +170,7 @@ public class FabricItem extends net.minecraft.item.Item {
 			case "minecraft:itemgroup.transportation":
 				return ItemGroup.TRANSPORTATION;
 			case "minecraft:itemgroup.misc":
+				return ItemGroup.MISC;
 			default:
 				return ItemGroup.MISC;
 		}
@@ -173,7 +180,7 @@ public class FabricItem extends net.minecraft.item.Item {
 		String material = this.itemImpl.repairMaterial.toString();
 		if ( material != null ) {
 			return net.minecraft.item.Item.REGISTRY
-					.getId( ingredient.getItem() )
+					.getIdentifier( ingredient.getItem() )
 					.toString()
 					.equals( material );
 		}

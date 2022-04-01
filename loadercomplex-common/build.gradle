@@ -12,6 +12,11 @@ dependencies {
 	compileOnly "com.mojang:brigadier:$rootProject.brigadier_version"
 }
 
+configure([tasks.compileJava]) {
+	options.encoding = 'UTF-8'
+	options.release = 8
+}
+
 artifacts {
 	jarz jar
 }

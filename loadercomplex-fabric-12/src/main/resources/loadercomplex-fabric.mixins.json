@@ -4,7 +4,7 @@
 	"package": "com.enderzombi102.loaderComplex.fabric12.mixin",
 	"compatibilityLevel": "JAVA_8",
 	"mixins": [
-		"ItemAccessor",
+		"ReloadableResourceManagerImplMixin",
 		"SimpleRegistryMixin"
 	],
 	"client": [
