@@ -17,7 +17,7 @@ public class LCAddonLoader {
 	private final Path MODS_PATH;
 	private final Path ADDONS_PATH;
 	private final Logger logger = LogManager.getLogger("LC-AddonLoader");
-	private final ArrayList<AddonContainer> addonContainsers = new ArrayList<>();
+	private final ArrayList<AddonContainer> addonContainers = new ArrayList<>();
 	private final DynamicClassLoader classLoader = new DynamicClassLoader();
 
 	public LCAddonLoader() {
@@ -33,13 +33,14 @@ public class LCAddonLoader {
 			if( file.getName().endsWith(".lc.jar") ) {
 				try {
 					classLoader.addURL( file.toURI().toURL() );
-					addonContainsers.add( new AddonContainer( Paths.get( file.getPath() ) ) );
+					addonContainers.add( new AddonContainer( Paths.get( file.getPath() ) ) );
 				} catch (IOException e) {
 					logger.error("Failed to load possible LC addon: " + file.getName() );
 				}
 			}
 		}
 		logger.info("SCANNING ADDONS FOLDER");
+		ADDONS_PATH.toFile().mkdirs();
 		for ( File file : Objects.requireNonNull( ADDONS_PATH.toFile().listFiles() ) ) {
 			if( file.getName().endsWith(".jar") ) {
 				try {
@@ -52,7 +53,7 @@ public class LCAddonLoader {
 		}
 
 		logger.info("INSTANTIATING ADDONS");
-		for ( AddonContainer mod : addonContainsers) {
+		for ( AddonContainer mod : addonContainers) {
 			try {
 				Class<?> classToLoad = Class.forName( mod.getMainClass(), true, classLoader );
 				if ( Addon.class.isAssignableFrom(classToLoad) ) {
@@ -67,7 +68,7 @@ public class LCAddonLoader {
 	}
 
 	public ArrayList<AddonContainer> getAddons() {
-		return addonContainsers;
+		return addonContainers;
 	}
 
 

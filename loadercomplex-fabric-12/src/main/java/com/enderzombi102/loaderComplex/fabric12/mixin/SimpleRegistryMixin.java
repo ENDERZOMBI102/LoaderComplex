@@ -1,6 +1,6 @@
 package com.enderzombi102.loaderComplex.fabric12.mixin;
 
-import net.minecraft.util.Int2ObjectBiMap;
+import net.minecraft.class_2929;
 import net.minecraft.util.registry.SimpleRegistry;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
@@ -11,14 +11,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(SimpleRegistry.class)
 public class SimpleRegistryMixin<K, V> {
 
+	@Mutable
 	@Shadow
 	@Final
-	@Mutable
-	protected Int2ObjectBiMap<V> indexedEntries;
+	protected class_2929<V> field_13718;
 
 	@Inject( method = "<init>", at = @At("RETURN") )
 	public void onConstruct(CallbackInfo ci) {
-		 this.indexedEntries = new Int2ObjectBiMap<>(2048);
+		 this.field_13718 = new class_2929<>(2048);
 	}
 
 }

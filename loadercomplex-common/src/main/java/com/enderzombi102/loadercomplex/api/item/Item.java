@@ -1,6 +1,5 @@
 package com.enderzombi102.loadercomplex.api.item;
 
-
 import com.enderzombi102.loadercomplex.api.utils.ActionResult;
 import com.enderzombi102.loadercomplex.api.utils.Hand;
 import com.enderzombi102.loadercomplex.api.utils.ResourceIdentifier;
@@ -36,5 +35,6 @@ public abstract class Item {
 	public void inventoryTick(ItemStack stack, Object entity, int slot, boolean selected) { }
 	public void onCraft(ItemStack stack, Object player) { }
 	public void onStoppedUsing(ItemStack stack, Object user, int remainingUseTicks) { }
+	public boolean postProcesstag( Object tag ) { return false; }
 
 }

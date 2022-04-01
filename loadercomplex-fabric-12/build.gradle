@@ -1,33 +1,33 @@
-buildscript {
-    repositories {
-        mavenCentral()
-        maven {
-            name = 'Fabric'
-            url = 'https://maven.fabricmc.net/'
-        }
-    }
-}
-
 plugins {
-	id 'fabric-loom' version "0.7-SNAPSHOT"
+	id 'fabric-loom' version '0.10-SNAPSHOT'
 }
 
+//noinspection GroovyAssignabilityCheck
 group = project.maven_group
 
 repositories {
 	maven {
-		name = "legacy-fabric"
-		url = "https://maven.legacyfabric.net"
+		name 'legacy-fabric'
+		url 'https://maven.legacyfabric.net'
 	}
 	maven {
-		name = 'Jitpack'
-		url = 'https://jitpack.io'
+		name 'Jitpack'
+		url 'https://jitpack.io'
 	}
 }
 
-minecraft {
-	intermediaryUrl = {
-		return "https://maven.legacyfabric.net/net/fabricmc/intermediary/" + it + "/intermediary-" + it + "-v2.jar";
+loom {
+	setIntermediaryUrl(
+		'https://maven.legacyfabric.net/net/fabricmc/intermediary/%1$s/intermediary-%1$s-v2.jar'
+	)
+}
+
+loom.runConfigs.configure {
+	client {
+		runDir = rootProject.file('run')
+	}
+	server {
+		runDir = rootProject.file('run')
 	}
 }
 
@@ -36,28 +36,31 @@ dependencies {
 	minecraft "com.mojang:minecraft:$minecraft_version"
 	mappings "net.fabricmc:yarn:$yarn_mappings:v2"
 	modApi "net.fabricmc:fabric-loader:$loader_version"
-	modImplementation "net.legacyfabric.legacy-fabric-api:legacy-fabric-api:$fabricapi_version"
-
-	compileOnly project( ':loadercomplex-common' )
+//	modImplementation "net.legacyfabric.legacy-fabric-api:legacy-fabric-api:$fabricapi_version"
 }
 
 processResources {
-	inputs.property "version", project.version
+	inputs.property 'version', project.version
+	inputs.property 'description', rootProject.description
+	inputs.property 'repo_url', rootProject.repo_url
 
 	filesMatching('fabric.mod.json') {
-		expand 'version': project.version
+		expand([
+				'version': project.version,
+				'description': rootProject.description,
+				'repo_url': rootProject.repo_url
+		])
 	}
 }
 
-// ensure that the encoding is set to UTF-8, no matter what the system default is
-// this fixes some edge cases with special characters not displaying correctly
-// see http://yodaconditions.net/blog/fix-for-java-file-encoding-problems-with-gradle.html
-tasks.withType(JavaCompile) {
-	options.encoding = "UTF-8"
-}
+tasks.withType(JavaCompile).configureEach {
+	it.sourceCompatibility = 8 // for the IDE support
+	it.options.encoding = 'UTF-8'
+	it.options.release.set(8)
 
-jar {
-	from "LICENSE"
+	it.javaCompiler = javaToolchains.compilerFor {
+		languageVersion = JavaLanguageVersion.of(16)
+	}
 }
 
 artifacts {

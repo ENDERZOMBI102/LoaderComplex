@@ -1,7 +1,7 @@
 package com.enderzombi102.loaderComplex.fabric12;
 
 import com.enderzombi102.loadercomplex.Utils;
-import com.enderzombi102.loadercomplex.modloader.Mod;
+import com.enderzombi102.loadercomplex.modloader.AddonContainer;
 import com.google.common.base.Charsets;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
@@ -23,22 +23,22 @@ public class FabricResourcePack extends AbstractFileResourcePack {
 	private static final Splitter TYPE_NAMESPACE_SPLITTER = Splitter.on('/').omitEmptyStrings().limit(3);
 	private static final Logger LOGGER = LogManager.getLogger("LC-PackManager");
 	private static final int PACK_FORMAT_VERSION = 1;
-	private final Mod mod;
+	private final AddonContainer container;
 
-	public FabricResourcePack(Mod mod) {
-		super( mod.getPath().toFile() );
-		this.mod = mod;
+	public FabricResourcePack(AddonContainer container) {
+		super( container.getPath().toFile() );
+		this.container = container;
 	}
 
-	public String getModID() {
-		return mod.getID();
+	public String getAddonID() {
+		return container.getID();
 	}
 
 	@Override
 	protected InputStream openFile(String filename) throws IOException {
 		LOGGER.info("Minecraft is opening \"" + filename + "\"");
 		// try to get the entry
-		final JarEntry jarEntry = mod.getJarMod().getJarEntry(filename);
+		final JarEntry jarEntry = container.getAddonJar().getJarEntry(filename);
 		if (jarEntry == null) {
 			// no entry, maybe its a fake file?
 			if ( "pack.mcmeta".equals(filename) ) {
@@ -47,25 +47,25 @@ public class FabricResourcePack extends AbstractFileResourcePack {
 						Utils.format(
 								"{\"pack\":{\"pack_format\":{}},\"description\":\"{}\"}}",
 								PACK_FORMAT_VERSION,
-								mod.getName().replaceAll("\"", "\\\"")
+								container.getName().replaceAll("\"", "\\\"")
 						),
 						Charsets.UTF_8
 				);
 			}
 			throw new ResourceNotFoundException(base, filename);
 		} else {
-			return mod.getJarMod().getInputStream(jarEntry);
+			return container.getAddonJar().getInputStream(jarEntry);
 		}
 	}
 
 	@Override
 	public String getName() {
-		return "LoaderComplex addon " + mod.getName();
+		return "LoaderComplex addon " + container.getName();
 	}
 
 	@Override
 	protected boolean containsFile(String filename) {
-		boolean hasFile = mod.getJarMod().getEntry(filename) != null || filename.equals("pack.mcmeta");
+		boolean hasFile = container.getAddonJar().getEntry(filename) != null || filename.equals("pack.mcmeta");
 		LOGGER.info("Minecraft is searching for \"{}\" (found: {})", filename, hasFile);
 		return hasFile;
 	}
@@ -74,7 +74,7 @@ public class FabricResourcePack extends AbstractFileResourcePack {
 	public Set<String> getNamespaces() {
 		HashSet<String> set = new HashSet<>();
 
-		for ( JarEntry jarEntry : Collections.list( mod.getJarMod().entries() ) ) {
+		for ( JarEntry jarEntry : Collections.list( container.getAddonJar().entries() ) ) {
 			// ignore files
 			if (! jarEntry.isDirectory() )
 				continue;

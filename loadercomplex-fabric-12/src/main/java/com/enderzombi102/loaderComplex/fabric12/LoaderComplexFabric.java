@@ -18,7 +18,7 @@ public class LoaderComplexFabric extends LoaderComplex implements ModInitializer
 
 	@Override
 	public void onInitialize() {
-		initMods();
+		initAddons();
 	}
 
 }
