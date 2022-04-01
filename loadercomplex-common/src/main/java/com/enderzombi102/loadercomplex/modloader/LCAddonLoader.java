@@ -40,6 +40,7 @@ public class LCAddonLoader {
 			}
 		}
 		logger.info("SCANNING ADDONS FOLDER");
+		ADDONS_PATH.toFile().mkdirs();
 		for ( File file : Objects.requireNonNull( ADDONS_PATH.toFile().listFiles() ) ) {
 			if( file.getName().endsWith(".jar") ) {
 				try {
