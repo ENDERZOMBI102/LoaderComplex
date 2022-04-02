@@ -147,6 +147,12 @@ public class FabricItem extends net.minecraft.item.Item {
 	}
 
 	@Nullable
+	@Override
+	public ItemGroup getItemGroup() {
+		return this.getGroup();
+	}
+
+	@Nullable
 	public ItemGroup getGroup() {
 		if ( this.itemImpl.group == null )
 			return null;
