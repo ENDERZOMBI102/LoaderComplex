@@ -11,8 +11,6 @@ import com.enderzombi102.loadercomplex.api.utils.ResourceIdentifier;
 import net.minecraft.item.BlockItem;
 import net.minecraft.util.Identifier;
 
-import javax.naming.OperationNotSupportedException;
-
 public class FabricRegistry implements Registry {
 
 
@@ -65,7 +63,7 @@ public class FabricRegistry implements Registry {
 	}
 
 	@Override
-	public boolean isRegistered(RegistryKey key, ResourceIdentifier id) throws OperationNotSupportedException {
+	public boolean isRegistered(RegistryKey key, ResourceIdentifier id) {
 		return this.isRegistered( key, id.toString() );
 	}
 
