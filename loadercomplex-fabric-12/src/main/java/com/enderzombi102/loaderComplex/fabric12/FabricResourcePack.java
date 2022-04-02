@@ -17,7 +17,7 @@ import java.util.*;
 import java.util.jar.JarEntry;
 
 
-// FIXME: for some reason only block textures are loaded from mods, no translations or item textures
+// FIXME: for some reason only block textures are loaded from addons, no translations or item textures
 public class FabricResourcePack extends AbstractFileResourcePack {
 
 	private static final Splitter TYPE_NAMESPACE_SPLITTER = Splitter.on('/').omitEmptyStrings().limit(3);
@@ -45,7 +45,7 @@ public class FabricResourcePack extends AbstractFileResourcePack {
 				// fake file, return a "custom" entry
 				return IOUtils.toInputStream(
 						Utils.format(
-								"{\"pack\":{\"pack_format\":{}},\"description\":\"{}\"}}",
+								"{\"pack\":{\"pack_format\":{},\"description\":\"{}\"}}",
 								PACK_FORMAT_VERSION,
 								container.getName().replaceAll("\"", "\\\"")
 						),
