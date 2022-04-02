@@ -1,23 +1,30 @@
 package com.enderzombi102.loaderComplex.fabric12.mixin;
 
-import com.enderzombi102.loaderComplex.fabric12.impl.FabricLoader;
+import net.fabricmc.loader.impl.FabricLoaderImpl;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class MixinPlugin implements IMixinConfigPlugin {
+	private static final Map<String, String> MIXINS = new HashMap<String, String>() {{
+		put("ReloadableResourceManagerImplMixin", "1.12.2");
+		put("SimpleRegistryMixin", "1.12.2");
+		put("MinecraftClientMixin", "1.12.2");
+	}};
+
+
 	/**
 	 * Called after the plugin is instantiated, do any setup here.
 	 *
 	 * @param mixinPackage The mixin root package from the config
 	 */
 	@Override
-	public void onLoad(String mixinPackage) {
-
-	}
+	public void onLoad(String mixinPackage) { }
 
 	/**
 	 * Called only if the "referenceMap" key in the config is <b>not</b> set.
@@ -45,14 +52,13 @@ public class MixinPlugin implements IMixinConfigPlugin {
 	 */
 	@Override
 	public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-		final boolean is1122 = FabricLoader.MINECRAFT_VERSION.equals("1.12.2");
-		switch (mixinClassName) {
-			case "ReloadableResourceManagerImplMixin":
-			case "SimpleRegistryMixin":
-				return is1122;
-			default:
-				return true;
+		// only care about our mixins
+		if ( MIXINS.containsKey( mixinClassName ) ) {
+			String ver = FabricLoaderImpl.INSTANCE.getGameProvider().getNormalizedGameVersion();
+			// only load mixins for the right environment
+			return MIXINS.get( mixinClassName ).equals( ver );
 		}
+		return true;
 	}
 
 	/**
