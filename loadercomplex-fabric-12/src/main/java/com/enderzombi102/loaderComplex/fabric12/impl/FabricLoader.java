@@ -12,8 +12,13 @@ public class FabricLoader implements Loader {
 	private static final String FABRIC_VERSION;
 	public static final String MINECRAFT_VERSION = "1.12.2";
 	static {
-		FABRIC_VERSION = net.fabricmc.loader.api.FabricLoader.getInstance().getModContainer("fabricloader")
-				.get().getMetadata().getVersion().getFriendlyString();
+		//noinspection OptionalGetWithoutIsPresent
+		FABRIC_VERSION = net.fabricmc.loader.api.FabricLoader.getInstance()
+				.getModContainer("fabricloader")
+				.get()
+				.getMetadata()
+				.getVersion()
+				.getFriendlyString();
 	}
 
 	public FabricLoader() {
@@ -38,6 +43,11 @@ public class FabricLoader implements Loader {
 	@Override
 	public String getLoaderVersion() {
 		return FABRIC_VERSION;
+	}
+
+	@Override
+	public boolean isDeveloperEnvironment() {
+		return net.fabricmc.loader.api.FabricLoader.getInstance().isDevelopmentEnvironment();
 	}
 
 	@Override
