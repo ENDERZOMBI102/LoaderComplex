@@ -63,6 +63,10 @@ dependencies {
 	// implementation fg.deobf("blank:coolmod-${mc_version}:${coolmod_version}")
 }
 
+tasks.withType(JavaCompile).configureEach {
+	it.options.release.set( 8 )
+}
+
 jar.finalizedBy('reobfJar')
 
 afterEvaluate {

@@ -17,11 +17,11 @@ public class RegistryHandler {
 	 */
 	@SubscribeEvent
 	public static void addItems(RegistryEvent.Register<Item> evt) {
-	   /*
+		/*
 		 event.getRegistry().register(new ItemBlock(Blocks.myBlock).setRegistryName(MOD_ID, "myBlock"));
 		 event.getRegistry().register(new MySpecialItem().setRegistryName(MOD_ID, "mySpecialItem"));
 		*/
-		( (ForgeRegistry) LoaderComplexForge.INSTANCE.loader.getRegistry() ).onItemRegistry(evt);
+		( (ForgeRegistry) LoaderComplexForge.INSTANCE.getLoader().getRegistry() ).onItemRegistry(evt);
 	}
 
 	/**
@@ -32,6 +32,6 @@ public class RegistryHandler {
 	   /*
 		 event.getRegistry().register(new MySpecialBlock().setRegistryName(MOD_ID, "mySpecialBlock"));
 		*/
-		( (ForgeRegistry) LoaderComplexForge.INSTANCE.loader.getRegistry() ).onBlockRegistry(evt);
+		( (ForgeRegistry) LoaderComplexForge.INSTANCE.getLoader().getRegistry() ).onBlockRegistry(evt);
 	}
 }

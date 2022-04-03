@@ -1,7 +1,7 @@
 [
 	{
-		"modid": "loadercomplex-forge",
-		"name": "Loadercomplex",
+		"modid": "loadercomplex",
+		"name": "LoaderComplex",
 		"description": "A very simple mod that aims to be compatible with almost every mod/plugin loader",
 		"version": "${version}",
 		"mcversion": "${mcversion}",

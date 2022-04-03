@@ -3,6 +3,7 @@ package com.enderzombi102.loadercomplex.forge12.impl;
 import com.enderzombi102.loadercomplex.api.Loader;
 import com.enderzombi102.loadercomplex.api.Registry;
 import com.enderzombi102.loadercomplex.api.utils.LoaderType;
+import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.common.ForgeVersion;
 
 public class ForgeLoader implements Loader {
@@ -31,6 +32,11 @@ public class ForgeLoader implements Loader {
 	@Override
 	public String getLoaderVersion() {
 		return ForgeVersion.getVersion();
+	}
+
+	@Override
+	public boolean isDeveloperEnvironment() {
+		return (boolean) Launch.blackboard.getOrDefault( "fml.deobfuscatedEnvironment", false );
 	}
 
 	@Override
