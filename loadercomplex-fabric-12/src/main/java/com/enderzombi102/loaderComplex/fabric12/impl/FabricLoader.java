@@ -3,6 +3,7 @@ package com.enderzombi102.loaderComplex.fabric12.impl;
 
 import com.enderzombi102.loadercomplex.api.Loader;
 import com.enderzombi102.loadercomplex.api.Registry;
+import com.enderzombi102.loadercomplex.api.utils.FactoryWorld;
 import com.enderzombi102.loadercomplex.api.utils.LoaderType;
 import com.enderzombi102.loadercomplex.api.utils.Version;
 
@@ -52,6 +53,16 @@ public class FabricLoader implements Loader {
 	@Override
 	public boolean isDeveloperEnvironment() {
 		return net.fabricmc.loader.api.FabricLoader.getInstance().isDevelopmentEnvironment();
+	}
+
+	@Override
+	public FactoryWorld getFactoryWorld() {
+		return new FabricFactoryWorld();
+	}
+
+	@Override
+	public boolean isAtLeastMinecraft(String version) {
+		return true;
 	}
 
 	@Override

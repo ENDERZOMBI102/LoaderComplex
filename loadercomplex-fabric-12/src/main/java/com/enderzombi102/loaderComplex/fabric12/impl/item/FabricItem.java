@@ -24,6 +24,7 @@ import net.minecraft.util.UseAction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
@@ -53,19 +54,6 @@ public class FabricItem extends net.minecraft.item.Item {
 		return this.itemImpl.postProcesstag( nbt );
 	}
 
-
-	public ActionResult useOnBlock(PlayerEntity player, World world, BlockPos pos, net.minecraft.util.Hand hand, Direction facing, float x, float y, float z) {
-		return ActionResult.valueOf(
-			this.itemImpl.useOnBlock(
-				new FabricWorld( world ),
-				new FabricPlayer( player ),
-				BlockUtils.toPosition( pos ),
-				Hand.valueOf( hand.name() ),
-				com.enderzombi102.loadercomplex.api.utils.Direction.valueOf( facing.name() )
-			).name()
-		);
-	}
-
 	@Override
 	public ActionResult use(PlayerEntity player, World world, BlockPos pos, net.minecraft.util.Hand hand, Direction direction, float x, float y, float z) {
 		// useOnBlock
@@ -80,7 +68,9 @@ public class FabricItem extends net.minecraft.item.Item {
 		);
 	}
 
-	public TypedActionResult<ItemStack> use(World world, PlayerEntity user, net.minecraft.util.Hand hand) {
+	// FIXME: Fix this error in the mappings: this is use, the other is useOnBlock
+	@Override
+	public TypedActionResult<ItemStack> method_13649(World world, PlayerEntity user, net.minecraft.util.Hand hand) {
 		ItemStack stack = user.getStackInHand(hand);
 		return new TypedActionResult<>(
 			ActionResult.valueOf(
@@ -94,7 +84,9 @@ public class FabricItem extends net.minecraft.item.Item {
 		);
 	}
 
-	public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
+	// FIXME: Same as above but with `finishUsing`
+	@Override
+	public ItemStack method_3367(ItemStack stack, World world, LivingEntity user) {
 		return (
 			(FabricItemStack) this.itemImpl.finishUsing(
 				new FabricItemStack( stack ),
@@ -104,7 +96,9 @@ public class FabricItem extends net.minecraft.item.Item {
 		).getStack();
 	}
 
-	public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+	// FIXME: Same as above but with `postHit`
+	@Override
+	public boolean onEntityHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
 		return this.itemImpl.postHit(
 			new FabricItemStack( stack ),
 			new FabricLivingEntity( target ),
@@ -112,7 +106,9 @@ public class FabricItem extends net.minecraft.item.Item {
 		);
 	}
 
-	public boolean postMine(ItemStack stack, World world, BlockState state, BlockPos pos, LivingEntity miner) {
+	// FIXME: Same as above but with `postMine`
+	@Override
+	public boolean method_3356(ItemStack stack, World world, BlockState state, BlockPos pos, LivingEntity miner) {
 		return this.itemImpl.postMine(
 			new FabricItemStack( stack ),
 			new FabricWorld( world ),
@@ -122,11 +118,15 @@ public class FabricItem extends net.minecraft.item.Item {
 		);
 	}
 
-	public boolean isEffectiveOn(BlockState state) {
+	// FIXME: Same as above but with `isEffectiveOn`
+	@Override
+	public boolean method_3346(BlockState state) {
 		return this.itemImpl.isEffectiveOn( new FabricBlockstate( state ) );
 	}
 
-	public boolean useOnEntity(ItemStack stack, PlayerEntity user, LivingEntity entity, net.minecraft.util.Hand hand) {
+	// FIXME: Same as above but with `useOnEntity`
+	@Override
+	public boolean method_3353(ItemStack stack, PlayerEntity user, LivingEntity entity, net.minecraft.util.@NotNull Hand hand) {
 		return this.itemImpl.useOnEntity(
 			new FabricItemStack(stack),
 			new FabricPlayer( user ),
@@ -135,6 +135,7 @@ public class FabricItem extends net.minecraft.item.Item {
 		);
 	}
 
+	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
 		this.itemImpl.inventoryTick(
 			new FabricItemStack(stack),
@@ -144,6 +145,7 @@ public class FabricItem extends net.minecraft.item.Item {
 		);
 	}
 
+	@Override
 	public void onCraft(ItemStack stack, World world, PlayerEntity player) {
 		this.itemImpl.onCraft(
 			new FabricItemStack(stack),
@@ -151,6 +153,7 @@ public class FabricItem extends net.minecraft.item.Item {
 		);
 	}
 
+	// FIXME: This doesn't exist anymore???
 	public void onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
 		this.itemImpl.onStoppedUsing(
 			new FabricItemStack(stack),

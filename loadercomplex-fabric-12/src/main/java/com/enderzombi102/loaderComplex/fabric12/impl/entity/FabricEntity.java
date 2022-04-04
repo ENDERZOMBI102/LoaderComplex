@@ -20,12 +20,12 @@ public class FabricEntity implements Entity {
 
 	@Override
 	public String getDisplayName() {
-		return this.backingEntity.getEntityName();
+		return Text.Serializer.serialize( this.backingEntity.getName() );
 	}
 
 	@Override
 	public String getName() {
-		return Text.Serializer.serialize( this.backingEntity.getName() );
+		return this.backingEntity.getTranslationKey();
 	}
 
 	@Override
