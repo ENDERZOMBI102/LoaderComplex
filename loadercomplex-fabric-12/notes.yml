@@ -8,3 +8,8 @@
         maybe there's something we can do?
         I checked, the model ( `test:mud#inventory` ) exists in the BakedModelRegistry, so why is it not used by the game?
         THIS is what we need to find out
+- net.minecraft.client.render.model.ModelLoader.java:379:
+     notes: |
+        Here's something fun, there items are registered to be then loaded, but adding custom items to that map
+        will do nothing, why? idfk you gotta guess.
+        There are more interesting methods in there, its worth giving it a look.

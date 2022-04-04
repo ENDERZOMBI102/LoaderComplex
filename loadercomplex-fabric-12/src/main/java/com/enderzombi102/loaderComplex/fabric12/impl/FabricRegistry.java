@@ -13,7 +13,11 @@ import net.minecraft.block.BlockState;
 import net.minecraft.item.BlockItem;
 import net.minecraft.util.Identifier;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class FabricRegistry implements Registry {
+	private final List<net.minecraft.item.Item> registeredItems = new ArrayList<>();
 
 	@Override
 	public void register(Block block, ResourceIdentifier identifier) {
@@ -42,16 +46,20 @@ public class FabricRegistry implements Registry {
 				id, blockItem
 			);
 			( (IItemMixin) blockItem ).lc$getBlockItemRegistry().put( fabricBlock, blockItem );
+			registeredItems.add( blockItem );
 		}
 	}
 
 	@Override
 	public void register(Item item, ResourceIdentifier identifier) {
+		net.minecraft.item.Item item2 = new FabricItem( item )
+				.setTranslationKey( identifier.getNamespace() + '.' + identifier.getPath() );
 		net.minecraft.item.Item.REGISTRY.add(
 			net.minecraft.item.Item.REGISTRY.getKeySet().size(),
 			new Identifier( identifier.toString() ),
-			new FabricItem( item ).setTranslationKey( identifier.getNamespace() + '.' + identifier.getPath() )
+			item2
 		);
+		registeredItems.add( item2 );
 	}
 
 	@Override
@@ -63,9 +71,9 @@ public class FabricRegistry implements Registry {
 	public boolean isRegistered(RegistryKey key, String id) {
 		switch (key) {
 			case Item:
-				return net.minecraft.item.Item.REGISTRY.getKeySet().contains( new net.minecraft.util.Identifier(id) );
+				return net.minecraft.item.Item.REGISTRY.getKeySet().contains( new Identifier(id) );
 			case Block:
-				return net.minecraft.block.Block.REGISTRY.getKeySet().contains( new net.minecraft.util.Identifier( id ) );
+				return net.minecraft.block.Block.REGISTRY.getKeySet().contains( new Identifier( id ) );
 			default:
 				return false;
 		}
@@ -86,5 +94,9 @@ public class FabricRegistry implements Registry {
 			default:
 				return null;
 		}
+	}
+
+	public List<net.minecraft.item.Item> getRegisteredItems() {
+		return registeredItems;
 	}
 }

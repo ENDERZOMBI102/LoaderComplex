@@ -9,7 +9,8 @@
 		"SimpleRegistryMixin"
 	],
 	"client": [
-		"MinecraftClientMixin"
+		"MinecraftClientMixin",
+		"ModelLoaderMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
