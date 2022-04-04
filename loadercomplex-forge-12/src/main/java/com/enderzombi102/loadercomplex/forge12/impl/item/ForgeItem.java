@@ -19,6 +19,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -44,20 +45,23 @@ public class ForgeItem extends net.minecraft.item.Item {
 
 	@Override
 	@ParametersAreNonnullByDefault
-	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, net.minecraft.util.EnumHand hand, EnumFacing facing, float x, float y, float z) {
+	public @NotNull EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, net.minecraft.util.EnumHand hand, EnumFacing facing, float x, float y, float z) {
 		return EnumActionResult.valueOf( this.itemImpl.useOnBlock().name() );
 	}
 
 	@Override
 	@ParametersAreNonnullByDefault
-	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer user, net.minecraft.util.EnumHand hand) {
-		return new ActionResult<>( EnumActionResult.PASS, user.getHeldItem(hand) );
+	public @NotNull ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer user, net.minecraft.util.EnumHand hand) {
+		ItemStack stack = user.getHeldItem(hand);
+		this.itemImpl.use( new ForgeItemStack( stack ) );
+		new net.minecraft.entity.EntityLivingBase().getDisplayName()
+		return new ActionResult<>( ,  );
 	}
 
 	@Override
 	@ParametersAreNonnullByDefault
-	public ItemStack onItemUseFinish(ItemStack stack, World world, EntityLivingBase user) {
-		return ( (ForgeItemStack) this.itemImpl.finishUsing( new ForgeItemStack(stack), user ) ).getStack();
+	public @NotNull ItemStack onItemUseFinish(ItemStack stack, World world, EntityLivingBase user) {
+		return ( (ForgeItemStack) this.itemImpl.finishUsing( new ForgeItemStack(stack), world, user ) ).getStack();
 	}
 
 	@Override
@@ -118,6 +122,7 @@ public class ForgeItem extends net.minecraft.item.Item {
 		return this.itemImpl.miningSpeedMultiplier;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public int getItemStackLimit() {
 		return this.itemImpl.maxCount;
@@ -152,9 +157,10 @@ public class ForgeItem extends net.minecraft.item.Item {
 
 	@Override
 	@ParametersAreNonnullByDefault
-	public EnumAction getItemUseAction(ItemStack stack) {
+	public @NotNull EnumAction getItemUseAction(ItemStack stack) {
 		return EnumAction.valueOf( this.itemImpl.useAction.name() );
 	}
+
 	@Override
 	@ParametersAreNonnullByDefault
 	public int getMaxItemUseDuration(ItemStack stack) {
