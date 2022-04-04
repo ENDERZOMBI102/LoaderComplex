@@ -153,8 +153,9 @@ public class FabricItem extends net.minecraft.item.Item {
 		);
 	}
 
-	// FIXME: This doesn't exist anymore???
-	public void onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
+	// FIXME: Same as above but with `onStoppedUsing`
+	@Override
+	public void method_3359(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
 		this.itemImpl.onStoppedUsing(
 			new FabricItemStack(stack),
 			new FabricWorld( world ),
@@ -163,6 +164,7 @@ public class FabricItem extends net.minecraft.item.Item {
 		);
 	}
 
+	// FIXME: This has vanished?!?
 	protected boolean isIn(ItemGroup group) {
 		ItemGroup itemGroup = this.getGroup();
 		return itemGroup != null && ( group == ItemGroup.SEARCH || group == itemGroup );
@@ -170,48 +172,60 @@ public class FabricItem extends net.minecraft.item.Item {
 
 	// getter methods override
 
-	public float getMiningSpeedMultiplier(ItemStack stack, BlockState state) {
+	// getMiningSpeedMultiplier
+	@Override
+	public float method_3351(ItemStack stack, BlockState state) {
 		return this.itemImpl.miningSpeedMultiplier;
 	}
 
+	@Override
 	public int getMaxCount() {
 		return this.itemImpl.maxCount;
 	}
 
-	public int getMetadata(int damage) {
+	@Override
+	public int getMeta(int damage) {
 		return 0;
 	}
 
-	public boolean hasVariants() {
+	@Override
+	public boolean hasSubTypes() {
 		return this.itemImpl.hasVariants;
 	}
 
+	@Override
 	public int getMaxDamage() {
 		return this.itemImpl.maxDamage;
 	}
 
+	@Override
 	public boolean isDamageable() {
 		return this.itemImpl.maxDamage > 0 && (!this.itemImpl.hasVariants || this.itemImpl.maxCount == 1);
 	}
 
 	@Environment(EnvType.CLIENT)
-	public boolean is3D() {
+	@Override
+	public boolean isHandheld() {
 		return this.itemImpl.is3D;
 	}
 
 	@Environment(EnvType.CLIENT)
-	public boolean requiresRenderRotation() {
+	@Override
+	public boolean shouldRotate() {
 		return this.itemImpl.requiresRenderRotation;
 	}
 
+	@Override
 	public UseAction getUseAction(ItemStack stack) {
 		return UseAction.valueOf( this.itemImpl.useAction.name() );
 	}
 
+	@Override
 	public int getMaxUseTime(ItemStack stack) {
 		return this.itemImpl.maxUseTime;
 	}
 
+	@Override
 	public int getEnchantability() {
 		return this.itemImpl.enchantability;
 	}
@@ -252,6 +266,7 @@ public class FabricItem extends net.minecraft.item.Item {
 		}
 	}
 
+	@Override
 	public boolean canRepair(ItemStack stack, ItemStack ingredient) {
 		String material = this.itemImpl.repairMaterial.toString();
 		if ( material != null ) {
