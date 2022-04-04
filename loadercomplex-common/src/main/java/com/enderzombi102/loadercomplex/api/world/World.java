@@ -26,6 +26,7 @@ public interface World {
 
 	Blockstate getBlockState(Position pos);
 	void setBlockState(Position pos, Blockstate state);
+	void removeBlock( Position pos );
 	Server getServer();
 
 	Position getSpawnLocation();
