@@ -58,6 +58,6 @@ public class FabricLoader implements Loader {
 
 	@Override
 	public Version getApiVersion() {
-		return new Version( "0.1.2", Loader.super.getApiVersion().getBuildDate() );
+		return new Version( "0.1.3", Loader.super.getApiVersion().getBuildDate() );
 	}
 }
