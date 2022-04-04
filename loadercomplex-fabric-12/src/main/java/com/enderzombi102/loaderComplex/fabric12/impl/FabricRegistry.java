@@ -14,7 +14,6 @@ import net.minecraft.util.Identifier;
 
 public class FabricRegistry implements Registry {
 
-
 	@Override
 	public void register(Block block, ResourceIdentifier identifier) {
 		this.register(block, true, identifier);
