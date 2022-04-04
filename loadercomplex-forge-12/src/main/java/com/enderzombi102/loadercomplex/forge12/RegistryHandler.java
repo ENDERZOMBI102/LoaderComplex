@@ -7,6 +7,8 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+import static com.enderzombi102.loadercomplex.forge12.LoaderComplexForge.INSTANCE;
+
 /**
  * This is a special class that listens to registry events, to allow creation of mod blocks and items at the proper time.
  */
@@ -17,11 +19,11 @@ public class RegistryHandler {
 	 */
 	@SubscribeEvent
 	public static void addItems(RegistryEvent.Register<Item> evt) {
-	   /*
+		/*
 		 event.getRegistry().register(new ItemBlock(Blocks.myBlock).setRegistryName(MOD_ID, "myBlock"));
 		 event.getRegistry().register(new MySpecialItem().setRegistryName(MOD_ID, "mySpecialItem"));
 		*/
-		( (ForgeRegistry) LoaderComplexForge.INSTANCE.loader.getRegistry() ).onItemRegistry(evt);
+		( (ForgeRegistry) INSTANCE.getLoader().getRegistry() ).onItemRegistry(evt);
 	}
 
 	/**
@@ -32,6 +34,6 @@ public class RegistryHandler {
 	   /*
 		 event.getRegistry().register(new MySpecialBlock().setRegistryName(MOD_ID, "mySpecialBlock"));
 		*/
-		( (ForgeRegistry) LoaderComplexForge.INSTANCE.loader.getRegistry() ).onBlockRegistry(evt);
+		( (ForgeRegistry) INSTANCE.getLoader().getRegistry() ).onBlockRegistry(evt);
 	}
 }
