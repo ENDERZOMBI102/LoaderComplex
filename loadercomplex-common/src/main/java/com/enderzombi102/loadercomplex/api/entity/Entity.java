@@ -19,29 +19,19 @@ public interface Entity {
 	String getName();
 	UUID getUuid();
 
-	float getHealth();
-	void setHealth(float health);
-
-	boolean isPlayer();
-	Player asPlayer();
+	boolean isLivingEntity();
+	LivingEntity asLivingEntity();
 	boolean isItem();
 	ItemEntity asItem();
 
-	boolean isChild();
-	boolean canBreathUnderwater();
-	boolean isAttachedToLadder();
 	void kill();
-
-	int getArmorValue();
-	ItemStack getItemInMainHand();
-	ItemStack getItemInOffHand();
-	boolean hasItemInSlot(EquipmentSlot slot);
-	ItemStack getStackInSlot(EquipmentSlot slot);
-	void setStackInSlot(EquipmentSlot slot, ItemStack stack);
+	boolean isDead();
 
 	Position getPosition();
 	void setPosition(Position pos);
 	float getPitch();
 	float getYaw();
 	World getWorld();
+
+	Object getObject();
 }

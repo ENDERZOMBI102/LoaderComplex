@@ -1,7 +1,7 @@
 package com.enderzombi102.loadercomplex.api.utils;
 
 public class Position {
-	final int x, y, z;
+	public final int x, y, z;
 
 	public Position(int x, int y, int z) {
 		this.x = x;
