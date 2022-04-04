@@ -26,9 +26,9 @@ public class FabricRegistry implements Registry {
 		final FabricBlock fabricBlock = new FabricBlock( block );
 		fabricBlock.setTranslationKey( identifier.getNamespace() + '.' + identifier.getPath() );
 		net.minecraft.block.Block.REGISTRY.add(
-				net.minecraft.block.Block.REGISTRY.getKeySet().size(),
-				id,
-				fabricBlock
+			net.minecraft.block.Block.REGISTRY.getKeySet().size(),
+			id,
+			fabricBlock
 		);
 		// THESE 4 LINES CONSTED SO MANY HOURS OF DEBUGGING
 		for ( BlockState state : fabricBlock.getStateManager().getBlockStates() ) {
@@ -36,18 +36,18 @@ public class FabricRegistry implements Registry {
 			net.minecraft.block.Block.BLOCK_STATES.set( state, rawId );
 		}
 		if (registerItem) net.minecraft.item.Item.REGISTRY.add(
-				net.minecraft.item.Item.REGISTRY.getKeySet().size(),
-				id,
-				new BlockItem( fabricBlock ).setTranslationKey( identifier.getNamespace() + '.' + identifier.getPath() )
+			net.minecraft.item.Item.REGISTRY.getKeySet().size(),
+			id,
+			new BlockItem( fabricBlock ).setTranslationKey( identifier.getNamespace() + '.' + identifier.getPath() )
 		);
 	}
 
 	@Override
 	public void register(Item item, ResourceIdentifier identifier) {
 		net.minecraft.item.Item.REGISTRY.add(
-				net.minecraft.item.Item.REGISTRY.getKeySet().size(),
-				new Identifier( identifier.toString() ),
-				new FabricItem( item ).setTranslationKey( identifier.getNamespace() + '.' + identifier.getPath() )
+			net.minecraft.item.Item.REGISTRY.getKeySet().size(),
+			new Identifier( identifier.toString() ),
+			new FabricItem( item ).setTranslationKey( identifier.getNamespace() + '.' + identifier.getPath() )
 		);
 	}
 
