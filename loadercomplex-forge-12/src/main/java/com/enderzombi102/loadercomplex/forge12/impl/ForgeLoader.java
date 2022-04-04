@@ -8,6 +8,9 @@ import com.enderzombi102.loadercomplex.api.utils.Version;
 import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.common.ForgeVersion;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class ForgeLoader implements Loader {
 
 	private final ForgeRegistry registry;
@@ -58,6 +61,9 @@ public class ForgeLoader implements Loader {
 
 	@Override
 	public Version getApiVersion() {
-		return new Version( "0.1.3", Loader.super.getApiVersion().getBuildDate() );
+		return new Version(
+			"0.1.3",
+			LocalDateTime.now().format( DateTimeFormatter.ofPattern("dd-MM-yyyy'T'HH:mm:ss") )
+		);
 	}
 }

@@ -2,7 +2,14 @@ package com.enderzombi102.loadercomplex.forge12.impl.item;
 
 
 import com.enderzombi102.loadercomplex.api.item.Item;
+import com.enderzombi102.loadercomplex.api.utils.Direction;
 import com.enderzombi102.loadercomplex.api.utils.Hand;
+import com.enderzombi102.loadercomplex.forge12.impl.block.ForgeBlockstate;
+import com.enderzombi102.loadercomplex.forge12.impl.entity.ForgeEntity;
+import com.enderzombi102.loadercomplex.forge12.impl.entity.ForgeLivingEntity;
+import com.enderzombi102.loadercomplex.forge12.impl.entity.ForgePlayer;
+import com.enderzombi102.loadercomplex.forge12.impl.utils.BlockUtils;
+import com.enderzombi102.loadercomplex.forge12.impl.world.ForgeWorld;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -46,64 +53,101 @@ public class ForgeItem extends net.minecraft.item.Item {
 	@Override
 	@ParametersAreNonnullByDefault
 	public @NotNull EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, net.minecraft.util.EnumHand hand, EnumFacing facing, float x, float y, float z) {
-		return EnumActionResult.valueOf( this.itemImpl.useOnBlock().name() );
+		return EnumActionResult.valueOf(
+			this.itemImpl.useOnBlock(
+				new ForgeWorld( world ),
+				new ForgePlayer( player ),
+				BlockUtils.toPosition( pos ),
+				Hand.valueOf( hand.name() ),
+				Direction.valueOf( facing.name() )
+			).name()
+		);
 	}
 
 	@Override
 	@ParametersAreNonnullByDefault
 	public @NotNull ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer user, net.minecraft.util.EnumHand hand) {
 		ItemStack stack = user.getHeldItem(hand);
-		this.itemImpl.use( new ForgeItemStack( stack ) );
-		new net.minecraft.entity.EntityLivingBase().getDisplayName()
-		return new ActionResult<>( ,  );
+		return new ActionResult<>(
+			EnumActionResult.valueOf(
+				this.itemImpl.use( new ForgeWorld(world), new ForgePlayer(user), new ForgeItemStack(stack) ).name()
+			),
+			stack
+		);
 	}
 
 	@Override
 	@ParametersAreNonnullByDefault
 	public @NotNull ItemStack onItemUseFinish(ItemStack stack, World world, EntityLivingBase user) {
-		return ( (ForgeItemStack) this.itemImpl.finishUsing( new ForgeItemStack(stack), world, user ) ).getStack();
+		return (
+			(ForgeItemStack) this.itemImpl.finishUsing(
+				new ForgeItemStack(stack),
+				new ForgeWorld(world),
+				new ForgeLivingEntity(user)
+			)
+		).getStack();
 	}
 
 	@Override
 	@ParametersAreNonnullByDefault
 	public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
-		return this.itemImpl.postHit( new ForgeItemStack( stack ), target, attacker);
+		return this.itemImpl.postHit(
+			new ForgeItemStack( stack ),
+			new ForgeLivingEntity(target),
+			new ForgeLivingEntity(attacker)
+		);
 	}
 
 	@Override
 	@ParametersAreNonnullByDefault
 	public boolean onBlockDestroyed(ItemStack stack, World world, IBlockState state, BlockPos pos, EntityLivingBase miner) {
-		return this.itemImpl.postMine( new ForgeItemStack(stack), miner );
+		return this.itemImpl.postMine(
+			new ForgeItemStack( stack ),
+			new ForgeWorld( world ),
+			new ForgeBlockstate( state ),
+			BlockUtils.toPosition( pos ),
+			new ForgeLivingEntity(miner)
+		);
 	}
 
 	@Override
 	@ParametersAreNonnullByDefault
 	public boolean canHarvestBlock(IBlockState state) {
-		return this.itemImpl.isEffectiveOn(state);
+		return this.itemImpl.isEffectiveOn( new ForgeBlockstate(state) );
 	}
 
 	@Override
 	@ParametersAreNonnullByDefault
 	public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer user, EntityLivingBase entity, EnumHand hand) {
-		return this.itemImpl.useOnEntity( new ForgeItemStack(stack), user, entity, Hand.valueOf( hand.name() ) );
+		return this.itemImpl.useOnEntity(
+			new ForgeItemStack(stack),
+			new ForgePlayer(user),
+			new ForgeLivingEntity(entity),
+			Hand.valueOf( hand.name() )
+		);
 	}
 
 	@Override
 	@ParametersAreNonnullByDefault
 	public void onUpdate(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
-		this.itemImpl.inventoryTick( new ForgeItemStack(stack), entity, slot, selected );
+		this.itemImpl.inventoryTick( new ForgeItemStack(stack), new ForgeEntity( entity ), slot, selected );
 	}
 
 	@Override
 	@ParametersAreNonnullByDefault
 	public void onCreated(ItemStack stack, World world, EntityPlayer player) {
-		this.itemImpl.onCraft( new ForgeItemStack(stack), player );
+		this.itemImpl.onCraft( new ForgeItemStack( stack ), new ForgePlayer( player ) );
 	}
 
 	@Override
 	@ParametersAreNonnullByDefault
 	public void onPlayerStoppedUsing(ItemStack stack, World world, EntityLivingBase user, int remainingUseTicks) {
-		this.itemImpl.onStoppedUsing( new ForgeItemStack(stack), user, remainingUseTicks);
+		this.itemImpl.onStoppedUsing(
+			new ForgeItemStack(stack),
+			new ForgeWorld(world),
+			new ForgeLivingEntity( user ),
+			remainingUseTicks
+		);
 	}
 
 	@Override
@@ -206,6 +250,7 @@ public class ForgeItem extends net.minecraft.item.Item {
 	public boolean getIsRepairable(ItemStack stack, ItemStack ingredient) {
 		String material = this.itemImpl.repairMaterial.toString();
 		if ( material != null ) {
+			//noinspection ConstantConditions
 			return net.minecraft.item.Item.REGISTRY
 					.getNameForObject( ingredient.getItem() )
 					.toString()

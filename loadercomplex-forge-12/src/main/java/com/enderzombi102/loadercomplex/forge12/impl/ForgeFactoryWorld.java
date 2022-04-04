@@ -46,6 +46,6 @@ public class ForgeFactoryWorld implements FactoryWorld {
 
 	@Override
 	public World adaptWorld(Server server, int id) {
-		return null;
+		throw new RuntimeException("Not implemented");
 	}
 }
