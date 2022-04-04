@@ -2,9 +2,10 @@ package com.enderzombi102.loadercomplex.api.item;
 
 import com.enderzombi102.loadercomplex.api.block.Blockstate;
 import com.enderzombi102.loadercomplex.api.entity.Entity;
+import com.enderzombi102.loadercomplex.api.entity.LivingEntity;
+import com.enderzombi102.loadercomplex.api.entity.Player;
 import com.enderzombi102.loadercomplex.api.utils.*;
 import com.enderzombi102.loadercomplex.api.world.World;
-import com.enderzombi102.loadercomplex.api.entity.Player;
 import org.jetbrains.annotations.ApiStatus;
 
 public abstract class Item {
@@ -34,19 +35,19 @@ public abstract class Item {
 	public ActionResult use( World world, Player player, ItemStack stack ) { return ActionResult.PASS; }
 
 	@ApiStatus.AvailableSince("0.1.3")
-	public ItemStack finishUsing( ItemStack stack, World world, Entity user ) { return stack; }
+	public ItemStack finishUsing( ItemStack stack, World world, LivingEntity user ) { return stack; }
 
 	@ApiStatus.AvailableSince("0.1.3")
-	public boolean postHit( ItemStack stack, Entity target, Entity attacker ) { return false; }
+	public boolean postHit( ItemStack stack, LivingEntity target, LivingEntity attacker ) { return false; }
 
 	@ApiStatus.AvailableSince("0.1.3")
-	public boolean postMine( ItemStack stack, Entity miner ) { return false; }
+	public boolean postMine( ItemStack stack, World world, Blockstate state, Position pos, LivingEntity miner ) { return false; }
 
 	@ApiStatus.AvailableSince("0.1.3")
 	public boolean isEffectiveOn( Blockstate state ) { return false; }
 
 	@ApiStatus.AvailableSince("0.1.3")
-	public boolean useOnEntity( ItemStack stack, Player user, Entity entity, Hand hand ) { return false; }
+	public boolean useOnEntity( ItemStack stack, Player user, LivingEntity entity, Hand hand ) { return false; }
 
 	@ApiStatus.AvailableSince("0.1.3")
 	public void inventoryTick( ItemStack stack, Entity entity, int slot, boolean selected ) { }
@@ -55,7 +56,8 @@ public abstract class Item {
 	public void onCraft( ItemStack stack, Player player ) { }
 
 	@ApiStatus.AvailableSince("0.1.3")
-	public void onStoppedUsing( ItemStack stack, Entity user, int remainingUseTicks ) { }
+	public void onStoppedUsing( ItemStack stack, World world, LivingEntity user, int remainingUseTicks ) { }
+
 	public boolean postProcesstag( Object tag ) { return false; }
 
 }
