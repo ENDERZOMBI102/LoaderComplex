@@ -1,5 +1,9 @@
 package com.enderzombi102.loaderComplex.fabric12.impl.block;
 
+import com.enderzombi102.loaderComplex.fabric12.impl.entity.FabricEntity;
+import com.enderzombi102.loaderComplex.fabric12.impl.entity.FabricPlayer;
+import com.enderzombi102.loaderComplex.fabric12.impl.utils.BlockUtils;
+import com.enderzombi102.loaderComplex.fabric12.impl.world.FabricWorld;
 import com.enderzombi102.loadercomplex.api.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
@@ -13,6 +17,7 @@ import net.minecraft.world.World;
 
 import java.util.Random;
 
+@SuppressWarnings("deprecation")
 public class FabricBlock extends net.minecraft.block.Block {
 
 	private final Block blockImpl;
@@ -34,21 +39,39 @@ public class FabricBlock extends net.minecraft.block.Block {
 
 	@Override
 	public boolean use(World world, BlockPos pos, BlockState state, PlayerEntity player, Hand hand, Direction facing, float hitX, float hitY, float hitZ) {
-		return this.blockImpl.OnBlockInteracted(player, world.isClient);
+		return this.blockImpl.OnBlockInteracted(
+			new FabricWorld( world ),
+			BlockUtils.toPosition( pos ),
+			new FabricBlockstate( state ),
+			new FabricPlayer( player ),
+			com.enderzombi102.loadercomplex.api.utils.Hand.valueOf( hand.name() ),
+			com.enderzombi102.loadercomplex.api.utils.Direction.valueOf( facing.name() ),
+			hitX, hitY, hitZ
+		);
 	}
 
 	@Override
 	public void onSteppedOn(World world, BlockPos pos, Entity entity) {
-		this.blockImpl.OnSteppedOn(entity, world.isClient);
+		this.blockImpl.OnSteppedOn( new FabricWorld( world ), BlockUtils.toPosition( pos ), new FabricEntity( entity ) );
 	}
 
 	@Override
 	public void onBreakByPlayer(World world, BlockPos pos, BlockState state, PlayerEntity player) {
-		this.blockImpl.OnBreak(player, world.isClient);
+		this.blockImpl.OnBreak(
+			new FabricWorld( world ),
+			BlockUtils.toPosition( pos ),
+			new FabricBlockstate( state ),
+			new FabricPlayer( player )
+		);
 	}
 
 	public void onEntityCollision(World world, BlockPos pos, BlockState state, Entity entity) {
-		this.blockImpl.OnEntityCollision(entity, world.isClient);
+		this.blockImpl.OnEntityCollision(
+			new FabricWorld( world ),
+			BlockUtils.toPosition( pos ),
+			new FabricBlockstate( state ),
+			new FabricEntity( entity )
+		);
 	}
 
 	/**
@@ -56,7 +79,12 @@ public class FabricBlock extends net.minecraft.block.Block {
 	 */
 	@Override
 	public void onUpdateTick(World world, BlockPos pos, BlockState state, Random random) {
-		this.blockImpl.OnRandomTick(random, world.isClient);
+		this.blockImpl.OnRandomTick(
+			new FabricWorld( world ),
+			BlockUtils.toPosition( pos ),
+			new FabricBlockstate( state ),
+			random
+		);
 	}
 
 

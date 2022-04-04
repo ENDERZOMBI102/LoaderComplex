@@ -7,7 +7,6 @@ import net.fabricmc.api.ModInitializer;
 import java.util.ArrayList;
 
 public class LoaderComplexFabric extends LoaderComplex implements ModInitializer {
-
 	public static final ArrayList<FabricResourcePack> packs = new ArrayList<>();
 
 	public LoaderComplexFabric() {

@@ -1,8 +1,13 @@
 package com.enderzombi102.loaderComplex.fabric12.impl.utils;
 
-import net.minecraft.block.Material;
+import com.enderzombi102.loadercomplex.api.utils.Position;
+import net.minecraft.util.math.BlockPos;
 
 public class BlockUtils {
+
+	public static Position toPosition(BlockPos pos) {
+		return new Position( pos.getX(), pos.getY(), pos.getZ() );
+	}
 
 //	public static BlockMaterial getBLockMat(Material mat) {
 //		if ( Material.AIR.equals(mat) ) {

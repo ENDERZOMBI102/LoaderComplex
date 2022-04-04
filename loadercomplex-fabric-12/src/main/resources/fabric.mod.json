@@ -13,12 +13,12 @@
 	},
 
 	"license": "MIT",
-	"icon": "assets/loadercomplex-fabric/icon.png",
+	"icon": "assets/loadercomplex/icon.png",
 
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"com.enderzombi102.loaderComplex.fabric12.LoaderComplexFabric"
+			"com.enderzombi102.loaderComplex.fabric.FabricDispatcher"
 		]
 	},
 

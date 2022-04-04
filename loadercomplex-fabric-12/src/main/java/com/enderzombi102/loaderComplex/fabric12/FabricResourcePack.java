@@ -1,6 +1,7 @@
 package com.enderzombi102.loaderComplex.fabric12;
 
 import com.enderzombi102.loadercomplex.Utils;
+import com.enderzombi102.loadercomplex.api.LCResourcePack;
 import com.enderzombi102.loadercomplex.modloader.AddonContainer;
 import com.google.common.base.Charsets;
 import com.google.common.base.Splitter;
@@ -17,12 +18,13 @@ import java.util.*;
 import java.util.jar.JarEntry;
 
 
-// FIXME: for some reason only block textures are loaded from mods, no translations or item textures
-public class FabricResourcePack extends AbstractFileResourcePack {
+// FIXME: for some reason only block textures and translations are loaded from addons, no item textures
+public class FabricResourcePack extends AbstractFileResourcePack implements LCResourcePack {
 
 	private static final Splitter TYPE_NAMESPACE_SPLITTER = Splitter.on('/').omitEmptyStrings().limit(3);
 	private static final Logger LOGGER = LogManager.getLogger("LC-PackManager");
-	private static final int PACK_FORMAT_VERSION = 1;
+	// https://minecraft.fandom.com/wiki/Tutorials/Creating_a_resource_pack#.22pack_format.22
+	private static final int PACK_FORMAT_VERSION = 1; // format for 1.6.1 – 1.8.9
 	private final AddonContainer container;
 
 	public FabricResourcePack(AddonContainer container) {
@@ -44,12 +46,12 @@ public class FabricResourcePack extends AbstractFileResourcePack {
 			if ( "pack.mcmeta".equals(filename) ) {
 				// fake file, return a "custom" entry
 				return IOUtils.toInputStream(
-						Utils.format(
-								"{\"pack\":{\"pack_format\":{}},\"description\":\"{}\"}}",
-								PACK_FORMAT_VERSION,
-								container.getName().replaceAll("\"", "\\\"")
-						),
-						Charsets.UTF_8
+					Utils.format(
+						"{\"pack\":{\"pack_format\":{},\"description\":\"{}\"}}",
+						PACK_FORMAT_VERSION,
+						container.getName().replaceAll("\"", "\\\"")
+					),
+					Charsets.UTF_8
 				);
 			}
 			throw new ResourceNotFoundException(base, filename);
@@ -72,7 +74,7 @@ public class FabricResourcePack extends AbstractFileResourcePack {
 
 	@Override
 	public Set<String> getNamespaces() {
-		HashSet<String> set = new HashSet<>();
+		Set<String> set = new HashSet<>();
 
 		for ( JarEntry jarEntry : Collections.list( container.getAddonJar().entries() ) ) {
 			// ignore files
