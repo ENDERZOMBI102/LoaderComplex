@@ -1,0 +1,10 @@
+- net.minecraft.client.render.item.ItemModels.method_9886:
+     notes: |
+        This is responsible for getting the BakedModel instance for an ItemStack,
+        If i'd have to act somewhere, i'd act here.
+- net/minecraft/client/render/item/ItemRenderer.java:81:
+     notes: |
+        ItemModels instance is created here!
+        maybe there's something we can do?
+        I checked, the model ( `test:mud#inventory` ) exists in the BakedModelRegistry, so why is it not used by the game?
+        THIS is what we need to find out

@@ -1,9 +1,12 @@
 package com.enderzombi102.loadercomplex.api.item;
 
-import com.enderzombi102.loadercomplex.api.utils.ActionResult;
-import com.enderzombi102.loadercomplex.api.utils.Hand;
-import com.enderzombi102.loadercomplex.api.utils.ResourceIdentifier;
-import com.enderzombi102.loadercomplex.api.utils.UseAction;
+import com.enderzombi102.loadercomplex.api.block.Blockstate;
+import com.enderzombi102.loadercomplex.api.entity.Entity;
+import com.enderzombi102.loadercomplex.api.entity.LivingEntity;
+import com.enderzombi102.loadercomplex.api.entity.Player;
+import com.enderzombi102.loadercomplex.api.utils.*;
+import com.enderzombi102.loadercomplex.api.world.World;
+import org.jetbrains.annotations.ApiStatus;
 
 public abstract class Item {
 
@@ -25,16 +28,36 @@ public abstract class Item {
 	public Object implementationItem;
 
 	// methods
-	public ActionResult useOnBlock() { return ActionResult.PASS; }
-	public ActionResult use() { return ActionResult.PASS; }
-	public ItemStack finishUsing(ItemStack stack, Object user) { return stack; }
-	public boolean postHit(ItemStack stack, Object target, Object attacker) { return false; }
-	public boolean postMine(ItemStack stack, Object miner) { return false; }
-	public boolean isEffectiveOn(Object state) { return false; }
-	public boolean useOnEntity(ItemStack stack, Object user, Object entity, Hand hand) { return false; }
-	public void inventoryTick(ItemStack stack, Object entity, int slot, boolean selected) { }
-	public void onCraft(ItemStack stack, Object player) { }
-	public void onStoppedUsing(ItemStack stack, Object user, int remainingUseTicks) { }
+	@ApiStatus.AvailableSince("0.1.3")
+	public ActionResult useOnBlock( World world, Player player, Position pos, Hand hand, Direction facing ) { return ActionResult.PASS; }
+
+	@ApiStatus.AvailableSince("0.1.3")
+	public ActionResult use( World world, Player player, ItemStack stack ) { return ActionResult.PASS; }
+
+	@ApiStatus.AvailableSince("0.1.3")
+	public ItemStack finishUsing( ItemStack stack, World world, LivingEntity user ) { return stack; }
+
+	@ApiStatus.AvailableSince("0.1.3")
+	public boolean postHit( ItemStack stack, LivingEntity target, LivingEntity attacker ) { return false; }
+
+	@ApiStatus.AvailableSince("0.1.3")
+	public boolean postMine( ItemStack stack, World world, Blockstate state, Position pos, LivingEntity miner ) { return false; }
+
+	@ApiStatus.AvailableSince("0.1.3")
+	public boolean isEffectiveOn( Blockstate state ) { return false; }
+
+	@ApiStatus.AvailableSince("0.1.3")
+	public boolean useOnEntity( ItemStack stack, Player user, LivingEntity entity, Hand hand ) { return false; }
+
+	@ApiStatus.AvailableSince("0.1.3")
+	public void inventoryTick( ItemStack stack, Entity entity, int slot, boolean selected ) { }
+
+	@ApiStatus.AvailableSince("0.1.3")
+	public void onCraft( ItemStack stack, Player player ) { }
+
+	@ApiStatus.AvailableSince("0.1.3")
+	public void onStoppedUsing( ItemStack stack, World world, LivingEntity user, int remainingUseTicks ) { }
+
 	public boolean postProcesstag( Object tag ) { return false; }
 
 }
