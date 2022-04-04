@@ -92,6 +92,11 @@ public class ForgeWorld implements World {
 	}
 
 	@Override
+	public void removeBlock(Position pos) {
+		this.backingWorld.setBlockToAir( new BlockPos( pos.x, pos.y, pos.z ) );
+	}
+
+	@Override
 	public Server getServer() {
 		return new ForgeServer( this.backingWorld.getMinecraftServer() );
 	}

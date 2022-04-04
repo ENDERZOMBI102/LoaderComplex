@@ -1,6 +1,7 @@
 package com.enderzombi102.loadercomplex.forge12.impl;
 
 import com.enderzombi102.loadercomplex.Utils;
+import com.enderzombi102.loadercomplex.api.block.Blockstate;
 import com.enderzombi102.loadercomplex.api.entity.Entity;
 import com.enderzombi102.loadercomplex.api.entity.ItemEntity;
 import com.enderzombi102.loadercomplex.api.item.ItemStack;
@@ -8,9 +9,11 @@ import com.enderzombi102.loadercomplex.api.utils.FactoryWorld;
 import com.enderzombi102.loadercomplex.api.utils.ResourceIdentifier;
 import com.enderzombi102.loadercomplex.api.utils.Server;
 import com.enderzombi102.loadercomplex.api.world.World;
+import com.enderzombi102.loadercomplex.forge12.impl.block.ForgeBlockstate;
 import com.enderzombi102.loadercomplex.forge12.impl.entity.ForgeEntity;
 import com.enderzombi102.loadercomplex.forge12.impl.entity.ForgeItemEntity;
 import com.enderzombi102.loadercomplex.forge12.impl.item.ForgeItemStack;
+import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
@@ -42,6 +45,19 @@ public class ForgeFactoryWorld implements FactoryWorld {
 				setItem( (net.minecraft.item.ItemStack) stack.getStack() );
 			}}
 		);
+	}
+
+	@Override
+	public Blockstate createBlockstate(ResourceIdentifier type) {
+		Block block = ForgeRegistries.BLOCKS.getValue( new ResourceLocation( type.getNamespace(), type.getPath() ) );
+		if ( block == null )
+			throw new IllegalArgumentException(	Utils.format( "\"{}\" is not a valid block!", type ) );
+		return new ForgeBlockstate( block.getDefaultState() );
+	}
+
+	@Override
+	public Blockstate airBlockstate() {
+		return createBlockstate( new ResourceIdentifier("minecraft", "air") );
 	}
 
 	@Override
