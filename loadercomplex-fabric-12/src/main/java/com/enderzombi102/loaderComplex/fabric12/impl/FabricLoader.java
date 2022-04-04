@@ -4,6 +4,7 @@ package com.enderzombi102.loaderComplex.fabric12.impl;
 import com.enderzombi102.loadercomplex.api.Loader;
 import com.enderzombi102.loadercomplex.api.Registry;
 import com.enderzombi102.loadercomplex.api.utils.LoaderType;
+import com.enderzombi102.loadercomplex.api.utils.Version;
 
 public class FabricLoader implements Loader {
 
@@ -55,4 +56,8 @@ public class FabricLoader implements Loader {
 		return net.fabricmc.loader.api.FabricLoader.getInstance().isModLoaded(id);
 	}
 
+	@Override
+	public Version getApiVersion() {
+		return new Version( "0.1.2", Loader.super.getApiVersion().getBuildDate() );
+	}
 }

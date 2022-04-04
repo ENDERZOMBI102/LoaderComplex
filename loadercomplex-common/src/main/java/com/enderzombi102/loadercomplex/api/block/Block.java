@@ -1,5 +1,9 @@
 package com.enderzombi102.loadercomplex.api.block;
 
+import com.enderzombi102.loadercomplex.api.entity.Entity;
+import com.enderzombi102.loadercomplex.api.entity.Player;
+import org.jetbrains.annotations.ApiStatus;
+
 import java.util.Random;
 
 public abstract class Block {
@@ -21,11 +25,19 @@ public abstract class Block {
 	public Object implementationBlock;
 
 	// methods to be overwritten
-	public void OnBreak(Object player, boolean isClient) {}
-	public void OnSteppedOn(Object entity, boolean isClient) {}
-	public boolean OnBlockInteracted(Object player, boolean isClient) { return false; }
+	@ApiStatus.AvailableSince("0.1.3")
+	public void OnBreak(Player player, boolean isClient) {}
+
+	@ApiStatus.AvailableSince("0.1.3")
+	public void OnSteppedOn(Entity entity, boolean isClient) {}
+
+	@ApiStatus.AvailableSince("0.1.3")
+	public boolean OnBlockInteracted(Player player, boolean isClient) { return false; }
+
 	public void OnRandomTick(Random random, boolean isClient) {}
-	public void OnEntityCollision(Object entity, boolean isClient) {}
+
+	@ApiStatus.AvailableSince("0.1.3")
+	public void OnEntityCollision(Entity entity, boolean isClient) {}
 
 	// methods used to set values
 	protected void setLightLevel(float lightLevel) {

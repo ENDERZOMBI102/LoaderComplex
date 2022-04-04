@@ -17,5 +17,4 @@ public interface ItemStack {
 	int getDamage();
 	int getMaxDurability();
 	int getMaxStackSize();
-
 }
