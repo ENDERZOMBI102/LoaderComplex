@@ -1,6 +1,12 @@
 package com.enderzombi102.loaderComplex.fabric12.impl.item;
 
 
+import com.enderzombi102.loaderComplex.fabric12.impl.block.FabricBlockstate;
+import com.enderzombi102.loaderComplex.fabric12.impl.entity.FabricEntity;
+import com.enderzombi102.loaderComplex.fabric12.impl.entity.FabricLivingEntity;
+import com.enderzombi102.loaderComplex.fabric12.impl.entity.FabricPlayer;
+import com.enderzombi102.loaderComplex.fabric12.impl.utils.BlockUtils;
+import com.enderzombi102.loaderComplex.fabric12.impl.world.FabricWorld;
 import com.enderzombi102.loadercomplex.api.item.Item;
 import com.enderzombi102.loadercomplex.api.utils.Hand;
 import net.fabricmc.api.EnvType;
@@ -49,48 +55,109 @@ public class FabricItem extends net.minecraft.item.Item {
 
 
 	public ActionResult useOnBlock(PlayerEntity player, World world, BlockPos pos, net.minecraft.util.Hand hand, Direction facing, float x, float y, float z) {
-		return ActionResult.valueOf( this.itemImpl.useOnBlock().name() );
+		return ActionResult.valueOf(
+			this.itemImpl.useOnBlock(
+				new FabricWorld( world ),
+				new FabricPlayer( player ),
+				BlockUtils.toPosition( pos ),
+				Hand.valueOf( hand.name() ),
+				com.enderzombi102.loadercomplex.api.utils.Direction.valueOf( facing.name() )
+			).name()
+		);
 	}
 
 	@Override
 	public ActionResult use(PlayerEntity player, World world, BlockPos pos, net.minecraft.util.Hand hand, Direction direction, float x, float y, float z) {
-		return super.use(player, world, pos, hand, direction, x, y, z);
+		// useOnBlock
+		return ActionResult.valueOf(
+			this.itemImpl.useOnBlock(
+				new FabricWorld( world ),
+				new FabricPlayer( player ),
+				BlockUtils.toPosition( pos ),
+				Hand.valueOf( hand.name() ),
+				com.enderzombi102.loadercomplex.api.utils.Direction.valueOf( direction.name() )
+			).name()
+		);
 	}
 
 	public TypedActionResult<ItemStack> use(World world, PlayerEntity user, net.minecraft.util.Hand hand) {
-		return new TypedActionResult<>( ActionResult.PASS, user.getStackInHand(hand) );
+		ItemStack stack = user.getStackInHand(hand);
+		return new TypedActionResult<>(
+			ActionResult.valueOf(
+				this.itemImpl.use(
+					new FabricWorld( world ),
+					new FabricPlayer( user ),
+					new FabricItemStack( stack )
+				).name()
+			),
+			stack
+		);
 	}
 
 	public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
-		return ( (FabricItemStack) this.itemImpl.finishUsing( new FabricItemStack(stack), user ) ).getStack();
+		return (
+			(FabricItemStack) this.itemImpl.finishUsing(
+				new FabricItemStack( stack ),
+				new FabricWorld( world ),
+				new FabricLivingEntity( user )
+			)
+		).getStack();
 	}
 
 	public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-		return this.itemImpl.postHit( new FabricItemStack( stack ), target, attacker);
+		return this.itemImpl.postHit(
+			new FabricItemStack( stack ),
+			new FabricLivingEntity( target ),
+			new FabricLivingEntity( attacker )
+		);
 	}
 
 	public boolean postMine(ItemStack stack, World world, BlockState state, BlockPos pos, LivingEntity miner) {
-		return this.itemImpl.postMine( new FabricItemStack(stack), miner );
+		return this.itemImpl.postMine(
+			new FabricItemStack( stack ),
+			new FabricWorld( world ),
+			new FabricBlockstate( state ),
+			BlockUtils.toPosition( pos ),
+			new FabricLivingEntity( miner )
+		);
 	}
 
 	public boolean isEffectiveOn(BlockState state) {
-		return this.itemImpl.isEffectiveOn(state);
+		return this.itemImpl.isEffectiveOn( new FabricBlockstate( state ) );
 	}
 
 	public boolean useOnEntity(ItemStack stack, PlayerEntity user, LivingEntity entity, net.minecraft.util.Hand hand) {
-		return this.itemImpl.useOnEntity( new FabricItemStack(stack), user, entity, Hand.valueOf( hand.name() ) );
+		return this.itemImpl.useOnEntity(
+			new FabricItemStack(stack),
+			new FabricPlayer( user ),
+			new FabricLivingEntity( entity ),
+			Hand.valueOf( hand.name() )
+		);
 	}
 
 	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
-		this.itemImpl.inventoryTick( new FabricItemStack(stack), entity, slot, selected );
+		this.itemImpl.inventoryTick(
+			new FabricItemStack(stack),
+			new FabricEntity( entity ),
+			slot,
+			selected
+		);
 	}
 
 	public void onCraft(ItemStack stack, World world, PlayerEntity player) {
-		this.itemImpl.onCraft( new FabricItemStack(stack), player );
+		this.itemImpl.onCraft(
+			new FabricItemStack(stack),
+			new FabricPlayer( player )
+		);
 	}
 
 	public void onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
-		this.itemImpl.onStoppedUsing( new FabricItemStack(stack), user, remainingUseTicks);
+		this.itemImpl.onStoppedUsing(
+			new FabricItemStack(stack),
+			new FabricWorld( world ),
+			new FabricLivingEntity( user ),
+			remainingUseTicks
+		);
 	}
 
 	protected boolean isIn(ItemGroup group) {
@@ -185,6 +252,7 @@ public class FabricItem extends net.minecraft.item.Item {
 	public boolean canRepair(ItemStack stack, ItemStack ingredient) {
 		String material = this.itemImpl.repairMaterial.toString();
 		if ( material != null ) {
+			//noinspection ConstantConditions
 			return net.minecraft.item.Item.REGISTRY
 					.getIdentifier( ingredient.getItem() )
 					.toString()
