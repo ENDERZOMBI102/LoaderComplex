@@ -23,7 +23,7 @@ import java.util.List;
 	modid = LoaderComplexForge.MOD_ID,
 	name = LoaderComplexForge.MOD_NAME,
 	version = LoaderComplexForge.VERSION,
-	acceptedMinecraftVersions =  "1.12.2",
+	acceptedMinecraftVersions = "1.12.2",
 	dependencies = "required:forge"
 )
 public class LoaderComplexForge extends LoaderComplex {
@@ -39,6 +39,7 @@ public class LoaderComplexForge extends LoaderComplex {
 	@Mod.Instance(MOD_ID)
 	public static LoaderComplexForge INSTANCE;
 	private final ModContainer container;
+	@SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
 	private final List<FrogeModContainer> containers = new ArrayList<>();
 
 	public LoaderComplexForge() {
