@@ -8,6 +8,7 @@ import com.enderzombi102.loadercomplex.api.entity.Entity;
 import com.enderzombi102.loadercomplex.api.item.Item;
 import com.enderzombi102.loadercomplex.api.utils.RegistryKey;
 import com.enderzombi102.loadercomplex.api.utils.ResourceIdentifier;
+import net.minecraft.block.BlockState;
 import net.minecraft.item.BlockItem;
 import net.minecraft.util.Identifier;
 
@@ -29,6 +30,11 @@ public class FabricRegistry implements Registry {
 				id,
 				fabricBlock
 		);
+		// THESE 4 LINES CONSTED SO MANY HOURS OF DEBUGGING
+		for ( BlockState state : fabricBlock.getStateManager().getBlockStates() ) {
+			int rawId = net.minecraft.block.Block.REGISTRY.getRawID(fabricBlock) << 4 | fabricBlock.getData( state );
+			net.minecraft.block.Block.BLOCK_STATES.set( state, rawId );
+		}
 		if (registerItem) net.minecraft.item.Item.REGISTRY.add(
 				net.minecraft.item.Item.REGISTRY.getKeySet().size(),
 				id,
