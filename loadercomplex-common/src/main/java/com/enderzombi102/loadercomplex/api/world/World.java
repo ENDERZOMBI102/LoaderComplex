@@ -33,4 +33,6 @@ public interface World {
 
 	int getRedstonePower(Position pos, Direction direction);
 	void playsound(Player player, double x, double y, double z, ResourceIdentifier sound, float volume, float pitch);
+
+	Object getObject();
 }
