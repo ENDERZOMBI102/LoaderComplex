@@ -15,6 +15,7 @@ public class MixinPlugin implements IMixinConfigPlugin {
 		put("ReloadableResourceManagerImplMixin", "1.12.2");
 		put("SimpleRegistryMixin", "1.12.2");
 		put("MinecraftClientMixin", "1.12.2");
+		put("ItemMixin", "1.12.2");
 	}};
 
 

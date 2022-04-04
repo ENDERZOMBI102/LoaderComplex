@@ -1,5 +1,6 @@
 package com.enderzombi102.loaderComplex.fabric12.impl;
 
+import com.enderzombi102.loaderComplex.fabric12.imixin.IItemMixin;
 import com.enderzombi102.loaderComplex.fabric12.impl.block.FabricBlock;
 import com.enderzombi102.loaderComplex.fabric12.impl.item.FabricItem;
 import com.enderzombi102.loadercomplex.api.Registry;
@@ -34,11 +35,14 @@ public class FabricRegistry implements Registry {
 			int rawId = net.minecraft.block.Block.REGISTRY.getRawID(fabricBlock) << 4 | fabricBlock.getData( state );
 			net.minecraft.block.Block.BLOCK_STATES.set( state, rawId );
 		}
-		if (registerItem) net.minecraft.item.Item.REGISTRY.add(
-			net.minecraft.item.Item.REGISTRY.getKeySet().size(),
-			id,
-			new BlockItem( fabricBlock ).setTranslationKey( identifier.getNamespace() + '.' + identifier.getPath() )
-		);
+		if (registerItem) {
+			net.minecraft.item.Item blockItem = new BlockItem(fabricBlock).setTranslationKey(identifier.getNamespace() + '.' + identifier.getPath());
+			net.minecraft.item.Item.REGISTRY.add(
+				net.minecraft.item.Item.REGISTRY.getKeySet().size(),
+				id, blockItem
+			);
+			( (IItemMixin) blockItem ).lc$getBlockItemRegistry().put( fabricBlock, blockItem );
+		}
 	}
 
 	@Override
