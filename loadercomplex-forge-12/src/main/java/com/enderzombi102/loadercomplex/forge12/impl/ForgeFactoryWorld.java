@@ -36,6 +36,7 @@ public class ForgeFactoryWorld implements FactoryWorld {
 
 	@Override
 	public ItemEntity createItemEntity(World world, ItemStack stack) {
+		//noinspection EntityConstructor
 		return new ForgeItemEntity(
 			new EntityItem( (net.minecraft.world.World) world.getObject() ) {{
 				setItem( (net.minecraft.item.ItemStack) stack.getStack() );
