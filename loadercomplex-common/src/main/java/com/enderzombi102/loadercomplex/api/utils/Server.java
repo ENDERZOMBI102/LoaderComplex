@@ -4,4 +4,5 @@ import org.jetbrains.annotations.ApiStatus;
 
 @ApiStatus.AvailableSince("0.1.3")
 public interface Server {
+	Object getObject();
 }
