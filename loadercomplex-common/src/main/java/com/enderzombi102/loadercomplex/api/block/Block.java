@@ -2,6 +2,10 @@ package com.enderzombi102.loadercomplex.api.block;
 
 import com.enderzombi102.loadercomplex.api.entity.Entity;
 import com.enderzombi102.loadercomplex.api.entity.Player;
+import com.enderzombi102.loadercomplex.api.utils.Direction;
+import com.enderzombi102.loadercomplex.api.utils.Hand;
+import com.enderzombi102.loadercomplex.api.utils.Position;
+import com.enderzombi102.loadercomplex.api.world.World;
 import org.jetbrains.annotations.ApiStatus;
 
 import java.util.Random;
@@ -26,18 +30,18 @@ public abstract class Block {
 
 	// methods to be overwritten
 	@ApiStatus.AvailableSince("0.1.3")
-	public void OnBreak(Player player, boolean isClient) {}
+	public void OnBreak( World world, Position pos, Blockstate state, Player player ) {}
 
 	@ApiStatus.AvailableSince("0.1.3")
-	public void OnSteppedOn(Entity entity, boolean isClient) {}
+	public void OnSteppedOn( World world, Position pos, Entity entity) {}
 
 	@ApiStatus.AvailableSince("0.1.3")
-	public boolean OnBlockInteracted(Player player, boolean isClient) { return false; }
+	public boolean OnBlockInteracted( World world, Position pos, Blockstate state, Player player, Hand hand, Direction direction, double hitX, double hitY, double hitZ ) { return false; }
 
-	public void OnRandomTick(Random random, boolean isClient) {}
+	public void OnRandomTick( World world, Position pos, Blockstate state, Random random ) {}
 
 	@ApiStatus.AvailableSince("0.1.3")
-	public void OnEntityCollision(Entity entity, boolean isClient) {}
+	public void OnEntityCollision( World world, Position pos, Blockstate state, Entity entity ) {}
 
 	// methods used to set values
 	protected void setLightLevel(float lightLevel) {

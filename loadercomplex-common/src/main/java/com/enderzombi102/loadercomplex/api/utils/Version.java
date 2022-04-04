@@ -14,7 +14,7 @@ public final class Version {
 		this.buildDate = buildDate;
 	}
 
-	public Version( @NotNull String version, @NotNull String buildDate) {
+	public Version( @NotNull String version, @NotNull String buildDate ) {
 		String[] parts = version.split("\\.");
 		// we need all three parts of the version
 		assert parts.length == 3;
