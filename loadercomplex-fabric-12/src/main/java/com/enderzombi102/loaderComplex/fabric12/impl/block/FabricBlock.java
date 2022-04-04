@@ -88,11 +88,6 @@ public class FabricBlock extends net.minecraft.block.Block {
 		);
 	}
 
-	@Override
-	public ItemStack getItemStack(World world, BlockPos blockPos, BlockState blockState) {
-		return super.getItemStack(world, blockPos, blockState);
-	}
-
 	// getter methods overrides
 
 	@Override
