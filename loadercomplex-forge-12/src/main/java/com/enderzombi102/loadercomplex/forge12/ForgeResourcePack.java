@@ -37,7 +37,7 @@ public class ForgeResourcePack extends AbstractResourcePack {
 		LOGGER.info("Minecraft is opening \"" + filename + "\"");
 		// try to get the entry
 		final JarEntry jarEntry = container.getAddon().getAddonJar().getJarEntry(filename);
-		if (jarEntry == null) {
+		if ( jarEntry == null ) {
 			// no entry, maybe its a fake file?
 			if ( "pack.mcmeta".equals(filename) ) {
 				// fake file, return a "custom" entry
