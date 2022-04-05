@@ -35,18 +35,18 @@ subprojects {
 	}
 }
 
-final ArrayList<String> subProjects = new ArrayList<>();
+def subProjects = new ArrayList<>();
 
 for ( Project proj : rootProject.subprojects ) {
 	subProjects.add( proj.getName() )
 }
 
-
-
 dependencies {
 	for ( String proj : subProjects ) {
-		shade( project( path: proj, configuration: 'jarz' ) ) {
-			transitive = false
+		if ( proj != 'loadercomplex-fabric-common' ) {
+			shade( project( path: proj, configuration: 'jarz' ) ) {
+				transitive = false
+			}
 		}
 	}
 	shade "com.mojang:brigadier:$brigadier_version"
