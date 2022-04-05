@@ -1,5 +1,5 @@
 {
-	"required": true,
+	"required": false,
 	"minVersion": "0.8",
 	"package": "com.enderzombi102.loadercomplex.fabric12.mixin",
 	"compatibilityLevel": "JAVA_8",
@@ -9,8 +9,7 @@
 	],
 	"client": [
 		"ReloadableResourceManagerImpl12Mixin",
-		"MinecraftClient12Mixin",
-		"ModelLoaderMixin"
+		"MinecraftClient12Mixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

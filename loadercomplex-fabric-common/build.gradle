@@ -1,0 +1,39 @@
+plugins {
+    id 'java'
+}
+
+group 'com.enderzombi102'
+
+repositories {
+    mavenCentral()
+    maven { url 'https://maven.fabricmc.net' }
+}
+
+dependencies {
+    compileOnly "net.fabricmc:sponge-mixin:0.11.2+mixin.0.8.5"
+    compileOnly "net.fabricmc:fabric-loader:$loader_version"
+}
+
+processResources {
+    inputs.property 'version', rootProject.version
+    inputs.property 'description', rootProject.description
+    inputs.property 'repo_url', rootProject.repo_url
+
+    filesMatching('fabric.mod.json') {
+        expand([
+            'version': rootProject.version,
+            'description': rootProject.description,
+            'repo_url': rootProject.repo_url
+        ])
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    it.sourceCompatibility = 8 // for the IDE support
+    it.options.encoding = 'UTF-8'
+    it.options.release.set(8)
+
+    it.javaCompiler = javaToolchains.compilerFor {
+        languageVersion = JavaLanguageVersion.of(16)
+    }
+}

@@ -12,8 +12,10 @@ pluginManagement {
 include 'loadercomplex-common'
 include 'loadercomplex-bukkit'
 include 'loadercomplex-sponge'
-include	'loadercomplex-fabric-12'
 include	'loadercomplex-forge-12'
+include 'loadercomplex-fabric-common'
+include	'loadercomplex-fabric-12'
 include	'loadercomplex-fabric-17'
 
 rootProject.name = 'loadercomplex'
+

@@ -1,5 +1,10 @@
 plugins {
 	id 'fabric-loom' version '0.10-SNAPSHOT'
+	id 'com.github.johnrengelman.shadow'
+}
+
+configurations {
+	shade
 }
 
 version = project.mod_version
@@ -22,6 +27,7 @@ dependencies {
 
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:$fabric_version"
+	shade implementation( project(':loadercomplex-fabric-common') )
 }
 
 tasks.withType(JavaCompile).configureEach {
@@ -32,6 +38,12 @@ tasks.withType(JavaCompile).configureEach {
 	it.javaCompiler = javaToolchains.compilerFor {
 		languageVersion = JavaLanguageVersion.of(16)
 	}
+}
+
+shadowJar {
+	configurations = [ project.configurations.shade ]
+	from sourceSets.main.allSource
+	classifier ''
 }
 
 artifacts {

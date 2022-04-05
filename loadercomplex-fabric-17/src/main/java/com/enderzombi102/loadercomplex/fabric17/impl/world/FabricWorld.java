@@ -10,11 +10,13 @@ import com.enderzombi102.loadercomplex.fabric17.impl.FabricServer;
 import com.enderzombi102.loadercomplex.fabric17.impl.block.FabricBlockstate;
 import com.enderzombi102.loadercomplex.fabric17.impl.utils.BlockUtils;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.sound.SoundCategory;
-import net.minecraft.client.sound.SoundEvent;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.world.Heightmap;
 
 public class FabricWorld implements World {
 	private final net.minecraft.world.World backingWorld;
@@ -61,7 +63,8 @@ public class FabricWorld implements World {
 
 	@Override
 	public boolean isPositionLoaded(Position pos) {
-		return this.backingWorld.isLoaded( new BlockPos( pos.x, pos.y, pos.z ), true );
+		//noinspection deprecation
+		return this.backingWorld.isChunkLoaded( new BlockPos( pos.x, pos.y, pos.z ) );
 	}
 
 	@Override
@@ -71,12 +74,14 @@ public class FabricWorld implements World {
 
 	@Override
 	public boolean canSeeTheSky(Position pos) {
-		return this.backingWorld.method_8568( new BlockPos( pos.x, pos.y, pos.z ) );
+		return this.backingWorld.isSkyVisible( new BlockPos( pos.x, pos.y, pos.z ) );
 	}
 
 	@Override
 	public boolean canSnow(Position pos) {
-		return this.backingWorld.method_8550( new BlockPos( pos.x, pos.y, pos.z ), true );
+		return this.backingWorld
+				.getBiome( new BlockPos( pos.x, pos.y, pos.z ) )
+				.canSetSnow( this.backingWorld, new BlockPos( pos.x, pos.y, pos.z ) );
 	}
 
 	@Override
@@ -101,12 +106,12 @@ public class FabricWorld implements World {
 
 	@Override
 	public Position getSpawnLocation() {
-		return BlockUtils.toPosition( this.backingWorld.getSpawnPos() );
+		return BlockUtils.toPosition( this.backingWorld.getTopPosition( Heightmap.Type.WORLD_SURFACE, new BlockPos( 0, 0, 0  ) ) );
 	}
 
 	@Override
 	public Difficulty getDifficulty() {
-		return Difficulty.valueOf( this.backingWorld.getGlobalDifficulty().name() );
+		return Difficulty.valueOf( this.backingWorld.getDifficulty().name() );
 	}
 
 	@Override
@@ -119,7 +124,7 @@ public class FabricWorld implements World {
 
 	@Override
 	public void playsound(Player player, double x, double y, double z, ResourceIdentifier sound, float volume, float pitch) {
-		SoundEvent event = SoundEvent.REGISTRY.get( new Identifier( sound.getNamespace(), sound.getPath() ) );
+		SoundEvent event = Registry.SOUND_EVENT.get( new Identifier( sound.getNamespace(), sound.getPath() ) );
 		if ( event == null )
 			throw new IllegalArgumentException( Utils.format("SoundEvent \"{}\" was not found!", sound ) );
 		this.backingWorld.playSound(

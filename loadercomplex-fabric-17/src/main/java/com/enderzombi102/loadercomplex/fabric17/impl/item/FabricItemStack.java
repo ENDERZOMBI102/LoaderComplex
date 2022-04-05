@@ -1,6 +1,7 @@
 package com.enderzombi102.loadercomplex.fabric17.impl.item;
 
 import com.enderzombi102.loadercomplex.api.item.ItemStack;
+import net.minecraft.text.LiteralText;
 
 public class FabricItemStack implements ItemStack {
 
@@ -16,12 +17,12 @@ public class FabricItemStack implements ItemStack {
 
 	@Override
 	public String getDisplayName() {
-		return this.stack.getName();
+		return this.stack.getName().getString();
 	}
 
 	@Override
 	public void setDisplayName(String newName) {
-		this.stack.setCustomName(newName);
+		this.stack.setCustomName( new LiteralText( newName ) );
 	}
 
 	@Override

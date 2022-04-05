@@ -1,76 +1,74 @@
 package com.enderzombi102.loadercomplex.fabric17.impl.item;
 
 
+import com.enderzombi102.loadercomplex.api.item.Item;
+import com.enderzombi102.loadercomplex.api.utils.Hand;
 import com.enderzombi102.loadercomplex.fabric17.impl.block.FabricBlockstate;
 import com.enderzombi102.loadercomplex.fabric17.impl.entity.FabricEntity;
 import com.enderzombi102.loadercomplex.fabric17.impl.entity.FabricLivingEntity;
 import com.enderzombi102.loadercomplex.fabric17.impl.entity.FabricPlayer;
 import com.enderzombi102.loadercomplex.fabric17.impl.utils.BlockUtils;
+import com.enderzombi102.loadercomplex.fabric17.impl.utils.Callable;
 import com.enderzombi102.loadercomplex.fabric17.impl.world.FabricWorld;
-import com.enderzombi102.loadercomplex.api.item.Item;
-import com.enderzombi102.loadercomplex.api.utils.Hand;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.itemgroup.ItemGroup;
+import net.minecraft.item.ItemUsageContext;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.UseAction;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
-
-import javax.annotation.Nullable;
 
 public class FabricItem extends net.minecraft.item.Item {
 	private final Item itemImpl;
 
 	public FabricItem( Item item ) {
+		super(
+			( (Callable<FabricItemSettings>) () -> {
+				var settings = new FabricItemSettings()
+						.maxCount( item.maxCount )
+						.maxDamage( item.maxDamage );
+
+				if ( getGroup( item ) != null )
+					settings.group( getGroup( item ) );
+
+				return settings;
+			}).call()
+		);
 		this.itemImpl = item;
 		item.implementationItem = this;
-//		if (this.itemImpl.maxDamage > 0) {
-//			this.addModelPredicateProvider(
-//					new Identifier("damaged"),
-//					ItemAccessor.getDamagedProvider()
-//			);
-//			this.addModelPredicateProvider(
-//					new Identifier("damage"),
-//					ItemAccessor.getDamageProvider()
-//			);
-//		}
 	}
 
 	// logic methods override
 
 
 	@Override
-	public boolean postProcessNbt( NbtCompound nbt ) {
-		return this.itemImpl.postProcesstag( nbt );
+	public void postProcessNbt(NbtCompound nbt ) {
+		this.itemImpl.postProcesstag( nbt );
 	}
 
 	@Override
-	public ActionResult use(PlayerEntity player, World world, BlockPos pos, net.minecraft.util.Hand hand, Direction direction, float x, float y, float z) {
-		// useOnBlock
+	public ActionResult useOnBlock( ItemUsageContext ctx ) {
 		return ActionResult.valueOf(
 			this.itemImpl.useOnBlock(
-				new FabricWorld( world ),
-				new FabricPlayer( player ),
-				BlockUtils.toPosition( pos ),
-				Hand.valueOf( hand.name() ),
-				com.enderzombi102.loadercomplex.api.utils.Direction.valueOf( direction.name() )
+				new FabricWorld( ctx.getWorld() ),
+				new FabricPlayer( ctx.getPlayer() ),
+				BlockUtils.toPosition( ctx.getBlockPos() ),
+				Hand.valueOf( ctx.getHand().name() ),
+				com.enderzombi102.loadercomplex.api.utils.Direction.valueOf( ctx.getPlayerFacing().name() )
 			).name()
 		);
 	}
 
-	// FIXME: Fix this error in the mappings: this is use, the other is useOnBlock
 	@Override
-	public TypedActionResult<ItemStack> method_13649(World world, PlayerEntity user, net.minecraft.util.Hand hand) {
+	public TypedActionResult<ItemStack> use(World world, PlayerEntity user, net.minecraft.util.Hand hand) {
 		ItemStack stack = user.getStackInHand(hand);
 		return new TypedActionResult<>(
 			ActionResult.valueOf(
@@ -84,9 +82,8 @@ public class FabricItem extends net.minecraft.item.Item {
 		);
 	}
 
-	// FIXME: Same as above but with `finishUsing`
 	@Override
-	public ItemStack method_3367(ItemStack stack, World world, LivingEntity user) {
+	public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
 		return (
 			(FabricItemStack) this.itemImpl.finishUsing(
 				new FabricItemStack( stack ),
@@ -96,9 +93,8 @@ public class FabricItem extends net.minecraft.item.Item {
 		).getStack();
 	}
 
-	// FIXME: Same as above but with `postHit`
 	@Override
-	public boolean onEntityHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+	public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
 		return this.itemImpl.postHit(
 			new FabricItemStack( stack ),
 			new FabricLivingEntity( target ),
@@ -106,9 +102,8 @@ public class FabricItem extends net.minecraft.item.Item {
 		);
 	}
 
-	// FIXME: Same as above but with `postMine`
 	@Override
-	public boolean method_3356(ItemStack stack, World world, BlockState state, BlockPos pos, LivingEntity miner) {
+	public boolean postMine(ItemStack stack, World world, BlockState state, BlockPos pos, LivingEntity miner) {
 		return this.itemImpl.postMine(
 			new FabricItemStack( stack ),
 			new FabricWorld( world ),
@@ -118,21 +113,19 @@ public class FabricItem extends net.minecraft.item.Item {
 		);
 	}
 
-	// FIXME: Same as above but with `isEffectiveOn`
 	@Override
-	public boolean method_3346(BlockState state) {
+	public boolean isSuitableFor(BlockState state) {
 		return this.itemImpl.isEffectiveOn( new FabricBlockstate( state ) );
 	}
 
-	// FIXME: Same as above but with `useOnEntity`
 	@Override
-	public boolean method_3353(ItemStack stack, PlayerEntity user, LivingEntity entity, net.minecraft.util.@NotNull Hand hand) {
+	public ActionResult useOnEntity(ItemStack stack, PlayerEntity user, LivingEntity entity, net.minecraft.util.Hand hand) {
 		return this.itemImpl.useOnEntity(
 			new FabricItemStack(stack),
 			new FabricPlayer( user ),
 			new FabricLivingEntity( entity ),
 			Hand.valueOf( hand.name() )
-		);
+		) ? ActionResult.SUCCESS : ActionResult.PASS;
 	}
 
 	@Override
@@ -153,9 +146,8 @@ public class FabricItem extends net.minecraft.item.Item {
 		);
 	}
 
-	// FIXME: Same as above but with `onStoppedUsing`
 	@Override
-	public void method_3359(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
+	public void onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
 		this.itemImpl.onStoppedUsing(
 			new FabricItemStack(stack),
 			new FabricWorld( world ),
@@ -164,7 +156,7 @@ public class FabricItem extends net.minecraft.item.Item {
 		);
 	}
 
-	// FIXME: This has vanished?!?
+	@Override
 	protected boolean isIn(ItemGroup group) {
 		ItemGroup itemGroup = this.getGroup();
 		return itemGroup != null && ( group == ItemGroup.SEARCH || group == itemGroup );
@@ -173,46 +165,15 @@ public class FabricItem extends net.minecraft.item.Item {
 	// getter methods override
 
 	// getMiningSpeedMultiplier
+
 	@Override
-	public float method_3351(ItemStack stack, BlockState state) {
+	public float getMiningSpeedMultiplier(ItemStack stack, BlockState state) {
 		return this.itemImpl.miningSpeedMultiplier;
-	}
-
-	@Override
-	public int getMaxCount() {
-		return this.itemImpl.maxCount;
-	}
-
-	@Override
-	public int getMeta(int damage) {
-		return 0;
-	}
-
-	@Override
-	public boolean hasSubTypes() {
-		return this.itemImpl.hasVariants;
-	}
-
-	@Override
-	public int getMaxDamage() {
-		return this.itemImpl.maxDamage;
 	}
 
 	@Override
 	public boolean isDamageable() {
 		return this.itemImpl.maxDamage > 0 && (!this.itemImpl.hasVariants || this.itemImpl.maxCount == 1);
-	}
-
-	@Environment(EnvType.CLIENT)
-	@Override
-	public boolean isHandheld() {
-		return this.itemImpl.is3D;
-	}
-
-	@Environment(EnvType.CLIENT)
-	@Override
-	public boolean shouldRotate() {
-		return this.itemImpl.requiresRenderRotation;
 	}
 
 	@Override
@@ -230,49 +191,30 @@ public class FabricItem extends net.minecraft.item.Item {
 		return this.itemImpl.enchantability;
 	}
 
-	@Nullable
-	@Override
-	public ItemGroup getItemGroup() {
-		return this.getGroup();
-	}
-
-	@Nullable
-	public ItemGroup getGroup() {
-		if ( this.itemImpl.group == null )
+	private static ItemGroup getGroup( Item item ) {
+		if ( item.group == null )
 			return null;
-		switch ( this.itemImpl.group ) {
-			case "minecraft:itemgroup.brewing":
-				return ItemGroup.BREWING;
-			case "minecraft:itemgroup.building_blocks":
-				return ItemGroup.BUILDING_BLOCKS;
-			case "minecraft:itemgroup.combat":
-				return ItemGroup.COMBAT;
-			case "minecraft:itemgroup.decorations":
-				return ItemGroup.DECORATIONS;
-			case "minecraft:itemgroup.food":
-				return ItemGroup.FOOD;
-			case "minecraft:itemgroup.materials":
-				return ItemGroup.MATERIALS;
-			case "minecraft:itemgroup.redstone":
-				return ItemGroup.REDSTONE;
-			case "minecraft:itemgroup.tools":
-				return ItemGroup.TOOLS;
-			case "minecraft:itemgroup.transportation":
-				return ItemGroup.TRANSPORTATION;
-			case "minecraft:itemgroup.misc":
-				return ItemGroup.MISC;
-			default:
-				return ItemGroup.MISC;
-		}
+		return switch (item.group) {
+			case "minecraft:itemgroup.brewing" -> ItemGroup.BREWING;
+			case "minecraft:itemgroup.building_blocks" -> ItemGroup.BUILDING_BLOCKS;
+			case "minecraft:itemgroup.combat" -> ItemGroup.COMBAT;
+			case "minecraft:itemgroup.decorations" -> ItemGroup.DECORATIONS;
+			case "minecraft:itemgroup.food" -> ItemGroup.FOOD;
+			case "minecraft:itemgroup.materials" -> ItemGroup.MATERIALS;
+			case "minecraft:itemgroup.redstone" -> ItemGroup.REDSTONE;
+			case "minecraft:itemgroup.tools" -> ItemGroup.TOOLS;
+			case "minecraft:itemgroup.transportation" -> ItemGroup.TRANSPORTATION;
+			case "minecraft:itemgroup.misc" -> ItemGroup.MISC;
+			default -> ItemGroup.MISC;
+		};
 	}
 
 	@Override
 	public boolean canRepair(ItemStack stack, ItemStack ingredient) {
 		String material = this.itemImpl.repairMaterial.toString();
 		if ( material != null ) {
-			//noinspection ConstantConditions
-			return net.minecraft.item.Item.REGISTRY
-					.getIdentifier( ingredient.getItem() )
+			return Registry.ITEM
+					.getId( ingredient.getItem() )
 					.toString()
 					.equals( material );
 		}

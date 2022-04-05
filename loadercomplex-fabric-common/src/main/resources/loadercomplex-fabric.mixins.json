@@ -1,0 +1,12 @@
+{
+	"required": true,
+	"minVersion": "0.8",
+	"package": "com.enderzombi102.loadercomplex.fabric.mixin",
+	"plugin": "com.enderzombi102.loadercomplex.fabric.mixin.MixinPlugin",
+	"compatibilityLevel": "JAVA_8",
+	"mixins": [ ],
+	"client": [ ],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}

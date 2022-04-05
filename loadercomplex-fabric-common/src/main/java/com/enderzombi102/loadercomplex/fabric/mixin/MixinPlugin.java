@@ -1,25 +1,22 @@
-package com.enderzombi102.loadercomplex.fabric12.mixin;
+package com.enderzombi102.loadercomplex.fabric.mixin;
 
 import net.fabricmc.loader.impl.FabricLoaderImpl;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class MixinPlugin implements IMixinConfigPlugin {
 	private static final Map<String, String> MIXINS = new HashMap<String, String>() {{
-		put("ReloadableResourceManagerImpl12Mixin", "1.12.2");
-		put("SimpleRegistryMixin", "1.12.2");
-		put("MinecraftClient12Mixin", "1.12.2");
-		put("ItemMixin", "1.12.2");
-		put("ReloadableResourceManagerImpl17Mixin", "1.17.1");
-		put("MinecraftClient17Mixin", "1.17.1");
-	}};
+		put( "ReloadableResourceManagerImpl12Mixin", "1.12.2" );
+		put( "SimpleRegistryMixin", "1.12.2" );
+		put( "MinecraftClient12Mixin", "1.12.2" );
+		put( "ItemMixin", "1.12.2" );
 
+		put( "ReloadableResourceManagerImpl17Mixin", "1.17.1" );
+		put( "MinecraftClient17Mixin", "1.17.1" );
+	}};
 
 	/**
 	 * Called after the plugin is instantiated, do any setup here.
@@ -76,9 +73,7 @@ public class MixinPlugin implements IMixinConfigPlugin {
 	 * @param otherTargets Target class set incorporating targets from all other
 	 */
 	@Override
-	public void acceptTargets(Set<String> myTargets, Set<String> otherTargets) {
-
-	}
+	public void acceptTargets(Set<String> myTargets, Set<String> otherTargets) { }
 
 	/**
 	 * After mixins specified in the configuration have been processed, this
@@ -89,9 +84,7 @@ public class MixinPlugin implements IMixinConfigPlugin {
 	 * @return additional mixins to apply
 	 */
 	@Override
-	public List<String> getMixins() {
-		return null;
-	}
+	public List<String> getMixins() { return Collections.emptyList(); }
 
 	/**
 	 * Called immediately <b>before</b> a mixin is applied to a target class,
@@ -103,9 +96,7 @@ public class MixinPlugin implements IMixinConfigPlugin {
 	 * @param mixinInfo       Information about this mixin
 	 */
 	@Override
-	public void preApply(String targetClassName, ClassNode targetClass, String mixinClassName, IMixinInfo mixinInfo) {
-
-	}
+	public void preApply(String targetClassName, ClassNode targetClass, String mixinClassName, IMixinInfo mixinInfo) { }
 
 	/**
 	 * Called immediately <b>after</b> a mixin is applied to a target class,
@@ -117,7 +108,5 @@ public class MixinPlugin implements IMixinConfigPlugin {
 	 * @param mixinInfo       Information about this mixin
 	 */
 	@Override
-	public void postApply(String targetClassName, ClassNode targetClass, String mixinClassName, IMixinInfo mixinInfo) {
-
-	}
+	public void postApply(String targetClassName, ClassNode targetClass, String mixinClassName, IMixinInfo mixinInfo) { }
 }

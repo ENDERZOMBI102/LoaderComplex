@@ -30,7 +30,8 @@ public class FabricRegistry implements Registry {
 		if (registerItem) {
 			net.minecraft.util.registry.Registry.register(
 				net.minecraft.util.registry.Registry.ITEM,
-				id, new BlockItem(fabricBlock)
+				id,
+				new BlockItem( fabricBlock, new net.minecraft.item.Item.Settings() )
 			);
 		}
 	}

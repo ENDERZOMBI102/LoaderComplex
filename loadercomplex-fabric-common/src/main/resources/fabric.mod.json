@@ -18,11 +18,12 @@
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"com.enderzombi102.loaderComplex.fabric.FabricDispatcher"
+			"com.enderzombi102.loadercomplex.fabric.FabricDispatcher"
 		]
 	},
 
 	"mixins": [
+		"loadercomplex-fabric.mixins.json",
 		"loadercomplex-fabric12.mixins.json",
 		"loadercomplex-fabric17.mixins.json"
 	],
