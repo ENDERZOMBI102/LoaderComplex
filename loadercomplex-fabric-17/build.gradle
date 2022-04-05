@@ -1,6 +1,5 @@
 plugins {
 	id 'fabric-loom' version '0.10-SNAPSHOT'
-	id 'com.github.johnrengelman.shadow'
 }
 
 configurations {
@@ -31,19 +30,13 @@ dependencies {
 	modImplementation("com.terraformersmc:modmenu:$modmenu_version") {
 		transitive(false)
 	}
-	shade implementation( project(':loadercomplex-fabric-common') )
+	modRuntime project(':loadercomplex-fabric-common')
 }
 
 tasks.withType(JavaCompile).configureEach {
 	it.sourceCompatibility = 16 // for the IDE support
 	it.options.encoding = 'UTF-8'
 	it.options.release.set(16)
-}
-
-shadowJar {
-	configurations = [ project.configurations.shade ]
-	from sourceSets.main.allSource
-	classifier ''
 }
 
 artifacts {

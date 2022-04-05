@@ -1,10 +1,5 @@
 plugins {
 	id 'fabric-loom' version '0.10-SNAPSHOT'
-	id 'com.github.johnrengelman.shadow'
-}
-
-configurations {
-	shade
 }
 
 //noinspection GroovyAssignabilityCheck
@@ -47,23 +42,13 @@ dependencies {
 		exclude( group: "net.legacyfabric.legacy-fabric-api", module: "legacy-fabric-entity-events-v1" )
 		exclude( group: "net.legacyfabric.legacy-fabric-api", module: "legacy-fabric-vanilla-command-api-v1" )
 	}
-	shade implementation( project(':loadercomplex-fabric-common') )
+	modRuntime project(':loadercomplex-fabric-common')
 }
 
 tasks.withType(JavaCompile).configureEach {
 	it.sourceCompatibility = 8 // for the IDE support
 	it.options.encoding = 'UTF-8'
 	it.options.release.set(8)
-
-	it.javaCompiler = javaToolchains.compilerFor {
-		languageVersion = JavaLanguageVersion.of(16)
-	}
-}
-
-shadowJar {
-	configurations = [ project.configurations.shade ]
-	from sourceSets.main.allSource
-	classifier ''
 }
 
 artifacts {
