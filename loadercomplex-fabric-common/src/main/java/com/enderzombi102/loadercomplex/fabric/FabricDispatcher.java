@@ -2,7 +2,8 @@ package com.enderzombi102.loadercomplex.fabric;
 
 import com.enderzombi102.loadercomplex.Utils;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.loader.impl.FabricLoaderImpl;
+
+import static com.enderzombi102.loadercomplex.fabric.BaseMixinPlugin.getMinecraftVersion;
 
 /**
  * Dispatcher for any fabric version
@@ -11,9 +12,8 @@ public class FabricDispatcher implements ModInitializer {
 	private final ModInitializer impl;
 
 	public FabricDispatcher() {
-		String ver = FabricLoaderImpl.INSTANCE.getGameProvider().getNormalizedGameVersion();
 		try {
-			switch (ver) {
+			switch ( getMinecraftVersion() ) {
 				case "1.12.2":
 					impl = (ModInitializer) Class.forName("com.enderzombi102.loadercomplex.fabric12.LoaderComplexFabric")
 							.getConstructor()
@@ -24,12 +24,18 @@ public class FabricDispatcher implements ModInitializer {
 							.getConstructor()
 							.newInstance();
 					break;
+				case "b1.7.3":
+					impl = (ModInitializer) Class.forName("com.enderzombi102.loadercomplex.fabric173.LoaderComplexFabric")
+							.getConstructor()
+							.newInstance();
+					break;
 				default:
-					throw new IllegalStateException( Utils.format( "Fabric for {} is not supported!", ver ) );
+					throw new IllegalStateException( Utils.format( "Fabric for {} is not supported!", getMinecraftVersion() ) );
 			}
 		} catch (Exception e) {
-				throw new IllegalStateException( e );
+			throw new IllegalStateException( e );
 		}
+		System.out.println("Hello world!");
 	}
 
 	@Override

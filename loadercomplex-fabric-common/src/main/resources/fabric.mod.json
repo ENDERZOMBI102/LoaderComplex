@@ -26,9 +26,9 @@
 	},
 
 	"mixins": [
-		"loadercomplex-fabric.mixins.json",
 		"loadercomplex-fabric12.mixins.json",
-		"loadercomplex-fabric17.mixins.json"
+		"loadercomplex-fabric17.mixins.json",
+		"loadercomplex-fabric173.mixins.json"
 	],
 
 	"depends": {

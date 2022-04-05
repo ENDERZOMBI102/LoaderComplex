@@ -7,9 +7,6 @@ configurations {
 	shade
 }
 
-version = project.mod_version
-group = project.maven_group
-
 repositories {
 	maven { url 'https://maven.terraformersmc.com/releases/' }
 }
@@ -41,10 +38,6 @@ tasks.withType(JavaCompile).configureEach {
 	it.sourceCompatibility = 16 // for the IDE support
 	it.options.encoding = 'UTF-8'
 	it.options.release.set(16)
-
-	it.javaCompiler = javaToolchains.compilerFor {
-		languageVersion = JavaLanguageVersion.of(16)
-	}
 }
 
 shadowJar {

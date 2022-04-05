@@ -7,6 +7,17 @@ pluginManagement {
 		gradlePluginPortal()
 		mavenCentral()
 	}
+	resolutionStrategy {
+		eachPlugin {
+			if ( requested.id.id == 'fabric-loom' && !requested.version?.endsWith('-SNAPSHOT') ) {
+				if ( requested.id.id == 'fabric-loom' && !requested.version?.contains('+') ) {
+					useModule "com.github.Chocohead.Fabric-Loom:fabric-loom:${requested.version}"
+				} else if (requested.id.id == 'fabric-loom') {
+					useModule "net.fabricmc:fabric-loom:${requested.version}"
+				}
+			}
+		}
+	}
 }
 
 include 'loadercomplex-common'
@@ -16,6 +27,7 @@ include	'loadercomplex-forge-12'
 include 'loadercomplex-fabric-common'
 include	'loadercomplex-fabric-12'
 include	'loadercomplex-fabric-17'
+include 'loadercomplex-fabric-173'
 
 rootProject.name = 'loadercomplex'
 

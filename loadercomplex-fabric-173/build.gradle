@@ -1,0 +1,59 @@
+plugins {
+	id 'com.github.johnrengelman.shadow'
+	id 'fabric-loom' version '0d0261a'
+}
+
+configurations {
+	shade
+}
+
+repositories {
+	mavenCentral()
+	maven { url 'https://jitpack.io/' }
+	maven { url 'https://storage.googleapis.com/devan-maven/' }
+}
+
+minecraft {
+	// Skip old versions of libraries which Mojang use but we don't need
+	addLibraryFilter {
+		library -> return !(
+			library.startsWith('net.minecraft:launchwrapper:') ||
+			library.startsWith('net.sf.jopt-simple:jopt-simple:') ||
+			library.startsWith('org.ow2.asm:asm-all:')
+		)
+	}
+}
+
+dependencies {
+	minecraft "com.mojang:minecraft:$minecraft_version"
+	mappings "io.github.minecraft-cursed-legacy:plasma:b1.7.3-build.$plasma_build"
+	modImplementation("io.github.minecraft-cursed-legacy:cursed-fabric-loader:$loader_version") {
+		transitive false
+	}
+
+	modImplementation "io.github.minecraft-cursed-legacy:cursed-legacy-api:$api_version"
+	shade implementation( project(':loadercomplex-fabric-common') )
+}
+
+processResources {
+	inputs.property 'version', project.version
+
+	filesMatching('fabric.mod.json') {
+		expand 'version': project.version
+	}
+}
+
+tasks.withType(JavaCompile).configureEach {
+	it.options.encoding = 'UTF-8'
+	it.options.release.set(8)
+}
+
+shadowJar {
+	configurations = [ project.configurations.shade ]
+	from sourceSets.main.allSource
+	classifier ''
+}
+
+artifacts {
+	jarz remapJar
+}
