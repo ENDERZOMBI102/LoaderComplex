@@ -4,9 +4,12 @@ import com.enderzombi102.loadercomplex.fabric12.impl.utils.BlockUtils;
 import com.enderzombi102.loadercomplex.api.entity.Player;
 import com.enderzombi102.loadercomplex.api.utils.Gamemode;
 import com.enderzombi102.loadercomplex.api.utils.Position;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.GameMode;
 
 public class FabricPlayer extends FabricLivingEntity implements Player {
 	private final PlayerEntity backingEntity;
@@ -68,7 +71,14 @@ public class FabricPlayer extends FabricLivingEntity implements Player {
 
 	@Override
 	public Gamemode getGamemode() {
-		return null;
+		GameMode mode;
+		if ( this.backingEntity.getWorld().isClient )
+			mode = MinecraftClient.getInstance().interactionManager.method_9667();
+		else
+			mode = ( (ServerPlayerEntity) this.backingEntity ).interactionManager.getgamemode();
+		if ( mode == GameMode.NOT_SET )
+			throw new IllegalStateException("Player has no gamemode!");
+		return Gamemode.valueOf( mode.name().toUpperCase() );
 	}
 
 	@Override
