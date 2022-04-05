@@ -9,12 +9,16 @@ import net.minecraft.resource.AbstractFileResourcePack;
 import net.minecraft.resource.ResourceNotFoundException;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.InvalidIdentifierException;
 import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.*;
 import java.util.function.Predicate;
 import java.util.jar.JarEntry;
@@ -45,15 +49,22 @@ public class FabricResourcePack extends AbstractFileResourcePack {
 			if ( "pack.mcmeta".equals(filename) ) {
 				// fake file, return a "custom" entry
 				return IOUtils.toInputStream(
-						Utils.format(
-								"{\"pack\":{\"pack_format\":{},\"description\":\"{}\"}}",
-								PACK_FORMAT_VERSION,
-								container.getName().replaceAll("\"", "\\\"")
-						),
-						Charsets.UTF_8
+					Utils.format(
+						"{\"pack\":{\"pack_format\":{},\"description\":\"{}\"}}",
+						PACK_FORMAT_VERSION,
+						container.getName().replaceAll("\"", "\\\"")
+					),
+					Charsets.UTF_8
 				);
 			}
 			throw new ResourceNotFoundException(base, filename);
+		} else if ( filename.contains("lang") && filename.endsWith(".json") ) {
+			var lang = new StringBuilder("{\n");
+			for ( var line : IOUtils.readLines( new InputStreamReader( container.getAddonJar().getInputStream( container.getAddonJar().getJarEntry( filename.replace("json", "lang") ) ) ) ) ) {
+				var parts = line.split("=", 1);
+				lang.append( Utils.format( "\t\"{}\": \"{}\"\n", (Object[]) parts ) );
+			}
+			return IOUtils.toInputStream( lang + "}", Charsets.UTF_8 );
 		} else {
 			return container.getAddonJar().getInputStream(jarEntry);
 		}
@@ -76,7 +87,32 @@ public class FabricResourcePack extends AbstractFileResourcePack {
 
 	@Override
 	public Collection<Identifier> findResources(ResourceType type, String namespace, String prefix, int maxDepth, Predicate<String> pathFilter) {
-		return List.of();
+		List<Identifier> ids = new ArrayList<>();
+		Path namespacePath = this.container.getPath().resolve("assets").resolve(namespace).toAbsolutePath().normalize();
+
+		if ( Files.exists(namespacePath) ) {
+			try {
+				Files.walk( namespacePath, maxDepth )
+					.filter( Files::isRegularFile )
+					.filter( p -> {
+						String filename = p.getFileName().toString();
+						return !filename.endsWith(".mcmeta") && pathFilter.test(filename);
+					})
+					.map( namespacePath::relativize )
+					.map( Path::toString )
+					.forEach( s -> {
+						try {
+							ids.add( new Identifier( namespace, s ) );
+						} catch (InvalidIdentifierException e) {
+							LOGGER.error(e.getMessage());
+						}
+					});
+			} catch (IOException e) {
+				LOGGER.warn( "findResources at " + namespacePath + " in namespace " + namespace + ", addon " + container.getID() + " failed!", e );
+			}
+		}
+
+		return ids;
 	}
 
 	@Override
