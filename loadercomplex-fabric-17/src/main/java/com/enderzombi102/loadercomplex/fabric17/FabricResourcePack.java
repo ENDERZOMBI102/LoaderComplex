@@ -78,7 +78,10 @@ public class FabricResourcePack extends AbstractFileResourcePack implements ModR
 					));
 				}
 				var data = lang.substring( 0, lang.length() - 1 ) + "}";
-				LOGGER.error( data );
+				LOGGER.debug( Utils.format( "--- START {} LANG JSON ----", container.getID() ) );
+				LOGGER.debug( data );
+				LOGGER.debug( Utils.format( "--- END {} LANG JSON ----", container.getID() ) );
+
 				return IOUtils.toInputStream( data, Charsets.UTF_8);
 			}
 			throw new ResourceNotFoundException(base, filename);

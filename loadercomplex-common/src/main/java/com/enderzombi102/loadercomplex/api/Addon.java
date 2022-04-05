@@ -2,6 +2,9 @@ package com.enderzombi102.loadercomplex.api;
 
 import org.jetbrains.annotations.Nullable;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public interface Addon {
 
 	/**
@@ -23,4 +26,9 @@ public interface Addon {
 	 */
 	default @Nullable String getName() { return null; }
 
+	default String getDescription() { return ""; }
+
+	default @Nullable String getIconPath() { return null; }
+
+	default Map<String, String> getLinks() { return new HashMap<>(); }
 }

@@ -2,9 +2,11 @@ package com.enderzombi102.loadercomplex.modloader;
 
 import com.enderzombi102.loadercomplex.api.Addon;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Map;
 import java.util.jar.Attributes;
 import java.util.jar.JarFile;
 
@@ -54,6 +56,18 @@ public class AddonContainer {
 
 	public String getAuthors() {
 		return implementation.getAuthors();
+	}
+
+	public String getDescription() {
+		return implementation.getDescription();
+	}
+
+	public @Nullable String getIconPath() {
+		return implementation.getIconPath();
+	}
+
+	public Map<String, String> getLinks() {
+		return implementation.getLinks();
 	}
 
 	public Addon getImplementation() {
