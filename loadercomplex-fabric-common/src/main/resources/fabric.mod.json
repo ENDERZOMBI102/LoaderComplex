@@ -1,6 +1,6 @@
 {
 	"schemaVersion": 1,
-	"id": "loadercomplex-fabric",
+	"id": "loadercomplex",
 	"version": "${version}",
 
 	"name": "Loadercomplex",

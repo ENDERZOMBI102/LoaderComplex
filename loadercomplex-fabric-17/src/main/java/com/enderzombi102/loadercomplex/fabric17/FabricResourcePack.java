@@ -5,6 +5,9 @@ import com.enderzombi102.loadercomplex.modloader.AddonContainer;
 import com.google.common.base.Charsets;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
+import net.fabricmc.fabric.api.resource.ModResourcePack;
+import net.fabricmc.loader.api.FabricLoader;
+import net.fabricmc.loader.api.metadata.ModMetadata;
 import net.minecraft.resource.AbstractFileResourcePack;
 import net.minecraft.resource.ResourceNotFoundException;
 import net.minecraft.resource.ResourceType;
@@ -23,7 +26,7 @@ import java.util.*;
 import java.util.function.Predicate;
 import java.util.jar.JarEntry;
 
-public class FabricResourcePack extends AbstractFileResourcePack {
+public class FabricResourcePack extends AbstractFileResourcePack implements ModResourcePack {
 	private static final Splitter TYPE_NAMESPACE_SPLITTER = Splitter.on('/').omitEmptyStrings().limit(3);
 	private static final Logger LOGGER = LogManager.getLogger("LC-PackManager");
 	// https://minecraft.fandom.com/wiki/Tutorials/Creating_a_resource_pack#.22pack_format.22
@@ -56,15 +59,29 @@ public class FabricResourcePack extends AbstractFileResourcePack {
 					),
 					Charsets.UTF_8
 				);
+			} else if ( filename.contains("lang") && filename.endsWith(".json") ) {
+				var lines = IOUtils.readLines(
+					new InputStreamReader(
+						container.getAddonJar().getInputStream(
+							container.getAddonJar().getJarEntry( filename.replace("json", "lang") )
+						)
+					)
+				);
+				var lang = new StringBuilder("{");
+				for ( var line : lines ) {
+					var parts = line.split("=", 2);
+					lang.append( Utils.format(
+							"\"{}\": \"{}\",",
+							parts[0].replace("tile", "block")
+									.replace(".name", ""),
+							parts[1]
+					));
+				}
+				var data = lang.substring( 0, lang.length() - 1 ) + "}";
+				LOGGER.error( data );
+				return IOUtils.toInputStream( data, Charsets.UTF_8);
 			}
 			throw new ResourceNotFoundException(base, filename);
-		} else if ( filename.contains("lang") && filename.endsWith(".json") ) {
-			var lang = new StringBuilder("{\n");
-			for ( var line : IOUtils.readLines( new InputStreamReader( container.getAddonJar().getInputStream( container.getAddonJar().getJarEntry( filename.replace("json", "lang") ) ) ) ) ) {
-				var parts = line.split("=", 1);
-				lang.append( Utils.format( "\t\"{}\": \"{}\"\n", (Object[]) parts ) );
-			}
-			return IOUtils.toInputStream( lang + "}", Charsets.UTF_8 );
 		} else {
 			return container.getAddonJar().getInputStream(jarEntry);
 		}
@@ -80,7 +97,9 @@ public class FabricResourcePack extends AbstractFileResourcePack {
 
 	@Override
 	protected boolean containsFile(String filename) {
-		boolean hasFile = container.getAddonJar().getEntry(filename) != null || filename.equals("pack.mcmeta");
+		boolean hasFile = container.getAddonJar().getEntry(filename) != null ||
+							filename.equals("pack.mcmeta") ||
+							( filename.contains("lang") && filename.endsWith(".json") );
 		LOGGER.info("Minecraft is searching for \"{}\" (found: {})", filename, hasFile);
 		return hasFile;
 	}
@@ -139,5 +158,10 @@ public class FabricResourcePack extends AbstractFileResourcePack {
 		}
 
 		return set;
+	}
+
+	@Override
+	public ModMetadata getFabricModMetadata() {
+		return FabricLoader.getInstance().getModContainer("loadercomplex").orElseThrow().getMetadata();
 	}
 }

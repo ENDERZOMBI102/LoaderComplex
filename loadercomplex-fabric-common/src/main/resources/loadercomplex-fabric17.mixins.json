@@ -5,7 +5,7 @@
 	"compatibilityLevel": "JAVA_16",
 	"mixins": [ ],
 	"client": [
-		"ReloadableResourceManagerImpl17Mixin",
+		"ModResourcepackUtilMixin",
 		"MinecraftClient17Mixin"
 	],
 	"injectors": {
