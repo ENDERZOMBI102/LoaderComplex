@@ -1,0 +1,15 @@
+{
+	"required": true,
+	"minVersion": "0.8",
+	"package": "com.enderzombi102.loadercomplex.fabric17.mixin",
+	"compatibilityLevel": "JAVA_16",
+	"mixins": [
+	],
+	"client": [
+		"ReloadableResourceManagerImpl17Mixin",
+		"MinecraftClient17Mixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}

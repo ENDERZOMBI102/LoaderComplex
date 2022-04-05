@@ -1,0 +1,39 @@
+plugins {
+	id 'fabric-loom' version '0.10-SNAPSHOT'
+}
+
+version = project.mod_version
+group = project.maven_group
+
+loom.runConfigs.configure {
+	client {
+		runDir = rootProject.file('run')
+	}
+	server {
+		runDir = rootProject.file('run')
+	}
+}
+
+dependencies {
+	// To change the versions see the gradle.properties file
+	minecraft "com.mojang:minecraft:$minecraft_version"
+	mappings "net.fabricmc:yarn:$yarn_mappings:v2"
+	modImplementation "net.fabricmc:fabric-loader:$loader_version"
+
+	// Fabric API. This is technically optional, but you probably want it anyway.
+	modImplementation "net.fabricmc.fabric-api:fabric-api:$fabric_version"
+}
+
+tasks.withType(JavaCompile).configureEach {
+	it.sourceCompatibility = 16 // for the IDE support
+	it.options.encoding = 'UTF-8'
+	it.options.release.set(16)
+
+	it.javaCompiler = javaToolchains.compilerFor {
+		languageVersion = JavaLanguageVersion.of(16)
+	}
+}
+
+artifacts {
+	jarz remapJar
+}
