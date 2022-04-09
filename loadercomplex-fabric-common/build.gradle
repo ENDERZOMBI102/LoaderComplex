@@ -31,3 +31,7 @@ tasks.withType(JavaCompile).configureEach {
     it.options.encoding = 'UTF-8'
     it.options.release.set(8)
 }
+
+artifacts {
+    jarz jar
+}

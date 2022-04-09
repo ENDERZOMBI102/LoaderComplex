@@ -32,7 +32,7 @@ dependencies {
 	mappings "net.fabricmc:yarn:$yarn_mappings:v2"
 	modApi "net.fabricmc:fabric-loader:$loader_version"
 	compileOnly "com.mojang:brigadier:$brigadier_version"
-	modImplementation include("net.legacyfabric.legacy-fabric-api:legacy-fabric-api:$fabric_version") {
+	modImplementation("net.legacyfabric.legacy-fabric-api:legacy-fabric-api:$fabric_version") {
 		exclude( group: 'net.legacyfabric.legacy-fabric-api', module: 'legacy-fabric-lifecycle-events-v1' )
 		exclude( group: 'net.legacyfabric.legacy-fabric-api', module: 'legacy-fabric-entity-events-v1' )
 		exclude( group: 'net.legacyfabric.legacy-fabric-api', module: 'legacy-fabric-vanilla-command-api-v1' )
