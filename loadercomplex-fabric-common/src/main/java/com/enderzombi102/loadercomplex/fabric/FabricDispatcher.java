@@ -2,8 +2,7 @@ package com.enderzombi102.loadercomplex.fabric;
 
 import com.enderzombi102.loadercomplex.Utils;
 import net.fabricmc.api.ModInitializer;
-
-import static com.enderzombi102.loadercomplex.fabric.BaseMixinPlugin.getMinecraftVersion;
+import net.fabricmc.loader.api.FabricLoader;
 
 /**
  * Dispatcher for any fabric version
@@ -41,5 +40,15 @@ public class FabricDispatcher implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		this.impl.onInitialize();
+	}
+
+	public static String getMinecraftVersion() {
+		//noinspection OptionalGetWithoutIsPresent
+		return FabricLoader.getInstance()
+				.getModContainer("minecraft")
+				.get()
+				.getMetadata()
+				.getVersion()
+				.getFriendlyString();
 	}
 }

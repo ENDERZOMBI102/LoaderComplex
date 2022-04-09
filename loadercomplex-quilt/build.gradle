@@ -1,0 +1,79 @@
+plugins {
+	id 'org.quiltmc.loom' version '0.12-SNAPSHOT'
+	id 'io.github.juuxel.loom-quiltflower' version '1.6.0' // For loom 0.8-0.9, 0.11+
+	id 'org.quiltmc.quilt-mappings-on-loom' version '4.0.0'
+}
+
+group = maven_group
+version = rootProject.version
+archivesBaseName = archives_base_name
+
+repositories {
+	maven { url 'https://maven.terraformersmc.com/releases/' }
+	maven { url 'https://maven.quiltmc.org/repository/release' }
+	maven {
+		url 'https://maven.quiltmc.org/repository/snapshot'
+		content {
+			includeGroup 'org.quiltmc.fabric_api_qsl'
+			includeGroupByRegex 'org\\.quiltmc\\.qsl(?:\\.[a-z_]+)?'
+		}
+	}
+}
+
+loom.runConfigs.configure {
+	client {
+		runDir = '../run'
+	}
+	server {
+		runDir = '../run'
+	}
+}
+
+dependencies {
+	// To change the versions see the gradle.properties file
+	minecraft "com.mojang:minecraft:$minecraft_version"
+	mappings(loom.layered {
+		addLayer(quiltMappings.mappings("org.quiltmc:quilt-mappings:$minecraft_version+build.$quilt_mappings:v2"))
+		//addLayer(loom.officialMojangMappings())
+	})
+	modImplementation "org.quiltmc:quilt-loader:$loader_version"
+
+	modImplementation("org.quiltmc.qsl:qsl:$qsl_version+$minecraft_version-SNAPSHOT") {
+		exclude group: 'net.fabricmc'
+	}
+
+	modImplementation("com.terraformersmc:modmenu:$modmenu_version") {
+		transitive(false)
+	}
+
+	modRuntimeOnly("org.quiltmc.fabric_api_qsl:fabric-resource-loader-v0:1.0.2+$minecraft_version-SNAPSHOT") {
+		exclude group: 'net.fabricmc'
+	}
+	modRuntimeOnly("org.quiltmc.fabric_api_qsl:fabric-screen-api-v1:1.0.9+$minecraft_version-SNAPSHOT") {
+		exclude group: 'net.fabricmc'
+	}
+}
+
+processResources {
+	inputs.property 'version', rootProject.version
+	inputs.property 'description', rootProject.description
+	inputs.property 'repo_url', rootProject.repo_url
+
+	filesMatching('quilt.mod.json') {
+		expand([
+				'version': rootProject.version,
+				'description': rootProject.description,
+				'repo_url': rootProject.repo_url
+		])
+	}
+}
+
+tasks.withType(JavaCompile).configureEach {
+	it.sourceCompatibility = 17 // for the IDE support
+	it.options.encoding = 'UTF-8'
+	it.options.release.set(17)
+}
+
+artifacts {
+	jarz remapJar
+}

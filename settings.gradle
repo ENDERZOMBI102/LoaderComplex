@@ -2,8 +2,11 @@ pluginManagement {
 	repositories {
 		maven { url 'https://maven.fabricmc.net' }
 		maven { url 'https://maven.minecraftforge.net' }
-		maven { url = 'https://repo.spongepowered.org/maven' }
-		maven {	url = 'https://jitpack.io' }
+		maven { url 'https://repo.spongepowered.org/maven' }
+		maven { url 'https://server.bbkr.space/artifactory/libs-release/' }
+		maven { url 'https://maven.quiltmc.org/repository/release' }
+		maven { url 'https://maven.quiltmc.org/repository/snapshot' }
+		maven {	url 'https://jitpack.io' }
 		gradlePluginPortal()
 		mavenCentral()
 	}
@@ -28,6 +31,7 @@ include 'loadercomplex-fabric-common'
 include	'loadercomplex-fabric-12'
 include	'loadercomplex-fabric-17'
 //include 'loadercomplex-fabric-173'
+include 'loadercomplex-quilt'
 
 rootProject.name = 'loadercomplex'
 

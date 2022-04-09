@@ -1,4 +1,4 @@
-package com.enderzombi102.loadercomplex.fabric17.impl.utils;
+package com.enderzombi102.loadercomplex;
 
 @FunctionalInterface
 public interface Callable<T> {

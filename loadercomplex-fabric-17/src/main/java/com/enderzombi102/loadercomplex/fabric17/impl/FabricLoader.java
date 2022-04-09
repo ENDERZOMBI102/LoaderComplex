@@ -5,14 +5,21 @@ import com.enderzombi102.loadercomplex.api.Registry;
 import com.enderzombi102.loadercomplex.api.utils.FactoryWorld;
 import com.enderzombi102.loadercomplex.api.utils.LoaderType;
 import com.enderzombi102.loadercomplex.api.utils.Version;
+import net.fabricmc.loader.api.VersionParsingException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class FabricLoader implements Loader {
 	private static final String FABRIC_VERSION;
-	public static final String MINECRAFT_VERSION = "1.17.1";
+	public static final net.fabricmc.loader.api.Version MINECRAFT_VERSION;
 	static {
+		try {
+			MINECRAFT_VERSION = net.fabricmc.loader.api.Version.parse("1.17.1");
+		} catch (VersionParsingException e) {
+			throw new IllegalStateException("Something is REALLY wrong with versions!", e);
+		}
+
 		//noinspection OptionalGetWithoutIsPresent
 		FABRIC_VERSION = net.fabricmc.loader.api.FabricLoader.getInstance()
 				.getModContainer("fabricloader")
@@ -35,7 +42,7 @@ public class FabricLoader implements Loader {
 
 	@Override
 	public String getMinecraftVersion() {
-		return MINECRAFT_VERSION;
+		return MINECRAFT_VERSION.getFriendlyString();
 	}
 
 	@Override
@@ -60,7 +67,11 @@ public class FabricLoader implements Loader {
 
 	@Override
 	public boolean isAtLeastMinecraft(String version) {
-		return true;
+		try {
+			return net.fabricmc.loader.api.Version.parse(version).compareTo( MINECRAFT_VERSION ) >= 0;
+		} catch (VersionParsingException e) {
+			throw new IllegalArgumentException(e);
+		}
 	}
 
 	@Override
