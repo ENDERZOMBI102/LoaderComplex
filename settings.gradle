@@ -28,6 +28,7 @@ include 'loadercomplex-fabric-common'
 include	'loadercomplex-fabric-12'
 include	'loadercomplex-fabric-17'
 //include 'loadercomplex-fabric-173'
+include	'loadercomplex-quilt'
 
 rootProject.name = 'loadercomplex'
 
