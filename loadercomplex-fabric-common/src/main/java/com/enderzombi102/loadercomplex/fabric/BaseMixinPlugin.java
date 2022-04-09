@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import static com.enderzombi102.loadercomplex.fabric.FabricDispatcher.getMinecraftVersion;
+
 public abstract class BaseMixinPlugin implements IMixinConfigPlugin {
 	protected final List<String> clientMixins = new ArrayList<>();
 	protected final List<String> commonMixins = new ArrayList<>();
@@ -50,15 +52,5 @@ public abstract class BaseMixinPlugin implements IMixinConfigPlugin {
 				mixins.addAll( this.clientMixins );
 		}
 		return mixins;
-	}
-
-	public static String getMinecraftVersion() {
-		//noinspection OptionalGetWithoutIsPresent
-		return FabricLoader.getInstance()
-				.getModContainer("minecraft")
-				.get()
-				.getMetadata()
-				.getVersion()
-				.getFriendlyString();
 	}
 }

@@ -1,0 +1,49 @@
+{
+	"schema_version": 1,
+	"quilt_loader": {
+		"group": "loadercomplex-quilt",
+		"id": "loadercomplex",
+		"version": "${version}",
+
+		"name": "LoaderComplex",
+		"description": "${description}",
+		"authors": [ "ENDERZOMBI102" ],
+		"contact": {
+			"sources": "${repo_url}"
+		},
+
+		"license": "MIT",
+		"icon": "assets/loadercomplex/icon4quilt.png",
+
+		"environment": "*",
+		"entrypoints": {
+			"init": [
+				"com.enderzombi102.loadercomplex.quilt.LoaderComplexQuilt"
+			],
+			"modmenu": [
+				"com.enderzombi102.loadercomplex.quilt.compat.LoaderComplexModMenuEntrypoint"
+			]
+		},
+		"depends": [
+			{
+				"id": "quilt_loader",
+				"version": "*"
+			},
+			{
+				"id": "quilt_base",
+				"version": "*"
+			},
+			{
+				"id": "minecraft",
+				"version": "1.18.2"
+			},
+			{
+				"id": "java",
+				"version": ">=17"
+			}
+		]
+	},
+	"mixin": [
+		"loadercomplex-quilt.mixins.json"
+	]
+}

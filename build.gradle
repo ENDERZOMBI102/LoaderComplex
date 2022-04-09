@@ -43,10 +43,8 @@ for ( Project proj : rootProject.subprojects ) {
 
 dependencies {
 	for ( String proj : subProjects ) {
-		if ( proj != 'loadercomplex-fabric-common' ) {
-			shade( project( path: proj, configuration: 'jarz' ) ) {
-				transitive = false
-			}
+		shade( project( path: proj, configuration: 'jarz' ) ) {
+			transitive = false
 		}
 	}
 	shade "com.mojang:brigadier:$brigadier_version"

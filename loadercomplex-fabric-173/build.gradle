@@ -2,9 +2,8 @@ plugins {
 	id 'fabric-loom' version '0d0261a'
 }
 
-configurations {
-	shade
-}
+group maven_group
+archivesBaseName archives_base_name
 
 repositories {
 	mavenCentral()
@@ -31,7 +30,7 @@ dependencies {
 	}
 
 	modImplementation "io.github.minecraft-cursed-legacy:cursed-legacy-api:$api_version"
-	modRuntime project(':loadercomplex-fabric-common')
+	implementation project(':loadercomplex-fabric-common')
 }
 
 processResources {

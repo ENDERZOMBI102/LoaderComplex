@@ -2,8 +2,6 @@ plugins {
     id 'java'
 }
 
-group 'com.enderzombi102'
-
 repositories {
     mavenCentral()
     maven { url 'https://maven.fabricmc.net' }
@@ -32,4 +30,8 @@ tasks.withType(JavaCompile).configureEach {
     it.sourceCompatibility = 8 // for the IDE support
     it.options.encoding = 'UTF-8'
     it.options.release.set(8)
+}
+
+artifacts {
+    jarz jar
 }

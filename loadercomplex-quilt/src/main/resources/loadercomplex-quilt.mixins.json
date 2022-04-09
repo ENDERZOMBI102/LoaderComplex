@@ -1,0 +1,14 @@
+{
+	"required": true,
+	"minVersion": "0.8",
+	"package": "com.enderzombi102.loadercomplex.quilt.mixin",
+	"compatibilityLevel": "JAVA_17",
+	"mixins": [ ],
+	"client": [
+		"MinecraftClientMixin",
+		"ModResourcepackUtilMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}

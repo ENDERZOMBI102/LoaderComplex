@@ -13,7 +13,7 @@
 	},
 
 	"license": "MIT",
-	"icon": "loadercomplex.png",
+	"icon": "assets/loadercomplex/icon4fabric.png",
 
 	"environment": "*",
 	"entrypoints": {
@@ -21,6 +21,7 @@
 			"com.enderzombi102.loadercomplex.fabric.FabricDispatcher"
 		],
 		"modmenu": [
+			"com.enderzombi102.loadercomplex.fabric12.compat.LoaderComplexModMenuEntrypoint",
 			"com.enderzombi102.loadercomplex.fabric17.compat.LoaderComplexModMenuEntrypoint"
 		]
 	},

@@ -2,9 +2,8 @@ plugins {
 	id 'fabric-loom' version '0.10-SNAPSHOT'
 }
 
-configurations {
-	shade
-}
+group = maven_group
+archivesBaseName = archives_base_name
 
 repositories {
 	maven { url 'https://maven.terraformersmc.com/releases/' }
@@ -30,7 +29,7 @@ dependencies {
 	modImplementation("com.terraformersmc:modmenu:$modmenu_version") {
 		transitive(false)
 	}
-	modRuntime project(':loadercomplex-fabric-common')
+	implementation project(':loadercomplex-fabric-common')
 }
 
 tasks.withType(JavaCompile).configureEach {
