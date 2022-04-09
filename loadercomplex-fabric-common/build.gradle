@@ -2,8 +2,6 @@ plugins {
     id 'java'
 }
 
-group 'com.enderzombi102'
-
 repositories {
     mavenCentral()
     maven { url 'https://maven.fabricmc.net' }

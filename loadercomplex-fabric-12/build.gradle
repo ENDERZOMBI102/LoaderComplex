@@ -2,18 +2,13 @@ plugins {
 	id 'fabric-loom' version '0.10-SNAPSHOT'
 }
 
-//noinspection GroovyAssignabilityCheck
-group = project.maven_group
+group = maven_group
+archivesBaseName = archives_base_name
 
 repositories {
-	maven {
-		name 'legacy-fabric'
-		url 'https://maven.legacyfabric.net'
-	}
-	maven {
-		name 'Jitpack'
-		url 'https://jitpack.io'
-	}
+	maven { url 'https://maven.legacyfabric.net' }
+	maven { url 'https://jitpack.io' }
+	maven { url 'https://repsy.io/mvn/enderzombi102/mc' }
 }
 
 loom {
@@ -37,17 +32,18 @@ dependencies {
 	mappings "net.fabricmc:yarn:$yarn_mappings:v2"
 	modApi "net.fabricmc:fabric-loader:$loader_version"
 	compileOnly "com.mojang:brigadier:$brigadier_version"
-	modImplementation include("net.legacyfabric.legacy-fabric-api:legacy-fabric-api:1.2.0+1.12.2") {
-		exclude( group: "net.legacyfabric.legacy-fabric-api", module: "legacy-fabric-lifecycle-events-v1" )
-		exclude( group: "net.legacyfabric.legacy-fabric-api", module: "legacy-fabric-entity-events-v1" )
-		exclude( group: "net.legacyfabric.legacy-fabric-api", module: "legacy-fabric-vanilla-command-api-v1" )
+	modImplementation include("net.legacyfabric.legacy-fabric-api:legacy-fabric-api:$fabric_version") {
+		exclude( group: 'net.legacyfabric.legacy-fabric-api', module: 'legacy-fabric-lifecycle-events-v1' )
+		exclude( group: 'net.legacyfabric.legacy-fabric-api', module: 'legacy-fabric-entity-events-v1' )
+		exclude( group: 'net.legacyfabric.legacy-fabric-api', module: 'legacy-fabric-vanilla-command-api-v1' )
 	}
-	modRuntime project(':loadercomplex-fabric-common')
+	implementation project(':loadercomplex-fabric-common')
+	modImplementation "io.github.boogiemonster1o1:modmenu:$modmenu_version"
 }
 
 tasks.withType(JavaCompile).configureEach {
-	it.sourceCompatibility = 8 // for the IDE support
 	it.options.encoding = 'UTF-8'
+	it.sourceCompatibility = 8
 	it.options.release.set(8)
 }
 

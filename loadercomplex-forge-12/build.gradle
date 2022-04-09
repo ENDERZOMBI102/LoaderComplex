@@ -11,8 +11,8 @@ buildscript {
 
 apply plugin: 'net.minecraftforge.gradle'
 
-group = 'com.enderzombi102.loadercomplex.forge12'
-
+group = maven_group
+archivesBaseName = archives_base_name
 
 minecraft {
 	mappings channel: 'snapshot', version: '20171003-1.12'
