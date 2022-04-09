@@ -13,7 +13,7 @@
 	},
 
 	"license": "MIT",
-	"icon": "loadercomplex.png",
+	"icon": "assets/loadercomplex/icon4fabric.png",
 
 	"environment": "*",
 	"entrypoints": {

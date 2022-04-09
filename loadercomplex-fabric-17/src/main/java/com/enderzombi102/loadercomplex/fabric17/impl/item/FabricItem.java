@@ -8,7 +8,7 @@ import com.enderzombi102.loadercomplex.fabric17.impl.entity.FabricEntity;
 import com.enderzombi102.loadercomplex.fabric17.impl.entity.FabricLivingEntity;
 import com.enderzombi102.loadercomplex.fabric17.impl.entity.FabricPlayer;
 import com.enderzombi102.loadercomplex.fabric17.impl.utils.BlockUtils;
-import com.enderzombi102.loadercomplex.fabric17.impl.utils.Callable;
+import com.enderzombi102.loadercomplex.Callable;
 import com.enderzombi102.loadercomplex.fabric17.impl.world.FabricWorld;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.block.BlockState;
