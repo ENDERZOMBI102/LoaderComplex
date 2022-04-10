@@ -17,7 +17,7 @@ public class AddonContainer {
 	private final JarFile addonJar;
 	private final String ID;
 	private final String version;
-	Addon implementation;
+	Addon implementation = null;
 
 	public AddonContainer(Path file) throws IOException {
 		this.file = file;

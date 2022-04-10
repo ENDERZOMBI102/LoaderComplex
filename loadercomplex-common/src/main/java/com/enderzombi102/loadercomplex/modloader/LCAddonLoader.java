@@ -1,14 +1,18 @@
 package com.enderzombi102.loadercomplex.modloader;
 
 import com.enderzombi102.loadercomplex.api.Addon;
+import com.enderzombi102.loadercomplex.api.annotation.Instance;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.nio.file.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -40,6 +44,7 @@ public class LCAddonLoader {
 			}
 		}
 		logger.info("SCANNING ADDONS FOLDER");
+		//noinspection ResultOfMethodCallIgnored
 		ADDONS_PATH.toFile().mkdirs();
 		for ( File file : Objects.requireNonNull( ADDONS_PATH.toFile().listFiles() ) ) {
 			if( file.getName().endsWith(".jar") ) {
@@ -53,15 +58,25 @@ public class LCAddonLoader {
 		}
 
 		logger.info("INSTANTIATING ADDONS");
-		for ( AddonContainer mod : addonContainers) {
+		for ( AddonContainer addon : addonContainers) {
 			try {
-				Class<?> classToLoad = Class.forName( mod.getMainClass(), true, classLoader );
+				Class<?> classToLoad = Class.forName( addon.getMainClass(), true, classLoader );
 				if ( Addon.class.isAssignableFrom(classToLoad) ) {
 					Class<? extends Addon> addonToLoad = (Class<? extends Addon>) classToLoad;
-					mod.implementation = addonToLoad.getDeclaredConstructor().newInstance();
+					// set the first Instance-annotated static field to the instance
+					for ( Field field : classToLoad.getFields() ) {
+						if ( Modifier.isStatic( field.getModifiers() ) && field.isAnnotationPresent( Instance.class ) ) {
+							logger.info("Addon {} is using the Instance annotation! Using their provided instance.", addon.getID() );
+							field.setAccessible(true);
+							addon.implementation = (Addon) field.get( null );
+							break;
+						}
+					}
+					if ( addon.implementation == null )
+						addon.implementation = addonToLoad.getDeclaredConstructor().newInstance();
 				}
 			} catch ( ReflectiveOperationException e ) {
-				logger.error( "can't load addon file: " + mod.getPath(), e );
+				logger.error( "can't load addon file: " + addon.getPath(), e );
 			}
 		}
 
