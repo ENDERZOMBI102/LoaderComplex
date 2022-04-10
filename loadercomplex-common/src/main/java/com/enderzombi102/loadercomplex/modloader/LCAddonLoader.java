@@ -16,6 +16,9 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * Internal class used to load jars and instantiate Addon implementations
+ */
 public class LCAddonLoader {
 
 	private final Path MODS_PATH;

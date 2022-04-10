@@ -3,20 +3,20 @@ package com.enderzombi102.loadercomplex;
 import com.enderzombi102.loadercomplex.api.utils.Version;
 
 import java.io.IOException;
-import java.sql.Date;
-import java.sql.Time;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.chrono.ChronoLocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
-import java.time.temporal.TemporalField;
 import java.util.jar.Attributes;
 import java.util.jar.Manifest;
 
 public final class Utils {
 	private Utils() { }
 
+	/**
+	 * Used to format a string with {} syntax
+	 * @param fmt string to format
+	 * @param objs objects to format the string with
+	 * @return the formatted string
+	 */
 	public static String format(String fmt, Object... objs) {
 		for ( Object obj : objs ) {
 			fmt = fmt.replaceFirst("\\{}", obj.toString() );
@@ -24,6 +24,11 @@ public final class Utils {
 		return fmt;
 	}
 
+	/**
+	 * Tries to get the current API version of this LC implementation
+	 * @param isDevEnv whether this is a developer environment
+	 * @return version of the currently implemented API
+	 */
 	public static Version getApiVersion( boolean isDevEnv ) {
 		if ( isDevEnv )
 			return new Version(

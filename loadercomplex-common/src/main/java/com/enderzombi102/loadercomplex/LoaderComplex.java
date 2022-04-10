@@ -6,6 +6,9 @@ import com.enderzombi102.loadercomplex.modloader.AddonContainer;
 
 import java.util.function.Consumer;
 
+/**
+ * Internal class, should not be used.
+ */
 public abstract class LoaderComplex {
 
 	protected Loader loader;

@@ -10,6 +10,11 @@ import org.jetbrains.annotations.ApiStatus;
 
 import java.util.Random;
 
+/**
+ * Represents an extensible block.
+ *
+ * Any block implemented by addons should extend this class.
+ */
 public abstract class Block {
 
 	public boolean opaque = true;
@@ -25,16 +30,47 @@ public abstract class Block {
 	public BlockSoundGroup soundGroup = BlockSoundGroup.STONE;
 	public float particleGravity = 1.0F;
 	public float slipperiness = 0.6F;
-	// IMPLEMENTATION ATTRIBUTE
+
+	/**
+	 * Internal field, do not use.
+	 */
+	@ApiStatus.Internal
 	public Object implementationBlock;
 
 	// methods to be overwritten
+
+	/**
+	 * Called when the block is broken
+	 * @param world world the block was broken in
+	 * @param pos position of the broken block
+	 * @param state state of the broken block
+	 * @param player player that broke the block
+	 */
 	@ApiStatus.AvailableSince("0.1.3")
 	public void OnBreak( World world, Position pos, Blockstate state, Player player ) {}
 
+	/**
+	 * Called when an entity steps on this block
+	 * @param world world the block is in
+	 * @param pos position the block is in
+	 * @param entity entity that stepped on the block
+	 */
 	@ApiStatus.AvailableSince("0.1.3")
 	public void OnSteppedOn( World world, Position pos, Entity entity) {}
 
+	/**
+	 * Called when a player interacts with this block
+	 * @param world the world the interaction happened in
+	 * @param pos the position of the block the player interacted with
+	 * @param state state of the block the player interacted with
+	 * @param player player that interacted with the block
+	 * @param hand hand which interaction was performed from
+	 * @param direction
+	 * @param hitX
+	 * @param hitY
+	 * @param hitZ
+	 * @return
+	 */
 	@ApiStatus.AvailableSince("0.1.3")
 	public boolean OnBlockInteracted( World world, Position pos, Blockstate state, Player player, Hand hand, Direction direction, double hitX, double hitY, double hitZ ) { return false; }
 

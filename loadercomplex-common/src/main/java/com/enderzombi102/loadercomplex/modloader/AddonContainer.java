@@ -10,8 +10,12 @@ import java.util.Map;
 import java.util.jar.Attributes;
 import java.util.jar.JarFile;
 
+/**
+ * Container for an addon implementation.
+ *
+ * Contains various info about an addon such as id and description.
+ */
 public class AddonContainer {
-
 	private final String mainClass;
 	private final Path file;
 	private final JarFile addonJar;

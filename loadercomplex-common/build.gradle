@@ -2,6 +2,8 @@ plugins {
 	id 'maven-publish'
 }
 
+version = api_version
+
 repositories {
 	mavenCentral()
 }
