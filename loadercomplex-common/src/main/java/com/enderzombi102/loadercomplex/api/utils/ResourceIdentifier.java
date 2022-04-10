@@ -2,7 +2,7 @@ package com.enderzombi102.loadercomplex.api.utils;
 
 import org.jetbrains.annotations.NotNull;
 
-public class ResourceIdentifier {
+public class ResourceIdentifier implements Comparable<ResourceIdentifier> {
 
 	private final String namespace, path;
 
@@ -34,10 +34,12 @@ public class ResourceIdentifier {
 		}
 	}
 
+	@Override
 	public int hashCode() {
 		return 31 * this.namespace.hashCode() + this.path.hashCode();
 	}
 
+	@Override
 	public int compareTo(ResourceIdentifier identifier) {
 		int i = this.path.compareTo(identifier.path);
 		if (i == 0) {
@@ -47,4 +49,18 @@ public class ResourceIdentifier {
 		return i;
 	}
 
+	/**
+	 * @param string a string representing a resource identifier, may or may not be namespaced.
+	 * @return a {@link com.enderzombi102.loadercomplex.api.utils.ResourceIdentifier} representation of that string
+	*/
+	public static ResourceIdentifier ri( @NotNull String string ) {
+		if ( string.contains(":") ) {
+			// its a namespaced name
+			String[] parts = string.split(":");
+			return new ResourceIdentifier( parts[0], parts[1] );
+		} else {
+			// not a namespaced name, default namespace to minecraft
+			return new ResourceIdentifier( "minecraft", string );
+		}
+	}
 }
