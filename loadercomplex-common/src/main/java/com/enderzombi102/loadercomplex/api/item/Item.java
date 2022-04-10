@@ -10,7 +10,7 @@ import org.jetbrains.annotations.ApiStatus;
 
 public abstract class Item {
 
-	public String group = null;
+	public ResourceIdentifier group = null;
 	public int maxCount = 64;
 	public int maxDamage = 0;
 	public boolean is3D = false;

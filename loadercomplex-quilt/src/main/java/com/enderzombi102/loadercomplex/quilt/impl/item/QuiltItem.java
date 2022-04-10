@@ -1,7 +1,6 @@
 package com.enderzombi102.loadercomplex.quilt.impl.item;
 
 
-import com.enderzombi102.loadercomplex.Callable;
 import com.enderzombi102.loadercomplex.api.item.Item;
 import com.enderzombi102.loadercomplex.api.utils.Hand;
 import com.enderzombi102.loadercomplex.quilt.impl.block.QuiltBlockstate;
@@ -31,23 +30,15 @@ public class QuiltItem extends net.minecraft.item.Item {
 
 	public QuiltItem(Item item ) {
 		super(
-			( (Callable<QuiltItemSettings>) () -> {
-				var settings = new QuiltItemSettings()
-						.maxCount( item.maxCount )
-						.maxDamage( item.maxDamage );
-
-				if ( getGroup( item ) != null )
-					settings.group( getGroup( item ) );
-
-				return settings;
-			}).call()
+			new QuiltItemSettings()
+				.maxCount( item.maxCount )
+				.maxDamage( item.maxDamage )
 		);
 		this.itemImpl = item;
 		item.implementationItem = this;
 	}
 
 	// logic methods override
-
 
 	@Override
 	public void postProcessNbt(NbtCompound nbt ) {
@@ -191,24 +182,6 @@ public class QuiltItem extends net.minecraft.item.Item {
 		return this.itemImpl.enchantability;
 	}
 
-	private static ItemGroup getGroup( Item item ) {
-		if ( item.group == null )
-			return null;
-		return switch (item.group) {
-			case "minecraft:itemgroup.brewing" -> ItemGroup.BREWING;
-			case "minecraft:itemgroup.building_blocks" -> ItemGroup.BUILDING_BLOCKS;
-			case "minecraft:itemgroup.combat" -> ItemGroup.COMBAT;
-			case "minecraft:itemgroup.decorations" -> ItemGroup.DECORATIONS;
-			case "minecraft:itemgroup.food" -> ItemGroup.FOOD;
-			case "minecraft:itemgroup.materials" -> ItemGroup.MATERIALS;
-			case "minecraft:itemgroup.redstone" -> ItemGroup.REDSTONE;
-			case "minecraft:itemgroup.tools" -> ItemGroup.TOOLS;
-			case "minecraft:itemgroup.transportation" -> ItemGroup.TRANSPORTATION;
-			case "minecraft:itemgroup.misc" -> ItemGroup.MISC;
-			default -> ItemGroup.MISC;
-		};
-	}
-
 	@Override
 	public boolean canRepair(ItemStack stack, ItemStack ingredient) {
 		String material = this.itemImpl.repairMaterial.toString();
@@ -219,5 +192,9 @@ public class QuiltItem extends net.minecraft.item.Item {
 					.equals( material );
 		}
 		return false;
+	}
+
+	public Item getItemImpl() {
+		return this.itemImpl;
 	}
 }

@@ -1,14 +1,14 @@
 package com.enderzombi102.loadercomplex.fabric12.impl.item;
 
 
+import com.enderzombi102.loadercomplex.api.item.Item;
+import com.enderzombi102.loadercomplex.api.utils.Hand;
 import com.enderzombi102.loadercomplex.fabric12.impl.block.FabricBlockstate;
 import com.enderzombi102.loadercomplex.fabric12.impl.entity.FabricEntity;
 import com.enderzombi102.loadercomplex.fabric12.impl.entity.FabricLivingEntity;
 import com.enderzombi102.loadercomplex.fabric12.impl.entity.FabricPlayer;
 import com.enderzombi102.loadercomplex.fabric12.impl.utils.BlockUtils;
 import com.enderzombi102.loadercomplex.fabric12.impl.world.FabricWorld;
-import com.enderzombi102.loadercomplex.api.item.Item;
-import com.enderzombi102.loadercomplex.api.utils.Hand;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -16,7 +16,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.itemgroup.ItemGroup;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.TypedActionResult;
@@ -25,8 +24,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
-
-import javax.annotation.Nullable;
 
 public class FabricItem extends net.minecraft.item.Item {
 	private final Item itemImpl;
@@ -47,7 +44,6 @@ public class FabricItem extends net.minecraft.item.Item {
 	}
 
 	// logic methods override
-
 
 	@Override
 	public boolean postProcessNbt( NbtCompound nbt ) {
@@ -164,12 +160,6 @@ public class FabricItem extends net.minecraft.item.Item {
 		);
 	}
 
-	// FIXME: This has vanished?!?
-	protected boolean isIn(ItemGroup group) {
-		ItemGroup itemGroup = this.getGroup();
-		return itemGroup != null && ( group == ItemGroup.SEARCH || group == itemGroup );
-	}
-
 	// getter methods override
 
 	// getMiningSpeedMultiplier
@@ -230,42 +220,6 @@ public class FabricItem extends net.minecraft.item.Item {
 		return this.itemImpl.enchantability;
 	}
 
-	@Nullable
-	@Override
-	public ItemGroup getItemGroup() {
-		return this.getGroup();
-	}
-
-	@Nullable
-	public ItemGroup getGroup() {
-		if ( this.itemImpl.group == null )
-			return null;
-		switch ( this.itemImpl.group ) {
-			case "minecraft:itemgroup.brewing":
-				return ItemGroup.BREWING;
-			case "minecraft:itemgroup.building_blocks":
-				return ItemGroup.BUILDING_BLOCKS;
-			case "minecraft:itemgroup.combat":
-				return ItemGroup.COMBAT;
-			case "minecraft:itemgroup.decorations":
-				return ItemGroup.DECORATIONS;
-			case "minecraft:itemgroup.food":
-				return ItemGroup.FOOD;
-			case "minecraft:itemgroup.materials":
-				return ItemGroup.MATERIALS;
-			case "minecraft:itemgroup.redstone":
-				return ItemGroup.REDSTONE;
-			case "minecraft:itemgroup.tools":
-				return ItemGroup.TOOLS;
-			case "minecraft:itemgroup.transportation":
-				return ItemGroup.TRANSPORTATION;
-			case "minecraft:itemgroup.misc":
-				return ItemGroup.MISC;
-			default:
-				return ItemGroup.MISC;
-		}
-	}
-
 	@Override
 	public boolean canRepair(ItemStack stack, ItemStack ingredient) {
 		String material = this.itemImpl.repairMaterial.toString();
@@ -277,5 +231,9 @@ public class FabricItem extends net.minecraft.item.Item {
 					.equals( material );
 		}
 		return false;
+	}
+
+	public Item getItemImpl() {
+		return this.itemImpl;
 	}
 }

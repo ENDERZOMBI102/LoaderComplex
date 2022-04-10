@@ -1,6 +1,6 @@
 package com.enderzombi102.loadercomplex.quilt.impl.block;
 
-import com.enderzombi102.loadercomplex.Callable;
+import com.enderzombi102.loadercomplex.api.utils.Callable;
 import com.enderzombi102.loadercomplex.api.block.Block;
 import com.enderzombi102.loadercomplex.quilt.impl.entity.QuiltEntity;
 import com.enderzombi102.loadercomplex.quilt.impl.entity.QuiltPlayer;

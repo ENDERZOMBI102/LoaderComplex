@@ -13,12 +13,18 @@ dependencies {
 }
 
 tasks.withType(JavaCompile).configureEach {
+	it.sourceCompatibility = 8
 	it.options.encoding = 'UTF-8'
 	it.options.release.set( 8 )
 }
 
 artifacts {
 	jarz jar
+}
+
+java {
+	withJavadocJar()
+	withSourcesJar()
 }
 
 publishing {

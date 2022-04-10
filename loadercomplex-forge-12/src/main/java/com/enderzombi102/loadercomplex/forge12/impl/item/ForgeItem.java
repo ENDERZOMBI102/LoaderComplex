@@ -4,6 +4,7 @@ package com.enderzombi102.loadercomplex.forge12.impl.item;
 import com.enderzombi102.loadercomplex.api.item.Item;
 import com.enderzombi102.loadercomplex.api.utils.Direction;
 import com.enderzombi102.loadercomplex.api.utils.Hand;
+import com.enderzombi102.loadercomplex.forge12.impl.ForgeRegistry;
 import com.enderzombi102.loadercomplex.forge12.impl.block.ForgeBlockstate;
 import com.enderzombi102.loadercomplex.forge12.impl.entity.ForgeEntity;
 import com.enderzombi102.loadercomplex.forge12.impl.entity.ForgeLivingEntity;
@@ -30,6 +31,10 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
+
+import java.util.Objects;
+
+import static com.enderzombi102.loadercomplex.api.utils.ResourceIdentifier.ri;
 
 public class ForgeItem extends net.minecraft.item.Item {
 
@@ -219,30 +224,10 @@ public class ForgeItem extends net.minecraft.item.Item {
 	@Nullable
 	@Override
 	public CreativeTabs getCreativeTab() {
-		if ( this.itemImpl == null || this.itemImpl.group == null ) return null;
-		switch ( this.itemImpl.group ) {
-			case "minecraft:itemgroup.brewing":
-				return CreativeTabs.BREWING;
-			case "minecraft:itemgroup.building_blocks":
-				return CreativeTabs.BUILDING_BLOCKS;
-			case "minecraft:itemgroup.combat":
-				return CreativeTabs.COMBAT;
-			case "minecraft:itemgroup.decorations":
-				return CreativeTabs.DECORATIONS;
-			case "minecraft:itemgroup.food":
-				return CreativeTabs.FOOD;
-			case "minecraft:itemgroup.materials":
-				return CreativeTabs.MATERIALS;
-			case "minecraft:itemgroup.redstone":
-				return CreativeTabs.REDSTONE;
-			case "minecraft:itemgroup.tools":
-				return CreativeTabs.TOOLS;
-			case "minecraft:itemgroup.transportation":
-				return CreativeTabs.TRANSPORTATION;
-			case "minecraft:itemgroup.misc":
-			default:
-				return CreativeTabs.MISC;
-		}
+		return ForgeRegistry.getOrCreateItemGroup(
+			this.itemImpl.group,
+			ri( Objects.requireNonNull( this.getRegistryName() ).toString() )
+		);
 	}
 
 	@Override

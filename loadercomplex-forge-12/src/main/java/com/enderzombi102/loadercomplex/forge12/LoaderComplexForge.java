@@ -33,10 +33,6 @@ public class LoaderComplexForge extends LoaderComplex {
 
 	public static final Logger LOGGER = LogManager.getLogger("[LoaderComplex-Forge]");
 
-	/**
-	 * This is the instance of your mod as created by Forge. It will never be null.
-	 */
-	@Mod.Instance(MOD_ID)
 	public static LoaderComplexForge INSTANCE;
 	private final ModContainer container;
 	@SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
@@ -44,6 +40,7 @@ public class LoaderComplexForge extends LoaderComplex {
 
 	public LoaderComplexForge() {
 		super();
+		INSTANCE = this;
 		this.loader = new ForgeLoader();
 		this.resourceHelper = container -> {
 			// wrap AddonContainer in a forge-compatible one

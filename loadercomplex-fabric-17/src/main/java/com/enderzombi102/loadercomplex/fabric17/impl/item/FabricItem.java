@@ -8,7 +8,6 @@ import com.enderzombi102.loadercomplex.fabric17.impl.entity.FabricEntity;
 import com.enderzombi102.loadercomplex.fabric17.impl.entity.FabricLivingEntity;
 import com.enderzombi102.loadercomplex.fabric17.impl.entity.FabricPlayer;
 import com.enderzombi102.loadercomplex.fabric17.impl.utils.BlockUtils;
-import com.enderzombi102.loadercomplex.Callable;
 import com.enderzombi102.loadercomplex.fabric17.impl.world.FabricWorld;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.block.BlockState;
@@ -31,23 +30,15 @@ public class FabricItem extends net.minecraft.item.Item {
 
 	public FabricItem( Item item ) {
 		super(
-			( (Callable<FabricItemSettings>) () -> {
-				var settings = new FabricItemSettings()
-						.maxCount( item.maxCount )
-						.maxDamage( item.maxDamage );
-
-				if ( getGroup( item ) != null )
-					settings.group( getGroup( item ) );
-
-				return settings;
-			}).call()
+			new FabricItemSettings()
+				.maxCount( item.maxCount )
+				.maxDamage( item.maxDamage )
 		);
 		this.itemImpl = item;
 		item.implementationItem = this;
 	}
 
 	// logic methods override
-
 
 	@Override
 	public void postProcessNbt(NbtCompound nbt ) {
@@ -191,24 +182,6 @@ public class FabricItem extends net.minecraft.item.Item {
 		return this.itemImpl.enchantability;
 	}
 
-	private static ItemGroup getGroup( Item item ) {
-		if ( item.group == null )
-			return null;
-		return switch (item.group) {
-			case "minecraft:itemgroup.brewing" -> ItemGroup.BREWING;
-			case "minecraft:itemgroup.building_blocks" -> ItemGroup.BUILDING_BLOCKS;
-			case "minecraft:itemgroup.combat" -> ItemGroup.COMBAT;
-			case "minecraft:itemgroup.decorations" -> ItemGroup.DECORATIONS;
-			case "minecraft:itemgroup.food" -> ItemGroup.FOOD;
-			case "minecraft:itemgroup.materials" -> ItemGroup.MATERIALS;
-			case "minecraft:itemgroup.redstone" -> ItemGroup.REDSTONE;
-			case "minecraft:itemgroup.tools" -> ItemGroup.TOOLS;
-			case "minecraft:itemgroup.transportation" -> ItemGroup.TRANSPORTATION;
-			case "minecraft:itemgroup.misc" -> ItemGroup.MISC;
-			default -> ItemGroup.MISC;
-		};
-	}
-
 	@Override
 	public boolean canRepair(ItemStack stack, ItemStack ingredient) {
 		String material = this.itemImpl.repairMaterial.toString();
@@ -219,5 +192,9 @@ public class FabricItem extends net.minecraft.item.Item {
 					.equals( material );
 		}
 		return false;
+	}
+
+	public Item getItemImpl() {
+		return itemImpl;
 	}
 }

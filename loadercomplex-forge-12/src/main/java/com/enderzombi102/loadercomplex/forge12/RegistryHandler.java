@@ -3,6 +3,7 @@ package com.enderzombi102.loadercomplex.forge12;
 import com.enderzombi102.loadercomplex.forge12.impl.ForgeRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -35,5 +36,10 @@ public class RegistryHandler {
 		 event.getRegistry().register(new MySpecialBlock().setRegistryName(MOD_ID, "mySpecialBlock"));
 		*/
 		( (ForgeRegistry) INSTANCE.getLoader().getRegistry() ).onBlockRegistry(evt);
+	}
+
+	@SubscribeEvent
+	public static void addModels(ModelRegistryEvent evt) {
+		( (ForgeRegistry) INSTANCE.getLoader().getRegistry() ).onModelRegistry();
 	}
 }
