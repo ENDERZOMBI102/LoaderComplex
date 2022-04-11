@@ -58,11 +58,13 @@ processResources {
 	inputs.property 'version', rootProject.version
 	inputs.property 'description', rootProject.description
 	inputs.property 'repo_url', rootProject.repo_url
+	inputs.property 'loader_version', loader_version
 
 	filesMatching('quilt.mod.json') {
 		expand([
 				'version': rootProject.version,
 				'description': rootProject.description,
+				'loader_version': loader_version,
 				'repo_url': rootProject.repo_url
 		])
 	}
