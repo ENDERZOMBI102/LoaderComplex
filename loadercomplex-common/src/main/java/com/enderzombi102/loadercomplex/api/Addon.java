@@ -5,6 +5,11 @@ import org.jetbrains.annotations.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Represents an addon for LoaderComplex.<br/>
+ *<br/>
+ * All addons must have an implementation of this class.
+ */
 public interface Addon {
 
 	/**
@@ -15,12 +20,12 @@ public interface Addon {
 
 	/**
 	 * Getter for the authors of this addon
-	 * @return a ,-separated list of names
+	 * @return a comma-separated list of names
 	 */
 	String getAuthors();
 
 	/**
-	 * Getter for this addon's name.
+	 * Getter for this addon's name.<br/>
 	 * If this returns null, the name will be obtained from the file name.
 	 * @return addon's name
 	 */
@@ -38,13 +43,13 @@ public interface Addon {
 
 	/**
 	 * Getter for the Addon's links
-	 * The map may contain the following keys:
-	 *  - source
-	 *  - discord
-	 *  - website
-	 *  - issues
+	 * The map may contain the following keys:<br/>
+	 *  - source<br/>
+	 *  - discord<br/>
+	 *  - website<br/>
+	 *  - issues<br/>
 	 *
-	 * @apiNote some LoaderComplex implementations may not show all links
+	 * <b>NOTE:</b> some LoaderComplex implementations may not show all links
 	 */
 	default Map<String, String> getLinks() { return new HashMap<>(); }
 }

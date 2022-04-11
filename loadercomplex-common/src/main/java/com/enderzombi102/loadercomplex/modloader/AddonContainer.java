@@ -11,8 +11,8 @@ import java.util.jar.Attributes;
 import java.util.jar.JarFile;
 
 /**
- * Container for an addon implementation.
- *
+ * Container for an addon implementation.<br/>
+ * <br/>
  * Contains various info about an addon such as id and description.
  */
 public class AddonContainer {

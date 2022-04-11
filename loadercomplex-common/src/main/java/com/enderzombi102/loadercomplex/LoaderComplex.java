@@ -7,7 +7,7 @@ import com.enderzombi102.loadercomplex.modloader.AddonContainer;
 import java.util.function.Consumer;
 
 /**
- * Internal class, should not be used.
+ * Internal class used by LoaderComplex implementations, should not be used by addons.
  */
 public abstract class LoaderComplex {
 	private final AddonLoader addonLoader = new AddonLoader();

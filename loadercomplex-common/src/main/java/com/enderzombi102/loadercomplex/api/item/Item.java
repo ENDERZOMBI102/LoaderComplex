@@ -9,8 +9,8 @@ import com.enderzombi102.loadercomplex.api.world.World;
 import org.jetbrains.annotations.ApiStatus;
 
 /**
- * Represents an extensible item.
- *
+ * Represents an extensible item.<br/>
+ * <br/>
  * Any item implemented by addons should extend this class.
  */
 public abstract class Item {
@@ -29,7 +29,7 @@ public abstract class Item {
 	public String translationKey;
 
 	/**
-	 * Internal field, do not use.
+	 * Internal field, do not use.<br/>
 	 * Holds the Loader-Specific wrapper instance for this item
 	 */
 	public Object implementationItem;

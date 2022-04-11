@@ -9,8 +9,8 @@ import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.ApiStatus;
 
 /**
- * The main LoaderComplex interface, many methods require this as parameter.
- *
+ * The main LoaderComplex interface, many methods require this as parameter.<br/>
+ * <br/>
  * This is the main way you'll be able to interact with the underlying modloader
  */
 public interface Loader {

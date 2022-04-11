@@ -8,6 +8,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.jar.Attributes;
 import java.util.jar.Manifest;
 
+/**
+ * Some common utilities used in many parts of LoaderComplex
+ */
 public final class Utils {
 	private Utils() { }
 

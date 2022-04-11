@@ -11,8 +11,8 @@ import org.jetbrains.annotations.ApiStatus;
 import java.util.Random;
 
 /**
- * Represents an extensible block.
- *
+ * Represents an extensible block.<br/>
+ * <br/>
  * Any block implemented by addons should extend this class.
  */
 public abstract class Block {
@@ -31,7 +31,7 @@ public abstract class Block {
 	public float slipperiness = 0.6F;
 
 	/**
-	 * Internal field, do not use.
+	 * Internal field, do not use.<br/>
 	 * Holds the Loader-Specific wrapper instance for this block
 	 */
 	@ApiStatus.Internal
