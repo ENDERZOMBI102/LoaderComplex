@@ -2,8 +2,10 @@ package com.enderzombi102.loadercomplex.api.utils;
 
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * Represents a version
+ */
 public final class Version {
-
 	private final int major, minor, patch;
 	private final String buildDate;
 

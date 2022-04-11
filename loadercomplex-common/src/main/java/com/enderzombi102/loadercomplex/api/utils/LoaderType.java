@@ -1,5 +1,8 @@
 package com.enderzombi102.loadercomplex.api.utils;
 
+/**
+ * Represents the loader that LoaderComplex is currently running under
+ */
 public enum LoaderType {
 	Bukkit,
 	Spigot,

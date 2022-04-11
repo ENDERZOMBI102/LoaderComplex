@@ -8,8 +8,12 @@ import com.enderzombi102.loadercomplex.api.utils.*;
 import com.enderzombi102.loadercomplex.api.world.World;
 import org.jetbrains.annotations.ApiStatus;
 
+/**
+ * Represents an extensible item.
+ *
+ * Any item implemented by addons should extend this class.
+ */
 public abstract class Item {
-
 	public ResourceIdentifier group = null;
 	public int maxCount = 64;
 	public int maxDamage = 0;
@@ -24,7 +28,10 @@ public abstract class Item {
 	public float miningSpeedMultiplier = 1.0F;
 	public String translationKey;
 
-	// IMPLEMENTATION ATTRIBUTE
+	/**
+	 * Internal field, do not use.
+	 * Holds the Loader-Specific wrapper instance for this item
+	 */
 	public Object implementationItem;
 
 	// methods
@@ -59,5 +66,4 @@ public abstract class Item {
 	public void onStoppedUsing( ItemStack stack, World world, LivingEntity user, int remainingUseTicks ) { }
 
 	public boolean postProcesstag( Object tag ) { return false; }
-
 }

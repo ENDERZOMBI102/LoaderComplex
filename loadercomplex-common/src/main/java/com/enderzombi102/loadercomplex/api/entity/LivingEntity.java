@@ -4,6 +4,9 @@ import com.enderzombi102.loadercomplex.api.item.EquipmentSlot;
 import com.enderzombi102.loadercomplex.api.item.ItemStack;
 import org.jetbrains.annotations.ApiStatus;
 
+/**
+ * Represents a living entity, with health, inventory and stuff.
+ */
 @ApiStatus.AvailableSince("0.1.3")
 public interface LivingEntity extends Entity {
 	float getHealth();

@@ -6,6 +6,9 @@ import com.enderzombi102.loadercomplex.api.entity.Player;
 import com.enderzombi102.loadercomplex.api.utils.*;
 import org.jetbrains.annotations.ApiStatus;
 
+/**
+ * Represents a minecraft world
+ */
 @ApiStatus.AvailableSince("0.1.3")
 public interface World {
 	void spawn( Entity entity, Position pos );
@@ -35,5 +38,8 @@ public interface World {
 	int getRedstonePower(Position pos, Direction direction);
 	void playsound(Player player, double x, double y, double z, ResourceIdentifier sound, float volume, float pitch);
 
+	/**
+	 * Getter for the raw World object
+	 */
 	Object getObject();
 }

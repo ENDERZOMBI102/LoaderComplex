@@ -28,6 +28,7 @@ public final class Utils {
 	 * Tries to get the current API version of this LC implementation
 	 * @param isDevEnv whether this is a developer environment
 	 * @return version of the currently implemented API
+	 * @throws IllegalStateException if the LoaderComplex's manifest is somehow broken
 	 */
 	public static Version getApiVersion( boolean isDevEnv ) {
 		if ( isDevEnv )

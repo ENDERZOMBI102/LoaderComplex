@@ -8,6 +8,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.ApiStatus;
 
+/**
+ * The main LoaderComplex interface, many methods require this as parameter.
+ *
+ * This is the main way you'll be able to interact with the underlying modloader
+ */
 public interface Loader {
 	/**
 	 * Returns the currently running loader type
@@ -58,10 +63,10 @@ public interface Loader {
 
 
 	/**
-	 * Returns the API implementation version of this layer, might be different based on underlying loader
+	 * Returns the API implementation version of this layer, might be different based on underlying loader.
 	 */
 	default Version getApiVersion() {
-		return new Version( "0.1.3", Utils.getApiVersion(true).getBuildDate() );
+		return new Version( "0.1.3", Utils.getApiVersion( isDeveloperEnvironment() ).getBuildDate() );
 	}
 
 	/**

@@ -4,6 +4,9 @@ import com.enderzombi102.loadercomplex.api.utils.Gamemode;
 import com.enderzombi102.loadercomplex.api.utils.Position;
 import org.jetbrains.annotations.ApiStatus;
 
+/**
+ * Represents a player entity
+ */
 @ApiStatus.AvailableSince("0.1.3")
 public interface Player extends LivingEntity {
 	boolean isSleeping();

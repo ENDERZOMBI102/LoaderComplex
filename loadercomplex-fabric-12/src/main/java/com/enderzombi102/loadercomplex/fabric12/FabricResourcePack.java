@@ -1,7 +1,7 @@
 package com.enderzombi102.loadercomplex.fabric12;
 
 import com.enderzombi102.loadercomplex.Utils;
-import com.enderzombi102.loadercomplex.api.LCResourcePack;
+import com.enderzombi102.loadercomplex.api.AddonResourcePack;
 import com.enderzombi102.loadercomplex.modloader.AddonContainer;
 import com.google.common.base.Charsets;
 import com.google.common.base.Splitter;
@@ -19,7 +19,7 @@ import java.util.jar.JarEntry;
 
 
 // FIXME: for some reason only block textures and translations are loaded from addons, no item textures
-public class FabricResourcePack extends AbstractFileResourcePack implements LCResourcePack {
+public class FabricResourcePack extends AbstractFileResourcePack implements AddonResourcePack {
 	private static final Splitter TYPE_NAMESPACE_SPLITTER = Splitter.on('/').omitEmptyStrings().limit(3);
 	private static final Logger LOGGER = LogManager.getLogger("LC-PackManager");
 	// https://minecraft.fandom.com/wiki/Tutorials/Creating_a_resource_pack#.22pack_format.22

@@ -1,5 +1,8 @@
 package com.enderzombi102.loadercomplex.api.block;
 
+/**
+ * Represents the shape of the block
+ */
 public enum BlockShape {
 	SOLID,
 	BOWL,

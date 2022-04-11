@@ -26,9 +26,25 @@ public interface Addon {
 	 */
 	default @Nullable String getName() { return null; }
 
+	/**
+	 * Getter for the Addon's description
+	 */
 	default String getDescription() { return ""; }
 
+	/**
+	 * Getter for the Addon's icon path
+	 */
 	default @Nullable String getIconPath() { return null; }
 
+	/**
+	 * Getter for the Addon's links
+	 * The map may contain the following keys:
+	 *  - source
+	 *  - discord
+	 *  - website
+	 *  - issues
+	 *
+	 * @apiNote some LoaderComplex implementations may not show all links
+	 */
 	default Map<String, String> getLinks() { return new HashMap<>(); }
 }

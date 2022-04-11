@@ -1,5 +1,8 @@
 package com.enderzombi102.loadercomplex.api.utils;
 
+/**
+ * Position in the world
+ */
 public class Position {
 	public final int x, y, z;
 

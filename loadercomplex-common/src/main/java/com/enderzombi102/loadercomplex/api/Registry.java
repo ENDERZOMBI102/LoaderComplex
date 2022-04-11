@@ -11,6 +11,15 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.naming.OperationNotSupportedException;
 
+/**
+ * The Registry is the main way of registering stuff in the game.
+ * It also provides a way to get the underlying game registry and check if a resource is registered.
+ *
+ * This may be used to register:
+ *  - Items
+ *  - Blocks
+ *  - ItemGroups
+ */
 public interface Registry {
 
 	void register( @NotNull Block block, @NotNull ResourceIdentifier identifier );

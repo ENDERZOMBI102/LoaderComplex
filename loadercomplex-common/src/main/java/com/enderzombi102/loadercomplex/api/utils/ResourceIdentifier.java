@@ -2,8 +2,10 @@ package com.enderzombi102.loadercomplex.api.utils;
 
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * Used to identify a resource
+ */
 public class ResourceIdentifier implements Comparable<ResourceIdentifier> {
-
 	private final String namespace, path;
 
 	public ResourceIdentifier(@NotNull String namespace, @NotNull String path) {
@@ -19,6 +21,9 @@ public class ResourceIdentifier implements Comparable<ResourceIdentifier> {
 		return this.namespace;
 	}
 
+	/**
+	 * Returns a string in {namespace}:{path} format
+	 */
 	public String toString() {
 		return this.namespace + ':' + this.path;
 	}
@@ -51,7 +56,7 @@ public class ResourceIdentifier implements Comparable<ResourceIdentifier> {
 
 	/**
 	 * @param string a string representing a resource identifier, may or may not be namespaced.
-	 * @return a {@link com.enderzombi102.loadercomplex.api.utils.ResourceIdentifier} representation of that string
+	 * @return a {@link ResourceIdentifier} representation of that string
 	*/
 	public static ResourceIdentifier ri( @NotNull String string ) {
 		if ( string.contains(":") ) {

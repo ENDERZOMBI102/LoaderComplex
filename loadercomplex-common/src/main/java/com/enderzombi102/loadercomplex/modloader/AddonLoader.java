@@ -19,24 +19,23 @@ import java.util.Objects;
 /**
  * Internal class used to load jars and instantiate Addon implementations
  */
-public class LCAddonLoader {
-
-	private final Path MODS_PATH;
-	private final Path ADDONS_PATH;
-	private final Logger logger = LogManager.getLogger("LC-AddonLoader");
+public class AddonLoader {
+	private final Logger logger = LogManager.getLogger("LoaderComplex | AddonLoader");
 	private final ArrayList<AddonContainer> addonContainers = new ArrayList<>();
 	private final DynamicClassLoader classLoader = new DynamicClassLoader();
+	private final Path modsPath;
+	private final Path addonsPath;
 
-	public LCAddonLoader() {
-		MODS_PATH = Paths.get( System.getProperty("user.dir"), "mods" );
-		ADDONS_PATH = Paths.get( System.getProperty("user.dir"), "addons" );
+	public AddonLoader() {
+		modsPath = Paths.get( System.getProperty("user.dir"), "mods" );
+		addonsPath = Paths.get( System.getProperty("user.dir"), "addons" );
 	}
 
 	@SuppressWarnings("unchecked")
 	public void loadAddons() {
 		logger.info("SEARCHING FOR ADDONS");
 		logger.info("SCANNING MODS FOLDER");
-		for ( File file : Objects.requireNonNull( MODS_PATH.toFile().listFiles() ) ) {
+		for ( File file : Objects.requireNonNull( modsPath.toFile().listFiles() ) ) {
 			if( file.getName().endsWith(".lc.jar") ) {
 				try {
 					classLoader.addURL( file.toURI().toURL() );
@@ -48,8 +47,8 @@ public class LCAddonLoader {
 		}
 		logger.info("SCANNING ADDONS FOLDER");
 		//noinspection ResultOfMethodCallIgnored
-		ADDONS_PATH.toFile().mkdirs();
-		for ( File file : Objects.requireNonNull( ADDONS_PATH.toFile().listFiles() ) ) {
+		addonsPath.toFile().mkdirs();
+		for ( File file : Objects.requireNonNull( addonsPath.toFile().listFiles() ) ) {
 			if( file.getName().endsWith(".jar") ) {
 				try {
 					classLoader.addURL( file.toURI().toURL() );
@@ -89,10 +88,9 @@ public class LCAddonLoader {
 		return addonContainers;
 	}
 
-
 	private static class DynamicClassLoader extends URLClassLoader {
 		public DynamicClassLoader() {
-			super( new URL[] {}, LCAddonLoader.class.getClassLoader() );
+			super( new URL[] {}, AddonLoader.class.getClassLoader() );
 		}
 
 		@Override

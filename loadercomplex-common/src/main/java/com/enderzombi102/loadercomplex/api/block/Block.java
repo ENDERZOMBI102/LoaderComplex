@@ -16,7 +16,6 @@ import java.util.Random;
  * Any block implemented by addons should extend this class.
  */
 public abstract class Block {
-
 	public boolean opaque = true;
 	public int opacity = 255;
 	public boolean translucent = false;
@@ -33,6 +32,7 @@ public abstract class Block {
 
 	/**
 	 * Internal field, do not use.
+	 * Holds the Loader-Specific wrapper instance for this block
 	 */
 	@ApiStatus.Internal
 	public Object implementationBlock;
@@ -65,29 +65,54 @@ public abstract class Block {
 	 * @param state state of the block the player interacted with
 	 * @param player player that interacted with the block
 	 * @param hand hand which interaction was performed from
-	 * @param direction
-	 * @param hitX
-	 * @param hitY
-	 * @param hitZ
-	 * @return
+	 * @param direction direction of the interaction
+	 * @param hitX precise hit X position
+	 * @param hitY precise hit Y position
+	 * @param hitZ precise hit Z position
+	 * @return i have no idea
 	 */
 	@ApiStatus.AvailableSince("0.1.3")
 	public boolean OnBlockInteracted( World world, Position pos, Blockstate state, Player player, Hand hand, Direction direction, double hitX, double hitY, double hitZ ) { return false; }
 
+	/**
+	 * Called on random block tick
+	 * @param world the world the block is in
+	 * @param pos the position of the block the player interacted with
+	 * @param state state of the block the player interacted with
+	 * @param random a {@link java.util.Random} instance
+	 */
 	public void OnRandomTick( World world, Position pos, Blockstate state, Random random ) {}
 
+	/**
+	 * Called when an entity collised with this block
+	 * @param world the world the collision happened in
+	 * @param pos the position of the block the entity collided with
+	 * @param state state of the block the entity collided with
+	 * @param entity entity that collided with this block
+	 */
 	@ApiStatus.AvailableSince("0.1.3")
 	public void OnEntityCollision( World world, Position pos, Blockstate state, Entity entity ) {}
 
 	// methods used to set values
+
+	/**
+	 * Sets the light emitted by this block
+	 * @param lightLevel a float in the range 0.0-1.0
+	 */
 	protected void setLightLevel(float lightLevel) {
 		this.lightLevel = (int)(15.0F * lightLevel);
 	}
 
+	/**
+	 * Sets the resistance of this block
+	 */
 	protected void setResistance(float resistance) {
 		this.resistance = resistance * 3.0F;
 	}
 
+	/**
+	 * Sets the hardness of this block
+	 */
 	protected void setHardness(float hardness) {
 		this.hardness = hardness;
 		if (this.resistance < hardness * 5.0F) {
@@ -95,6 +120,9 @@ public abstract class Block {
 		}
 	}
 
+	/**
+	 * Convenience method to make the block unbreakable
+	 */
 	protected void setUnbreakable() {
 		this.setHardness(-1.0F);
 	}

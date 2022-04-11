@@ -1,7 +1,7 @@
 package com.enderzombi102.loadercomplex;
 
 import com.enderzombi102.loadercomplex.api.Loader;
-import com.enderzombi102.loadercomplex.modloader.LCAddonLoader;
+import com.enderzombi102.loadercomplex.modloader.AddonLoader;
 import com.enderzombi102.loadercomplex.modloader.AddonContainer;
 
 import java.util.function.Consumer;
@@ -10,10 +10,9 @@ import java.util.function.Consumer;
  * Internal class, should not be used.
  */
 public abstract class LoaderComplex {
-
-	protected Loader loader;
+	private final AddonLoader addonLoader = new AddonLoader();
 	protected Consumer<AddonContainer> resourceHelper;
-	private final LCAddonLoader addonLoader = new LCAddonLoader();
+	protected Loader loader;
 
 	public LoaderComplex() {
 		this.addonLoader.loadAddons();
@@ -26,7 +25,7 @@ public abstract class LoaderComplex {
 		}
 	}
 
-	public LCAddonLoader getAddonLoader() {
+	public AddonLoader getAddonLoader() {
 		return this.addonLoader;
 	}
 

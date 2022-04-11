@@ -3,6 +3,9 @@ package com.enderzombi102.loadercomplex.api.utils;
 import com.enderzombi102.loadercomplex.api.Loader;
 import org.jetbrains.annotations.ApiStatus;
 
+/**
+ * Represents a player's gamemode
+ */
 @ApiStatus.AvailableSince("0.1.3")
 public enum Gamemode {
 	CREATIVE,
