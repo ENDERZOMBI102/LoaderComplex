@@ -40,7 +40,7 @@ dependencies {
 	}
 
 	modImplementation("com.terraformersmc:modmenu:$modmenu_version") {
-		transitive(false)
+		transitive false
 	}
 
 //	modRuntimeOnly("org.quiltmc.fabric_api_qsl:fabric-resource-loader-v0:1.0.2+$minecraft_version-SNAPSHOT") {
