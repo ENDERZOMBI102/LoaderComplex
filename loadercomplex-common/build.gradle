@@ -3,6 +3,7 @@ plugins {
 }
 
 version = api_version
+archivesBaseName = 'loadercomplex-common'
 
 repositories {
 	mavenCentral()
