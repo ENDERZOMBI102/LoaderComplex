@@ -37,6 +37,7 @@ public class AddonLoader {
 		logger.info("SCANNING MODS FOLDER");
 		for ( File file : Objects.requireNonNull( modsPath.toFile().listFiles() ) ) {
 			if( file.getName().endsWith(".lc.jar") ) {
+				logger.info( " - Found possible LoaderComplex addon: {}", file );
 				try {
 					classLoader.addURL( file.toURI().toURL() );
 					addonContainers.add( new AddonContainer( Paths.get( file.getPath() ) ) );
@@ -45,21 +46,25 @@ public class AddonLoader {
 				}
 			}
 		}
+		int addonFromModsFolder = addonContainers.size();
+		logger.info( " - Found {} addons", addonFromModsFolder );
 		logger.info("SCANNING ADDONS FOLDER");
 		//noinspection ResultOfMethodCallIgnored
 		addonsPath.toFile().mkdirs();
 		for ( File file : Objects.requireNonNull( addonsPath.toFile().listFiles() ) ) {
 			if( file.getName().endsWith(".jar") ) {
+				logger.info( " - Found possible LoaderComplex addon: {}", file );
 				try {
 					classLoader.addURL( file.toURI().toURL() );
 					addonContainers.add( new AddonContainer( Paths.get( file.getPath() ) ) );
 				} catch (IOException e) {
-					logger.error("Failed to load possible LC addon: " + file.getName() );
+					logger.error( "Failed to load possible LC addon: " + file.getName() );
 				}
 			}
 		}
+		logger.info( " - Found {} addons", addonContainers.size() - addonFromModsFolder );
 
-		logger.info("INSTANTIATING ADDONS");
+		logger.info("INSTANTIATING {} ADDONS", addonContainers.size() );
 		for ( AddonContainer addon : addonContainers) {
 			try {
 				Class<?> classToLoad = Class.forName( addon.getMainClass(), true, classLoader );
@@ -68,7 +73,7 @@ public class AddonLoader {
 					// set the first Instance-annotated static field to the instance
 					for ( Field field : classToLoad.getFields() ) {
 						if ( Modifier.isStatic( field.getModifiers() ) && field.isAnnotationPresent( Instance.class ) ) {
-							logger.info("Addon {} is using the Instance annotation! Using their provided instance.", addon.getID() );
+							logger.info(" - Addon {} is using the Instance annotation! Using their provided instance.", addon.getID() );
 							field.setAccessible(true);
 							addon.implementation = (Addon) field.get( null );
 							break;
@@ -81,7 +86,11 @@ public class AddonLoader {
 				logger.error( "can't load addon file: " + addon.getPath(), e );
 			}
 		}
-
+		logger.info(
+			"FINISHED LOADING {} ADDONS WITH {} FAILS",
+			addonContainers.size(),
+			addonContainers.stream().filter( AddonContainer::didFailToLoad ).count()
+		);
 	}
 
 	public ArrayList<AddonContainer> getAddons() {

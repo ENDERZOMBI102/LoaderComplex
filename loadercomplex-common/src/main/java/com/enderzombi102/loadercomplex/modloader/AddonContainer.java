@@ -74,6 +74,10 @@ public class AddonContainer {
 		return implementation.getLinks();
 	}
 
+	public boolean didFailToLoad() {
+		return this.implementation == null;
+	}
+
 	public Addon getImplementation() {
 		return implementation;
 	}
