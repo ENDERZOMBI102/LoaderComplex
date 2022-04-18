@@ -14,18 +14,20 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
-import net.minecraftforge.registries.RegistryManager;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static com.enderzombi102.loadercomplex.api.utils.ResourceIdentifier.ri;
 
 public class ForgeRegistry implements Registry {
-	private static final net.minecraft.util.registry.RegistryKey<net.minecraft.util.registry.Registry<net.minecraft.block.Block>> BLOCK_KEY = net.minecraft.util.registry.Registry.BLOCK_KEY;
-	private static final net.minecraft.util.registry.RegistryKey<net.minecraft.util.registry.Registry<net.minecraft.item.Item>> ITEM_KEY = net.minecraft.util.registry.Registry.ITEM_KEY;
+	public final List<net.minecraft.block.Block> blocks = new ArrayList<>();
+	public final List<net.minecraft.item.Item> items = new ArrayList<>();
 	private static final Map<ResourceIdentifier, ItemGroup> ITEM_GROUPS = new HashMap<>() {{
 		put( ri( "itemgroup.brewing" ), ItemGroup.BREWING );
 		put( ri( "itemgroup.building_blocks" ), ItemGroup.BUILDING_BLOCKS );
@@ -48,9 +50,9 @@ public class ForgeRegistry implements Registry {
 	public void register(@NotNull Block block, @NotNull ResourceIdentifier identifier, @Nullable ResourceIdentifier itemGroup ) {
 		final Identifier id = new Identifier( identifier.toString() );
 		final ForgeBlock forgeBlock = (ForgeBlock) new ForgeBlock( block ).setRegistryName( id );
-		RegistryManager.ACTIVE.getRegistry( BLOCK_KEY ).register( forgeBlock );
+		blocks.add( forgeBlock );
 		if ( itemGroup != null ) {
-			RegistryManager.ACTIVE.getRegistry( ITEM_KEY ).register(
+			items.add(
 				new BlockItem(
 					forgeBlock,
 					new net.minecraft.item.Item.Settings().group( getOrCreateItemGroup( itemGroup, identifier ) )
@@ -63,9 +65,8 @@ public class ForgeRegistry implements Registry {
 	public void register(@NotNull Item item, @NotNull ResourceIdentifier identifier) {
 		@NotNull ForgeItem forgeItem = (ForgeItem) new ForgeItem( item )
 				.setRegistryName( new Identifier( identifier.toString() ) );
-		RegistryManager.ACTIVE.getRegistry( ITEM_KEY ).register( forgeItem );
+		items.add( forgeItem );
 		( (IItemMixin) forgeItem ).lc$setGroup( getOrCreateItemGroup( forgeItem.getItemImpl().group, identifier ) );
-
 	}
 
 	@Override
@@ -81,11 +82,7 @@ public class ForgeRegistry implements Registry {
 			key -> new ItemGroup( id.getPath() ) {
 				@Override
 				public @NotNull ItemStack createIcon() {
-					return new ItemStack(
-						RegistryManager.ACTIVE
-							.getRegistry( ITEM_KEY )
-							.getValue( new Identifier( icon.toString() ) )
-					);
+					return new ItemStack( ForgeRegistries.ITEMS.getValue( new Identifier( icon.toString() ) ) );
 				}
 			}
 		);
@@ -95,8 +92,8 @@ public class ForgeRegistry implements Registry {
 	@Override
 	public boolean isRegistered(@NotNull RegistryKey key, @NotNull String id) {
 		return switch (key) {
-			case Item -> RegistryManager.ACTIVE.getRegistry( net.minecraft.util.registry.Registry.ITEM_KEY ).containsKey( new Identifier(id) );
-			case Block -> RegistryManager.ACTIVE.getRegistry( net.minecraft.util.registry.Registry.BLOCK_KEY ).containsKey( new Identifier(id) );
+			case Item -> ForgeRegistries.ITEMS.containsKey( new Identifier(id) );
+			case Block -> ForgeRegistries.BLOCKS.containsKey( new Identifier(id) );
 			default -> false;
 		};
 	}
@@ -109,8 +106,8 @@ public class ForgeRegistry implements Registry {
 	@Override
 	public Object getVanillaRegistry(@NotNull RegistryKey type) {
 		return switch (type) {
-			case Item -> RegistryManager.ACTIVE.getRegistry( net.minecraft.util.registry.Registry.ITEM_KEY );
-			case Block -> RegistryManager.ACTIVE.getRegistry( net.minecraft.util.registry.Registry.BLOCK_KEY );
+			case Item -> ForgeRegistries.ITEMS;
+			case Block -> ForgeRegistries.BLOCKS;
 			default -> null;
 		};
 	}
