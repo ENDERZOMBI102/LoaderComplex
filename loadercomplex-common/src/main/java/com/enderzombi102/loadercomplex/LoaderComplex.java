@@ -13,20 +13,28 @@ public abstract class LoaderComplex {
 	private final AddonLoader addonLoader = new AddonLoader();
 	protected Consumer<AddonContainer> resourceHelper;
 	protected Loader loader;
+	private boolean addonsInitialized = false;
 
 	public LoaderComplex() {
 		this.addonLoader.loadAddons();
 	}
 
 	protected void initAddons() {
-		for ( AddonContainer container : this.addonLoader.getAddons() ) {
-			this.resourceHelper.accept(container);
-			container.getImplementation().init(this.loader);
+		if (! this.addonsInitialized ) {
+			this.addonsInitialized = true;
+			for ( AddonContainer container : this.addonLoader.getAddons() ) {
+				this.resourceHelper.accept(container);
+				container.getImplementation().init(this.loader);
+			}
 		}
 	}
 
 	public AddonLoader getAddonLoader() {
 		return this.addonLoader;
+	}
+
+	public boolean didInitializeAddons() {
+		return this.addonsInitialized;
 	}
 
 }
