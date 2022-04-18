@@ -61,6 +61,12 @@ public interface Loader {
 	@ApiStatus.AvailableSince("0.1.3")
 	default boolean isAtLeastMinecraft(String version) { return true; };
 
+	/**
+	 * Returns true if LC is running on a dedicated server
+	 */
+	@ApiStatus.AvailableSince("0.1.4")
+	default boolean isDedicatedServer() { return false; };
+
 
 	/**
 	 * Returns the API implementation version of this layer, might be different based on underlying loader.
