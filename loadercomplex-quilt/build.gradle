@@ -35,20 +35,13 @@ dependencies {
 	})
 	modImplementation "org.quiltmc:quilt-loader:$loader_version"
 
-	modImplementation("org.quiltmc:qsl:$qsl_version+$minecraft_version-SNAPSHOT") {
-		exclude group: 'net.fabricmc'
-	}
-
 	modImplementation("com.terraformersmc:modmenu:$modmenu_version") {
 		transitive false
 	}
 
-//	modRuntimeOnly("org.quiltmc.fabric_api_qsl:fabric-resource-loader-v0:1.0.2+$minecraft_version-SNAPSHOT") {
-//		exclude group: 'net.fabricmc'
-//	}
-//	modRuntimeOnly("org.quiltmc.fabric_api_qsl:fabric-screen-api-v1:1.0.9+$minecraft_version-SNAPSHOT") {
-//		exclude group: 'net.fabricmc'
-//	}
+	modImplementation( "org.quiltmc.quilted-fabric-api:quilted-fabric-api:$quilted_fapi_version-$minecraft_version-SNAPSHOT" ) {
+		exclude group: 'net.fabricmc'
+	}
 }
 
 processResources {
@@ -59,10 +52,10 @@ processResources {
 
 	filesMatching('quilt.mod.json') {
 		expand([
-				'version': rootProject.version,
-				'description': rootProject.description,
-				'loader_version': loader_version,
-				'repo_url': rootProject.repo_url
+			'version': rootProject.version,
+			'description': rootProject.description,
+			'loader_version': loader_version,
+			'repo_url': rootProject.repo_url
 		])
 	}
 }
