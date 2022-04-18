@@ -35,7 +35,7 @@ dependencies {
 	})
 	modImplementation "org.quiltmc:quilt-loader:$loader_version"
 
-	modImplementation("org.quiltmc.qsl:qsl:$qsl_version+$minecraft_version-SNAPSHOT") {
+	modImplementation("org.quiltmc:qsl:$qsl_version+$minecraft_version-SNAPSHOT") {
 		exclude group: 'net.fabricmc'
 	}
 
