@@ -5,26 +5,22 @@ import com.enderzombi102.loadercomplex.api.Registry;
 import com.enderzombi102.loadercomplex.api.utils.FactoryWorld;
 import com.enderzombi102.loadercomplex.api.utils.LoaderType;
 import com.enderzombi102.loadercomplex.api.utils.Version;
+import com.enderzombi102.loadercomplex.forge18.LoaderComplexForge;
+import net.minecraftforge.fml.ModList;
+import net.minecraftforge.fml.loading.FMLLoader;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class ForgeLoader implements Loader {
-	private static final String QUILT_VERSION;
-	public static final org.quiltmc.loader.api.Version MINECRAFT_VERSION = org.quiltmc.loader.api.Version.of("1.18.2");
-	static {
-		//noinspection OptionalGetWithoutIsPresent
-		QUILT_VERSION = org.quiltmc.loader.api.QuiltLoader.getModContainer("quilt_loader")
-				.get()
-				.metadata()
-				.version()
-				.raw();
-	}
+	private static final String FORGE_VERSION = FMLLoader.versionInfo().forgeVersion();
+	private static final String MINECRAFT_VERSION = FMLLoader.versionInfo().mcVersion();
+
 	private final Registry registry = new ForgeRegistry();
 
 	@Override
 	public LoaderType getLoaderType() {
-		return LoaderType.Quilt;
+		return LoaderType.Forge;
 	}
 
 	@Override
@@ -34,22 +30,22 @@ public class ForgeLoader implements Loader {
 
 	@Override
 	public String getMinecraftVersion() {
-		return MINECRAFT_VERSION.raw();
+		return MINECRAFT_VERSION;
 	}
 
 	@Override
 	public String getLoaderVersion() {
-		return QUILT_VERSION;
+		return FORGE_VERSION;
 	}
 
 	@Override
 	public boolean isModLoaded(String id) {
-		return org.quiltmc.loader.api.QuiltLoader.isModLoaded( id );
+		return ModList.get().isLoaded( id );
 	}
 
 	@Override
 	public boolean isDeveloperEnvironment() {
-		return org.quiltmc.loader.api.QuiltLoader.isDevelopmentEnvironment();
+		return ! FMLLoader.isProduction();
 	}
 
 	@Override
@@ -59,7 +55,8 @@ public class ForgeLoader implements Loader {
 
 	@Override
 	public boolean isAtLeastMinecraft(String version) {
-		return org.quiltmc.loader.api.Version.of(version).semantic().compareTo( MINECRAFT_VERSION.semantic() ) >= 0;
+		LoaderComplexForge.LOGGER.warn( "Someone tried to check for `Loader.isAtLeastMinecraft(\"{}\")`, but its not implemented in Forge!", version );
+		return true;
 	}
 
 	@Override

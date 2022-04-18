@@ -3,7 +3,7 @@ package com.enderzombi102.loadercomplex.forge18.impl.entity;
 import com.enderzombi102.loadercomplex.api.entity.Player;
 import com.enderzombi102.loadercomplex.api.utils.Gamemode;
 import com.enderzombi102.loadercomplex.api.utils.Position;
-import com.enderzombi102.loadercomplex.quilt.impl.utils.BlockUtils;
+import com.enderzombi102.loadercomplex.forge18.impl.utils.BlockUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;

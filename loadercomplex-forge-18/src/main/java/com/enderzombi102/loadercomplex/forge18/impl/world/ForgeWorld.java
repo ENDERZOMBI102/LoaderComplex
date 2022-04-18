@@ -6,9 +6,9 @@ import com.enderzombi102.loadercomplex.api.entity.Entity;
 import com.enderzombi102.loadercomplex.api.entity.Player;
 import com.enderzombi102.loadercomplex.api.utils.*;
 import com.enderzombi102.loadercomplex.api.world.World;
-import com.enderzombi102.loadercomplex.quilt.impl.QuiltServer;
-import com.enderzombi102.loadercomplex.quilt.impl.block.QuiltBlockstate;
-import com.enderzombi102.loadercomplex.quilt.impl.utils.BlockUtils;
+import com.enderzombi102.loadercomplex.forge18.impl.ForgeServer;
+import com.enderzombi102.loadercomplex.forge18.impl.block.ForgeBlockstate;
+import com.enderzombi102.loadercomplex.forge18.impl.utils.BlockUtils;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.sound.SoundCategory;
@@ -63,7 +63,6 @@ public class ForgeWorld implements World {
 
 	@Override
 	public boolean isPositionLoaded(Position pos) {
-		//noinspection deprecation
 		return this.backingWorld.isChunkLoaded( new BlockPos( pos.x, pos.y, pos.z ) );
 	}
 
@@ -87,7 +86,7 @@ public class ForgeWorld implements World {
 
 	@Override
 	public Blockstate getBlockState(Position pos) {
-		return new QuiltBlockstate( this.backingWorld.getBlockState( new BlockPos( pos.x, pos.y, pos.z ) ) );
+		return new ForgeBlockstate( this.backingWorld.getBlockState( new BlockPos( pos.x, pos.y, pos.z ) ) );
 	}
 
 	@Override
@@ -102,7 +101,7 @@ public class ForgeWorld implements World {
 
 	@Override
 	public Server getServer() {
-		return new QuiltServer( this.backingWorld.getServer() );
+		return new ForgeServer( this.backingWorld.getServer() );
 	}
 
 	@Override

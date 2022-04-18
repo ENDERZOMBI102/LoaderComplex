@@ -4,7 +4,7 @@ import com.enderzombi102.loadercomplex.api.entity.LivingEntity;
 import com.enderzombi102.loadercomplex.api.entity.Player;
 import com.enderzombi102.loadercomplex.api.item.EquipmentSlot;
 import com.enderzombi102.loadercomplex.api.item.ItemStack;
-import com.enderzombi102.loadercomplex.quilt.impl.item.QuiltItemStack;
+import com.enderzombi102.loadercomplex.forge18.impl.item.ForgeItemStack;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Hand;
 
@@ -58,12 +58,12 @@ public class ForgeLivingEntity extends ForgeEntity implements LivingEntity {
 
 	@Override
 	public ItemStack getItemInMainHand() {
-		return new QuiltItemStack( this.backingEntity.getStackInHand(Hand.MAIN_HAND) );
+		return new ForgeItemStack( this.backingEntity.getStackInHand(Hand.MAIN_HAND) );
 	}
 
 	@Override
 	public ItemStack getItemInOffHand() {
-		return new QuiltItemStack( this.backingEntity.getStackInHand(Hand.OFF_HAND) );
+		return new ForgeItemStack( this.backingEntity.getStackInHand(Hand.OFF_HAND) );
 	}
 
 	@Override
@@ -73,11 +73,11 @@ public class ForgeLivingEntity extends ForgeEntity implements LivingEntity {
 
 	@Override
 	public ItemStack getStackInSlot(EquipmentSlot slot) {
-		return new QuiltItemStack( this.backingEntity.getEquippedStack( net.minecraft.entity.EquipmentSlot.valueOf( slot.name() ) ) );
+		return new ForgeItemStack( this.backingEntity.getEquippedStack( net.minecraft.entity.EquipmentSlot.valueOf( slot.name() ) ) );
 	}
 
 	@Override
 	public void setStackInSlot(EquipmentSlot slot, ItemStack stack) {
-		this.backingEntity.equipStack( net.minecraft.entity.EquipmentSlot.valueOf( slot.name() ), ( (QuiltItemStack) stack ).getStack() );
+		this.backingEntity.equipStack( net.minecraft.entity.EquipmentSlot.valueOf( slot.name() ), ( (ForgeItemStack) stack ).getStack() );
 	}
 }

@@ -1,11 +1,11 @@
 package com.enderzombi102.loadercomplex.forge18.impl.block;
 
-import com.enderzombi102.loadercomplex.api.utils.Callable;
 import com.enderzombi102.loadercomplex.api.block.Block;
-import com.enderzombi102.loadercomplex.quilt.impl.entity.QuiltEntity;
-import com.enderzombi102.loadercomplex.quilt.impl.entity.QuiltPlayer;
-import com.enderzombi102.loadercomplex.quilt.impl.utils.BlockUtils;
-import com.enderzombi102.loadercomplex.quilt.impl.world.QuiltWorld;
+import com.enderzombi102.loadercomplex.api.utils.Callable;
+import com.enderzombi102.loadercomplex.forge18.impl.entity.ForgeEntity;
+import com.enderzombi102.loadercomplex.forge18.impl.entity.ForgePlayer;
+import com.enderzombi102.loadercomplex.forge18.impl.utils.BlockUtils;
+import com.enderzombi102.loadercomplex.forge18.impl.world.ForgeWorld;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
 import net.minecraft.entity.Entity;
@@ -18,25 +18,25 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import org.quiltmc.qsl.block.extensions.api.QuiltBlockSettings;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;
 
-@SuppressWarnings("deprecation")
 public class ForgeBlock extends net.minecraft.block.Block {
 
 	private final Block blockImpl;
 
 	public ForgeBlock(Block block) {
 		super(
-			( (Callable<QuiltBlockSettings>) () -> {
-				var settings =  QuiltBlockSettings.of( Material.STONE )
+			( (Callable<Settings>) () -> {
+				var settings =  Settings.of( Material.STONE )
 					.slipperiness( block.slipperiness )
-					.hardness( block.hardness )
-					.strength( block.hardness )
 					.resistance( block.resistance )
-					.collidable( block.hasCollision )
+					.strength( block.hardness )
 					.luminance( state -> block.lightLevel );
+
+				if (! block.hasCollision )
+					settings.noCollision();
 
 				if (! block.opaque )
 					settings.nonOpaque();
@@ -59,12 +59,12 @@ public class ForgeBlock extends net.minecraft.block.Block {
 	}
 
 	@Override
-	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+	public @NotNull ActionResult onUse(@NotNull BlockState state, @NotNull World world, @NotNull BlockPos pos, @NotNull PlayerEntity player, Hand hand, BlockHitResult hit) {
 		return this.blockImpl.OnBlockInteracted(
-			new QuiltWorld( world ),
+			new ForgeWorld( world ),
 			BlockUtils.toPosition( pos ),
 			new ForgeBlockstate( state ),
-			new QuiltPlayer( player ),
+			new ForgePlayer( player ),
 			com.enderzombi102.loadercomplex.api.utils.Hand.valueOf( hand.name() ),
 			com.enderzombi102.loadercomplex.api.utils.Direction.valueOf( hit.getSide().name() ),
 			hit.getBlockPos().getX(), hit.getBlockPos().getY(), hit.getBlockPos().getZ()
@@ -72,38 +72,38 @@ public class ForgeBlock extends net.minecraft.block.Block {
 	}
 
 	@Override
-	public void onSteppedOn(World world, BlockPos pos, BlockState state, Entity entity) {
+	public void onSteppedOn(@NotNull World world, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull Entity entity) {
 		this.blockImpl.OnSteppedOn(
-			new QuiltWorld( world ),
+			new ForgeWorld( world ),
 			BlockUtils.toPosition( pos ),
-			new QuiltEntity( entity )
+			new ForgeEntity( entity )
 		);
 	}
 
 	@Override
 	public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
 		this.blockImpl.OnBreak(
-			new QuiltWorld( world ),
+			new ForgeWorld( world ),
 			BlockUtils.toPosition( pos ),
 			new ForgeBlockstate( state ),
-			new QuiltPlayer( player )
+			new ForgePlayer( player )
 		);
 	}
 
 	@Override
 	public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
 		this.blockImpl.OnEntityCollision(
-			new QuiltWorld( world ),
+			new ForgeWorld( world ),
 			BlockUtils.toPosition( pos ),
 			new ForgeBlockstate( state ),
-			new QuiltEntity( entity )
+			new ForgeEntity( entity )
 		);
 	}
 
 	@Override
 	public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
 		this.blockImpl.OnRandomTick(
-			new QuiltWorld( world ),
+			new ForgeWorld( world ),
 			BlockUtils.toPosition( pos ),
 			new ForgeBlockstate( state ),
 			random

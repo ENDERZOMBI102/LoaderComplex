@@ -5,6 +5,7 @@ import com.enderzombi102.loadercomplex.api.utils.ResourceIdentifier;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
+import net.minecraftforge.registries.RegistryManager;
 
 public class ForgeBlockstate implements Blockstate {
 	private final BlockState backingState;
@@ -15,7 +16,7 @@ public class ForgeBlockstate implements Blockstate {
 
 	@Override
 	public ResourceIdentifier getBlockType() {
-		Identifier id = Registry.BLOCK.getId( backingState.getBlock() );
+		Identifier id = RegistryManager.ACTIVE.getRegistry( Registry.BLOCK_KEY ).getKey( backingState.getBlock() );
 		return new ResourceIdentifier( id.getNamespace(), id.getPath() );
 	}
 

@@ -5,8 +5,8 @@ import com.enderzombi102.loadercomplex.api.entity.ItemEntity;
 import com.enderzombi102.loadercomplex.api.entity.LivingEntity;
 import com.enderzombi102.loadercomplex.api.utils.Position;
 import com.enderzombi102.loadercomplex.api.world.World;
-import com.enderzombi102.loadercomplex.quilt.impl.utils.BlockUtils;
-import com.enderzombi102.loadercomplex.quilt.impl.world.QuiltWorld;
+import com.enderzombi102.loadercomplex.forge18.impl.utils.BlockUtils;
+import com.enderzombi102.loadercomplex.forge18.impl.world.ForgeWorld;
 import net.minecraft.text.Text;
 
 import java.util.UUID;
@@ -85,7 +85,7 @@ public class ForgeEntity implements Entity {
 
 	@Override
 	public World getWorld() {
-		return new QuiltWorld( this.backingEntity.world );
+		return new ForgeWorld( this.backingEntity.world );
 	}
 
 	@Override

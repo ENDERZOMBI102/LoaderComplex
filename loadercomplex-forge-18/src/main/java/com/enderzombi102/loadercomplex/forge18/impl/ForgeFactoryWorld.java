@@ -9,33 +9,34 @@ import com.enderzombi102.loadercomplex.api.utils.FactoryWorld;
 import com.enderzombi102.loadercomplex.api.utils.ResourceIdentifier;
 import com.enderzombi102.loadercomplex.api.utils.Server;
 import com.enderzombi102.loadercomplex.api.world.World;
-import com.enderzombi102.loadercomplex.quilt.impl.block.QuiltBlockstate;
-import com.enderzombi102.loadercomplex.quilt.impl.entity.QuiltEntity;
-import com.enderzombi102.loadercomplex.quilt.impl.entity.QuiltItemEntity;
-import com.enderzombi102.loadercomplex.quilt.impl.item.QuiltItemStack;
+import com.enderzombi102.loadercomplex.forge18.impl.block.ForgeBlockstate;
+import com.enderzombi102.loadercomplex.forge18.impl.entity.ForgeEntity;
+import com.enderzombi102.loadercomplex.forge18.impl.entity.ForgeItemEntity;
+import com.enderzombi102.loadercomplex.forge18.impl.item.ForgeItemStack;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
+import net.minecraftforge.registries.RegistryManager;
 
 public class ForgeFactoryWorld implements FactoryWorld {
 	@Override
 	public ItemStack createStack(ResourceIdentifier type) {
-		Item item = Registry.ITEM.get( new Identifier( type.getNamespace(), type.getPath() ) );
-		//noinspection ConstantConditions
+		Item item = RegistryManager.ACTIVE.getRegistry( Registry.ITEM_KEY )
+				.getValue( new Identifier( type.getNamespace(), type.getPath() ) );
 		if ( item == null )
 			throw new IllegalArgumentException( Utils.format( "Item \"{}\" does not exist!", type ) );
-		return new QuiltItemStack( new net.minecraft.item.ItemStack( item ) );
+		return new ForgeItemStack( new net.minecraft.item.ItemStack( item ) );
 	}
 
 	@Override
 	public Entity createEntity(World world, ResourceIdentifier type) {
-		var entityType = Registry.ENTITY_TYPE.get( new Identifier( type.getNamespace(), type.getPath() ) );
-		//noinspection ConstantConditions
+		var entityType = RegistryManager.ACTIVE.getRegistry( Registry.ENTITY_TYPE_KEY )
+				.getValue( new Identifier( type.getNamespace(), type.getPath() ) );
 		if ( entityType == null )
 			throw new IllegalArgumentException( Utils.format( "Entity \"{}\" does not exist!", type ) );
-		return new QuiltEntity( entityType.create( (net.minecraft.world.World) world.getObject() ) );
+		return new ForgeEntity( entityType.create( (net.minecraft.world.World) world.getObject() ) );
 	}
 
 	@Override
@@ -44,16 +45,16 @@ public class ForgeFactoryWorld implements FactoryWorld {
 		if ( entity == null )
 			throw new IllegalArgumentException( "ItemEntity failed to spawn!" );
 		entity.setStack( (net.minecraft.item.ItemStack) stack.getStack() );
-		return new QuiltItemEntity( entity );
+		return new ForgeItemEntity( entity );
 	}
 
 	@Override
 	public Blockstate createBlockstate(ResourceIdentifier type) {
-		Block block = Registry.BLOCK.get( new Identifier( type.getNamespace(), type.getPath() ) );
-		//noinspection ConstantConditions
+		Block block = RegistryManager.ACTIVE.getRegistry( Registry.BLOCK_KEY )
+				.getValue( new Identifier( type.getNamespace(), type.getPath() ) );
 		if ( block == null )
 			throw new IllegalArgumentException( Utils.format( "Block \"{}\" does not exist!", type ) );
-		return new QuiltBlockstate( block.getDefaultState() );
+		return new ForgeBlockstate( block.getDefaultState() );
 	}
 
 	@Override

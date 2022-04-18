@@ -2,7 +2,7 @@ package com.enderzombi102.loadercomplex.forge18.impl.entity;
 
 import com.enderzombi102.loadercomplex.api.entity.ItemEntity;
 import com.enderzombi102.loadercomplex.api.item.ItemStack;
-import com.enderzombi102.loadercomplex.quilt.impl.item.QuiltItemStack;
+import com.enderzombi102.loadercomplex.forge18.impl.item.ForgeItemStack;
 
 public class ForgeItemEntity extends ForgeEntity implements ItemEntity {
 	private final net.minecraft.entity.ItemEntity backingEntity;
@@ -14,7 +14,7 @@ public class ForgeItemEntity extends ForgeEntity implements ItemEntity {
 
 	@Override
 	public ItemStack getStack() {
-		return new QuiltItemStack( this.backingEntity.getStack() );
+		return new ForgeItemStack( this.backingEntity.getStack() );
 	}
 
 	@Override

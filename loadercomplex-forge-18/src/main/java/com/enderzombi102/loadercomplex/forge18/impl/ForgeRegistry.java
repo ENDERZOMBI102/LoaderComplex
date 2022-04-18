@@ -7,11 +7,13 @@ import com.enderzombi102.loadercomplex.api.item.Item;
 import com.enderzombi102.loadercomplex.api.utils.RegistryKey;
 import com.enderzombi102.loadercomplex.api.utils.ResourceIdentifier;
 import com.enderzombi102.loadercomplex.forge18.LoaderComplexForge;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.registries.GameData;
+import com.enderzombi102.loadercomplex.forge18.imixin.IItemMixin;
+import com.enderzombi102.loadercomplex.forge18.impl.block.ForgeBlock;
+import com.enderzombi102.loadercomplex.forge18.impl.item.ForgeItem;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.Identifier;
 import net.minecraftforge.registries.RegistryManager;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -22,17 +24,19 @@ import java.util.Map;
 import static com.enderzombi102.loadercomplex.api.utils.ResourceIdentifier.ri;
 
 public class ForgeRegistry implements Registry {
-	private static final Map<ResourceIdentifier, CreativeModeTab> ITEM_GROUPS = new HashMap<>() {{
-		put( ri( "itemgroup.brewing" ), CreativeModeTab.TAB_BREWING );
-		put( ri( "itemgroup.building_blocks" ), CreativeModeTab.TAB_BUILDING_BLOCKS );
-		put( ri( "itemgroup.combat" ), CreativeModeTab.TAB_COMBAT );
-		put( ri( "itemgroup.decorations" ), CreativeModeTab.TAB_DECORATIONS );
-		put( ri( "itemgroup.food" ), CreativeModeTab.TAB_FOOD );
-		put( ri( "itemgroup.materials" ), CreativeModeTab.TAB_MATERIALS );
-		put( ri( "itemgroup.redstone" ), CreativeModeTab.TAB_REDSTONE );
-		put( ri( "itemgroup.tools" ), CreativeModeTab.TAB_TOOLS );
-		put( ri( "itemgroup.transportation" ), CreativeModeTab.TAB_TRANSPORTATION );
-		put( ri( "itemgroup.misc" ), CreativeModeTab.TAB_MISC );
+	private static final net.minecraft.util.registry.RegistryKey<net.minecraft.util.registry.Registry<net.minecraft.block.Block>> BLOCK_KEY = net.minecraft.util.registry.Registry.BLOCK_KEY;
+	private static final net.minecraft.util.registry.RegistryKey<net.minecraft.util.registry.Registry<net.minecraft.item.Item>> ITEM_KEY = net.minecraft.util.registry.Registry.ITEM_KEY;
+	private static final Map<ResourceIdentifier, ItemGroup> ITEM_GROUPS = new HashMap<>() {{
+		put( ri( "itemgroup.brewing" ), ItemGroup.BREWING );
+		put( ri( "itemgroup.building_blocks" ), ItemGroup.BUILDING_BLOCKS );
+		put( ri( "itemgroup.combat" ), ItemGroup.COMBAT );
+		put( ri( "itemgroup.decorations" ), ItemGroup.DECORATIONS );
+		put( ri( "itemgroup.food" ), ItemGroup.FOOD );
+		put( ri( "itemgroup.materials" ), ItemGroup.MATERIALS );
+		put( ri( "itemgroup.redstone" ), ItemGroup.REDSTONE );
+		put( ri( "itemgroup.tools" ), ItemGroup.TOOLS );
+		put( ri( "itemgroup.transportation" ), ItemGroup.TRANSPORTATION );
+		put( ri( "itemgroup.misc" ), ItemGroup.MISC );
 	}};
 
 	@Override
@@ -42,35 +46,25 @@ public class ForgeRegistry implements Registry {
 
 	@Override
 	public void register(@NotNull Block block, @NotNull ResourceIdentifier identifier, @Nullable ResourceIdentifier itemGroup ) {
-		final ResourceLocation id = new ResourceLocation( identifier.toString() );
-		final QuiltBlock quiltBlock = new QuiltBlock( block );
-		net.minecraft.util.registry.Registry.register(
-			net.minecraft.util.registry.Registry.BLOCK,
-			id,
-			quiltBlock
-		);
+		final Identifier id = new Identifier( identifier.toString() );
+		final ForgeBlock forgeBlock = (ForgeBlock) new ForgeBlock( block ).setRegistryName( id );
+		RegistryManager.ACTIVE.getRegistry( BLOCK_KEY ).register( forgeBlock );
 		if ( itemGroup != null ) {
-			net.minecraft.util.registry.Registry.register(
-				net.minecraft.util.registry.Registry.ITEM,
-				id,
+			RegistryManager.ACTIVE.getRegistry( ITEM_KEY ).register(
 				new BlockItem(
-					quiltBlock,
+					forgeBlock,
 					new net.minecraft.item.Item.Settings().group( getOrCreateItemGroup( itemGroup, identifier ) )
-				)
+				).setRegistryName( id )
 			);
 		}
 	}
 
 	@Override
 	public void register(@NotNull Item item, @NotNull ResourceIdentifier identifier) {
-		@NotNull QuiltItem quiltItem = new QuiltItem( item );
-		net.minecraft.util.registry.Registry.register(
-			net.minecraft.util.registry.Registry.ITEM,
-			new Identifier( identifier.toString() ),
-			quiltItem
-		);
-		//noinspection ConstantConditions
-		( (IItemMixin) quiltItem ).lc$setGroup( getOrCreateItemGroup( quiltItem.getItemImpl().group, identifier ) );
+		@NotNull ForgeItem forgeItem = (ForgeItem) new ForgeItem( item )
+				.setRegistryName( new Identifier( identifier.toString() ) );
+		RegistryManager.ACTIVE.getRegistry( ITEM_KEY ).register( forgeItem );
+		( (IItemMixin) forgeItem ).lc$setGroup( getOrCreateItemGroup( forgeItem.getItemImpl().group, identifier ) );
 
 	}
 
@@ -84,13 +78,16 @@ public class ForgeRegistry implements Registry {
 		ResourceIdentifier id = new ResourceIdentifier( icon.getNamespace(), name != null ? name : icon.getNamespace() );
 		ITEM_GROUPS.computeIfAbsent(
 			id,
-			key -> QuiltItemGroup.builder( new ResourceLocation( id.toString() ) )
-				.icon( () -> new ItemStack(
-					RegistryManager.ACTIVE.getRegistry( net.minecraft.core.Registry.ITEM_REGISTRY )
-							.getValue( new ResourceLocation( icon.toString() ) )
-				) )
-				.displayText( new TranslatableText( "itemGroup." + ( name != null ? name : icon.getNamespace() ) ) )
-				.build()
+			key -> new ItemGroup( id.getPath() ) {
+				@Override
+				public @NotNull ItemStack createIcon() {
+					return new ItemStack(
+						RegistryManager.ACTIVE
+							.getRegistry( ITEM_KEY )
+							.getValue( new Identifier( icon.toString() ) )
+					);
+				}
+			}
 		);
 		return id;
 	}
@@ -98,8 +95,8 @@ public class ForgeRegistry implements Registry {
 	@Override
 	public boolean isRegistered(@NotNull RegistryKey key, @NotNull String id) {
 		return switch (key) {
-			case Item -> RegistryManager.ACTIVE.getRegistry( net.minecraft.core.Registry.ITEM_REGISTRY ).containsKey( new ResourceLocation(id) );
-			case Block -> RegistryManager.ACTIVE.getRegistry( net.minecraft.core.Registry.BLOCK_REGISTRY ).containsKey( new ResourceLocation(id) );
+			case Item -> RegistryManager.ACTIVE.getRegistry( net.minecraft.util.registry.Registry.ITEM_KEY ).containsKey( new Identifier(id) );
+			case Block -> RegistryManager.ACTIVE.getRegistry( net.minecraft.util.registry.Registry.BLOCK_KEY ).containsKey( new Identifier(id) );
 			default -> false;
 		};
 	}
@@ -112,13 +109,13 @@ public class ForgeRegistry implements Registry {
 	@Override
 	public Object getVanillaRegistry(@NotNull RegistryKey type) {
 		return switch (type) {
-			case Item -> RegistryManager.ACTIVE.getRegistry( net.minecraft.core.Registry.ITEM_REGISTRY );
-			case Block -> RegistryManager.ACTIVE.getRegistry( net.minecraft.core.Registry.BLOCK_REGISTRY );
+			case Item -> RegistryManager.ACTIVE.getRegistry( net.minecraft.util.registry.Registry.ITEM_KEY );
+			case Block -> RegistryManager.ACTIVE.getRegistry( net.minecraft.util.registry.Registry.BLOCK_KEY );
 			default -> null;
 		};
 	}
 
-	public static CreativeModeTab getOrCreateItemGroup(@Nullable ResourceIdentifier itemGroup, ResourceIdentifier icon ) {
+	public static ItemGroup getOrCreateItemGroup(@Nullable ResourceIdentifier itemGroup, ResourceIdentifier icon ) {
 		if ( itemGroup == null )
 			return null;
 		if (! ITEM_GROUPS.containsKey( itemGroup ) )
