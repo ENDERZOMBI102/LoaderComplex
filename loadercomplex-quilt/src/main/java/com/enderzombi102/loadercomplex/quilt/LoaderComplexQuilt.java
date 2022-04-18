@@ -5,7 +5,7 @@ import com.enderzombi102.loadercomplex.api.Loader;
 import com.enderzombi102.loadercomplex.quilt.impl.QuiltLoader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import net.fabricmc.loader.api.ModContainer;
+import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.qsl.base.api.entrypoint.ModInitializer;
 
 import java.util.ArrayList;
