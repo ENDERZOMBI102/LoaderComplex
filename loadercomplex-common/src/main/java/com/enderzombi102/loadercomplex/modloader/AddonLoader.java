@@ -14,6 +14,7 @@ import java.net.URLClassLoader;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -21,7 +22,7 @@ import java.util.Objects;
  */
 public class AddonLoader {
 	private final Logger logger = LogManager.getLogger("LoaderComplex | AddonLoader");
-	private final ArrayList<AddonContainer> addonContainers = new ArrayList<>();
+	private final List<AddonContainer> addonContainers = new ArrayList<>();
 	private final DynamicClassLoader classLoader = new DynamicClassLoader();
 	private final Path modsPath;
 	private final Path addonsPath;
@@ -93,7 +94,7 @@ public class AddonLoader {
 		);
 	}
 
-	public ArrayList<AddonContainer> getAddons() {
+	public List<AddonContainer> getAddons() {
 		return addonContainers;
 	}
 
