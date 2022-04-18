@@ -3,7 +3,9 @@
 	"minVersion": "0.8",
 	"package": "com.enderzombi102.loadercomplex.forge18.mixin",
 	"compatibilityLevel": "JAVA_17",
-	"mixins": [ ],
+	"mixins": [
+		"ItemMixin"
+	],
 	"client": [ ],
 	"injectors": {
 		"defaultRequire": 1
