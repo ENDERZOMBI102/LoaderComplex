@@ -1,0 +1,13 @@
+*.bat text eol=crlf
+*.gradle text eol=lf
+*.jar binary
+*.java text eol=lf
+*.json text eol=lf
+*.kts text eol=lf
+*.md text eol=lf
+*.properties text eol=lf
+*.yml text eol=lf
+.gitattributes text eol=lf
+.gitignore text eol=lf
+LICENSE text eol=lf
+gradlew text eol=lf
