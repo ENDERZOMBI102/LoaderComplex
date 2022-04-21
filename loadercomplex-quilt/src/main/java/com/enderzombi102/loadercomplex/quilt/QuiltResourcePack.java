@@ -36,7 +36,7 @@ public class QuiltResourcePack extends AbstractFileResourcePack {
 	}
 
 	public String getAddonID() {
-		return container.getID();
+		return container.getId();
 	}
 
 	@Override
@@ -75,9 +75,9 @@ public class QuiltResourcePack extends AbstractFileResourcePack {
 					));
 				}
 				var data = lang.substring( 0, lang.length() - 1 ) + "}";
-				LOGGER.debug( Utils.format( "--- START {} LANG JSON ----", container.getID() ) );
+				LOGGER.debug( Utils.format( "--- START {} LANG JSON ----", container.getId() ) );
 				LOGGER.debug( data );
-				LOGGER.debug( Utils.format( "--- END {} LANG JSON ----", container.getID() ) );
+				LOGGER.debug( Utils.format( "--- END {} LANG JSON ----", container.getId() ) );
 
 				return IOUtils.toInputStream( data, Charsets.UTF_8);
 			}
@@ -127,7 +127,7 @@ public class QuiltResourcePack extends AbstractFileResourcePack {
 						}
 					});
 			} catch (IOException e) {
-				LOGGER.warn( "findResources at " + namespacePath + " in namespace " + namespace + ", addon " + container.getID() + " failed!", e );
+				LOGGER.warn( "findResources at " + namespacePath + " in namespace " + namespace + ", addon " + container.getId() + " failed!", e );
 			}
 		}
 
