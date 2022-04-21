@@ -19,7 +19,7 @@ public class AddonContainer {
 	private final String mainClass;
 	private final Path file;
 	private final JarFile addonJar;
-	private final String ID;
+	private final String id;
 	private final String version;
 	Addon implementation = null;
 
@@ -28,8 +28,10 @@ public class AddonContainer {
 		addonJar = new JarFile( file.toFile(), false );
 		Attributes attributes = addonJar.getManifest().getMainAttributes();
 		mainClass = attributes.getValue("LoaderComplex-Main");
-		version = attributes.getValue("Implementation-Version");
-		ID = attributes.getValue("LoaderComplex-AddonId");
+		version = attributes.getValue("LoaderComplex-Version");
+		id = attributes.getValue("LoaderComplex-AddonId");
+		if ( mainClass == null || version == null || id == null )
+			throw new IOException("Not a LoaderComplex Addon!");
 	}
 
 	public @NotNull String getName() {
@@ -42,8 +44,8 @@ public class AddonContainer {
 		return version;
 	}
 
-	public String getID() {
-		return ID;
+	public String getId() {
+		return id;
 	}
 
 	public JarFile getAddonJar() {

@@ -56,8 +56,8 @@ public class AddonLoader {
 			if( file.getName().endsWith(".jar") ) {
 				logger.info( " - Found possible LoaderComplex addon: {}", file );
 				try {
-					classLoader.addURL( file.toURI().toURL() );
 					addonContainers.add( new AddonContainer( Paths.get( file.getPath() ) ) );
+					classLoader.addURL( file.toURI().toURL() );  // add to classloader only _after_ we made sure that it's an LC addon
 				} catch (IOException e) {
 					logger.error( "Failed to load possible LC addon: " + file.getName() );
 				}
@@ -74,7 +74,7 @@ public class AddonLoader {
 					// set the first Instance-annotated static field to the instance
 					for ( Field field : classToLoad.getFields() ) {
 						if ( Modifier.isStatic( field.getModifiers() ) && field.isAnnotationPresent( Instance.class ) ) {
-							logger.info(" - Addon {} is using the Instance annotation! Using their provided instance.", addon.getID() );
+							logger.info(" - Addon {} is using the Instance annotation! Using their provided instance.", addon.getId() );
 							field.setAccessible(true);
 							addon.implementation = (Addon) field.get( null );
 							break;
