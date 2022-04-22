@@ -12,7 +12,8 @@ repositories {
 dependencies {
 	compileOnly "org.apache.logging.log4j:log4j-api:$log4j_version"
 	implementation 'com.google.guava:guava:21.0'
-	compileOnly "com.mojang:brigadier:$rootProject.brigadier_version"
+	implementation "blue.endless:jankson:$jankson_version"
+	compileOnly "com.mojang:brigadier:$brigadier_version"
 }
 
 tasks.withType(JavaCompile).configureEach {

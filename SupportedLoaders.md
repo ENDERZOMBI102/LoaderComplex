@@ -6,7 +6,7 @@ the "recent" version includes every version starting from 1.12.2, older is untes
 |-------------------------------------------------------------------------------|--------------|-------------|-------------------|
 | [EndLoader](https://gitlab.com/e2755/endloader)                               | 1.18         | not yet     | Java              |
 | [Forge](https://minecraftforge.net)                                           | 1.12.2       | Supported   | Java              |
-| [Forge](https://minecraftforge.net)                                           | 1.17         | WIP support | Java              |
+| [Forge](https://minecraftforge.net)                                           | 1.18.2       | Supported   | Java              |
 | [Fabric](https://github.com/Legacy-Fabric/)                                   | 1.12.2       | Supported   | Java              |
 | [Fabric](https://fabricmc.net)                                                | 1.17.1       | Supported   | Java              |
 | [Quilt](https://quiltmc.org/)                                                 | 1.18.2       | Supported   | Java              |

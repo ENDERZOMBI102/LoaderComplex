@@ -48,6 +48,8 @@ dependencies {
 		}
 	}
 	shade "com.mojang:brigadier:$brigadier_version"
+	shade "blue.endless:jankson:$jankson_version"
+
 }
 
 shadowJar {
