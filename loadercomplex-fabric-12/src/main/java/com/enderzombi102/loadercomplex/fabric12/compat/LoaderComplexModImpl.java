@@ -33,7 +33,7 @@ public class LoaderComplexModImpl implements Mod {
 
 	@Override
 	public @NotNull String getId() {
-		return container.getID();
+		return container.getId();
 	}
 
 	@Override
@@ -44,13 +44,13 @@ public class LoaderComplexModImpl implements Mod {
 	@Override
 	public @NotNull NativeImageBackedTexture getIcon(ModIconHandler iconHandler, int i) {
 		if ( container.getIconPath() == null ) {
-			LoaderComplexFabric.LOGGER.warn( Utils.format( "Addon {} has no icon! using default.", container.getID() ) );
+			LoaderComplexFabric.LOGGER.warn( Utils.format( "Addon {} has no icon! using default.", container.getId() ) );
 			return getDefaultIcon(iconHandler);
 		}
 
 		JarEntry entry = container.getAddonJar().getJarEntry( container.getIconPath() );
 		if ( entry == null ) {
-			LoaderComplexFabric.LOGGER.warn( Utils.format( "Addon {} has an invalid icon! using default.", container.getID() ) );
+			LoaderComplexFabric.LOGGER.warn( Utils.format( "Addon {} has an invalid icon! using default.", container.getId() ) );
 			return getDefaultIcon(iconHandler);
 		}
 
