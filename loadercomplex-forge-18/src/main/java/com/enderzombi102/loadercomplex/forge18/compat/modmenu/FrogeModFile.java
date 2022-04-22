@@ -1,4 +1,4 @@
-package com.enderzombi102.loadercomplex.forge18.modmenu;
+package com.enderzombi102.loadercomplex.forge18.compat.modmenu;
 
 import com.enderzombi102.loadercomplex.modloader.AddonContainer;
 import cpw.mods.jarhandling.SecureJar;

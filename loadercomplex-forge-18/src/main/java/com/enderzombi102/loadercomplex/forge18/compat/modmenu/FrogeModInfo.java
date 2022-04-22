@@ -1,4 +1,4 @@
-package com.enderzombi102.loadercomplex.forge18.modmenu;
+package com.enderzombi102.loadercomplex.forge18.compat.modmenu;
 
 import com.enderzombi102.loadercomplex.modloader.AddonContainer;
 import net.minecraftforge.forgespi.language.IConfigurable;
@@ -28,7 +28,7 @@ public class FrogeModInfo implements IModInfo {
 
 	@Override
 	public String getModId() {
-		return this.container.getID();
+		return this.container.getId();
 	}
 
 	@Override
@@ -53,7 +53,7 @@ public class FrogeModInfo implements IModInfo {
 
 	@Override
 	public String getNamespace() {
-		return this.container.getID();
+		return this.container.getId();
 	}
 
 	@Override
