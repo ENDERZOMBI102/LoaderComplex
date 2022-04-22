@@ -42,8 +42,8 @@ public class AddonLoader {
 				try {
 					classLoader.addURL( file.toURI().toURL() );
 					addonContainers.add( new AddonContainer( Paths.get( file.getPath() ) ) );
-				} catch (IOException e) {
-					logger.error("Failed to load possible LC addon: " + file.getName() );
+				} catch ( IOException e ) {
+					logger.error( "Failed to load possible LC addon {}: {}", file, e.getMessage() );
 				}
 			}
 		}
