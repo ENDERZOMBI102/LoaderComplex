@@ -82,6 +82,8 @@ public class AddonLoader {
 					}
 					if ( addon.implementation == null )
 						addon.implementation = addonToLoad.getDeclaredConstructor().newInstance();
+				} else {
+					logger.error( "Addon " + addon.getId() + " has a main class that doesn't implement the `Addon` interface!" );
 				}
 			} catch ( ReflectiveOperationException e ) {
 				logger.error( "can't load addon file: " + addon.getPath(), e );
