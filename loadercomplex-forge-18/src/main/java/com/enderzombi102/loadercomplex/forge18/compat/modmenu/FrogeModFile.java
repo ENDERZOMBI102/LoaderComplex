@@ -1,6 +1,6 @@
 package com.enderzombi102.loadercomplex.forge18.compat.modmenu;
 
-import com.enderzombi102.loadercomplex.modloader.AddonContainer;
+import com.enderzombi102.loadercomplex.addonloader.AddonContainer;
 import cpw.mods.jarhandling.SecureJar;
 import net.minecraftforge.forgespi.language.*;
 import net.minecraftforge.forgespi.locating.IModFile;

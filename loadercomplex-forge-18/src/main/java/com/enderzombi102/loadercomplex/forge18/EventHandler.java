@@ -40,18 +40,16 @@ public class EventHandler {
 	@SubscribeEvent
 	public static void onRegisterResourcePacks( final AddPackFindersEvent evt ) {
 		if ( evt.getPackType() == ResourceType.CLIENT_RESOURCES ) {
-			for ( var pack : LoaderComplexForge.INSTANCE.packs ) {
-				evt.addRepositorySource( (adder, factory) -> adder.accept(
-					ResourcePackProfile.of(
-						pack.getName(),
-						true,
-						() -> pack,
-						factory,
-						ResourcePackProfile.InsertionPosition.BOTTOM,
-						ResourcePackSource.PACK_SOURCE_BUILTIN
-					)
-				));
-			}
+			evt.addRepositorySource( (adder, factory) -> adder.accept(
+				ResourcePackProfile.of(
+					"LoaderComplex Resources",
+					true,
+					() -> new ForgeResourcePack( LoaderComplexForge.INSTANCE.getAddonLoader().getAddons() ),
+					factory,
+					ResourcePackProfile.InsertionPosition.BOTTOM,
+					ResourcePackSource.PACK_SOURCE_BUILTIN
+				)
+			));
 		}
 	}
 

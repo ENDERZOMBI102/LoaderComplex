@@ -2,7 +2,7 @@ package com.enderzombi102.loadercomplex.fabric12.compat;
 
 import com.enderzombi102.loadercomplex.fabric.FabricDispatcher;
 import com.enderzombi102.loadercomplex.fabric12.LoaderComplexFabric;
-import com.enderzombi102.loadercomplex.modloader.AddonContainer;
+import com.enderzombi102.loadercomplex.addonloader.AddonContainer;
 import io.github.prospector.modmenu.ModMenu;
 import io.github.prospector.modmenu.api.ModMenuApi;
 

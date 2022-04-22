@@ -2,7 +2,7 @@ package com.enderzombi102.loadercomplex.quilt.compat;
 
 import com.enderzombi102.loadercomplex.Utils;
 import com.enderzombi102.loadercomplex.quilt.LoaderComplexQuilt;
-import com.enderzombi102.loadercomplex.modloader.AddonContainer;
+import com.enderzombi102.loadercomplex.addonloader.AddonContainer;
 import com.terraformersmc.modmenu.ModMenu;
 import com.terraformersmc.modmenu.util.mod.Mod;
 import com.terraformersmc.modmenu.util.mod.ModIconHandler;

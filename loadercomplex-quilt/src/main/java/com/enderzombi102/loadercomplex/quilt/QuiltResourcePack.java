@@ -1,7 +1,7 @@
 package com.enderzombi102.loadercomplex.quilt;
 
 import com.enderzombi102.loadercomplex.Utils;
-import com.enderzombi102.loadercomplex.modloader.AddonContainer;
+import com.enderzombi102.loadercomplex.addonloader.AddonContainer;
 import com.google.common.base.Charsets;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;

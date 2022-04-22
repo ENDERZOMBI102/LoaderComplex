@@ -1,6 +1,6 @@
 package com.enderzombi102.loadercomplex.forge18.compat.modmenu;
 
-import com.enderzombi102.loadercomplex.modloader.AddonContainer;
+import com.enderzombi102.loadercomplex.addonloader.AddonContainer;
 import net.minecraftforge.fml.ModContainer;
 
 import java.util.Objects;
