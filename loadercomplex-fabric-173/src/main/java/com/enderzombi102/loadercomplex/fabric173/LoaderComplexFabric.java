@@ -6,8 +6,6 @@ import org.apache.logging.log4j.LogManager;
 public class LoaderComplexFabric implements ModInitializer {
 	@Override
 	public void onInitialize() {
-		LogManager
-				.getLogger("Minecraft")
-				.error("Hello World!");
+		LogManager.getLogger("Minecraft").error("Hello World!");
 	}
 }
