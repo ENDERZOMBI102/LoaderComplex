@@ -1,4 +1,4 @@
-package com.enderzombi102.loadercomplex.modloader;
+package com.enderzombi102.loadercomplex.addonloader;
 
 import com.enderzombi102.loadercomplex.api.Addon;
 import org.jetbrains.annotations.NotNull;
@@ -15,7 +15,7 @@ import java.util.jar.JarFile;
  * <br/>
  * Contains various info about an addon such as id and description.
  */
-public class AddonContainer {
+public class AddonContainer implements com.enderzombi102.loadercomplex.api.addonloader.AddonContainer {
 	private final String mainClass;
 	private final Path file;
 	private final JarFile addonJar;
@@ -40,52 +40,64 @@ public class AddonContainer {
 			);
 	}
 
+	@Override
 	public @NotNull String getName() {
 		return implementation.getName() != null
 			? implementation.getName()
 			: file.getFileName().toString().replace(".lc.jar", "");
 	}
 
+	@Override
 	public String getVersion() {
 		return version;
 	}
 
+	@Override
 	public String getId() {
 		return id;
 	}
 
+	@Override
 	public JarFile getAddonJar() {
 		return addonJar;
 	}
 
+	@Override
 	public Path getPath() {
 		return file;
 	}
 
+	@Override
 	public String getMainClass() {
 		return mainClass;
 	}
 
+	@Override
 	public String getAuthors() {
 		return implementation.getAuthors();
 	}
 
+	@Override
 	public String getDescription() {
 		return implementation.getDescription();
 	}
 
+	@Override
 	public @Nullable String getIconPath() {
 		return implementation.getIconPath();
 	}
 
+	@Override
 	public Map<String, String> getLinks() {
 		return implementation.getLinks();
 	}
 
+	@Override
 	public boolean didFailToLoad() {
 		return this.implementation == null;
 	}
 
+	@Override
 	public Addon getImplementation() {
 		return implementation;
 	}

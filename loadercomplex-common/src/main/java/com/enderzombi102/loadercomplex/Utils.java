@@ -3,6 +3,8 @@ package com.enderzombi102.loadercomplex;
 import com.enderzombi102.loadercomplex.api.utils.Version;
 
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.jar.Attributes;
@@ -51,5 +53,12 @@ public final class Utils {
 		} catch (IOException ignored) {
 			throw new IllegalStateException("Failed to read manifest from LoaderComplex's jar");
 		}
+	}
+
+	/**
+	 * Get the game directory
+	 */
+	public static Path getGameDir() {
+		return Paths.get( System.getProperty("user.dir") );
 	}
 }

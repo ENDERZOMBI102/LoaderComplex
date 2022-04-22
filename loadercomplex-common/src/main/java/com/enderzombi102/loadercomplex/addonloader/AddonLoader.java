@@ -1,4 +1,4 @@
-package com.enderzombi102.loadercomplex.modloader;
+package com.enderzombi102.loadercomplex.addonloader;
 
 import com.enderzombi102.loadercomplex.api.Addon;
 import com.enderzombi102.loadercomplex.api.annotation.Instance;
@@ -20,7 +20,7 @@ import java.util.Objects;
 /**
  * Internal class used to load jars and instantiate Addon implementations
  */
-public class AddonLoader {
+public class AddonLoader implements com.enderzombi102.loadercomplex.api.addonloader.AddonLoader {
 	private final Logger logger = LogManager.getLogger("LoaderComplex | AddonLoader");
 	private final List<AddonContainer> addonContainers = new ArrayList<>();
 	private final DynamicClassLoader classLoader = new DynamicClassLoader();
@@ -96,6 +96,7 @@ public class AddonLoader {
 		);
 	}
 
+	@Override
 	public List<AddonContainer> getAddons() {
 		return addonContainers;
 	}
