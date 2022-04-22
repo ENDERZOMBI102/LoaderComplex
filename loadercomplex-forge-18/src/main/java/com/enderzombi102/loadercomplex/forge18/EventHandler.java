@@ -3,7 +3,11 @@ package com.enderzombi102.loadercomplex.forge18;
 import com.enderzombi102.loadercomplex.forge18.impl.ForgeRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraft.resource.ResourcePackProfile;
+import net.minecraft.resource.ResourcePackSource;
+import net.minecraft.resource.ResourceType;
 import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.event.AddPackFindersEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -11,7 +15,7 @@ import net.minecraftforge.fml.common.Mod;
 import static com.enderzombi102.loadercomplex.forge18.LoaderComplexForge.LOGGER;
 
 @Mod.EventBusSubscriber( bus = Mod.EventBusSubscriber.Bus.MOD )
-public class RegistryHandler {
+public class EventHandler {
 	@SubscribeEvent
 	public static void onBlocksRegistry( final RegistryEvent.Register<Block> evt ) {
 		// init LoaderComplex
@@ -29,8 +33,26 @@ public class RegistryHandler {
 	}
 
 	@SubscribeEvent
-	public static void onModelRegistry(final ModelRegistryEvent evt ) {
+	public static void onModelRegistry( final ModelRegistryEvent evt ) {
 
+	}
+
+	@SubscribeEvent
+	public static void onRegisterResourcePacks( final AddPackFindersEvent evt ) {
+		if ( evt.getPackType() == ResourceType.CLIENT_RESOURCES ) {
+			for ( var pack : LoaderComplexForge.INSTANCE.packs ) {
+				evt.addRepositorySource( (adder, factory) -> adder.accept(
+					ResourcePackProfile.of(
+						pack.getName(),
+						true,
+						() -> pack,
+						factory,
+						ResourcePackProfile.InsertionPosition.BOTTOM,
+						ResourcePackSource.PACK_SOURCE_BUILTIN
+					)
+				));
+			}
+		}
 	}
 
 	private static ForgeRegistry getRegistry() {
