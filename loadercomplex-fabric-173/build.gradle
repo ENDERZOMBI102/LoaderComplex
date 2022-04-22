@@ -1,55 +1,40 @@
 plugins {
-	id 'fabric-loom' version '0d0261a'
+	id 'babric-loom' version '0.12-SNAPSHOT'
+	id 'maven-publish'
 }
 
-group maven_group
-archivesBaseName archives_base_name
+group = maven_group
+version = rootProject.version
+archivesBaseName = archives_base_name
+
+loom {
+	gluedMinecraftJar()
+	customMinecraftManifest.set("https://babric.github.io/manifest-polyfill/${minecraft_version}.json")
+}
 
 repositories {
-	mavenCentral()
-	maven { url 'https://jitpack.io/' }
-	maven { url 'https://storage.googleapis.com/devan-maven/' }
-}
-
-minecraft {
-	// Skip old versions of libraries which Mojang use but we don't need
-	addLibraryFilter {
-		library -> return !(
-			library.startsWith('net.minecraft:launchwrapper:') ||
-			library.startsWith('net.sf.jopt-simple:jopt-simple:') ||
-			library.startsWith('org.ow2.asm:asm-all:')
-		)
-	}
+	maven { url 'https://maven.glass-launcher.net/babric' }
+	maven { url 'https://maven.glass-launcher.net/releases' }
+	maven { url 'https://maven.glass-launcher.net/snapshots' }
 }
 
 dependencies {
 	minecraft "com.mojang:minecraft:$minecraft_version"
-	mappings "io.github.minecraft-cursed-legacy:plasma:b1.7.3-build.$plasma_build"
-	modImplementation("io.github.minecraft-cursed-legacy:cursed-fabric-loader:$loader_version") {
-		transitive false
-	}
+	mappings "babric:barn:$minecraft_version+$barn_mappings"
+	modImplementation "net.fabricmc:fabric-loader:$loader_version"
 
-	modImplementation "io.github.minecraft-cursed-legacy:cursed-legacy-api:$api_version"
+	implementation "org.slf4j:slf4j-api:$slf4j_version"
+	implementation "org.apache.logging.log4j:log4j-slf4j18-impl:2.16.0"
+
+	implementation "net.modificationstation:StationAPI:$station_version"
+
 	implementation project(':loadercomplex-fabric-common')
 }
 
-processResources {
-	inputs.property 'version', project.version
-
-	filesMatching('fabric.mod.json') {
-		expand 'version': project.version
-	}
-}
-
 tasks.withType(JavaCompile).configureEach {
+	it.sourceCompatibility = 8
 	it.options.encoding = 'UTF-8'
-	it.options.release.set(8)
-}
-
-shadowJar {
-	configurations = [ project.configurations.shade ]
-	from sourceSets.main.allSource
-	classifier ''
+	it.options.release.set( 8 )
 }
 
 artifacts {

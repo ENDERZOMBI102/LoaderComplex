@@ -10,7 +10,7 @@ repositories {
 }
 
 dependencies {
-	compileOnly "org.apache.logging.log4j:log4j-api:$log4j_version"
+	compileOnly "org.slf4j:slf4j-api:$slf4j_version"
 	implementation 'com.google.guava:guava:21.0'
 	implementation "blue.endless:jankson:$jankson_version"
 	compileOnly "com.mojang:brigadier:$brigadier_version"

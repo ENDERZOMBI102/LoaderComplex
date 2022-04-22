@@ -6,10 +6,10 @@ import com.enderzombi102.loadercomplex.api.utils.LoaderType;
 import com.enderzombi102.loadercomplex.api.utils.Version;
 import com.enderzombi102.loadercomplex.Utils;
 import com.enderzombi102.loadercomplex.addonloader.AddonLoader;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Optional;
 
@@ -86,7 +86,7 @@ public interface Loader {
 	 * @return a Logger object
 	 */
 	default Logger getLogger(String addonid) {
-		return LogManager.getLogger(addonid);
+		return LoggerFactory.getLogger(addonid);
 	}
 
 	/**

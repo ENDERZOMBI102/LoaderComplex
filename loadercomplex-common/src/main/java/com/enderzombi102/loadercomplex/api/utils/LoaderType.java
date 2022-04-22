@@ -13,6 +13,7 @@ public enum LoaderType {
 	ForgeLegacy,
 	Fabric,
 	FabricLegacy,
+	Babric,
 	Quilt,
 	LiteLoader,
 	BlazeLoader,

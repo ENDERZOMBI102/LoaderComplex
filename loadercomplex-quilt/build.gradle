@@ -1,5 +1,5 @@
 plugins {
-	id 'org.quiltmc.loom' version '0.12.23'
+	id 'org.quiltmc.loom' version '0.12-SNAPSHOT'
 }
 
 group = maven_group
@@ -40,7 +40,6 @@ dependencies {
 	modImplementation("com.terraformersmc:modmenu:$modmenu_version") {
 		transitive false
 	}
-
 }
 
 processResources {

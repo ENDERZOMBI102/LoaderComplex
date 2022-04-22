@@ -23,7 +23,7 @@ public class FabricDispatcher implements ModInitializer {
 							.getConstructor()
 							.newInstance();
 					break;
-				case "b1.7.3":
+				case "1.0.0-beta.7.3":
 					impl = (ModInitializer) Class.forName("com.enderzombi102.loadercomplex.fabric173.LoaderComplexFabric")
 							.getConstructor()
 							.newInstance();
@@ -34,7 +34,6 @@ public class FabricDispatcher implements ModInitializer {
 		} catch (Exception e) {
 			throw new IllegalStateException( e );
 		}
-		System.out.println("Hello world!");
 	}
 
 	@Override
