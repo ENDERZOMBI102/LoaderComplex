@@ -14,6 +14,7 @@
 
 		"license": "MIT",
 		"icon": "assets/loadercomplex/icon4quilt.png",
+		"intermediate_mappings": "net.fabricmc:intermediary",
 
 		"environment": "*",
 		"entrypoints": {
@@ -27,7 +28,7 @@
 		"depends": [
 			{
 				"id": "quilt_loader",
-				"version": "*"
+				"version": "${loader_version}"
 			},
 			{
 				"id": "quilt_base",

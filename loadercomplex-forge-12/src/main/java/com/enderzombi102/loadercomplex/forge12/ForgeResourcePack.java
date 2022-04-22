@@ -19,7 +19,7 @@ import java.util.jar.JarEntry;
 
 public class ForgeResourcePack extends AbstractResourcePack {
 	private static final Splitter TYPE_NAMESPACE_SPLITTER = Splitter.on('/').omitEmptyStrings().limit(3);
-	private static final Logger LOGGER = LogManager.getLogger("LC-PackManager");
+	private static final Logger LOGGER = LogManager.getLogger("LoaderComplex | ResourceManager");
 	private static final int PACK_FORMAT_VERSION = 1;
 	private final FrogeModContainer container;
 

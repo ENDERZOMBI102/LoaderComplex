@@ -1,0 +1,29 @@
+modLoader = 'javafml'
+loaderVersion = '[40,)'
+license = 'MIT'
+
+issueTrackerURL = '${repo_url}/issues'
+
+[[mods]]
+	modId = 'loadercomplex'
+	version = '${version}'
+	displayName = 'LoaderComplex'
+	# updateJSONURL = "https://changeme.dev/updates.json"
+	displayURL = '${repo_url}'
+	logoFile = 'icon.png'
+	authors = 'ENDERZOMBi102'
+	description = '${description}'
+
+[[dependencies.loadercomplex]]
+	modId = 'forge'
+	mandatory = true
+	versionRange = '[${forge_version},)'
+	ordering = 'NONE'
+	side = 'BOTH'
+
+[[dependencies.loadercomplex]]
+	modId = 'minecraft'
+	mandatory = true
+	versionRange = '1.18.2'
+	ordering = 'NONE'
+	side = 'BOTH'

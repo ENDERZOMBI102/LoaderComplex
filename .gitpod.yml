@@ -1,2 +1,8 @@
+
 tasks:
-  - init: sdk uninstall gradle 6.8.3 && sdk install gradle 7.1 # runs during prebuild
+  - init: sdk env # runs during prebuild
+
+vscode:
+  extensions:
+    - vscjava.vscode-java-pack
+    - eamodio.gitlens

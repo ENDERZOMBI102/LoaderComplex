@@ -1,7 +1,7 @@
 package com.enderzombi102.loadercomplex.quilt;
 
 import com.enderzombi102.loadercomplex.Utils;
-import com.enderzombi102.loadercomplex.modloader.AddonContainer;
+import com.enderzombi102.loadercomplex.addonloader.AddonContainer;
 import com.google.common.base.Charsets;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
@@ -25,7 +25,7 @@ import java.util.jar.JarEntry;
 
 public class QuiltResourcePack extends AbstractFileResourcePack {
 	private static final Splitter TYPE_NAMESPACE_SPLITTER = Splitter.on('/').omitEmptyStrings().limit(3);
-	private static final Logger LOGGER = LogManager.getLogger("LC-PackManager");
+	private static final Logger LOGGER = LogManager.getLogger("LoaderComplex | ResourceManager");
 	// https://minecraft.fandom.com/wiki/Tutorials/Creating_a_resource_pack#.22pack_format.22
 	private static final int PACK_FORMAT_VERSION = 1; // format for 1.6.1 – 1.8.9
 	private final AddonContainer container;
@@ -36,7 +36,7 @@ public class QuiltResourcePack extends AbstractFileResourcePack {
 	}
 
 	public String getAddonID() {
-		return container.getID();
+		return container.getId();
 	}
 
 	@Override
@@ -57,6 +57,7 @@ public class QuiltResourcePack extends AbstractFileResourcePack {
 					Charsets.UTF_8
 				);
 			} else if ( filename.contains("lang") && filename.endsWith(".json") ) {
+				// converts a .lang file to .json
 				var lines = IOUtils.readLines(
 					new InputStreamReader(
 						container.getAddonJar().getInputStream(
@@ -75,9 +76,9 @@ public class QuiltResourcePack extends AbstractFileResourcePack {
 					));
 				}
 				var data = lang.substring( 0, lang.length() - 1 ) + "}";
-				LOGGER.debug( Utils.format( "--- START {} LANG JSON ----", container.getID() ) );
+				LOGGER.debug( Utils.format( "--- START {} LANG JSON ----", container.getId() ) );
 				LOGGER.debug( data );
-				LOGGER.debug( Utils.format( "--- END {} LANG JSON ----", container.getID() ) );
+				LOGGER.debug( Utils.format( "--- END {} LANG JSON ----", container.getId() ) );
 
 				return IOUtils.toInputStream( data, Charsets.UTF_8);
 			}
@@ -127,7 +128,7 @@ public class QuiltResourcePack extends AbstractFileResourcePack {
 						}
 					});
 			} catch (IOException e) {
-				LOGGER.warn( "findResources at " + namespacePath + " in namespace " + namespace + ", addon " + container.getID() + " failed!", e );
+				LOGGER.warn( "findResources at " + namespacePath + " in namespace " + namespace + ", addon " + container.getId() + " failed!", e );
 			}
 		}
 

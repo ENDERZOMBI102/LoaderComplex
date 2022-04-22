@@ -10,7 +10,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.ArrayList;
 
 public class LoaderComplexFabric extends LoaderComplex implements ModInitializer {
-	public static final Logger LOGGER = LogManager.getLogger("LoaderComplex");
+	public static final Logger LOGGER = LogManager.getLogger("LoaderComplex | Fabric12");
 	public static final ArrayList<FabricResourcePack> packs = new ArrayList<>();
 	public static LoaderComplexFabric INSTANCE;
 

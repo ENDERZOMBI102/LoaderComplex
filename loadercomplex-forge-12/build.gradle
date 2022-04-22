@@ -78,7 +78,9 @@ processResources {
 }
 
 tasks.withType(JavaCompile).configureEach {
-	it.options.release.set( 8 )
+	it.sourceCompatibility = 8 // for the IDE support
+	it.options.encoding = 'UTF-8'
+	it.options.release.set(8)
 }
 
 jar.finalizedBy('reobfJar')

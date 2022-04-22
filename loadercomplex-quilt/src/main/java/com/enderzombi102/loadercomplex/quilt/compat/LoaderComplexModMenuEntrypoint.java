@@ -9,7 +9,7 @@ public class LoaderComplexModMenuEntrypoint implements ModMenuApi {
 		for ( var container : LoaderComplexQuilt.INSTANCE.getAddonLoader().getAddons() )
 			ModMenu.PARENT_MAP.put(
 				ModMenu.MODS.get("loadercomplex"),
-				ModMenu.MODS.put( container.getID(), new LoaderComplexModImpl( container ) )
+				ModMenu.MODS.put( container.getId(), new LoaderComplexModImpl( container ) )
 			);
 	}
 }

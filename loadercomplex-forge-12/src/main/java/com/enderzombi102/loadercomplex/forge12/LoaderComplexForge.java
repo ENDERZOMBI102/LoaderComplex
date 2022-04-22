@@ -20,18 +20,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Mod(
-	modid = LoaderComplexForge.MOD_ID,
-	name = LoaderComplexForge.MOD_NAME,
-	version = LoaderComplexForge.VERSION,
+	modid = "loadercomplex",
+	name = "LoaderComplex",
+	version = "1.0.0",
 	acceptedMinecraftVersions = "1.12.2",
 	dependencies = "required:forge"
 )
 public class LoaderComplexForge extends LoaderComplex {
-	public static final String MOD_ID = "loadercomplex";
-	public static final String MOD_NAME = "Loader Complex (Forge)";
-	public static final String VERSION = "1.0.0";
-
-	public static final Logger LOGGER = LogManager.getLogger("[LoaderComplex-Forge]");
+	public static final Logger LOGGER = LogManager.getLogger("LoaderComplex | Forge12");
 
 	public static LoaderComplexForge INSTANCE;
 	private final ModContainer container;

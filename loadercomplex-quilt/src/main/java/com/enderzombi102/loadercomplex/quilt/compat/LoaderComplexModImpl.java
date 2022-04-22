@@ -2,7 +2,7 @@ package com.enderzombi102.loadercomplex.quilt.compat;
 
 import com.enderzombi102.loadercomplex.Utils;
 import com.enderzombi102.loadercomplex.quilt.LoaderComplexQuilt;
-import com.enderzombi102.loadercomplex.modloader.AddonContainer;
+import com.enderzombi102.loadercomplex.addonloader.AddonContainer;
 import com.terraformersmc.modmenu.ModMenu;
 import com.terraformersmc.modmenu.util.mod.Mod;
 import com.terraformersmc.modmenu.util.mod.ModIconHandler;
@@ -28,7 +28,7 @@ public class LoaderComplexModImpl implements Mod {
 
 	@Override
 	public @NotNull String getId() {
-		return container.getID();
+		return container.getId();
 	}
 
 	@Override
@@ -39,13 +39,13 @@ public class LoaderComplexModImpl implements Mod {
 	@Override
 	public @NotNull NativeImageBackedTexture getIcon(ModIconHandler iconHandler, int i) {
 		if ( container.getIconPath() == null ) {
-			LoaderComplexQuilt.LOGGER.warn( Utils.format( "Addon {} has no icon! using default.", container.getID() ) );
+			LoaderComplexQuilt.LOGGER.warn( Utils.format( "Addon {} has no icon! using default.", container.getId() ) );
 			return getDefaultIcon(iconHandler);
 		}
 
 		var entry = container.getAddonJar().getJarEntry( container.getIconPath() );
 		if ( entry == null ) {
-			LoaderComplexQuilt.LOGGER.warn( Utils.format( "Addon {} has an invalid icon! using default.", container.getID() ) );
+			LoaderComplexQuilt.LOGGER.warn( Utils.format( "Addon {} has an invalid icon! using default.", container.getId() ) );
 			return getDefaultIcon(iconHandler);
 		}
 
