@@ -31,13 +31,19 @@ public class AddonContainer {
 		version = attributes.getValue("LoaderComplex-Version");
 		id = attributes.getValue("LoaderComplex-AddonId");
 		if ( mainClass == null || version == null || id == null )
-			throw new IOException("Not a LoaderComplex Addon!");
+			throw new IOException(
+				"Not a LoaderComplex Addon! ( " + (
+					mainClass == null ? "Missing LoaderComplex-Main attribute in manifest" :
+					version == null ? "Missing LoaderComplex-Version attribute in manifest" :
+					"Missing LoaderComplex-AddonId attribute in manifest"
+				) + " )"
+			);
 	}
 
 	public @NotNull String getName() {
-		return implementation.getName() != null ?
-				implementation.getName() :
-				file.getFileName().toString().replace(".lc.jar", "");
+		return implementation.getName() != null
+			? implementation.getName()
+			: file.getFileName().toString().replace(".lc.jar", "");
 	}
 
 	public String getVersion() {
