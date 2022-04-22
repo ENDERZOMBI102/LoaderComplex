@@ -1,5 +1,5 @@
 modLoader = 'javafml'
-loaderVersion = '[${forge_version},)'
+loaderVersion = '[40,)'
 license = 'MIT'
 
 issueTrackerURL = '${repo_url}/issues'
