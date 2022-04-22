@@ -29,9 +29,7 @@ dependencies {
 	implementation "org.slf4j:slf4j-api:$slf4j_version"
 	implementation "org.apache.logging.log4j:log4j-slf4j18-impl:2.16.0"
 
-	implementation( "net.modificationstation:StationAPI:$station_version" ) {
-		exclude group: 'com.github.mineLdiver'
-	}
+	implementation( "net.modificationstation:StationAPI:$station_version" )
 
 	implementation project(':loadercomplex-fabric-common')
 }
