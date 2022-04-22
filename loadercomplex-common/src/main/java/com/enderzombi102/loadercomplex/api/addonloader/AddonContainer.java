@@ -1,6 +1,7 @@
 package com.enderzombi102.loadercomplex.api.addonloader;
 
 import com.enderzombi102.loadercomplex.api.Addon;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -11,6 +12,7 @@ import java.util.jar.JarFile;
 /**
  * Represents a container for an addon
  */
+@ApiStatus.AvailableSince("0.1.4")
 public interface AddonContainer {
 	/**
 	 *
