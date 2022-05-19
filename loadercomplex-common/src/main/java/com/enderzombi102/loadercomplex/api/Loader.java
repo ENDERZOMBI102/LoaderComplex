@@ -72,7 +72,6 @@ public interface Loader {
 	@ApiStatus.AvailableSince("0.1.4")
 	default boolean isDedicatedServer() { return false; };
 
-
 	/**
 	 * Returns the API implementation version of this layer, might be different based on underlying loader.
 	 */
