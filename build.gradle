@@ -11,6 +11,7 @@ configurations {
 allprojects {
 	repositories {
 		maven { url 'https://libraries.minecraft.net' }
+		mavenLocal()
 	}
 }
 
@@ -31,6 +32,7 @@ subprojects {
 			compileOnly( project( path: ':loadercomplex-common' ) ) {
 				transitive = false
 			}
+			compileOnly "com.enderzombi102:eventsystem:$eventsystem_version"
 		}
 	}
 }
@@ -49,7 +51,7 @@ dependencies {
 	}
 	shade "com.mojang:brigadier:$brigadier_version"
 	shade "blue.endless:jankson:$jankson_version"
-
+	shade "com.enderzombi102:eventsystem:$eventsystem_version"
 }
 
 shadowJar {

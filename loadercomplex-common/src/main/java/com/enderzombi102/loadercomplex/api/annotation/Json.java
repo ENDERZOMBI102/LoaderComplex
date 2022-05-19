@@ -11,6 +11,6 @@ import java.lang.annotation.Target;
  * Annotates a string that contains JSON data
  */
 @Retention(RetentionPolicy.SOURCE)
-@Target({ElementType.METHOD, ElementType.FIELD})
+@Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
 @ApiStatus.AvailableSince("0.1.3")
 public @interface Json { }

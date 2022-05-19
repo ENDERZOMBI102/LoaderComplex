@@ -6,14 +6,16 @@ version = api_version
 archivesBaseName = 'loadercomplex-common'
 
 repositories {
+	mavenLocal()
 	mavenCentral()
 }
 
 dependencies {
-	compileOnly "org.apache.logging.log4j:log4j-api:$log4j_version"
+	implementation "org.slf4j:slf4j-api:$slf4j_version"
 	implementation 'com.google.guava:guava:21.0'
 	implementation "blue.endless:jankson:$jankson_version"
 	compileOnly "com.mojang:brigadier:$brigadier_version"
+	compileOnly "com.enderzombi102:eventsystem:$eventsystem_version"
 }
 
 tasks.withType(JavaCompile).configureEach {

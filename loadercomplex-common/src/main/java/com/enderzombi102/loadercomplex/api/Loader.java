@@ -1,15 +1,16 @@
 package com.enderzombi102.loadercomplex.api;
 
+import com.enderzombi102.eventsystem.EventSystem;
 import com.enderzombi102.loadercomplex.api.addonloader.AddonContainer;
 import com.enderzombi102.loadercomplex.api.utils.FactoryWorld;
 import com.enderzombi102.loadercomplex.api.utils.LoaderType;
 import com.enderzombi102.loadercomplex.api.utils.Version;
 import com.enderzombi102.loadercomplex.Utils;
 import com.enderzombi102.loadercomplex.addonloader.AddonLoader;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.jetbrains.annotations.ApiStatus;
+import org.jetbrains.annotations.ApiStatus.AvailableSince;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Optional;
 
@@ -56,20 +57,20 @@ public interface Loader {
 	 * Returns an implementation of {@link FactoryWorld}, an object capable
 	 * of creating stuff normally inacessible.
 	 */
-	@ApiStatus.AvailableSince("0.1.3")
+	@AvailableSince("0.1.3")
 	default FactoryWorld getFactoryWorld() { return null; };
 
 	/**
 	 * Returns true if we're running on at least minecraft version
 	 * @param version minecraft version to check
 	 */
-	@ApiStatus.AvailableSince("0.1.3")
+	@AvailableSince("0.1.3")
 	default boolean isAtLeastMinecraft(String version) { return true; };
 
 	/**
 	 * Returns true if LC is running on a dedicated server
 	 */
-	@ApiStatus.AvailableSince("0.1.4")
+	@AvailableSince("0.1.4")
 	default boolean isDedicatedServer() { return false; };
 
 
@@ -86,15 +87,15 @@ public interface Loader {
 	 * @return a Logger object
 	 */
 	default Logger getLogger(String addonid) {
-		return LogManager.getLogger(addonid);
+		return LoggerFactory.getLogger(addonid);
 	}
 
 	/**
 	 * Returns the current LoaderComplex implementation.<br>
-	 * If the underlying implementation doesn't have this method, a dummy object will be returned.<br>
+	 * If the underlying implementation doesn't support the required api level, a dummy object will be returned.<br>
 	 * You can check whether you got a dummy object by calling {@link LoaderComplex#isDummy()}
 	 */
-	@ApiStatus.AvailableSince( "0.1.4" )
+	@AvailableSince( "0.1.4" )
 	default @NotNull LoaderComplex getLoaderComplex() {
 		return new LoaderComplex() {
 			@Override
@@ -113,4 +114,15 @@ public interface Loader {
 			}
 		};
 	}
+
+
+	/**
+	 * Returns the {@link EventSystem} instance used by LoaderComplex.<br>
+	 * If the underlying implementation doesn't support the required api level, a new dummy object will be returned.<br>
+	 */
+	@AvailableSince( "0.2.0" )
+	default @NotNull EventSystem getEventSystem() {
+		return new EventSystem();
+	}
+
 }

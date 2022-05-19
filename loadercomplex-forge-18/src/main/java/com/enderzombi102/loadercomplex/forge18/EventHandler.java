@@ -1,14 +1,21 @@
 package com.enderzombi102.loadercomplex.forge18;
 
+import com.enderzombi102.loadercomplex.api.event.ClientChatEventData;
+import com.enderzombi102.loadercomplex.api.event.ServerChatEventData;
 import com.enderzombi102.loadercomplex.forge18.impl.ForgeRegistry;
+import com.enderzombi102.loadercomplex.forge18.impl.entity.ForgePlayer;
 import net.minecraft.block.Block;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.item.Item;
 import net.minecraft.resource.ResourcePackProfile;
 import net.minecraft.resource.ResourcePackSource;
 import net.minecraft.resource.ResourceType;
+import net.minecraft.text.Text;
+import net.minecraftforge.client.event.ClientChatEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.AddPackFindersEvent;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.ServerChatEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -51,6 +58,38 @@ public class EventHandler {
 				)
 			));
 		}
+	}
+
+	@SubscribeEvent
+	public static void onClientSendChatMessage( ClientChatEvent evt ) {
+		ClientChatEventData data = LoaderComplexForge.INSTANCE
+			.getLoader()
+			.getEventSystem()
+			.dispatch(
+				"lc.client.chat.send",
+				new ClientChatEventData(
+					evt.getMessage(),
+					new ForgePlayer( MinecraftClient.getInstance().player )
+				)
+			);
+		evt.setCanceled( data.isCancelled() );
+		evt.setMessage( data.getMessage() );
+	}
+
+	@SubscribeEvent
+	public static void onServerReceiveChatMessage( ServerChatEvent evt ) {
+		ServerChatEventData data = LoaderComplexForge.INSTANCE
+			.getLoader()
+			.getEventSystem()
+			.dispatch(
+				"lc.server.chat.receive",
+				new ServerChatEventData(
+					Text.Serializer.toJson( evt.getComponent() ),
+					new ForgePlayer( evt.getPlayer() )
+				)
+			);
+		evt.setCanceled( data.isCancelled() );
+		evt.setComponent( Text.Serializer.fromJson( data.getJsonMessage() ) );
 	}
 
 	private static ForgeRegistry getRegistry() {
