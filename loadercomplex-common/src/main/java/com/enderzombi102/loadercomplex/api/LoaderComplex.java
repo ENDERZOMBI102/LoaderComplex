@@ -8,7 +8,7 @@ import java.util.Optional;
 
 /**
  * The LoaderComplex main class.
- * may be used to do more <i>complex<i/> stuff.
+ * may be used to do more <i>complex</i> stuff.
  */
 public interface LoaderComplex {
 	/**

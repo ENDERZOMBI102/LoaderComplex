@@ -47,5 +47,4 @@ public abstract class LoaderComplex implements com.enderzombi102.loadercomplex.a
 	public boolean didInitializeAddons() {
 		return this.addonsInitialized;
 	}
-
 }

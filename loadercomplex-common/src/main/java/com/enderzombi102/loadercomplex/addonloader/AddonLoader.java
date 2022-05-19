@@ -2,8 +2,8 @@ package com.enderzombi102.loadercomplex.addonloader;
 
 import com.enderzombi102.loadercomplex.api.Addon;
 import com.enderzombi102.loadercomplex.api.annotation.Instance;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,7 +21,7 @@ import java.util.Objects;
  * Internal class used to load jars and instantiate Addon implementations
  */
 public class AddonLoader implements com.enderzombi102.loadercomplex.api.addonloader.AddonLoader {
-	private final Logger logger = LogManager.getLogger("LoaderComplex | AddonLoader");
+	private final Logger logger = LoggerFactory.getLogger("LoaderComplex | AddonLoader");
 	private final List<AddonContainer> addonContainers = new ArrayList<>();
 	private final DynamicClassLoader classLoader = new DynamicClassLoader();
 	private final Path modsPath;

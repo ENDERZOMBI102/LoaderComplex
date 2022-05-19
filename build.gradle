@@ -29,10 +29,10 @@ subprojects {
 	dependencies {
 		implementation "org.jetbrains:annotations:$annotations_version"
 		if ( project.name != 'loadercomplex-common' ) {
-			compileOnly( project( path: ':loadercomplex-common' ) ) {
+			implementation( project( ':loadercomplex-common' ) ) {
 				transitive = false
 			}
-			compileOnly "com.enderzombi102:eventsystem:$eventsystem_version"
+			implementation "com.enderzombi102:eventsystem:$eventsystem_version"
 		}
 	}
 }
