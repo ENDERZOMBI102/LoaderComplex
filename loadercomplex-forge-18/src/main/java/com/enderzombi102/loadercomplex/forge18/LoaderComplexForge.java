@@ -11,6 +11,7 @@ import org.apache.logging.log4j.Logger;
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod("loadercomplex")
 public class LoaderComplexForge extends LoaderComplex {
+	// FIXME: Fix crash on start
 	public static final Logger LOGGER = LogManager.getLogger("LoaderComplex | Forge");
 	public static LoaderComplexForge INSTANCE;
 
