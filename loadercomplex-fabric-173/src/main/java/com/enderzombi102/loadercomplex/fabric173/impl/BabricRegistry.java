@@ -6,6 +6,7 @@ import com.enderzombi102.loadercomplex.api.entity.Entity;
 import com.enderzombi102.loadercomplex.api.item.Item;
 import com.enderzombi102.loadercomplex.api.utils.RegistryKey;
 import com.enderzombi102.loadercomplex.api.utils.ResourceIdentifier;
+import net.modificationstation.stationapi.api.registry.ItemRegistry;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

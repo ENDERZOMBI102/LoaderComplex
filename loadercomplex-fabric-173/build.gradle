@@ -13,6 +13,7 @@ loom {
 }
 
 repositories {
+	mavenLocal()
 	mavenCentral()
 	maven { url 'https://jitpack.io' }
 	maven { url 'https://maven.minecraftforge.net' }
@@ -23,13 +24,21 @@ repositories {
 
 dependencies {
 	minecraft "com.mojang:minecraft:$minecraft_version"
+	//noinspection GradlePackageVersionRange
 	mappings "babric:barn:$minecraft_version+$barn_mappings"
 	modImplementation "net.fabricmc:fabric-loader:$loader_version"
 
 	implementation "org.slf4j:slf4j-api:$slf4j_version"
-	implementation "org.apache.logging.log4j:log4j-slf4j18-impl:2.16.0"
+	implementation 'org.apache.logging.log4j:log4j-slf4j18-impl:2.16.0'
+	implementation files(
+		'C:/Users/Michele/.m2/repository/com/github/mineLdiver/UnsafeEvents/8fed74d/UnsafeEvents-8fed74d.jar',
+		'C:/Users/Michele/.m2/repository/com/github/mineLdiver/UnsafeEvents/8fed74d/UnsafeEvents-8fed74d-sources.jar'
+	)
 
-	implementation( "net.modificationstation:StationAPI:$station_version" )
+	implementation( "net.modificationstation:StationAPI:$station_version" ) {
+		exclude module: 'cursed-fabric-loader'
+		exclude module: 'UnsafeEvents'
+	}
 
 	implementation project(':loadercomplex-fabric-common')
 }

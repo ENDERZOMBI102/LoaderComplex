@@ -23,6 +23,12 @@
 		"modmenu": [
 			"com.enderzombi102.loadercomplex.fabric12.compat.LoaderComplexModMenuEntrypoint",
 			"com.enderzombi102.loadercomplex.fabric17.compat.LoaderComplexModMenuEntrypoint"
+		],
+		"stationapi:event_bus": [
+			"com.enderzombi102.loadercomplex.fabric173.EventHandler"
+		],
+		"stationapi:event_bus_client": [
+			"com.enderzombi102.loadercomplex.fabric173.EventHandler"
 		]
 	},
 
