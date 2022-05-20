@@ -8,6 +8,9 @@ public class Fabric17MixinPlugin extends BaseMixinPlugin {
 		super("1.17.1");
 		this.clientMixins.add( "ModResourcepackUtilMixin" );
 		this.clientMixins.add( "MinecraftClient17Mixin" );
+		this.clientMixins.add( "ScreenMixin" );
 		this.commonMixins.add( "ItemMixin" );
+		this.commonMixins.add( "MessageMixin" );
+		this.commonMixins.add( "ServerPlayNetworkHandlerMixin" );
 	}
 }

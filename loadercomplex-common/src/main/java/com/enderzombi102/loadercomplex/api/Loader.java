@@ -121,7 +121,7 @@ public interface Loader {
 	 */
 	@AvailableSince( "0.2.0" )
 	default @NotNull EventSystem getEventSystem() {
-		return new EventSystem();
+		return new EventSystem( LoggerFactory.getLogger("LoaderComplex | EventSystem | Dummy") );
 	}
 
 }
