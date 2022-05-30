@@ -3,7 +3,15 @@ package com.enderzombi102.loadercomplex.api.event;
 import com.enderzombi102.eventsystem.CancellableEventData;
 import com.enderzombi102.loadercomplex.api.annotation.Json;
 import com.enderzombi102.loadercomplex.api.entity.Player;
+import org.jetbrains.annotations.ApiStatus;
 
+/**
+ * Event id is 'lc.server.chat.receive'
+ *
+ * Fired when a message is received from a client.
+ * The message may or may not be json, check for `{}`!
+ */
+@ApiStatus.AvailableSince("0.2.0")
 public class ServerChatEventData extends CancellableEventData {
 	private final Player sender;
 	@Json

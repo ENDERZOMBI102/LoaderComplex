@@ -2,6 +2,8 @@ package com.enderzombi102.loadercomplex.api;
 
 import com.enderzombi102.eventsystem.EventSystem;
 import com.enderzombi102.loadercomplex.api.addonloader.AddonContainer;
+import com.enderzombi102.loadercomplex.api.entity.Player;
+import com.enderzombi102.loadercomplex.api.adv.network.NetworkManager;
 import com.enderzombi102.loadercomplex.api.utils.FactoryWorld;
 import com.enderzombi102.loadercomplex.api.utils.LoaderType;
 import com.enderzombi102.loadercomplex.api.utils.Version;
@@ -114,7 +116,6 @@ public interface Loader {
 		};
 	}
 
-
 	/**
 	 * Returns the {@link EventSystem} instance used by LoaderComplex.<br>
 	 * If the underlying implementation doesn't support the required api level, a new dummy object will be returned.<br>
@@ -122,6 +123,11 @@ public interface Loader {
 	@AvailableSince( "0.2.0" )
 	default @NotNull EventSystem getEventSystem() {
 		return new EventSystem( LoggerFactory.getLogger("LoaderComplex | EventSystem | Dummy") );
+	}
+
+	@AvailableSince( "0.2.0" )
+	default @NotNull NetworkManager openChannel( String addonid, Player player ) {
+		return ( addonid1, player1 ) -> null;
 	}
 
 }

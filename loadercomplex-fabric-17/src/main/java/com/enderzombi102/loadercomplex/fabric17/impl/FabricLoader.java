@@ -7,6 +7,7 @@ import com.enderzombi102.loadercomplex.api.utils.FactoryWorld;
 import com.enderzombi102.loadercomplex.api.utils.LoaderType;
 import com.enderzombi102.loadercomplex.api.utils.Version;
 import net.fabricmc.loader.api.VersionParsingException;
+import net.minecraft.client.option.KeyBinding;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.LoggerFactory;
 
