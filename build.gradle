@@ -10,6 +10,7 @@ configurations {
 
 allprojects {
 	repositories {
+		mavenCentral()
 		maven { url 'https://libraries.minecraft.net' }
 	}
 }
@@ -49,7 +50,6 @@ dependencies {
 	}
 	shade "com.mojang:brigadier:$brigadier_version"
 	shade "blue.endless:jankson:$jankson_version"
-
 }
 
 shadowJar {
