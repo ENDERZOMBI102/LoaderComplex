@@ -3,7 +3,6 @@ package com.enderzombi102.loadercomplex.fabric173;
 import com.enderzombi102.loadercomplex.LoaderComplex;
 import com.enderzombi102.loadercomplex.fabric173.impl.BabricLoader;
 import net.fabricmc.api.ModInitializer;
-import net.modificationstation.stationapi.api.event.registry.BlockRegistryEvent;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 

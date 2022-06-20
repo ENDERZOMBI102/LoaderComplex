@@ -1,6 +1,5 @@
 plugins {
 	id 'babric-loom' version '0.12-SNAPSHOT'
-	id 'maven-publish'
 }
 
 group = maven_group
@@ -15,6 +14,13 @@ loom {
 repositories {
 	mavenLocal()
 	mavenCentral()
+	maven {
+		url 'https://repo.blucobalt.dev/repository/maven-halotroop'
+		content {
+			includeGroup 'com.halotroop'
+			includeGroup 'io.github.betterthanupdates'
+		}
+	}
 	maven { url 'https://jitpack.io' }
 	maven { url 'https://maven.minecraftforge.net' }
 	maven { url 'https://maven.glass-launcher.net/babric' }
@@ -25,8 +31,8 @@ repositories {
 dependencies {
 	minecraft "com.mojang:minecraft:$minecraft_version"
 	//noinspection GradlePackageVersionRange
-	mappings "babric:barn:$minecraft_version+$barn_mappings"
-	modImplementation "net.fabricmc:fabric-loader:$loader_version"
+	mappings "io.github.betterthanupdates:yarn:$minecraft_version+build.$mappings"
+	modImplementation "babric:fabric-loader:$babric_version"
 
 	implementation "org.slf4j:slf4j-api:$slf4j_version"
 	implementation 'org.apache.logging.log4j:log4j-slf4j18-impl:2.16.0'

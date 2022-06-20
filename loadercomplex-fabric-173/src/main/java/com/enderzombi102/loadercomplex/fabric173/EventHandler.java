@@ -9,22 +9,22 @@ import net.modificationstation.stationapi.api.event.registry.ItemRegistryEvent;
 public class EventHandler {
 
 	@EventListener
-	public void onBlockRegister(BlockRegistryEvent evt) {
-
+	public void onBlockRegister( BlockRegistryEvent evt ) {
+		LoaderComplexFabric.LOGGER.error( "Blocks!" );
 	}
 
 	@EventListener
-	public void onItemRegister(ItemRegistryEvent evt) {
-
+	public void onItemRegister( ItemRegistryEvent evt ) {
+		LoaderComplexFabric.LOGGER.error( "Items!" );
 	}
 
 	@EventListener
-	public void onPlayerHandlerRegister(PlayerEvent.HandlerRegister evt) {
-
+	public void onPlayerHandlerRegister( PlayerEvent.HandlerRegister evt ) {
+		LoaderComplexFabric.LOGGER.error( "Player handlers!" );
 	}
 
 	@EventListener
-	public void onTextureRegister(TextureRegisterEvent evt) {
-
+	public void onTextureRegister( TextureRegisterEvent evt ) {
+		LoaderComplexFabric.LOGGER.error( "Textures!" );
 	}
 }
