@@ -11,11 +11,7 @@ repositories {
 	maven { url 'https://maven.legacyfabric.net' }
 }
 
-loom {
-	setIntermediaryUrl(
-		'https://maven.legacyfabric.net/net/fabricmc/intermediary/%1$s/intermediary-%1$s-v2.jar'
-	)
-}
+loom.intermediaryUrl = 'https://maven.legacyfabric.net/net/fabricmc/intermediary/%1$s/intermediary-%1$s-v2.jar'
 
 loom.runConfigs.configure {
 	client {
