@@ -15,15 +15,15 @@ the "recent" version includes every version starting from 1.12.2, older is untes
 | [Paper](https://papermc.io)                                                   | recent       | WIP support | Java              |
 | [Sponge](https://www.spongepowered.org/)                                      | 1.12.2       | WIP support | Java              |
 | [LiteLoader](https://liteloader.com)                                          | 1.12.2       | not yet     | Java              |
-| [BlazeLoader](https://blazeloader.com)                                        | 1.8.9        | not yet     | Java              |
-| [ChocoMint](https://github.com/UnderVolt/chocomint)                           | ?            | not yet     | Java              |
+| [BlazeLoader](https://blazeloader.com)                                        | 1.8.9        | Dead        | Java              |
+| [ChocoMint](https://github.com/UnderVolt/chocomint)                           | 1.8.9        | not yet     | Java              |
 | [CraftLoader](https://github.com/canitzp/Craftloader)                         | ?            | not yet     | Java              |
 | [Forcefields](https://github.com/jcdwall3/forcefields)                        | Beta 1.7.3   | not yet     | Java              |
 | [Generalmodloader](https://github.com/HellHoleStudios/General-ModLoader)      | ?            | not yet     | Java              |
 | [Station Loader (Glass Launcher)](https://github.com/ModificationStation)     | Beta 1.7.3   | WIP Support | Java              |
 | [Fabric Cursed Legacy](https://github.com/minecraft-cursed-legacy)            | Beta 1.7.3   | WIP Support | Java              |
 | [Gypsi](https://github.com/GypsiMC/Gypsi)                                     | 1.16.4       | not yet     | Java              |
-| [LitLaunch](https://github.com/Codetoil/LitLaunch-Source)                     | 1.7.10       | not yet     | Java              |
+| [LitLaunch](https://github.com/Codetoil/LitLaunch-Source)                     | 1.15.2       | not yet     | Java              |
 | [M3L](https://github.com/Spartan322/M3L)                                      | 1.8.3        | not yet     | Java              |
 | [ExternalLoader](https://github.com/MaPePeR/MinecraftExternalModloader)       | ?            | not yet     | Java              |
 | [Vanilla](https://minecraft.net)                                              | ?            | not yet     | Java              |
@@ -36,8 +36,8 @@ the "recent" version includes every version starting from 1.12.2, older is untes
 | [Zenova](https://github.com/MinecraftZenova/)                                 | ?            | not yet     | Windows 10        |
 | [InnerCore](https://icmods.mineprogramming.org/dev)                           | ?            | not yet     | Bedrock (android) |
 | [Bedrock Addon](https://bedrock.dev)                                          | ?            | not yet     | Bedrock           |
-| [5Zig](https://5zigreborn.eu/)                                                | ?            | not yet     | Java              |
-| [LabyMod](https://www.labymod.net/index)                                      | ?            | not yet     | Java              |
+| [5Zig](https://5zigreborn.eu/)                                                | 1.15.2       | not yet     | Java              |
+| [LabyMod](https://www.labymod.net/index)                                      | 1.12.2       | not yet     | Java              |
 
 Fabric-based Loaders note
 -
