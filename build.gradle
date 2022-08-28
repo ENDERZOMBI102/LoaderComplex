@@ -10,8 +10,9 @@ configurations {
 
 allprojects {
 	repositories {
-		maven { url 'https://libraries.minecraft.net' }
 		mavenLocal()
+		maven { url 'https://libraries.minecraft.net' }
+		maven { url 'https://repsy.io/mvn/enderzombi102/mc' }
 	}
 }
 
@@ -33,6 +34,7 @@ subprojects {
 				transitive = false
 			}
 			implementation "com.enderzombi102:eventsystem:$eventsystem_version"
+			implementation "com.enderzombi102.EnderLib:jvm8:$enderlib_version"
 		}
 	}
 }
@@ -52,6 +54,7 @@ dependencies {
 	shade "com.mojang:brigadier:$brigadier_version"
 	shade "blue.endless:jankson:$jankson_version"
 	shade "com.enderzombi102:eventsystem:$eventsystem_version"
+	shade "com.enderzombi102.EnderLib:jvm8:$enderlib_version"
 }
 
 shadowJar {
