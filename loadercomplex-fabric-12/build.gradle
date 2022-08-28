@@ -12,7 +12,6 @@ repositories {
 }
 
 loom.intermediaryUrl = 'https://maven.legacyfabric.net/net/fabricmc/intermediary/%1$s/intermediary-%1$s-v2.jar'
-
 loom.runConfigs.configure {
 	client {
 		runDir = rootProject.file('run')
@@ -30,7 +29,7 @@ dependencies {
 
 	implementation "com.google.guava:guava:$guava_version"
 	compileOnly "com.mojang:brigadier:$brigadier_version"
-	modImplementation "io.github.boogiemonster1o1:modmenu:v$modmenu_version+$minecraft_version"
+	modImplementation "com.enderzombi102:modmenu-legacy:$modmenu_version+$minecraft_version"
 	implementation project(':loadercomplex-fabric-common')
 }
 
