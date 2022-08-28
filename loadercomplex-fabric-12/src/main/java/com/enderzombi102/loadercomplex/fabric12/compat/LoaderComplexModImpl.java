@@ -1,10 +1,7 @@
 package com.enderzombi102.loadercomplex.fabric12.compat;
 
-import com.enderzombi102.loadercomplex.Utils;
-import com.enderzombi102.loadercomplex.fabric12.LoaderComplexFabric;
 import com.enderzombi102.loadercomplex.addonloader.AddonContainerImpl;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
+import com.enderzombi102.loadercomplex.fabric12.LoaderComplexFabric;
 import io.github.prospector.modmenu.ModMenu;
 import io.github.prospector.modmenu.api.Mod;
 import io.github.prospector.modmenu.util.mod.ModIconHandler;
@@ -18,10 +15,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.util.jar.JarEntry;
 
 public class LoaderComplexModImpl implements Mod {
@@ -42,24 +36,26 @@ public class LoaderComplexModImpl implements Mod {
 	}
 
 	@Override
-	public @NotNull NativeImageBackedTexture getIcon(ModIconHandler iconHandler, int i) {
+	public @NotNull NativeImageBackedTexture getIcon( ModIconHandler iconHandler, int i ) {
 		if ( container.getIconPath() == null ) {
-			LoaderComplexFabric.LOGGER.warn( Utils.format( "Addon {} has no icon! using default.", container.getId() ) );
-			return getDefaultIcon(iconHandler);
+			LoaderComplexFabric.LOGGER.warn( "Addon {} has no icon! using default.", container.getId() );
+			return getDefaultIcon( iconHandler );
 		}
 
 		JarEntry entry = container.getAddonJar().getJarEntry( container.getIconPath() );
 		if ( entry == null ) {
-			LoaderComplexFabric.LOGGER.warn( Utils.format( "Addon {} has an invalid icon! using default.", container.getId() ) );
-			return getDefaultIcon(iconHandler);
+			LoaderComplexFabric.LOGGER.warn( "Addon {} has an invalid icon! using default.", container.getId() );
+			return getDefaultIcon( iconHandler );
 		}
 
 		try {
 			InputStream inputStream = container.getAddonJar().getInputStream( entry );
 			BufferedImage image = ImageIO.read( Objects.requireNonNull( inputStream ) );
-			Validate.validState(image.getHeight() == image.getWidth(), "Must be square icon");
-			return new NativeImageBackedTexture(image);
-		} catch (IOException e) { throw new IllegalStateException(e); }
+			Validate.validState( image.getHeight() == image.getWidth(), "Must be square icon" );
+			return new NativeImageBackedTexture( image );
+		} catch ( IOException e ) {
+			throw new IllegalStateException( e );
+		}
 	}
 
 	@Override
@@ -84,17 +80,17 @@ public class LoaderComplexModImpl implements Mod {
 
 	@Override
 	public @NotNull List<String> getAuthors() {
-		return Lists.newArrayList( container.getAuthors() );
+		return Collections.singletonList( container.getAuthors() );
 	}
 
 	@Override
 	public @NotNull List<String> getContributors() {
-		return Lists.newArrayList();
+		return Collections.emptyList();
 	}
 
 	@Override
 	public @NotNull Set<Badge> getBadges() {
-		return Sets.newHashSet();
+		return Collections.emptySet();
 	}
 
 	@Override
@@ -119,7 +115,7 @@ public class LoaderComplexModImpl implements Mod {
 
 	@Override
 	public @NotNull Set<String> getLicense() {
-		return Sets.newHashSet();
+		return Collections.emptySet();
 	}
 
 	@Override
@@ -132,10 +128,10 @@ public class LoaderComplexModImpl implements Mod {
 		return false;
 	}
 
-	private static NativeImageBackedTexture getDefaultIcon(ModIconHandler iconHandler) {
+	private static NativeImageBackedTexture getDefaultIcon( ModIconHandler iconHandler ) {
 		return iconHandler.createIcon(
 			FabricLoader.getInstance()
-				.getModContainer(ModMenu.MOD_ID)
+				.getModContainer( ModMenu.MOD_ID )
 				.orElseThrow( () -> new RuntimeException( "Cannot get ModContainer for Fabric mod with id " + ModMenu.MOD_ID ) ),
 			"assets/" + ModMenu.MOD_ID + "/unknown_icon.png"
 		);

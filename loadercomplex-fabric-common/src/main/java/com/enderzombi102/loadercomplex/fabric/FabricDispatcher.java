@@ -1,6 +1,5 @@
 package com.enderzombi102.loadercomplex.fabric;
 
-import com.enderzombi102.loadercomplex.Utils;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 
@@ -29,7 +28,7 @@ public class FabricDispatcher implements ModInitializer {
 							.newInstance();
 					break;
 				default:
-					throw new IllegalStateException( Utils.format( "Fabric for {} is not supported!", getMinecraftVersion() ) );
+					throw new IllegalStateException( "Fabric for %s is not supported!".replace( "%s", getMinecraftVersion() ) );
 			}
 		} catch (Exception e) {
 			throw new IllegalStateException( e );
