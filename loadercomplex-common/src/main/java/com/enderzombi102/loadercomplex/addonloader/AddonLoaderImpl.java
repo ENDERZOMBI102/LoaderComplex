@@ -1,7 +1,9 @@
 package com.enderzombi102.loadercomplex.addonloader;
 
 import com.enderzombi102.loadercomplex.api.Addon;
+import com.enderzombi102.loadercomplex.api.addonloader.AddonLoader;
 import com.enderzombi102.loadercomplex.api.annotation.Instance;
+import org.jetbrains.annotations.ApiStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,14 +22,15 @@ import java.util.Objects;
 /**
  * Internal class used to load jars and instantiate Addon implementations
  */
-public class AddonLoader implements com.enderzombi102.loadercomplex.api.addonloader.AddonLoader {
+@ApiStatus.Internal
+public class AddonLoaderImpl implements AddonLoader {
 	private final Logger logger = LoggerFactory.getLogger("LoaderComplex | AddonLoader");
-	private final List<AddonContainer> addonContainers = new ArrayList<>();
+	private final List<AddonContainerImpl> addonContainerImpls = new ArrayList<>();
 	private final DynamicClassLoader classLoader = new DynamicClassLoader();
 	private final Path modsPath;
 	private final Path addonsPath;
 
-	public AddonLoader() {
+	public AddonLoaderImpl() {
 		modsPath = Paths.get( System.getProperty("user.dir"), "mods" );
 		addonsPath = Paths.get( System.getProperty("user.dir"), "addons" );
 	}
@@ -41,13 +44,13 @@ public class AddonLoader implements com.enderzombi102.loadercomplex.api.addonloa
 				logger.info( " - Found possible LoaderComplex addon: {}", file );
 				try {
 					classLoader.addURL( file.toURI().toURL() );
-					addonContainers.add( new AddonContainer( Paths.get( file.getPath() ) ) );
+					addonContainerImpls.add( new AddonContainerImpl( Paths.get( file.getPath() ) ) );
 				} catch ( IOException e ) {
 					logger.error( "Failed to load possible LC addon {}: {}", file, e.getMessage() );
 				}
 			}
 		}
-		int addonFromModsFolder = addonContainers.size();
+		int addonFromModsFolder = addonContainerImpls.size();
 		logger.info( " - Found {} addons", addonFromModsFolder );
 		logger.info("SCANNING ADDONS FOLDER");
 		//noinspection ResultOfMethodCallIgnored
@@ -56,17 +59,17 @@ public class AddonLoader implements com.enderzombi102.loadercomplex.api.addonloa
 			if( file.getName().endsWith(".jar") ) {
 				logger.info( " - Found possible LoaderComplex addon: {}", file );
 				try {
-					addonContainers.add( new AddonContainer( Paths.get( file.getPath() ) ) );
+					addonContainerImpls.add( new AddonContainerImpl( Paths.get( file.getPath() ) ) );
 					classLoader.addURL( file.toURI().toURL() );  // add to classloader only _after_ we made sure that it's an LC addon
 				} catch (IOException e) {
 					logger.error( "Failed to load possible LC addon: " + file.getName() );
 				}
 			}
 		}
-		logger.info( " - Found {} addons", addonContainers.size() - addonFromModsFolder );
+		logger.info( " - Found {} addons", addonContainerImpls.size() - addonFromModsFolder );
 
-		logger.info("INSTANTIATING {} ADDONS", addonContainers.size() );
-		for ( AddonContainer addon : addonContainers) {
+		logger.info("INSTANTIATING {} ADDONS", addonContainerImpls.size() );
+		for ( AddonContainerImpl addon : addonContainerImpls ) {
 			try {
 				Class<?> classToLoad = Class.forName( addon.getMainClass(), true, classLoader );
 				if ( Addon.class.isAssignableFrom(classToLoad) ) {
@@ -91,19 +94,19 @@ public class AddonLoader implements com.enderzombi102.loadercomplex.api.addonloa
 		}
 		logger.info(
 			"FINISHED LOADING {} ADDONS WITH {} FAILS",
-			addonContainers.size(),
-			addonContainers.stream().filter( AddonContainer::didFailToLoad ).count()
+			addonContainerImpls.size(),
+			addonContainerImpls.stream().filter( AddonContainerImpl::didFailToLoad ).count()
 		);
 	}
 
 	@Override
-	public List<AddonContainer> getAddons() {
-		return addonContainers;
+	public List<AddonContainerImpl> getAddons() {
+		return addonContainerImpls;
 	}
 
 	private static class DynamicClassLoader extends URLClassLoader {
 		public DynamicClassLoader() {
-			super( new URL[] {}, AddonLoader.class.getClassLoader() );
+			super( new URL[] {}, AddonLoaderImpl.class.getClassLoader() );
 		}
 
 		@Override

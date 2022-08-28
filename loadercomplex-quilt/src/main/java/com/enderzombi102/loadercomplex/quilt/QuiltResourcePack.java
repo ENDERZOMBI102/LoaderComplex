@@ -1,7 +1,7 @@
 package com.enderzombi102.loadercomplex.quilt;
 
 import com.enderzombi102.loadercomplex.Utils;
-import com.enderzombi102.loadercomplex.addonloader.AddonContainer;
+import com.enderzombi102.loadercomplex.addonloader.AddonContainerImpl;
 import com.google.common.base.Charsets;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
@@ -28,9 +28,9 @@ public class QuiltResourcePack extends AbstractFileResourcePack {
 	private static final Logger LOGGER = LogManager.getLogger("LoaderComplex | ResourceManager");
 	// https://minecraft.fandom.com/wiki/Tutorials/Creating_a_resource_pack#.22pack_format.22
 	private static final int PACK_FORMAT_VERSION = 1; // format for 1.6.1 – 1.8.9
-	private final AddonContainer container;
+	private final AddonContainerImpl container;
 
-	public QuiltResourcePack(AddonContainer container) {
+	public QuiltResourcePack( AddonContainerImpl container) {
 		super( container.getPath().toFile() );
 		this.container = container;
 	}

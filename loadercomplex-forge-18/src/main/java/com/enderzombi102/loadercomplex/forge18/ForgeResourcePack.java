@@ -1,7 +1,7 @@
 package com.enderzombi102.loadercomplex.forge18;
 
 import com.enderzombi102.loadercomplex.Utils;
-import com.enderzombi102.loadercomplex.addonloader.AddonContainer;
+import com.enderzombi102.loadercomplex.addonloader.AddonContainerImpl;
 import com.google.common.base.Charsets;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
@@ -30,9 +30,9 @@ public class ForgeResourcePack extends AbstractFileResourcePack {
 	private static final Logger LOGGER = LogManager.getLogger("LoaderComplex | ResourceManager");
 	// https://minecraft.fandom.com/wiki/Tutorials/Creating_a_resource_pack#.22pack_format.22
 	private static final int PACK_FORMAT_VERSION = 8; // format for 1.6.1 – 1.8.9
-	private final List<AddonContainer> containers;
+	private final List<AddonContainerImpl> containers;
 
-	public ForgeResourcePack(List<AddonContainer> containers) {
+	public ForgeResourcePack(List<AddonContainerImpl> containers) {
 		super( null );
 		this.containers = containers;
 	}
@@ -146,7 +146,7 @@ public class ForgeResourcePack extends AbstractFileResourcePack {
 	@Override
 	public Set<String> getNamespaces(ResourceType type) {
 		return containers.stream()
-			.map( AddonContainer::getAddonJar )
+			.map( AddonContainerImpl::getAddonJar )
 			.map( JarFile::entries )
 			.flatMap( entries -> Collections.list( entries ).stream() )
 			.filter( JarEntry::isDirectory )

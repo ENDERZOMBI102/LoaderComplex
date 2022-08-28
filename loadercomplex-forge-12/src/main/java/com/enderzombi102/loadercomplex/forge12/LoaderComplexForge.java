@@ -1,6 +1,6 @@
 package com.enderzombi102.loadercomplex.forge12;
 
-import com.enderzombi102.loadercomplex.LoaderComplex;
+import com.enderzombi102.loadercomplex.LoaderComplexBase;
 import com.enderzombi102.loadercomplex.Utils;
 import com.enderzombi102.loadercomplex.forge12.impl.ForgeLoader;
 import com.google.common.collect.ImmutableList;
@@ -26,7 +26,7 @@ import java.util.List;
 	acceptedMinecraftVersions = "1.12.2",
 	dependencies = "required:forge"
 )
-public class LoaderComplexForge extends LoaderComplex {
+public class LoaderComplexForge extends LoaderComplexBase {
 	public static final Logger LOGGER = LogManager.getLogger("LoaderComplex | Forge12");
 
 	public static LoaderComplexForge INSTANCE;

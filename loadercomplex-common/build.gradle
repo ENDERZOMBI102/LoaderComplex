@@ -8,6 +8,7 @@ archivesBaseName = 'loadercomplex-common'
 repositories {
 	mavenLocal()
 	mavenCentral()
+	maven { url 'https://repsy.io/mvn/enderzombi102/mc' }
 }
 
 dependencies {
@@ -16,6 +17,7 @@ dependencies {
 	implementation "blue.endless:jankson:$jankson_version"
 	compileOnly "com.mojang:brigadier:$brigadier_version"
 	compileOnly "com.enderzombi102:eventsystem:$eventsystem_version"
+	compileOnly "com.enderzombi102.EnderLib:jvm8:$enderlib_version"
 }
 
 tasks.withType(JavaCompile).configureEach {

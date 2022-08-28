@@ -1,4 +1,4 @@
-package com.enderzombi102.loadercomplex.api.event;
+package com.enderzombi102.loadercomplex.api.event.server;
 
 import com.enderzombi102.eventsystem.CancellableEventData;
 import com.enderzombi102.loadercomplex.api.annotation.Json;
@@ -14,10 +14,9 @@ import org.jetbrains.annotations.ApiStatus;
 @ApiStatus.AvailableSince("0.2.0")
 public class ServerChatEventData extends CancellableEventData {
 	private final Player sender;
-	@Json
-	private String message;
+	private @Json String message;
 
-	public ServerChatEventData( String message, Player sender ) {
+	public ServerChatEventData( @Json String message, Player sender ) {
 		this.message = message;
 		this.sender = sender;
 	}

@@ -1,11 +1,11 @@
-package com.enderzombi102.loadercomplex.api.event.player;
+package com.enderzombi102.loadercomplex.api.event.server.player;
 
 import com.enderzombi102.eventsystem.EventData;
 import com.enderzombi102.loadercomplex.api.entity.Player;
 import org.jetbrains.annotations.ApiStatus;
 
 /**
- * Event id is `lc.server.player.join` for the server and `lc.client.player.join` for the client
+ * Event id is `lc.server.player.join`
  *
  * Fired when a player joins this server
  */

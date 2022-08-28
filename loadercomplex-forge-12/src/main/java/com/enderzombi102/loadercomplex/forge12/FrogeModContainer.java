@@ -1,6 +1,6 @@
 package com.enderzombi102.loadercomplex.forge12;
 
-import com.enderzombi102.loadercomplex.addonloader.AddonContainer;
+import com.enderzombi102.loadercomplex.addonloader.AddonContainerImpl;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
@@ -23,11 +23,11 @@ import java.util.Map;
 import java.util.Set;
 
 public class FrogeModContainer implements ModContainer {
-	private final AddonContainer backingAddon;
+	private final AddonContainerImpl backingAddon;
 	private ModMetadata meta;
 	private int classVersion;
 
-	public FrogeModContainer(AddonContainer backingAddon) {
+	public FrogeModContainer( AddonContainerImpl backingAddon) {
 		this.backingAddon = backingAddon;
 	}
 
@@ -183,7 +183,7 @@ public class FrogeModContainer implements ModContainer {
 		return classVersion;
 	}
 
-	public AddonContainer getAddon() {
+	public AddonContainerImpl getAddon() {
 		return backingAddon;
 	}
 }

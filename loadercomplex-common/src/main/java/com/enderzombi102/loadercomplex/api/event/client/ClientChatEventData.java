@@ -1,4 +1,4 @@
-package com.enderzombi102.loadercomplex.api.event;
+package com.enderzombi102.loadercomplex.api.event.client;
 
 import com.enderzombi102.eventsystem.CancellableEventData;
 import com.enderzombi102.loadercomplex.api.entity.Player;

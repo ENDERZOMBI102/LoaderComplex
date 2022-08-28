@@ -2,7 +2,7 @@ package com.enderzombi102.loadercomplex.fabric17.compat;
 
 import com.enderzombi102.loadercomplex.Utils;
 import com.enderzombi102.loadercomplex.fabric17.LoaderComplexFabric;
-import com.enderzombi102.loadercomplex.addonloader.AddonContainer;
+import com.enderzombi102.loadercomplex.addonloader.AddonContainerImpl;
 import com.terraformersmc.modmenu.ModMenu;
 import com.terraformersmc.modmenu.util.mod.Mod;
 import com.terraformersmc.modmenu.util.mod.ModIconHandler;
@@ -17,9 +17,9 @@ import java.io.IOException;
 import java.util.*;
 
 public class LoaderComplexModImpl implements Mod {
-	private final AddonContainer container;
+	private final AddonContainerImpl container;
 
-	public LoaderComplexModImpl( AddonContainer container ) {
+	public LoaderComplexModImpl( AddonContainerImpl container ) {
 		this.container = container;
 	}
 

@@ -1,6 +1,7 @@
 package com.enderzombi102.loadercomplex.addonloader;
 
 import com.enderzombi102.loadercomplex.api.Addon;
+import com.enderzombi102.loadercomplex.api.addonloader.AddonContainer;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -15,7 +16,7 @@ import java.util.jar.JarFile;
  * <br/>
  * Contains various info about an addon such as id and description.
  */
-public class AddonContainer implements com.enderzombi102.loadercomplex.api.addonloader.AddonContainer {
+public class AddonContainerImpl implements AddonContainer {
 	private final String mainClass;
 	private final Path file;
 	private final JarFile addonJar;
@@ -23,7 +24,7 @@ public class AddonContainer implements com.enderzombi102.loadercomplex.api.addon
 	private final String version;
 	Addon implementation = null;
 
-	public AddonContainer(Path file) throws IOException {
+	public AddonContainerImpl( Path file) throws IOException {
 		this.file = file;
 		addonJar = new JarFile( file.toFile(), false );
 		Attributes attributes = addonJar.getManifest().getMainAttributes();

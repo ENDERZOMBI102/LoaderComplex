@@ -1,17 +1,15 @@
 package com.enderzombi102.loadercomplex.forge18;
 
-import com.enderzombi102.loadercomplex.api.event.ClientChatEventData;
-import com.enderzombi102.loadercomplex.api.event.ServerChatEventData;
+import com.enderzombi102.loadercomplex.api.event.client.ClientChatEventData;
+import com.enderzombi102.loadercomplex.api.event.server.ServerChatEventData;
 import com.enderzombi102.loadercomplex.forge18.impl.ForgeRegistry;
 import com.enderzombi102.loadercomplex.forge18.impl.entity.ForgePlayer;
 import net.minecraft.block.Block;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.item.Item;
 import net.minecraft.resource.ResourcePackProfile;
 import net.minecraft.resource.ResourcePackSource;
 import net.minecraft.resource.ResourceType;
-import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.text.Text;
 import net.minecraftforge.client.event.ClientChatEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;

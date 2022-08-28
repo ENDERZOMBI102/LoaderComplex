@@ -1,6 +1,6 @@
 package com.enderzombi102.loadercomplex.api.addonloader;
 
-import com.enderzombi102.loadercomplex.addonloader.AddonContainer;
+import com.enderzombi102.loadercomplex.addonloader.AddonContainerImpl;
 import org.jetbrains.annotations.ApiStatus;
 
 import java.util.List;
@@ -13,5 +13,5 @@ public interface AddonLoader {
 	/**
 	 * Returns the list of loaded addon containers
 	 */
-	List<AddonContainer> getAddons();
+	List<AddonContainerImpl> getAddons();
 }

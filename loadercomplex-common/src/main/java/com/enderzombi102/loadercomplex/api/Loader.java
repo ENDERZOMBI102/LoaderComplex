@@ -8,7 +8,7 @@ import com.enderzombi102.loadercomplex.api.utils.FactoryWorld;
 import com.enderzombi102.loadercomplex.api.utils.LoaderType;
 import com.enderzombi102.loadercomplex.api.utils.Version;
 import com.enderzombi102.loadercomplex.Utils;
-import com.enderzombi102.loadercomplex.addonloader.AddonLoader;
+import com.enderzombi102.loadercomplex.addonloader.AddonLoaderImpl;
 import org.jetbrains.annotations.ApiStatus.AvailableSince;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
@@ -100,7 +100,7 @@ public interface Loader {
 	default @NotNull LoaderComplex getLoaderComplex() {
 		return new LoaderComplex() {
 			@Override
-			public @NotNull AddonLoader getAddonLoader() {
+			public @NotNull AddonLoaderImpl getAddonLoader() {
 				throw new IllegalStateException("This is a dummy object! Do not use it!");
 			}
 

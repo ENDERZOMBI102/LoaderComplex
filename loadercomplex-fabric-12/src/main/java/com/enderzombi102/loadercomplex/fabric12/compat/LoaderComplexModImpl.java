@@ -2,7 +2,7 @@ package com.enderzombi102.loadercomplex.fabric12.compat;
 
 import com.enderzombi102.loadercomplex.Utils;
 import com.enderzombi102.loadercomplex.fabric12.LoaderComplexFabric;
-import com.enderzombi102.loadercomplex.addonloader.AddonContainer;
+import com.enderzombi102.loadercomplex.addonloader.AddonContainerImpl;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import io.github.prospector.modmenu.ModMenu;
@@ -25,9 +25,9 @@ import java.util.Set;
 import java.util.jar.JarEntry;
 
 public class LoaderComplexModImpl implements Mod {
-	private final AddonContainer container;
+	private final AddonContainerImpl container;
 
-	public LoaderComplexModImpl(AddonContainer container ) {
+	public LoaderComplexModImpl( AddonContainerImpl container ) {
 		this.container = container;
 	}
 

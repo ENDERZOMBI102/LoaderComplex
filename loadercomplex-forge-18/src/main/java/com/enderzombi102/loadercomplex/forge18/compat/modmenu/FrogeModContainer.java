@@ -1,14 +1,14 @@
 package com.enderzombi102.loadercomplex.forge18.compat.modmenu;
 
-import com.enderzombi102.loadercomplex.addonloader.AddonContainer;
+import com.enderzombi102.loadercomplex.addonloader.AddonContainerImpl;
 import net.minecraftforge.fml.ModContainer;
 
 import java.util.Objects;
 
 public class FrogeModContainer extends ModContainer {
-	private final AddonContainer container;
+	private final AddonContainerImpl container;
 
-	public FrogeModContainer(AddonContainer container) {
+	public FrogeModContainer( AddonContainerImpl container) {
 		super( new FrogeModInfo( container, null ) );
 		this.container = container;
 	}

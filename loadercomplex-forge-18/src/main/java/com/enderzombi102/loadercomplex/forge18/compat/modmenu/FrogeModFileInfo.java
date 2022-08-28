@@ -1,6 +1,6 @@
 package com.enderzombi102.loadercomplex.forge18.compat.modmenu;
 
-import com.enderzombi102.loadercomplex.addonloader.AddonContainer;
+import com.enderzombi102.loadercomplex.addonloader.AddonContainerImpl;
 import net.minecraftforge.forgespi.language.IConfigurable;
 import net.minecraftforge.forgespi.language.IModFileInfo;
 import net.minecraftforge.forgespi.language.IModInfo;
@@ -11,11 +11,11 @@ import java.util.Map;
 import java.util.Optional;
 
 public class FrogeModFileInfo implements IModFileInfo {
-	private final AddonContainer backingAddon;
+	private final AddonContainerImpl backingAddon;
 	private final FrogeModInfo modInfo;
 	private final FrogeModFile modFile;
 
-	public FrogeModFileInfo(AddonContainer backingAddon) {
+	public FrogeModFileInfo( AddonContainerImpl backingAddon) {
 		this.backingAddon = backingAddon;
 		this.modInfo = new FrogeModInfo( backingAddon, this );
 		this.modFile = new FrogeModFile( backingAddon, this );
