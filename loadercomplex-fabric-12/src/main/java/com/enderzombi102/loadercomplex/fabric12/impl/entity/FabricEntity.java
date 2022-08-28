@@ -20,7 +20,7 @@ public class FabricEntity implements Entity {
 
 	@Override
 	public String getDisplayName() {
-		return Text.Serializer.serialize( this.backingEntity.getName() );
+		return Text.Serializer.serialize( this.backingEntity.method_6344() );
 	}
 
 	@Override

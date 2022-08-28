@@ -2,13 +2,10 @@ package com.enderzombi102.loadercomplex.fabric12.mixin;
 
 import com.enderzombi102.loadercomplex.fabric12.LoaderComplexFabric;
 import com.enderzombi102.loadercomplex.fabric12.impl.FabricRegistry;
-import com.enderzombi102.loadercomplex.Utils;
 import net.minecraft.client.render.model.ModelLoader;
 import net.minecraft.client.render.model.json.BlockModel;
 import net.minecraft.client.render.model.json.ItemModelGenerator;
 import net.minecraft.client.render.model.json.ModelVariantMap;
-import net.minecraft.client.util.ModelIdentifier;
-import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
@@ -53,7 +50,7 @@ public abstract class ModelLoaderMixin {
 		for ( Item item : items ) {
 			Identifier id = Item.REGISTRY.getIdentifier( item );
 			if ( id == null )
-				LOGGER.error( Utils.format( "Item {} has not been registered! H O W", item ) );
+				LOGGER.error( "Item {} has not been registered! H O W", item );
 			else {
 				this.field_11314.put( id.toString(), id );
 				if (this.field_11303.get(id) == null) {

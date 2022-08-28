@@ -1,5 +1,6 @@
 package com.enderzombi102.loadercomplex.fabric12.impl.world;
 
+import com.enderzombi102.enderlib.Strings;
 import com.enderzombi102.loadercomplex.fabric12.impl.FabricServer;
 import com.enderzombi102.loadercomplex.fabric12.impl.block.FabricBlockstate;
 import com.enderzombi102.loadercomplex.fabric12.impl.utils.BlockUtils;
@@ -121,7 +122,7 @@ public class FabricWorld implements World {
 	public void playsound(Player player, double x, double y, double z, ResourceIdentifier sound, float volume, float pitch) {
 		SoundEvent event = SoundEvent.REGISTRY.get( new Identifier( sound.getNamespace(), sound.getPath() ) );
 		if ( event == null )
-			throw new IllegalArgumentException( Utils.format("SoundEvent \"{}\" was not found!", sound ) );
+			throw new IllegalArgumentException( Strings.format("SoundEvent \"{}\" was not found!", sound ) );
 		this.backingWorld.playSound(
 			(PlayerEntity) player.getObject(),
 			x, y, z,

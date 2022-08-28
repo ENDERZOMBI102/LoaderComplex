@@ -22,8 +22,8 @@ public class FabricBlock extends net.minecraft.block.Block {
 
 	private final Block blockImpl;
 
-	public FabricBlock(Block block) {
-		super(Material.STONE);
+	public FabricBlock( Block block ) {
+		super( Material.STONE );
 		this.blockImpl = block;
 		block.implementationBlock = this;
 		this.slipperiness = this.blockImpl.slipperiness;
@@ -33,12 +33,12 @@ public class FabricBlock extends net.minecraft.block.Block {
 	// logic method overrides
 
 	@Override
-	public boolean isEqualTo(net.minecraft.block.Block block) {
+	public boolean isEqualTo( net.minecraft.block.Block block ) {
 		return block instanceof FabricBlock && ( (FabricBlock) block ).blockImpl == this.blockImpl;
 	}
 
 	@Override
-	public boolean use(World world, BlockPos pos, BlockState state, PlayerEntity player, Hand hand, Direction facing, float hitX, float hitY, float hitZ) {
+	public boolean use( World world, BlockPos pos, BlockState state, PlayerEntity player, Hand hand, Direction facing, float hitX, float hitY, float hitZ ) {
 		return this.blockImpl.OnBlockInteracted(
 			new FabricWorld( world ),
 			BlockUtils.toPosition( pos ),
@@ -51,12 +51,12 @@ public class FabricBlock extends net.minecraft.block.Block {
 	}
 
 	@Override
-	public void onSteppedOn(World world, BlockPos pos, Entity entity) {
+	public void onSteppedOn( World world, BlockPos pos, Entity entity ) {
 		this.blockImpl.OnSteppedOn( new FabricWorld( world ), BlockUtils.toPosition( pos ), new FabricEntity( entity ) );
 	}
 
 	@Override
-	public void onBreakByPlayer(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+	public void onBreakByPlayer( World world, BlockPos pos, BlockState state, PlayerEntity player ) {
 		this.blockImpl.OnBreak(
 			new FabricWorld( world ),
 			BlockUtils.toPosition( pos ),
@@ -65,7 +65,7 @@ public class FabricBlock extends net.minecraft.block.Block {
 		);
 	}
 
-	public void onEntityCollision(World world, BlockPos pos, BlockState state, Entity entity) {
+	public void onEntityCollision( World world, BlockPos pos, BlockState state, Entity entity ) {
 		this.blockImpl.OnEntityCollision(
 			new FabricWorld( world ),
 			BlockUtils.toPosition( pos ),
@@ -78,7 +78,7 @@ public class FabricBlock extends net.minecraft.block.Block {
 	 * onRandomTick?
 	 */
 	@Override
-	public void onUpdateTick(World world, BlockPos pos, BlockState state, Random random) {
+	public void onUpdateTick( World world, BlockPos pos, BlockState state, Random random ) {
 		this.blockImpl.OnRandomTick(
 			new FabricWorld( world ),
 			BlockUtils.toPosition( pos ),
@@ -90,13 +90,13 @@ public class FabricBlock extends net.minecraft.block.Block {
 	// getter methods overrides
 
 	@Override
-	public float getStrength(BlockState state, World world, BlockPos pos) {
+	public float getHardness( BlockState state, World world, BlockPos pos ) {
 		return this.blockImpl.hardness;
 	}
 
 	@Override
 	public BlockSoundGroup getSoundGroup() {
-		switch (this.blockImpl.soundGroup) {
+		switch ( this.blockImpl.soundGroup ) {
 			case WOOD:
 				return BlockSoundGroup.field_12759;
 			case GRAVEL:
@@ -104,7 +104,7 @@ public class FabricBlock extends net.minecraft.block.Block {
 			case GRASS:
 				return BlockSoundGroup.field_12761;
 			default: // case STONE:
-				return BlockSoundGroup.field_12762;
+				return BlockSoundGroup.STONE;
 			case METAL:
 				return BlockSoundGroup.field_12763;
 			case GLASS:
@@ -128,32 +128,32 @@ public class FabricBlock extends net.minecraft.block.Block {
 	 * isOpaque
 	 */
 	@Override
-	public boolean method_11568(BlockState state) {
+	public boolean method_11568( BlockState state ) {
 		return this.blockImpl.opaque;
 	}
 
 	@Override
-	public int getOpacity(BlockState state) {
+	public int getOpacity( BlockState state ) {
 		return this.blockImpl.opacity;
 	}
 
 	@Override
-	public boolean isTransluscent(BlockState state) {
+	public boolean isTransluscent( BlockState state ) {
 		return this.blockImpl.translucent;
 	}
 
 	@Override
-	public int getLightLevel(BlockState state) {
+	public int getLuminance( BlockState state ) {
 		return this.blockImpl.lightLevel;
 	}
 
 	@Override
-	public boolean useNeighbourLight(BlockState state) {
+	public boolean useNeighbourLight( BlockState state ) {
 		return this.blockImpl.useNeighbourLight;
 	}
 
 	@Override
-	public float getBlastResistance(Entity entity) {
+	public float getBlastResistance( Entity entity ) {
 		return this.blockImpl.resistance / 5.0F;
 	}
 

@@ -1,5 +1,6 @@
 package com.enderzombi102.loadercomplex.fabric12.impl;
 
+import com.enderzombi102.enderlib.Strings;
 import com.enderzombi102.loadercomplex.fabric12.impl.block.FabricBlockstate;
 import com.enderzombi102.loadercomplex.fabric12.impl.entity.FabricEntity;
 import com.enderzombi102.loadercomplex.fabric12.impl.entity.FabricItemEntity;
@@ -25,7 +26,7 @@ public class FabricFactoryWorld implements FactoryWorld {
 	public ItemStack createStack(ResourceIdentifier type) {
 		Item item = Item.REGISTRY.get( new Identifier( type.getNamespace(), type.getPath() ) );
 		if ( item == null )
-			throw new IllegalArgumentException( Utils.format( "Item \"{}\" does not exist!", type ) );
+			throw new IllegalArgumentException( Strings.format( "Item \"{}\" does not exist!", type ) );
 		return new FabricItemStack( new net.minecraft.item.ItemStack( item ) );
 	}
 
@@ -33,7 +34,7 @@ public class FabricFactoryWorld implements FactoryWorld {
 	public Entity createEntity(World world, ResourceIdentifier type) {
 		Class<? extends net.minecraft.entity.Entity> entity = EntityType.getEntityType( type.toString() );
 		if ( entity == null )
-			throw new IllegalArgumentException( Utils.format( "Entity \"{}\" does not exist!", type ) );
+			throw new IllegalArgumentException( Strings.format( "Entity \"{}\" does not exist!", type ) );
 		try {
 			//noinspection RedundantCast
 			return new FabricEntity(
@@ -60,7 +61,7 @@ public class FabricFactoryWorld implements FactoryWorld {
 		Block block = Block.REGISTRY.get( new Identifier( type.getNamespace(), type.getPath() ) );
 		//noinspection ConstantConditions
 		if ( block == null )
-			throw new IllegalArgumentException( Utils.format( "Block \"{}\" does not exist!", type ) );
+			throw new IllegalArgumentException( Strings.format( "Block \"{}\" does not exist!", type ) );
 		return new FabricBlockstate( block.getDefaultState() );
 	}
 

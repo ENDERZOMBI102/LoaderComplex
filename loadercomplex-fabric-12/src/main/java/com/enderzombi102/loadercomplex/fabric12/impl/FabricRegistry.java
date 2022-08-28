@@ -59,7 +59,7 @@ public class FabricRegistry implements Registry {
 		);
 		// THESE 4 LINES CONSTED SO MANY HOURS OF DEBUGGING
 		for ( BlockState state : fabricBlock.getStateManager().getBlockStates() ) {
-			int rawId = net.minecraft.block.Block.REGISTRY.getRawID(fabricBlock) << 4 | fabricBlock.getData( state );
+			int rawId = net.minecraft.block.Block.REGISTRY.getRawId(fabricBlock) << 4 | fabricBlock.getData( state );
 			net.minecraft.block.Block.BLOCK_STATES.set( state, rawId );
 		}
 		if ( itemGroup != null ) {

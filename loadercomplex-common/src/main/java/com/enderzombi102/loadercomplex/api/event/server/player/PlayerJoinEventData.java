@@ -11,7 +11,7 @@ import org.jetbrains.annotations.ApiStatus;
  */
 @ApiStatus.AvailableSince("0.2.0")
 public class PlayerJoinEventData extends EventData {
-	public PlayerJoinEventData( Player player, ) {
+	public PlayerJoinEventData( Player player ) {
 
 	}
 }

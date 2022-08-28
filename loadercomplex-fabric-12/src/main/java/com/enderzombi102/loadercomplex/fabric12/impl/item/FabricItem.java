@@ -164,7 +164,7 @@ public class FabricItem extends net.minecraft.item.Item {
 
 	// getMiningSpeedMultiplier
 	@Override
-	public float method_3351(ItemStack stack, BlockState state) {
+	public float getBlockBreakingSpeed(ItemStack stack, BlockState state) {
 		return this.itemImpl.miningSpeedMultiplier;
 	}
 

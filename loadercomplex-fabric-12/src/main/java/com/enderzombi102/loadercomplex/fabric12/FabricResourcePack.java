@@ -1,5 +1,6 @@
 package com.enderzombi102.loadercomplex.fabric12;
 
+import com.enderzombi102.enderlib.Strings;
 import com.enderzombi102.loadercomplex.Utils;
 import com.enderzombi102.loadercomplex.api.AddonResourcePack;
 import com.enderzombi102.loadercomplex.addonloader.AddonContainerImpl;
@@ -45,7 +46,7 @@ public class FabricResourcePack extends AbstractFileResourcePack implements Addo
 			if ( "pack.mcmeta".equals(filename) ) {
 				// fake file, return a "custom" entry
 				return IOUtils.toInputStream(
-					Utils.format(
+					Strings.format(
 						"{\"pack\":{\"pack_format\":{},\"description\":\"{}\"}}",
 						PACK_FORMAT_VERSION,
 						container.getName().replaceAll("\"", "\\\"")
