@@ -25,7 +25,11 @@ dependencies {
 	minecraft "com.mojang:minecraft:$minecraft_version"
 	mappings "net.legacyfabric:yarn:$minecraft_version+build.$yarn_mappings:v2"
 	modImplementation "net.fabricmc:fabric-loader:$loader_version"
-	modImplementation "net.legacyfabric.legacy-fabric-api:legacy-fabric-api:$fabric_version+$minecraft_version"
+	// modImplementation( "net.legacyfabric.legacy-fabric-api:legacy-fabric-api:$fabric_version+$minecraft_version" ) {
+	// 	exclude module: 'net.legacyfabric.legacy-fabric-api:legacy-fabric-lifecycle-events-v1'
+	// 	exclude module: 'net.legacyfabric.legacy-fabric-api:legacy-fabric-entity-events-v1'
+	// }
+//	 modImplementation 'net.legacyfabric.legacy-fabric-api:legacy-fabric-lifecycle-events-v1:1.0.1+1.12.2+d7cfcfda52'
 
 	implementation "com.google.guava:guava:$guava_version"
 	compileOnly "com.mojang:brigadier:$brigadier_version"

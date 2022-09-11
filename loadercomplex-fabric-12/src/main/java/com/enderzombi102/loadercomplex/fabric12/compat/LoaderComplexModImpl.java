@@ -2,9 +2,10 @@ package com.enderzombi102.loadercomplex.fabric12.compat;
 
 import com.enderzombi102.loadercomplex.addonloader.AddonContainerImpl;
 import com.enderzombi102.loadercomplex.fabric12.LoaderComplexFabric;
-import io.github.prospector.modmenu.ModMenu;
-import io.github.prospector.modmenu.api.Mod;
-import io.github.prospector.modmenu.util.mod.ModIconHandler;
+import com.enderzombi102.modmenu.ModMenu;
+import com.enderzombi102.modmenu.api.Badge;
+import com.enderzombi102.modmenu.api.Mod;
+import com.enderzombi102.modmenu.util.mod.ModIconHandler;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.texture.NativeImageBackedTexture;
 import org.apache.commons.lang3.Validate;
@@ -65,7 +66,7 @@ public class LoaderComplexModImpl implements Mod {
 
 	@Override
 	public @NotNull String getDescription() {
-		return "".equals( container.getDescription() ) ? "No description provided" : container.getDescription();
+		return container.getDescription().isEmpty() ? "No description provided" : container.getDescription();
 	}
 
 	@Override
@@ -90,7 +91,7 @@ public class LoaderComplexModImpl implements Mod {
 
 	@Override
 	public @NotNull Set<Badge> getBadges() {
-		return Collections.emptySet();
+		return Badge.of( "loadercomplex" );
 	}
 
 	@Override
