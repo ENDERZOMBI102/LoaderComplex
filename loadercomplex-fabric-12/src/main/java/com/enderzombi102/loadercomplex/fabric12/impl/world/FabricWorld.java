@@ -1,19 +1,18 @@
 package com.enderzombi102.loadercomplex.fabric12.impl.world;
 
 import com.enderzombi102.enderlib.Strings;
+import com.enderzombi102.loadercomplex.api.utils.*;
 import com.enderzombi102.loadercomplex.fabric12.impl.FabricServer;
 import com.enderzombi102.loadercomplex.fabric12.impl.block.FabricBlockstate;
 import com.enderzombi102.loadercomplex.fabric12.impl.utils.BlockUtils;
-import com.enderzombi102.loadercomplex.Utils;
 import com.enderzombi102.loadercomplex.api.block.Blockstate;
 import com.enderzombi102.loadercomplex.api.entity.Entity;
 import com.enderzombi102.loadercomplex.api.entity.Player;
-import com.enderzombi102.loadercomplex.api.utils.*;
 import com.enderzombi102.loadercomplex.api.world.World;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.sound.SoundCategory;
-import net.minecraft.client.sound.SoundEvent;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.sound.Sound;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 
@@ -77,7 +76,7 @@ public class FabricWorld implements World {
 
 	@Override
 	public boolean canSnow(Position pos) {
-		return this.backingWorld.method_8550( new BlockPos( pos.x, pos.y, pos.z ), true );
+		return this.backingWorld.method_8552( new BlockPos( pos.x, pos.y, pos.z ), true );
 	}
 
 	@Override
@@ -119,8 +118,8 @@ public class FabricWorld implements World {
 	}
 
 	@Override
-	public void playsound(Player player, double x, double y, double z, ResourceIdentifier sound, float volume, float pitch) {
-		SoundEvent event = SoundEvent.REGISTRY.get( new Identifier( sound.getNamespace(), sound.getPath() ) );
+	public void playsound( Player player, double x, double y, double z, ResourceIdentifier sound, float volume, float pitch) {
+		Sound event = Sound.field_13905.get( new Identifier( sound.getNamespace(), sound.getPath() ) );
 		if ( event == null )
 			throw new IllegalArgumentException( Strings.format("SoundEvent \"{}\" was not found!", sound ) );
 		this.backingWorld.playSound(

@@ -5,11 +5,11 @@ import com.enderzombi102.loadercomplex.fabric.BaseMixinPlugin;
 public class Fabric12MixinPlugin extends BaseMixinPlugin {
 	public Fabric12MixinPlugin() {
 		super("1.12.2");
-		this.clientMixins.add( "ReloadableResourceManagerImpl12Mixin" );
-		this.clientMixins.add( "MinecraftClient12Mixin" );
-		this.clientMixins.add( "ModelLoaderMixin" );
-		this.commonMixins.add( "ItemGroupMixin" );
-		this.commonMixins.add( "SimpleRegistryMixin" );
-		this.commonMixins.add( "ItemMixin" );
+		this.client( "ReloadableResourceManagerImpl12Mixin" );
+		this.client( "MinecraftClient12Mixin" );
+		this.client( "ModelLoaderMixin" );
+		this.common( "ItemGroupMixin" );
+		this.common( "SimpleRegistryMixin" );
+		this.common( "ItemMixin" );
 	}
 }

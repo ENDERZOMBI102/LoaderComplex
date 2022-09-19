@@ -1,6 +1,6 @@
 package com.enderzombi102.loadercomplex.fabric12.compat;
 
-import com.enderzombi102.loadercomplex.addonloader.AddonContainerImpl;
+import com.enderzombi102.loadercomplex.api.addonloader.AddonContainer;
 import com.enderzombi102.loadercomplex.fabric12.LoaderComplexFabric;
 import com.enderzombi102.modmenu.ModMenu;
 import com.enderzombi102.modmenu.api.Badge;
@@ -20,9 +20,9 @@ import java.util.*;
 import java.util.jar.JarEntry;
 
 public class LoaderComplexModImpl implements Mod {
-	private final AddonContainerImpl container;
+	private final AddonContainer container;
 
-	public LoaderComplexModImpl( AddonContainerImpl container ) {
+	public LoaderComplexModImpl( AddonContainer container ) {
 		this.container = container;
 	}
 

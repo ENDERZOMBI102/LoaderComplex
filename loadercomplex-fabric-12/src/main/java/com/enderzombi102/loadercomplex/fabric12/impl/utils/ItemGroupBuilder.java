@@ -28,7 +28,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 
 public final class ItemGroupBuilder {
-	private Identifier identifier;
+	private final Identifier identifier;
 	private Supplier<ItemStack> stackSupplier = () -> ItemStack.EMPTY;
 	private BiConsumer<List<ItemStack>, ItemGroup> stacksForDisplay;
 

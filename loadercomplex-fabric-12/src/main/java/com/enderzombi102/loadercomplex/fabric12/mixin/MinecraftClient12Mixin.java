@@ -14,7 +14,7 @@ import java.util.List;
 @Mixin(MinecraftClient.class)
 public abstract class MinecraftClient12Mixin {
 	// this is actually reloadResources
-	@Inject(method = "stitchTextures", at = @At(value = "INVOKE", target = "Lnet/minecraft/resource/ReloadableResourceManager;reload(Ljava/util/List;)V", ordinal = 0), locals = LocalCapture.CAPTURE_FAILHARD)
+	@Inject(method = "reloadResources", at = @At(value = "INVOKE", target = "Lnet/minecraft/resource/ReloadableResourceManager;reload(Ljava/util/List;)V", ordinal = 0), locals = LocalCapture.CAPTURE_FAILHARD)
 	public void onReloadResources(CallbackInfo ci, List<ResourcePack> list) {
 		list.addAll(LoaderComplexFabric.packs);
 	}

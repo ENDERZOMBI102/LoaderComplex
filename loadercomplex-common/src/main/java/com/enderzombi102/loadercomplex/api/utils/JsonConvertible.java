@@ -7,7 +7,7 @@ import blue.endless.jankson.api.SyntaxError;
 import com.enderzombi102.loadercomplex.api.annotation.Json;
 import org.jetbrains.annotations.NotNull;
 
-import static com.enderzombi102.loadercomplex.Utils.JANKSON;
+import static com.enderzombi102.loadercomplex.impl.Utils.JANKSON;
 
 /**
  * An object that can be converted to a json object/array/element and to a string

@@ -1,7 +1,7 @@
 package com.enderzombi102.loadercomplex.fabric17;
 
 import com.enderzombi102.loadercomplex.Utils;
-import com.enderzombi102.loadercomplex.addonloader.AddonContainerImpl;
+import com.enderzombi102.loadercomplex.impl.addonloader.AddonContainerImpl;
 import com.google.common.base.Charsets;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;

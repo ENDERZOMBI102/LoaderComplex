@@ -2,6 +2,7 @@ package com.enderzombi102.loadercomplex.fabric;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.loader.api.FabricLoader;
+import org.jetbrains.annotations.NotNull;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
@@ -52,5 +53,13 @@ public abstract class BaseMixinPlugin implements IMixinConfigPlugin {
 				mixins.addAll( this.clientMixins );
 		}
 		return mixins;
+	}
+
+	protected void client( @NotNull String mixin ) {
+		this.clientMixins.add( mixin );
+	}
+
+	protected void common( @NotNull String mixin ) {
+		this.commonMixins.add( mixin );
 	}
 }

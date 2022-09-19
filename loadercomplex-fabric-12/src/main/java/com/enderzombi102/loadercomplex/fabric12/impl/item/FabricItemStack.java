@@ -16,7 +16,7 @@ public class FabricItemStack implements ItemStack {
 
 	@Override
 	public String getDisplayName() {
-		return this.stack.getName();
+		return this.stack.getCustomName();
 	}
 
 	@Override

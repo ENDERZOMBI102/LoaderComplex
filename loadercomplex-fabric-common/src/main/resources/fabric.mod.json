@@ -17,6 +17,9 @@
 
 	"environment": "*",
 	"entrypoints": {
+		"preinit": [
+			"com.enderzombi102.loadercomplex.fabric.FabricHacker"
+		],
 		"main": [
 			"com.enderzombi102.loadercomplex.fabric.FabricDispatcher"
 		],

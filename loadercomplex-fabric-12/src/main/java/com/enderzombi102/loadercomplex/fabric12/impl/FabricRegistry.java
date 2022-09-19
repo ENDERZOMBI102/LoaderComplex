@@ -59,12 +59,11 @@ public class FabricRegistry implements Registry {
 		);
 		// THESE 4 LINES CONSTED SO MANY HOURS OF DEBUGGING
 		for ( BlockState state : fabricBlock.getStateManager().getBlockStates() ) {
-			int rawId = net.minecraft.block.Block.REGISTRY.getRawId(fabricBlock) << 4 | fabricBlock.getData( state );
+			int rawId = net.minecraft.block.Block.REGISTRY.getRawId( fabricBlock ) << 4 | fabricBlock.getData( state );
 			net.minecraft.block.Block.BLOCK_STATES.set( state, rawId );
 		}
 		if ( itemGroup != null ) {
-			net.minecraft.item.Item blockItem = new BlockItem(fabricBlock)
-					.setTranslationKey( identifier.getNamespace() + '.' + identifier.getPath() );
+			net.minecraft.item.Item blockItem = new BlockItem( fabricBlock ).setTranslationKey( identifier.getNamespace() + '.' + identifier.getPath() );
 			net.minecraft.item.Item.REGISTRY.add(
 				net.minecraft.item.Item.REGISTRY.getKeySet().size(),
 				id, blockItem
@@ -75,9 +74,8 @@ public class FabricRegistry implements Registry {
 	}
 
 	@Override
-	public void register(@NotNull Item item, @NotNull ResourceIdentifier identifier) {
-		FabricItem fabricItem = (FabricItem) new FabricItem( item )
-				.setTranslationKey( identifier.getNamespace() + '.' + identifier.getPath() );
+	public void register( @NotNull Item item, @NotNull ResourceIdentifier identifier ) {
+		FabricItem fabricItem = (FabricItem) new FabricItem( item ).setTranslationKey( identifier.getNamespace() + '.' + identifier.getPath() );
 		net.minecraft.item.Item.REGISTRY.add(
 			net.minecraft.item.Item.REGISTRY.getKeySet().size(),
 			new Identifier( identifier.toString() ),
@@ -88,29 +86,33 @@ public class FabricRegistry implements Registry {
 	}
 
 	@Override
-	public void register(@NotNull Entity entity, @NotNull ResourceIdentifier identifier) {
+	public void register( @NotNull Entity entity, @NotNull ResourceIdentifier identifier ) {
 
 	}
 
 	@Override
-	public ResourceIdentifier registerItemGroup(@Nullable String name, @NotNull ResourceIdentifier icon) {
+	public ResourceIdentifier registerItemGroup( @Nullable String name, @NotNull ResourceIdentifier icon ) {
 		ResourceIdentifier id = new ResourceIdentifier( icon.getNamespace(), name != null ? name : icon.getNamespace() );
 		ITEM_GROUPS.computeIfAbsent(
 			id,
-			key -> ItemGroupBuilder.create( new Identifier( id.toString() ) )
-				.icon( () -> new ItemStack(
-					net.minecraft.item.Item.REGISTRY.get( new Identifier( icon.toString() ) )
-				))
-				.build()
+			key -> ItemGroupBuilder.build(
+				new Identifier( id.toString() ),
+				() -> new ItemStack( net.minecraft.item.Item.REGISTRY.get( new Identifier( icon.toString() ) ) )
+			)
 		);
 		return id;
 	}
 
 	@Override
-	public boolean isRegistered(@NotNull RegistryKey key, @NotNull String id) {
-		switch (key) {
+	public boolean isRegistered( @NotNull RegistryKey key, @NotNull ResourceIdentifier id ) {
+		return this.isRegistered( key, id.toString() );
+	}
+
+	@Override
+	public boolean isRegistered( @NotNull RegistryKey key, @NotNull String id ) {
+		switch ( key ) {
 			case Item:
-				return net.minecraft.item.Item.REGISTRY.getKeySet().contains( new Identifier(id) );
+				return net.minecraft.item.Item.REGISTRY.getKeySet().contains( new Identifier( id ) );
 			case Block:
 				return net.minecraft.block.Block.REGISTRY.getKeySet().contains( new Identifier( id ) );
 			default:
@@ -119,13 +121,8 @@ public class FabricRegistry implements Registry {
 	}
 
 	@Override
-	public boolean isRegistered(@NotNull RegistryKey key, @NotNull ResourceIdentifier id) {
-		return this.isRegistered( key, id.toString() );
-	}
-
-	@Override
-	public Object getVanillaRegistry(@NotNull RegistryKey type) {
-		switch (type) {
+	public Object getVanillaRegistry( @NotNull RegistryKey type ) {
+		switch ( type ) {
 			case Item:
 				return net.minecraft.item.Item.REGISTRY;
 			case Block:
@@ -139,10 +136,10 @@ public class FabricRegistry implements Registry {
 		return registeredItems;
 	}
 
-	public static ItemGroup getOrCreateItemGroup(@Nullable ResourceIdentifier itemGroup, ResourceIdentifier icon ) {
+	public static ItemGroup getOrCreateItemGroup( @Nullable ResourceIdentifier itemGroup, ResourceIdentifier icon ) {
 		if ( itemGroup == null )
 			return null;
-		if (! ITEM_GROUPS.containsKey( itemGroup ) )
+		if ( !ITEM_GROUPS.containsKey( itemGroup ) )
 			LoaderComplexFabric.INSTANCE.getLoader().getRegistry().registerItemGroup( null, icon );
 		return ITEM_GROUPS.get( itemGroup );
 	}

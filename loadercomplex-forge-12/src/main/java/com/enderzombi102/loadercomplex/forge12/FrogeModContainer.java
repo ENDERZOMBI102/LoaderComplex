@@ -1,6 +1,6 @@
 package com.enderzombi102.loadercomplex.forge12;
 
-import com.enderzombi102.loadercomplex.addonloader.AddonContainerImpl;
+import com.enderzombi102.loadercomplex.impl.addonloader.AddonContainerImpl;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;

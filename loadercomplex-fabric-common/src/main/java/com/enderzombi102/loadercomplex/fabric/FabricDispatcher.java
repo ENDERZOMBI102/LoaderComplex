@@ -3,51 +3,49 @@ package com.enderzombi102.loadercomplex.fabric;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 
+import static com.enderzombi102.enderlib.SafeUtils.doSafely;
+
 /**
  * Dispatcher for any fabric version
  */
 public class FabricDispatcher implements ModInitializer {
-	private final ModInitializer impl;
+	private static final ModInitializer impl;
+	private static boolean initialized = false;
 
-	public FabricDispatcher() {
-		try {
+	static {
+		impl = doSafely( () -> {
 			switch ( getMinecraftVersion() ) {
 				case "1.12.2":
-					impl = (ModInitializer) Class.forName("com.enderzombi102.loadercomplex.fabric12.LoaderComplexFabric")
-							.getConstructor()
-							.newInstance();
-					break;
+					return create( "fabric12.LoaderComplexFabric" );
 				case "1.17.1":
-					impl = (ModInitializer) Class.forName("com.enderzombi102.loadercomplex.fabric17.LoaderComplexFabric")
-							.getConstructor()
-							.newInstance();
-					break;
+					return create( "fabric17.LoaderComplexFabric" );
 				case "b1.7.3":
-					impl = (ModInitializer) Class.forName("com.enderzombi102.loadercomplex.fabric173.LoaderComplexFabric")
-							.getConstructor()
-							.newInstance();
-					break;
+					return create( "fabric173.LoaderComplexFabric" );
 				default:
-					throw new IllegalStateException( "Fabric for %s is not supported!".replace( "%s", getMinecraftVersion() ) );
+					throw new IllegalStateException( String.format( "Fabric for %s is not supported!", getMinecraftVersion() ) );
 			}
-		} catch (Exception e) {
-			throw new IllegalStateException( e );
-		}
-		System.out.println("Hello world!");
+		} );
 	}
 
 	@Override
 	public void onInitialize() {
-		this.impl.onInitialize();
+		// prevent double init
+		if ( !initialized ) {
+			impl.onInitialize();
+			initialized = true;
+		}
 	}
 
 	public static String getMinecraftVersion() {
-		//noinspection OptionalGetWithoutIsPresent
 		return FabricLoader.getInstance()
-				.getModContainer("minecraft")
-				.get()
-				.getMetadata()
-				.getVersion()
-				.getFriendlyString();
+			.getModContainer( "minecraft" )
+			.orElseThrow( IllegalStateException::new )
+			.getMetadata()
+			.getVersion()
+			.getFriendlyString();
+	}
+
+	private static ModInitializer create( String clazz ) throws Throwable {
+		return (ModInitializer) Class.forName( "com.enderzombi102.loadercomplex." + clazz ).getConstructor().newInstance();
 	}
 }
