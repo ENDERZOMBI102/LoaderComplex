@@ -23,12 +23,6 @@ tasks.withType<ProcessResources>() {
     }
 }
 
-tasks.withType<JavaCompile>() {
-    sourceCompatibility = "8" // for the IDE support
-    options.encoding = "UTF-8"
-    options.release.set(8)
-}
-
 artifacts {
     jarz( tasks.jar )
 }

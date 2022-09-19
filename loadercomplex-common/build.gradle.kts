@@ -2,7 +2,7 @@ plugins {
 	`maven-publish`
 }
 
-version = "" // api_version
+version = "0.2.0"
 
 repositories {
 	mavenLocal()
@@ -17,12 +17,6 @@ dependencies {
 	compileOnly( libs.brigadier )
 	compileOnly( libs.eventsystem )
 	compileOnly( libs.enderlib )
-}
-
-tasks.withType<JavaCompile>() {
-	sourceCompatibility = "8"
-	options.encoding = "UTF-8"
-	options.release.set( 8 )
 }
 
 artifacts {

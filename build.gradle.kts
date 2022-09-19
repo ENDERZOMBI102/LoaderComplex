@@ -1,9 +1,12 @@
-@file:Suppress("UnstableApiUsage")
+@file:Suppress("UnstableApiUsage", "LocalVariableName")
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 plugins {
-	id("fabric-loom") version "1.0-SNAPSHOT" apply false // no need to apply here
+	// plugins for the subprojects, no need to apply here
+	id( "fabric-loom" ) version "1.0.+" apply false
+	id( "org.quiltmc.loom" ) version "0.12.+" apply false
+	// root project plugins
 	id( "com.github.johnrengelman.shadow") version "7.1.2"
 	java
 	idea
@@ -22,6 +25,12 @@ allprojects {
 
 subprojects {
 	apply( plugin = "java" )
+
+	group = "com.enderzombi102.loadercomplex"
+	version = rootProject.version
+
+	configurations.create("jarz")
+
 	if ( hasProperty("loom") ) {
 		apply( plugin = property("loom") as String )
 		withGroovyBuilder {
@@ -37,12 +46,8 @@ subprojects {
 //				setProperty( "runtimeOnlyLog4j", true )
 			}
 		}
+		artifacts.add( "jarz", tasks["remapJar"] )
 	}
-
-	group = "com.enderzombi102.loadercomplex"
-	version = rootProject.version
-
-	configurations.create("jarz")
 
 	dependencies {
 		implementation( rootProject.libs.annotations )
@@ -55,6 +60,13 @@ subprojects {
 			implementation( rootProject.libs.eventsystem )
 			implementation( rootProject.libs.enderlib )
 		}
+	}
+
+	tasks.withType<JavaCompile>() {
+		val java_version: String by project
+		sourceCompatibility = java_version
+		options.encoding = "UTF-8"
+		options.release.set( Integer.valueOf( java_version ) )
 	}
 }
 
