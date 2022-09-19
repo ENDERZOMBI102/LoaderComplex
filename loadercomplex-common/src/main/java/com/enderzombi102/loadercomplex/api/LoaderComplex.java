@@ -7,7 +7,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Optional;
 
 /**
- * The LoaderComplex main class.
+ * The LoaderComplex main class.<br>
  * may be used to do more <i>complex</i> stuff.
  */
 public interface LoaderComplex {

@@ -1,6 +1,6 @@
 package com.enderzombi102.loadercomplex.forge12;
 
-import com.enderzombi102.loadercomplex.Utils;
+import com.enderzombi102.loadercomplex.impl.Utils;
 import com.google.common.base.Charsets;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;

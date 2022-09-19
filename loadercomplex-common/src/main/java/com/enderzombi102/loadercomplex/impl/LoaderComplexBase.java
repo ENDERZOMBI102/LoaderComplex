@@ -17,9 +17,9 @@ import java.util.function.Consumer;
  */
 @ApiStatus.Internal
 public abstract class LoaderComplexBase implements LoaderComplex {
+	private static boolean initialized = false;
 	protected Consumer<AddonContainerImpl> resourceHelper = container -> { };
 	private final AddonLoaderImpl addonLoader = new AddonLoaderImpl();
-	private boolean addonsInitialized = false;
 	protected Loader loader;
 
 	public LoaderComplexBase() {
@@ -27,8 +27,8 @@ public abstract class LoaderComplexBase implements LoaderComplex {
 	}
 
 	protected void initAddons() {
-		if (! this.addonsInitialized ) {
-			this.addonsInitialized = true;
+		if (! initialized ) {
+			initialized = true;
 			for ( AddonContainer container : this.addonLoader.getAddons() ) {
 				this.resourceHelper.accept( (AddonContainerImpl) container);
 				container.getImplementation().init(this.loader);
@@ -47,9 +47,5 @@ public abstract class LoaderComplexBase implements LoaderComplex {
 				.filter( container -> container.getId().equals(id) )
 				.findFirst()
 				.map( AddonContainer.class::cast );
-	}
-
-	public boolean didInitializeAddons() {
-		return this.addonsInitialized;
 	}
 }
