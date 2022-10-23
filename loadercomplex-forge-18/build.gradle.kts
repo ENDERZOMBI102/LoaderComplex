@@ -4,23 +4,15 @@ val mappings: String by project
 val minecraft_version: String by project
 val forge_version: String by project
 
-plugins {
-	id("dev.architectury.loom") version "0.12.+"
-}
-
-loom {
-	forge {
-		mixinConfig( "loadercomplex-forge18.mixins.json" )
-	}
-}
+loom.forge.mixinConfig( "loadercomplex-forge18.mixins.json" )
 
 dependencies {
 	minecraft( "com.mojang:minecraft:$minecraft_version" )
 	mappings( "net.fabricmc:yarn:$minecraft_version+$mappings:v2" )
-//	forge( "net.minecraftforge:forge:$minecraft_version-$forge_version" )
+	forge( "net.minecraftforge:forge:$minecraft_version-$forge_version" )
 }
 
-tasks.withType<ProcessResources>() {
+tasks.withType<ProcessResources> {
 	inputs.property( "version", rootProject.version )
 	inputs.property( "description", rootProject.description )
 	inputs.property( "repo_url", rootProject.ext["repo_url"] )
@@ -28,10 +20,10 @@ tasks.withType<ProcessResources>() {
 
 	filesMatching("META-INF/mods.toml") {
 		expand(
-			Pair( "version", rootProject.version ),
-			Pair( "description", rootProject.description ),
-			Pair( "forge_version", forge_version ),
-			Pair( "repo_url", rootProject.ext["repo_url"] )
+			( "version" to rootProject.version ),
+			( "description" to rootProject.description ),
+			( "forge_version" to forge_version ),
+			( "repo_url" to rootProject.ext["repo_url"] )
 		)
 	}
 }

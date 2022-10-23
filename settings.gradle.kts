@@ -25,10 +25,10 @@ pluginManagement {
 include("loadercomplex-common")
 include("loadercomplex-forge-12")
 include("loadercomplex-forge-18")
-include("loadercomplex-fabric-common")
-include("loadercomplex-fabric-12")
-include("loadercomplex-fabric-17")
+//include("loadercomplex-fabric-common")
+//include("loadercomplex-fabric-12")
+//include("loadercomplex-fabric-17")
+include("loadercomplex-fabric")
 include("loadercomplex-quilt")
 
 rootProject.name = "loadercomplex"
-

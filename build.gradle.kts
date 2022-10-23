@@ -1,10 +1,10 @@
 @file:Suppress("UnstableApiUsage", "LocalVariableName")
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
+import java.time.LocalDateTime.now
+import java.time.format.DateTimeFormatter.ofPattern
 
 plugins {
 	// plugins for the subprojects, no need to apply here
-	id( "fabric-loom" ) version "1.0.+" apply false
+	id( "dev.architectury.loom" ) version "0.12.+" apply false
 	id( "org.quiltmc.loom" ) version "0.12.+" apply false
 	// root project plugins
 	id( "com.github.johnrengelman.shadow") version "7.1.2"
@@ -62,7 +62,7 @@ subprojects {
 		}
 	}
 
-	tasks.withType<JavaCompile>() {
+	tasks.withType<JavaCompile> {
 		val java_version: String by project
 		sourceCompatibility = java_version
 		options.encoding = "UTF-8"
@@ -93,18 +93,15 @@ tasks.withType<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar>() {
 		rename { "${it}_$archiveBaseName" }
 	}
 
-	val date = LocalDateTime.now().format( DateTimeFormatter.ofPattern("dd-MM-yyyy'T'HH:mm:ss") )
-	manifest.attributes.putAll(
-		mapOf(
-			Pair( "Specification-Title"     , "LoaderComplex" ),
-			Pair( "Specification-Vendor"    , "Aurora Inhabitants" ),
-			Pair( "Specification-Version"   , libs.versions.api ), // bundled api version
-			Pair( "Implementation-Title"    , project.name ),
-			Pair( "Implementation-Version"  , archiveVersion ), // mod version
-			Pair( "Implementation-Vendor"   , "Aurora Inhabitants" ),
-			Pair( "Implementation-Timestamp", date ), // build date
-//			Pair( "FMLCorePlugin"           , "com.enderzombi102.loadercomplex.forge12.LoaderComplexCoremod" )
-		)
+	manifest.attributes(
+		( "Specification-Title"      to "LoaderComplex" ),
+		( "Specification-Vendor"     to "Aurora Inhabitants" ),
+		( "Specification-Version"    to libs.versions.api ), // bundled api version
+		( "Implementation-Title"     to project.name ),
+		( "Implementation-Version"   to archiveVersion ), // mod version
+		( "Implementation-Vendor"    to "Aurora Inhabitants" ),
+		( "Implementation-Timestamp" to now().format( ofPattern("dd-MM-yyyy'T'HH:mm:ss") ) ), // build date
+//		( "FMLCorePlugin"            to "com.enderzombi102.loadercomplex.forge12.LoaderComplexCoremod" )
 	)
 }
 

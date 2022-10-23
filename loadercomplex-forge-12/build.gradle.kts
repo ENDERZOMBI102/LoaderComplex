@@ -1,6 +1,6 @@
 @file:Suppress("UnstableApiUsage")
 plugins {
-	id("net.minecraftforge.gradle") version "5.1.+"
+	id("net.minecraftforge.gradle") version "5.1.0"
 }
 
 minecraft {
@@ -14,7 +14,7 @@ minecraft {
 			property( "forge.logging.console.level", "debug" )
 
 			mods {
-				create("loaderxomplex") {
+				create("loadercomplex") {
 					source( sourceSets.main.get() )
 				}
 			}
@@ -27,7 +27,7 @@ minecraft {
 			property( "forge.logging.console.level", "debug" )
 
 			mods {
-				create("loaderxomplex") {
+				create("loadercomplex") {
 					source( sourceSets.main.get() )
 				}
 			}
