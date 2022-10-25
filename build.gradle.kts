@@ -37,10 +37,10 @@ subprojects {
 			"loom" {
 				"runConfigs" {
 					"client" {
-						"runDir"( rootProject.file("run").absolutePath )
+						"runDir"( rootProject.file("run").relativeTo(projectDir).path )
 					}
 					"server" {
-						"runDir"( rootProject.file("run").absolutePath )
+						"runDir"( rootProject.file("run").relativeTo(projectDir).path )
 					}
 				}
 //				setProperty( "runtimeOnlyLog4j", true )

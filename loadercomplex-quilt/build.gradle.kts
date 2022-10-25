@@ -28,7 +28,7 @@ dependencies {
 	modImplementation("com.terraformersmc:modmenu:$modmenu_version")
 }
 
-tasks.withType<ProcessResources>() {
+tasks.withType<ProcessResources> {
 	inputs.property( "version", rootProject.version )
 	inputs.property( "description", rootProject.description )
 	inputs.property( "repo_url", rootProject.ext["repo_url"] )
@@ -36,10 +36,10 @@ tasks.withType<ProcessResources>() {
 
 	filesMatching("quilt.mod.json") {
 		expand(
-			Pair( "version", rootProject.version ),
-			Pair( "description", rootProject.description ),
-			Pair( "loader_version", loader_version ),
-			Pair( "repo_url", rootProject.ext["repo_url"] )
+			"version" to rootProject.version,
+			"description" to rootProject.description,
+			"loader_version" to loader_version,
+			"repo_url" to rootProject.ext["repo_url"]
 		)
 	}
 }

@@ -9,7 +9,7 @@ dependencies {
     compileOnly( libs.fabric.loader )
 }
 
-tasks.withType<ProcessResources>() {
+tasks.withType<ProcessResources> {
     inputs.property( "version", rootProject.version )
     inputs.property( "description", rootProject.description )
     inputs.property( "repo_url", rootProject.ext["repo_url"] )

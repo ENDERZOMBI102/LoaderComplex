@@ -8,7 +8,7 @@ loom.forge.mixinConfig( "loadercomplex-forge18.mixins.json" )
 
 dependencies {
 	minecraft( "com.mojang:minecraft:$minecraft_version" )
-	mappings( "net.fabricmc:yarn:$minecraft_version+$mappings:v2" )
+	mappings( "net.fabricmc:yarn:$minecraft_version+build.$mappings:v2" )
 	forge( "net.minecraftforge:forge:$minecraft_version-$forge_version" )
 }
 
@@ -20,10 +20,10 @@ tasks.withType<ProcessResources> {
 
 	filesMatching("META-INF/mods.toml") {
 		expand(
-			( "version" to rootProject.version ),
-			( "description" to rootProject.description ),
-			( "forge_version" to forge_version ),
-			( "repo_url" to rootProject.ext["repo_url"] )
+			"version" to rootProject.version,
+			"description" to rootProject.description,
+			"forge_version" to forge_version,
+			"repo_url" to rootProject.ext["repo_url"]
 		)
 	}
 }
