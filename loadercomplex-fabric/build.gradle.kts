@@ -1,3 +1,7 @@
+import io.github.astrarre.amalgamation.gradle.plugin.minecraft.MinecraftAmalgamation
+import io.github.astrarre.amalgamation.gradle.tasks.remap.RemapJar
+import io.github.astrarre.amalgamation.gradle.tasks.remap.RemapSourcesJar
+
 buildscript {
 	dependencies {
 		classpath("amalgamation-minecraft:amalgamation-minecraft.gradle.plugin:1.0.1.0") {
@@ -23,12 +27,18 @@ repositories {
 	maven( url="https://maven.terraformersmc.com/releases" )
 }
 
+fun <T : Any> unaryOf( body: T.() -> Unit ) =
+	KotlinClosure1<T, T>( { body.invoke( this ); this }, null, null )
+
+val ag: MinecraftAmalgamation by project
+val loaderVersion = libs.versions.fabric.loader.get()
 for ( ( versions, intemerdiary ) in versions ) {
 	val ( minecraftVersion, mapping ) = versions
 	val tag = minecraftVersion.split(".")[1]
 	val set = sourceSets.create( "fabric$tag" )
 
 	val intermediate = ag.map {
+		println( minecraftVersion )
 		mappings( ag.intermediary( minecraftVersion ) )
 		inputGlobal( ag.mojmerged( minecraftVersion ) )
 	}
@@ -36,11 +46,14 @@ for ( ( versions, intemerdiary ) in versions ) {
 	val map = "net.fabricmc:yarn:$minecraftVersion+build.$mapping:v2"
 	lateinit var mappedMc: Dependency
 	lateinit var fapi: Dependency
-	val floader = ag.fabricLoader(loader_version)
+	val floader = ag.fabricLoader( loaderVersion )
 	ag.map {
 		mappings(map, "intermediary", "named")
-		mappedMc = inputGlobal(intermediate)
-		fapi = inputLocal("net.fabricmc.fabric-api:fabric-api:${fabric_version}") {exclude( module="fabric-loader")}
+		mappedMc = inputGlobal(intermediate) as Dependency
+		fapi = inputLocal(
+			"net.fabricmc.fabric-api:fabric-api:${libs.versions}",
+			unaryOf { exclude( module="fabric-loader") }
+		) as Dependency
 	}
 
 	val excluded = configurations.create( "excluded" )
@@ -55,7 +68,7 @@ for ( ( versions, intemerdiary ) in versions ) {
 		excluded( map )
 	}
 
-	tasks.create( "remapJar", io.github.astrarre.amalgamation.gradle.tasks.remap.RemapJar::class ) {
+	tasks.create( "remapJar", RemapJar::class ) {
 		group = "build"
 		with( tasks.jar.get() )
 		classpath.set( sourceSets.main.get().compileClasspath )
@@ -64,7 +77,7 @@ for ( ( versions, intemerdiary ) in versions ) {
 		mappings(map, "named", "intermediary")
 	}
 
-	tasks.create( "remapSourcesJar", io.github.astrarre.amalgamation.gradle.tasks.remap.RemapSourcesJar::class ) {
+	tasks.create( "remapSourcesJar", RemapSourcesJar::class ) {
 		group = "build"
 		archiveClassifier.set( "sources" )
 		from( sourceSets.main.get().allSource )
@@ -90,7 +103,7 @@ for ( ( versions, intemerdiary ) in versions ) {
 
 	ag.idea().java(runClient) {
 		setJvmVersion("17")
-		overrideClasspath(project, sourceSets.main)
-		excludeDependency(tasks.classes)
+		overrideClasspath( project, sourceSets.main.get() )
+		excludeDependency( tasks.classes.get() )
 	}
 }

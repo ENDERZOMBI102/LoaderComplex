@@ -1,5 +1,4 @@
 @file:Suppress("UnstableApiUsage", "PropertyName")
-
 val mappings: String by project
 val minecraft_version: String by project
 val forge_version: String by project
