@@ -17,7 +17,7 @@ plugins {
 apply(plugin = "amalgamation-minecraft")
 
 val versions = listOf(
-	( "1.12.2" to "395" ) to "",
+//	( "1.12.2" to "395" ) to "",
 	( "1.17.1" to "65" ) to ""
 )
 
