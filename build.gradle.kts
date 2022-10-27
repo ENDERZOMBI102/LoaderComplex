@@ -1,4 +1,5 @@
 @file:Suppress("UnstableApiUsage", "LocalVariableName")
+import net.fabricmc.loom.LoomGradleExtension
 import java.time.LocalDateTime.now
 import java.time.format.DateTimeFormatter.ofPattern
 
@@ -33,19 +34,16 @@ subprojects {
 
 	if ( hasProperty("loom") ) {
 		apply( plugin = property("loom") as String )
-		withGroovyBuilder {
-			"loom" {
-				"runConfigs" {
-					"client" {
-						"runDir"( rootProject.file("run").relativeTo(projectDir).path )
-					}
-					"server" {
-						"runDir"( rootProject.file("run").relativeTo(projectDir).path )
-					}
-				}
-//				setProperty( "runtimeOnlyLog4j", true )
+		val loom: LoomGradleExtension by extensions
+		loom.runConfigs {
+			named("client") {
+				runDir = rootProject.file("run").relativeTo(projectDir).path
+			}
+			named("server") {
+				runDir = rootProject.file("run").relativeTo(projectDir).path
 			}
 		}
+		loom.runtimeOnlyLog4j.set(true)
 		artifacts.add( "jarz", tasks["remapJar"] )
 	}
 
@@ -94,14 +92,14 @@ tasks.withType<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar>() {
 	}
 
 	manifest.attributes(
-		( "Specification-Title"      to "LoaderComplex" ),
-		( "Specification-Vendor"     to "Aurora Inhabitants" ),
-		( "Specification-Version"    to libs.versions.api ), // bundled api version
-		( "Implementation-Title"     to project.name ),
-		( "Implementation-Version"   to archiveVersion ), // mod version
-		( "Implementation-Vendor"    to "Aurora Inhabitants" ),
-		( "Implementation-Timestamp" to now().format( ofPattern("dd-MM-yyyy'T'HH:mm:ss") ) ), // build date
-//		( "FMLCorePlugin"            to "com.enderzombi102.loadercomplex.forge12.LoaderComplexCoremod" )
+		"Specification-Title"      to "LoaderComplex",
+		"Specification-Vendor"     to "Aurora Inhabitants",
+		"Specification-Version"    to libs.versions.api, // bundled api version
+		"Implementation-Title"     to project.name,
+		"Implementation-Version"   to archiveVersion, // mod version
+		"Implementation-Vendor"    to "Aurora Inhabitants",
+		"Implementation-Timestamp" to now().format( ofPattern("dd-MM-yyyy'T'HH:mm:ss") ), // build date
+//		"FMLCorePlugin"            to "com.enderzombi102.loadercomplex.forge12.LoaderComplexCoremod"
 	)
 }
 
