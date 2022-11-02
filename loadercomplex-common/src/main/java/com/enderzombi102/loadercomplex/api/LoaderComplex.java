@@ -1,7 +1,7 @@
 package com.enderzombi102.loadercomplex.api;
 
-import com.enderzombi102.loadercomplex.api.addonloader.AddonLoader;
-import com.enderzombi102.loadercomplex.api.addonloader.AddonContainer;
+import com.enderzombi102.loadercomplex.api.addon.AddonLoader;
+import com.enderzombi102.loadercomplex.api.addon.AddonContainer;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;

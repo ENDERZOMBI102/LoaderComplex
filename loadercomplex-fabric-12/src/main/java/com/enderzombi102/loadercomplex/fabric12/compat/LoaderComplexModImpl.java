@@ -1,6 +1,6 @@
 package com.enderzombi102.loadercomplex.fabric12.compat;
 
-import com.enderzombi102.loadercomplex.api.addonloader.AddonContainer;
+import com.enderzombi102.loadercomplex.api.addon.AddonContainer;
 import com.enderzombi102.loadercomplex.fabric12.LoaderComplexFabric;
 import com.enderzombi102.modmenu.ModMenu;
 import com.enderzombi102.modmenu.api.Badge;

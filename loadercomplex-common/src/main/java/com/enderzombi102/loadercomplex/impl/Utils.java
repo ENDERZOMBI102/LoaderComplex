@@ -31,7 +31,7 @@ public final class Utils {
 				"1.0.0",
 				LocalDateTime.now().format( DateTimeFormatter.ofPattern("dd-MM-yyyy'T'HH:mm:ss") )
 			);
-		// TODO: only works on prod?
+		// FIXME: only works on prod?
 		try {
 			final Attributes fest = new Manifest(
 					Utils.class.getResourceAsStream("META-INF/MANIFEST.MF")

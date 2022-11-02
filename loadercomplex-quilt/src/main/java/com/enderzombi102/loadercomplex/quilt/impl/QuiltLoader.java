@@ -1,10 +1,11 @@
 package com.enderzombi102.loadercomplex.quilt.impl;
 
 import com.enderzombi102.loadercomplex.api.Loader;
-import com.enderzombi102.loadercomplex.api.Registry;
+import com.enderzombi102.loadercomplex.api.utils.Registry;
 import com.enderzombi102.loadercomplex.api.utils.FactoryWorld;
 import com.enderzombi102.loadercomplex.api.utils.LoaderType;
 import com.enderzombi102.loadercomplex.api.utils.Version;
+import org.jetbrains.annotations.NotNull;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -23,12 +24,12 @@ public class QuiltLoader implements Loader {
 	private final Registry registry = new QuiltRegistry();
 
 	@Override
-	public LoaderType getLoaderType() {
+	public @NotNull LoaderType getPlatform() {
 		return LoaderType.Quilt;
 	}
 
 	@Override
-	public Registry getRegistry() {
+	public @NotNull Registry getRegistry() {
 		return registry;
 	}
 
@@ -53,7 +54,7 @@ public class QuiltLoader implements Loader {
 	}
 
 	@Override
-	public FactoryWorld getFactoryWorld() {
+	public @NotNull FactoryWorld getFactoryWorld() {
 		return new QuiltFactoryWorld();
 	}
 
@@ -63,7 +64,7 @@ public class QuiltLoader implements Loader {
 	}
 
 	@Override
-	public Version getApiVersion() {
+	public @NotNull Version getApiVersion() {
 		return new Version( "0.1.3", LocalDateTime.now().format( DateTimeFormatter.ofPattern("dd-MM-yyyy'T'HH:mm:ss") ) );
 	}
 }

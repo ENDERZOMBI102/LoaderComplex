@@ -1,7 +1,6 @@
 package com.enderzombi102.loadercomplex.forge12.impl.utils;
 
-import com.enderzombi102.loadercomplex.api.utils.Position;
-import net.minecraft.block.material.Material;
+import com.enderzombi102.loadercomplex.minecraft.util.Position;
 import net.minecraft.util.math.BlockPos;
 
 public class BlockUtils {

@@ -1,13 +1,15 @@
 package com.enderzombi102.loadercomplex.api.utils;
 
-import com.enderzombi102.loadercomplex.api.adv.command.CommandManager;
-import com.enderzombi102.loadercomplex.api.adv.keybind.KeybindManager;
-import com.enderzombi102.loadercomplex.api.block.Blockstate;
-import com.enderzombi102.loadercomplex.api.entity.Entity;
-import com.enderzombi102.loadercomplex.api.entity.ItemEntity;
-import com.enderzombi102.loadercomplex.api.item.ItemStack;
-import com.enderzombi102.loadercomplex.api.adv.network.NetworkManager;
-import com.enderzombi102.loadercomplex.api.world.World;
+import com.enderzombi102.loadercomplex.minecraft.util.ResourceIdentifier;
+import com.enderzombi102.loadercomplex.minecraft.util.Server;
+import com.enderzombi102.loadercomplex.minecraft.command.CommandManager;
+import com.enderzombi102.loadercomplex.minecraft.keybind.KeybindManager;
+import com.enderzombi102.loadercomplex.minecraft.block.Blockstate;
+import com.enderzombi102.loadercomplex.minecraft.entity.Entity;
+import com.enderzombi102.loadercomplex.minecraft.entity.ItemEntity;
+import com.enderzombi102.loadercomplex.minecraft.item.ItemStack;
+import com.enderzombi102.loadercomplex.minecraft.network.NetworkManager;
+import com.enderzombi102.loadercomplex.minecraft.world.World;
 import org.jetbrains.annotations.ApiStatus.AvailableSince;
 
 /**

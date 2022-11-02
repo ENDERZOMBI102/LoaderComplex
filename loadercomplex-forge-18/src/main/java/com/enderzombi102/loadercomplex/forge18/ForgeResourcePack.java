@@ -1,7 +1,7 @@
 package com.enderzombi102.loadercomplex.forge18;
 
 import com.enderzombi102.loadercomplex.Utils;
-import com.enderzombi102.loadercomplex.impl.addonloader.AddonContainerImpl;
+import com.enderzombi102.loadercomplex.impl.addon.AddonContainerImpl;
 import com.google.common.base.Charsets;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;

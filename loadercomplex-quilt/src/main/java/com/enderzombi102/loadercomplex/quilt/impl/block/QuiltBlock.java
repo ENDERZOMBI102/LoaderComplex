@@ -1,7 +1,8 @@
 package com.enderzombi102.loadercomplex.quilt.impl.block;
 
-import com.enderzombi102.loadercomplex.api.utils.Callable;
-import com.enderzombi102.loadercomplex.api.block.Block;
+import com.enderzombi102.loadercomplex.api.utils.Supplier;
+import com.enderzombi102.loadercomplex.minecraft.block.Block;
+import com.enderzombi102.loadercomplex.minecraft.util.Direction;
 import com.enderzombi102.loadercomplex.quilt.impl.entity.QuiltEntity;
 import com.enderzombi102.loadercomplex.quilt.impl.entity.QuiltPlayer;
 import com.enderzombi102.loadercomplex.quilt.impl.utils.BlockUtils;
@@ -29,7 +30,7 @@ public class QuiltBlock extends net.minecraft.block.Block {
 
 	public QuiltBlock(Block block) {
 		super(
-			( (Callable<QuiltBlockSettings>) () -> {
+			( (Supplier<QuiltBlockSettings>) () -> {
 				var settings =  QuiltBlockSettings.of( Material.STONE )
 					.slipperiness( block.slipperiness )
 					.hardness( block.hardness )
@@ -65,8 +66,8 @@ public class QuiltBlock extends net.minecraft.block.Block {
 			BlockUtils.toPosition( pos ),
 			new QuiltBlockstate( state ),
 			new QuiltPlayer( player ),
-			com.enderzombi102.loadercomplex.api.utils.Hand.valueOf( hand.name() ),
-			com.enderzombi102.loadercomplex.api.utils.Direction.valueOf( hit.getSide().name() ),
+			com.enderzombi102.loadercomplex.minecraft.util.Hand.valueOf( hand.name() ),
+			Direction.valueOf( hit.getSide().name() ),
 			hit.getBlockPos().getX(), hit.getBlockPos().getY(), hit.getBlockPos().getZ()
 		) ? ActionResult.SUCCESS : ActionResult.PASS;
 	}

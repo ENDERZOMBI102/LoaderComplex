@@ -1,8 +1,9 @@
 package com.enderzombi102.loadercomplex.quilt.impl.item;
 
 
-import com.enderzombi102.loadercomplex.api.item.Item;
-import com.enderzombi102.loadercomplex.api.utils.Hand;
+import com.enderzombi102.loadercomplex.minecraft.item.Item;
+import com.enderzombi102.loadercomplex.minecraft.util.Direction;
+import com.enderzombi102.loadercomplex.minecraft.util.Hand;
 import com.enderzombi102.loadercomplex.quilt.impl.block.QuiltBlockstate;
 import com.enderzombi102.loadercomplex.quilt.impl.entity.QuiltEntity;
 import com.enderzombi102.loadercomplex.quilt.impl.entity.QuiltLivingEntity;
@@ -53,7 +54,7 @@ public class QuiltItem extends net.minecraft.item.Item {
 				new QuiltPlayer( ctx.getPlayer() ),
 				BlockUtils.toPosition( ctx.getBlockPos() ),
 				Hand.valueOf( ctx.getHand().name() ),
-				com.enderzombi102.loadercomplex.api.utils.Direction.valueOf( ctx.getPlayerFacing().name() )
+				Direction.valueOf( ctx.getPlayerFacing().name() )
 			).name()
 		);
 	}

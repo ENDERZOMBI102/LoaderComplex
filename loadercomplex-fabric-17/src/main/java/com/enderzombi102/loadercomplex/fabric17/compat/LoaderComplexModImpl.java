@@ -1,6 +1,6 @@
 package com.enderzombi102.loadercomplex.fabric17.compat;
 
-import com.enderzombi102.loadercomplex.impl.addonloader.AddonContainerImpl;
+import com.enderzombi102.loadercomplex.impl.addon.AddonContainerImpl;
 import com.enderzombi102.loadercomplex.fabric17.LoaderComplexFabric;
 import com.terraformersmc.modmenu.ModMenu;
 import com.terraformersmc.modmenu.util.mod.Mod;

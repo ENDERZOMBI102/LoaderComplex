@@ -1,11 +1,11 @@
 package com.enderzombi102.loadercomplex.forge18.impl.block;
 
-import com.enderzombi102.loadercomplex.api.block.Block;
-import com.enderzombi102.loadercomplex.api.utils.Callable;
 import com.enderzombi102.loadercomplex.forge18.impl.entity.ForgeEntity;
 import com.enderzombi102.loadercomplex.forge18.impl.entity.ForgePlayer;
 import com.enderzombi102.loadercomplex.forge18.impl.utils.BlockUtils;
 import com.enderzombi102.loadercomplex.forge18.impl.world.ForgeWorld;
+import com.enderzombi102.loadercomplex.minecraft.block.Block;
+import com.enderzombi102.loadercomplex.minecraft.util.Direction;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
 import net.minecraft.entity.Entity;
@@ -21,14 +21,16 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;
+import java.util.function.Supplier;
 
+@SuppressWarnings("deprecation")
 public class ForgeBlock extends net.minecraft.block.Block {
 
 	private final Block blockImpl;
 
 	public ForgeBlock(Block block) {
 		super(
-			( (Callable<Settings>) () -> {
+			( (Supplier<Settings>) () -> {
 				var settings =  Settings.of( Material.STONE )
 					.slipperiness( block.slipperiness )
 					.resistance( block.resistance )
@@ -45,14 +47,13 @@ public class ForgeBlock extends net.minecraft.block.Block {
 					settings.ticksRandomly();
 
 				return settings;
-			} ).call()
+			} ).get()
 		);
 		this.blockImpl = block;
 		block.implementationBlock = this;
 	}
 
 	// logic method overrides
-
 
 	public boolean isEqualTo(net.minecraft.block.Block block) {
 		return block instanceof ForgeBlock && ( (ForgeBlock) block ).blockImpl == this.blockImpl;
@@ -65,8 +66,8 @@ public class ForgeBlock extends net.minecraft.block.Block {
 			BlockUtils.toPosition( pos ),
 			new ForgeBlockstate( state ),
 			new ForgePlayer( player ),
-			com.enderzombi102.loadercomplex.api.utils.Hand.valueOf( hand.name() ),
-			com.enderzombi102.loadercomplex.api.utils.Direction.valueOf( hit.getSide().name() ),
+			com.enderzombi102.loadercomplex.minecraft.util.Hand.valueOf( hand.name() ),
+			Direction.valueOf( hit.getSide().name() ),
 			hit.getBlockPos().getX(), hit.getBlockPos().getY(), hit.getBlockPos().getZ()
 		) ? ActionResult.SUCCESS : ActionResult.PASS;
 	}

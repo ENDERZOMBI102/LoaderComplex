@@ -1,12 +1,12 @@
 package com.enderzombi102.loadercomplex.forge12.impl;
 
 import com.enderzombi102.loadercomplex.Utils;
-import com.enderzombi102.loadercomplex.api.Registry;
-import com.enderzombi102.loadercomplex.api.block.Block;
-import com.enderzombi102.loadercomplex.api.entity.Entity;
-import com.enderzombi102.loadercomplex.api.item.Item;
-import com.enderzombi102.loadercomplex.api.utils.RegistryKey;
-import com.enderzombi102.loadercomplex.api.utils.ResourceIdentifier;
+import com.enderzombi102.loadercomplex.api.utils.Registry;
+import com.enderzombi102.loadercomplex.minecraft.block.Block;
+import com.enderzombi102.loadercomplex.minecraft.entity.Entity;
+import com.enderzombi102.loadercomplex.minecraft.item.Item;
+import com.enderzombi102.loadercomplex.minecraft.util.RegistryKey;
+import com.enderzombi102.loadercomplex.minecraft.util.ResourceIdentifier;
 import com.enderzombi102.loadercomplex.forge12.LoaderComplexForge;
 import com.enderzombi102.loadercomplex.forge12.impl.block.ForgeBlock;
 import com.enderzombi102.loadercomplex.forge12.impl.item.ForgeItem;
@@ -27,7 +27,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import static com.enderzombi102.loadercomplex.api.utils.ResourceIdentifier.ri;
+import static com.enderzombi102.loadercomplex.minecraft.util.ResourceIdentifier.ri;
 
 public class ForgeRegistry implements Registry {
 	private final HashMap<ResourceIdentifier, net.minecraft.block.Block> blocks = new HashMap<>();

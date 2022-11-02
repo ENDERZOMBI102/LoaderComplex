@@ -1,12 +1,13 @@
 package com.enderzombi102.loadercomplex.forge12.impl;
 
 import com.enderzombi102.loadercomplex.api.Loader;
-import com.enderzombi102.loadercomplex.api.Registry;
+import com.enderzombi102.loadercomplex.api.utils.Registry;
 import com.enderzombi102.loadercomplex.api.utils.FactoryWorld;
 import com.enderzombi102.loadercomplex.api.utils.LoaderType;
 import com.enderzombi102.loadercomplex.api.utils.Version;
 import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.common.ForgeVersion;
+import org.jetbrains.annotations.NotNull;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -20,12 +21,12 @@ public class ForgeLoader implements Loader {
 	}
 
 	@Override
-	public LoaderType getLoaderType() {
+	public @NotNull LoaderType getPlatform() {
 		return LoaderType.ForgeLegacy;
 	}
 
 	@Override
-	public Registry getRegistry() {
+	public @NotNull Registry getRegistry() {
 		return this.registry;
 	}
 
@@ -45,7 +46,7 @@ public class ForgeLoader implements Loader {
 	}
 
 	@Override
-	public FactoryWorld getFactoryWorld() {
+	public @NotNull FactoryWorld getFactoryWorld() {
 		return new ForgeFactoryWorld();
 	}
 
@@ -60,7 +61,7 @@ public class ForgeLoader implements Loader {
 	}
 
 	@Override
-	public Version getApiVersion() {
+	public @NotNull Version getApiVersion() {
 		return new Version(
 			"0.1.3",
 			LocalDateTime.now().format( DateTimeFormatter.ofPattern("dd-MM-yyyy'T'HH:mm:ss") )

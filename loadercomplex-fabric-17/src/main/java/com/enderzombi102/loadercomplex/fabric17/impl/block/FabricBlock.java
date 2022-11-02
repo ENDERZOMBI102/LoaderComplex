@@ -4,7 +4,7 @@ import com.enderzombi102.loadercomplex.api.block.Block;
 import com.enderzombi102.loadercomplex.fabric17.impl.entity.FabricEntity;
 import com.enderzombi102.loadercomplex.fabric17.impl.entity.FabricPlayer;
 import com.enderzombi102.loadercomplex.fabric17.impl.utils.BlockUtils;
-import com.enderzombi102.loadercomplex.api.utils.Callable;
+import com.enderzombi102.loadercomplex.api.utils.Supplier;
 import com.enderzombi102.loadercomplex.fabric17.impl.world.FabricWorld;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.BlockState;
@@ -29,7 +29,7 @@ public class FabricBlock extends net.minecraft.block.Block {
 
 	public FabricBlock(Block block) {
 		super(
-			( (Callable<FabricBlockSettings>) () -> {
+			( (Supplier<FabricBlockSettings>) () -> {
 				var settings =  FabricBlockSettings.of( Material.STONE )
 					.slipperiness( block.slipperiness )
 					.hardness( block.hardness )

@@ -1,7 +1,7 @@
 package com.enderzombi102.loadercomplex.forge12.impl.entity;
 
-import com.enderzombi102.loadercomplex.api.entity.ItemEntity;
-import com.enderzombi102.loadercomplex.api.item.ItemStack;
+import com.enderzombi102.loadercomplex.minecraft.entity.ItemEntity;
+import com.enderzombi102.loadercomplex.minecraft.item.ItemStack;
 import com.enderzombi102.loadercomplex.forge12.impl.item.ForgeItemStack;
 import net.minecraft.entity.item.EntityItem;
 

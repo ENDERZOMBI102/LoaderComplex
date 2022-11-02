@@ -1,7 +1,8 @@
 package com.enderzombi102.loadercomplex.forge18.impl.item;
 
-import com.enderzombi102.loadercomplex.api.item.ItemStack;
+import com.enderzombi102.loadercomplex.minecraft.item.ItemStack;
 import net.minecraft.text.LiteralText;
+import org.jetbrains.annotations.NotNull;
 
 public class ForgeItemStack implements ItemStack {
 
@@ -11,7 +12,7 @@ public class ForgeItemStack implements ItemStack {
 		this.stack = stack;
 	}
 
-	public net.minecraft.item.ItemStack getStack() {
+	public @NotNull Object getStack() {
 		return stack;
 	}
 
@@ -26,7 +27,7 @@ public class ForgeItemStack implements ItemStack {
 	}
 
 	@Override
-	public Object getType() {
+	public @NotNull Object getType() {
 		return this.stack.getItem();
 	}
 

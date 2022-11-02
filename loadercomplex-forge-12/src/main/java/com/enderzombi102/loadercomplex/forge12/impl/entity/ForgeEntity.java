@@ -1,10 +1,10 @@
 package com.enderzombi102.loadercomplex.forge12.impl.entity;
 
-import com.enderzombi102.loadercomplex.api.entity.Entity;
-import com.enderzombi102.loadercomplex.api.entity.ItemEntity;
-import com.enderzombi102.loadercomplex.api.entity.LivingEntity;
-import com.enderzombi102.loadercomplex.api.utils.Position;
-import com.enderzombi102.loadercomplex.api.world.World;
+import com.enderzombi102.loadercomplex.minecraft.entity.Entity;
+import com.enderzombi102.loadercomplex.minecraft.entity.ItemEntity;
+import com.enderzombi102.loadercomplex.minecraft.entity.LivingEntity;
+import com.enderzombi102.loadercomplex.minecraft.util.Position;
+import com.enderzombi102.loadercomplex.minecraft.world.World;
 import com.enderzombi102.loadercomplex.forge12.impl.utils.BlockUtils;
 import com.enderzombi102.loadercomplex.forge12.impl.world.ForgeWorld;
 import net.minecraft.entity.EntityLivingBase;

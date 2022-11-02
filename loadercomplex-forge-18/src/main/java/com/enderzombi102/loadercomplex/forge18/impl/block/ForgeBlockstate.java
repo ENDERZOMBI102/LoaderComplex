@@ -1,7 +1,7 @@
 package com.enderzombi102.loadercomplex.forge18.impl.block;
 
-import com.enderzombi102.loadercomplex.api.block.Blockstate;
-import com.enderzombi102.loadercomplex.api.utils.ResourceIdentifier;
+import com.enderzombi102.loadercomplex.minecraft.block.Blockstate;
+import com.enderzombi102.loadercomplex.minecraft.util.ResourceIdentifier;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;

@@ -1,8 +1,8 @@
 package com.enderzombi102.loadercomplex.forge12.impl.block;
 
-import com.enderzombi102.loadercomplex.api.block.Block;
-import com.enderzombi102.loadercomplex.api.utils.Direction;
-import com.enderzombi102.loadercomplex.api.utils.Hand;
+import com.enderzombi102.loadercomplex.minecraft.block.Block;
+import com.enderzombi102.loadercomplex.minecraft.util.Direction;
+import com.enderzombi102.loadercomplex.minecraft.util.Hand;
 import com.enderzombi102.loadercomplex.forge12.impl.entity.ForgeEntity;
 import com.enderzombi102.loadercomplex.forge12.impl.entity.ForgePlayer;
 import com.enderzombi102.loadercomplex.forge12.impl.utils.BlockUtils;

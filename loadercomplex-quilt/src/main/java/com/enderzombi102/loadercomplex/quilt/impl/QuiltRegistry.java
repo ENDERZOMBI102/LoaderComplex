@@ -1,11 +1,11 @@
 package com.enderzombi102.loadercomplex.quilt.impl;
 
-import com.enderzombi102.loadercomplex.api.Registry;
-import com.enderzombi102.loadercomplex.api.block.Block;
-import com.enderzombi102.loadercomplex.api.entity.Entity;
-import com.enderzombi102.loadercomplex.api.item.Item;
-import com.enderzombi102.loadercomplex.api.utils.RegistryKey;
-import com.enderzombi102.loadercomplex.api.utils.ResourceIdentifier;
+import com.enderzombi102.loadercomplex.api.utils.Registry;
+import com.enderzombi102.loadercomplex.minecraft.block.Block;
+import com.enderzombi102.loadercomplex.minecraft.entity.Entity;
+import com.enderzombi102.loadercomplex.minecraft.item.Item;
+import com.enderzombi102.loadercomplex.minecraft.util.RegistryKey;
+import com.enderzombi102.loadercomplex.minecraft.util.ResourceIdentifier;
 import com.enderzombi102.loadercomplex.quilt.LoaderComplexQuilt;
 import com.enderzombi102.loadercomplex.quilt.imixin.IItemMixin;
 import com.enderzombi102.loadercomplex.quilt.impl.block.QuiltBlock;
@@ -22,7 +22,7 @@ import org.quiltmc.qsl.item.group.api.QuiltItemGroup;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.enderzombi102.loadercomplex.api.utils.ResourceIdentifier.ri;
+import static com.enderzombi102.loadercomplex.minecraft.util.ResourceIdentifier.ri;
 
 public class QuiltRegistry implements Registry {
 	private static final Map<ResourceIdentifier, ItemGroup> ITEM_GROUPS = new HashMap<>() {{

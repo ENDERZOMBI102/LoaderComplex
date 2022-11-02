@@ -36,7 +36,7 @@ public class JsonConvertible {
 	}
 
 	@Override
-	public String toString() {
+	public @Json String toString() {
 		return this.data;
 	}
 }

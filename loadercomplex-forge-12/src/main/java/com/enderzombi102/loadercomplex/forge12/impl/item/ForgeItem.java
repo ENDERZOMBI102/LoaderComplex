@@ -1,9 +1,9 @@
 package com.enderzombi102.loadercomplex.forge12.impl.item;
 
 
-import com.enderzombi102.loadercomplex.api.item.Item;
-import com.enderzombi102.loadercomplex.api.utils.Direction;
-import com.enderzombi102.loadercomplex.api.utils.Hand;
+import com.enderzombi102.loadercomplex.minecraft.item.Item;
+import com.enderzombi102.loadercomplex.minecraft.util.Direction;
+import com.enderzombi102.loadercomplex.minecraft.util.Hand;
 import com.enderzombi102.loadercomplex.forge12.impl.ForgeRegistry;
 import com.enderzombi102.loadercomplex.forge12.impl.block.ForgeBlockstate;
 import com.enderzombi102.loadercomplex.forge12.impl.entity.ForgeEntity;
@@ -34,7 +34,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 import java.util.Objects;
 
-import static com.enderzombi102.loadercomplex.api.utils.ResourceIdentifier.ri;
+import static com.enderzombi102.loadercomplex.minecraft.util.ResourceIdentifier.ri;
 
 public class ForgeItem extends net.minecraft.item.Item {
 

@@ -1,8 +1,9 @@
 package com.enderzombi102.loadercomplex.forge18.impl.item;
 
 
-import com.enderzombi102.loadercomplex.api.item.Item;
-import com.enderzombi102.loadercomplex.api.utils.Hand;
+import com.enderzombi102.loadercomplex.minecraft.item.Item;
+import com.enderzombi102.loadercomplex.minecraft.util.Direction;
+import com.enderzombi102.loadercomplex.minecraft.util.Hand;
 import com.enderzombi102.loadercomplex.forge18.impl.block.ForgeBlockstate;
 import com.enderzombi102.loadercomplex.forge18.impl.entity.ForgeEntity;
 import com.enderzombi102.loadercomplex.forge18.impl.entity.ForgeLivingEntity;
@@ -53,7 +54,7 @@ public class ForgeItem extends net.minecraft.item.Item {
 				new ForgePlayer( ctx.getPlayer() ),
 				BlockUtils.toPosition( ctx.getBlockPos() ),
 				Hand.valueOf( ctx.getHand().name() ),
-				com.enderzombi102.loadercomplex.api.utils.Direction.valueOf( ctx.getPlayerFacing().name() )
+				Direction.valueOf( ctx.getPlayerFacing().name() )
 			).name()
 		);
 	}
