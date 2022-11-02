@@ -11,10 +11,8 @@ buildscript {
 	}
 }
 
-plugins {
-	idea
-}
-apply(plugin = "amalgamation-minecraft")
+plugins { idea }
+apply( plugin = "amalgamation-minecraft" )
 
 val versions = listOf(
 //	( "1.12.2" to "395" ) to "",
@@ -35,7 +33,9 @@ val loaderVersion = libs.versions.fabric.loader.get()
 for ( ( versions, intemerdiary ) in versions ) {
 	val ( minecraftVersion, mapping ) = versions
 	val tag = minecraftVersion.split(".")[1]
-	val set = sourceSets.create( "fabric$tag" )
+	sourceSets.create( "fabric$tag" ) {
+		this.ext
+	}
 
 	val intermediate = ag.map {
 		println( minecraftVersion )
@@ -72,7 +72,6 @@ for ( ( versions, intemerdiary ) in versions ) {
 		group = "build"
 		with( tasks.jar.get() )
 		classpath.set( sourceSets.main.get().compileClasspath )
-		remapAw()
 		useExperimentalMixinRemapper()
 		mappings(map, "named", "intermediary")
 	}

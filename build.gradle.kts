@@ -83,7 +83,7 @@ dependencies {
 	shade( libs.bundles.shade )
 }
 
-tasks.withType<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar>() {
+tasks.withType<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar> {
     configurations = listOf( shade )
 	archiveClassifier.set("")
 
