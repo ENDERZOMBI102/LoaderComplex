@@ -29,6 +29,10 @@ java {
 	withSourcesJar()
 }
 
+tasks.withType<Javadoc> {
+	exclude( "com/enderzombi102/loadercomplex/impl/**" )
+}
+
 publishing {
 	publications {
 		create<MavenPublication>("maven") {
