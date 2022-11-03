@@ -42,7 +42,7 @@ public abstract class LoaderComplexBase implements LoaderComplex {
 	}
 
 	@Override
-	public Optional<AddonContainer> getContainer( @NotNull String id ) {
+	public @NotNull Optional<AddonContainer> getContainer( @NotNull String id ) {
 		return this.addonLoader.getAddons().stream()
 				.filter( container -> container.getId().equals(id) )
 				.findFirst()

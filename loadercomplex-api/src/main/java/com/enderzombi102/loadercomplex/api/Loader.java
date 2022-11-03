@@ -1,9 +1,10 @@
 package com.enderzombi102.loadercomplex.api;
 
 import com.enderzombi102.eventsystem.EventSystem;
-import com.enderzombi102.loadercomplex.api.LoaderComplex;
-import com.enderzombi102.loadercomplex.api.utils.*;
-import com.enderzombi102.loadercomplex.impl.Utils;
+import com.enderzombi102.loadercomplex.api.utils.FactoryWorld;
+import com.enderzombi102.loadercomplex.api.utils.I18nSystem;
+import com.enderzombi102.loadercomplex.api.utils.Platform;
+import com.enderzombi102.loadercomplex.api.utils.Registry;
 import org.jetbrains.annotations.ApiStatus.AvailableSince;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
@@ -38,13 +39,6 @@ public interface Loader {
 	boolean isModLoaded( String id );
 
 	/**
-	 * Asks the underlying loader if we're on a developer environment
-	 *
-	 * @return true if we are in one
-	 */
-	boolean isDeveloperEnvironment();
-
-	/**
 	 * Returns an implementation of {@link FactoryWorld}, an object capable
 	 * of creating stuff normally inacessible.
 	 */
@@ -64,13 +58,6 @@ public interface Loader {
 	 */
 	@AvailableSince("0.1.4")
 	boolean isDedicatedServer();
-
-	/**
-	 * Returns the API implementation version of this layer, might be different based on underlying loader.
-	 */
-	default @NotNull Version getApiVersion() {
-		return new Version( "0.2.0", Utils.getApiVersion( isDeveloperEnvironment() ).getBuildDate() );
-	}
 
 	/**
 	 * Factory method for logger implementations

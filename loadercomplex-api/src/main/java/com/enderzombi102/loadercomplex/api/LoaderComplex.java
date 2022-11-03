@@ -19,12 +19,5 @@ public interface LoaderComplex {
 	/**
 	 * Get a container from an addon id
 	 */
-	Optional<AddonContainer> getContainer(String id);
-
-	/**
-	 * Whether this object is a dummy
-	 */
-	default boolean isDummy() {
-		return false;
-	}
+	@NotNull Optional<AddonContainer> getContainer( @NotNull String id );
 }
