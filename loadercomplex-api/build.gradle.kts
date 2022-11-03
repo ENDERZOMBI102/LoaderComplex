@@ -5,12 +5,6 @@ plugins {
 
 version = "0.2.0"
 
-repositories {
-	mavenLocal()
-	mavenCentral()
-	maven( url="https://repsy.io/mvn/enderzombi102/mc" )
-}
-
 dependencies {
 	implementation( libs.slf4j )
 	implementation( libs.guava )
@@ -37,7 +31,6 @@ publishing {
 	publications {
 		create<MavenPublication>("maven") {
 			group = "com.enderzombi102"
-			artifactId = "loadercomplex-api"
 			from( components["java"] )
 		}
 	}
