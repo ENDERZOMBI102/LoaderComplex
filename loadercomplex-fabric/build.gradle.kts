@@ -20,9 +20,7 @@ val versions = listOf(
 )
 
 repositories {
-	mavenCentral()
 	maven( url="https://maven.fabricmc.net" )
-	maven( url="https://maven.terraformersmc.com/releases" )
 }
 
 fun <T : Any> unaryOf( body: T.() -> Unit ) =

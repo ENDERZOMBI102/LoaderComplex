@@ -5,10 +5,6 @@ val minecraft_version: String by project
 val modmenu_version: String by project
 val fabric_version: String by project
 
-repositories {
-	maven( url="https://maven.terraformersmc.com/releases/" )
-}
-
 dependencies {
 	minecraft( "com.mojang:minecraft:$minecraft_version" )
 	mappings( "net.fabricmc:yarn:$minecraft_version+build.$mappings:v2" )

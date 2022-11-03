@@ -21,9 +21,11 @@ allprojects {
 		mavenCentral()
 		maven( url = "https://libraries.minecraft.net" )
 		maven( url = "https://repsy.io/mvn/enderzombi102/mc" )
+		maven( url = "https://maven.terraformersmc.com/releases" )
 	}
 }
 
+val api = project( ":loadercomplex-api" )
 subprojects {
 	apply( plugin = "java" )
 
@@ -34,23 +36,27 @@ subprojects {
 
 	if ( hasProperty("loom") ) {
 		apply( plugin = property("loom") as String )
-		val loom: LoomGradleExtension by extensions
-		loom.runConfigs {
-			named("client") {
-				runDir = rootProject.file("run").relativeTo(projectDir).path
+
+		( extensions["loom"] as LoomGradleExtension ).apply {
+			runConfigs {
+				named("client") {
+					runDir = rootProject.file("run").relativeTo(projectDir).path
+				}
+				named("server") {
+					runDir = rootProject.file("run").relativeTo(projectDir).path
+				}
 			}
-			named("server") {
-				runDir = rootProject.file("run").relativeTo(projectDir).path
-			}
+			runtimeOnlyLog4j.set(true)
+			shareRemapCaches.set(true)
 		}
-		loom.runtimeOnlyLog4j.set(true)
+
 		artifacts.add( "jarz", tasks["remapJar"] )
 	}
 
 	dependencies {
 		implementation( rootProject.libs.annotations )
-		if ( name != "loadercomplex-common" ) {
-			implementation( project( ":loadercomplex-common" ) ) {
+		if ( this != api ) {
+			implementation( project( api.path ) ) {
 				isTransitive = false
 			}
 			compileOnly( rootProject.libs.brigadier )
@@ -61,10 +67,9 @@ subprojects {
 	}
 
 	tasks.withType<JavaCompile> {
-		val java_version: String by project
-		sourceCompatibility = java_version
+		sourceCompatibility = project.ext["java_version"] as String
 		options.encoding = "UTF-8"
-		options.release.set( Integer.valueOf( java_version ) )
+		options.release.set( Integer.valueOf( sourceCompatibility ) )
 	}
 }
 
@@ -99,7 +104,6 @@ tasks.withType<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar> {
 		"Implementation-Version"   to archiveVersion, // mod version
 		"Implementation-Vendor"    to "Aurora Inhabitants",
 		"Implementation-Timestamp" to now().format( ofPattern("dd-MM-yyyy'T'HH:mm:ss") ), // build date
-//		"FMLCorePlugin"            to "com.enderzombi102.loadercomplex.forge12.LoaderComplexCoremod"
 	)
 }
 

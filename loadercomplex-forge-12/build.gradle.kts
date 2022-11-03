@@ -35,9 +35,9 @@ tasks.withType<ProcessResources> {
 
 	filesMatching("mcmod.info") {
 		expand(
-			Pair( "version", rootProject.version ),
-			Pair( "description", rootProject.description ),
-			Pair( "repo_url", rootProject.ext["repo_url"] )
+			"version" to rootProject.version,
+			"description" to rootProject.description,
+			"repo_url" to rootProject.ext["repo_url"]
 		)
 	}
 }

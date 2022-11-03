@@ -10,7 +10,6 @@ val loader_version: String by project
 val qfapi_version: String by project
 
 repositories {
-	maven( url = "https://maven.terraformersmc.com/releases" )
 	maven( url = "https://maven.quiltmc.org/repository/release" )
 	maven( url = "https://maven.quiltmc.org/repository/snapshot" )
 }
