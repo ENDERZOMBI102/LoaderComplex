@@ -1,48 +1,42 @@
 package com.enderzombi102.loadercomplex.forge12.impl;
 
+import com.enderzombi102.eventsystem.EventSystem;
 import com.enderzombi102.loadercomplex.api.Loader;
-import com.enderzombi102.loadercomplex.api.utils.Registry;
+import com.enderzombi102.loadercomplex.api.LoaderComplex;
 import com.enderzombi102.loadercomplex.api.utils.FactoryWorld;
-import com.enderzombi102.loadercomplex.api.utils.LoaderType;
-import com.enderzombi102.loadercomplex.api.utils.Version;
-import net.minecraft.launchwrapper.Launch;
-import net.minecraftforge.common.ForgeVersion;
+import com.enderzombi102.loadercomplex.api.utils.I18nSystem;
+import com.enderzombi102.loadercomplex.api.utils.Platform;
+import com.enderzombi102.loadercomplex.api.utils.Registry;
+import com.enderzombi102.loadercomplex.forge12.LoaderComplexForge;
+import com.enderzombi102.loadercomplex.forge12.impl.utils.ForgeFactoryWorld;
+import com.enderzombi102.loadercomplex.forge12.impl.utils.ForgeI18nSystem;
+import com.enderzombi102.loadercomplex.forge12.impl.utils.ForgeLegacyPlatform;
+import com.enderzombi102.loadercomplex.forge12.impl.utils.ForgeRegistry;
 import org.jetbrains.annotations.NotNull;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.nio.file.Path;
+
+import static net.minecraftforge.fml.common.Loader.instance;
 
 public class ForgeLoader implements Loader {
-
+	private final EventSystem eventSystem;
 	private final ForgeRegistry registry;
+	private final I18nSystem i18nSystem;
 
 	public ForgeLoader() {
 		this.registry = new ForgeRegistry();
+		this.eventSystem = new EventSystem();
+		this.i18nSystem = new ForgeI18nSystem();
 	}
 
 	@Override
-	public @NotNull LoaderType getPlatform() {
-		return LoaderType.ForgeLegacy;
+	public @NotNull Platform getPlatform() {
+		return new ForgeLegacyPlatform();
 	}
 
 	@Override
 	public @NotNull Registry getRegistry() {
 		return this.registry;
-	}
-
-	@Override
-	public String getMinecraftVersion() {
-		return "1.12.2";
-	}
-
-	@Override
-	public String getLoaderVersion() {
-		return ForgeVersion.getVersion();
-	}
-
-	@Override
-	public boolean isDeveloperEnvironment() {
-		return (boolean) Launch.blackboard.getOrDefault( "fml.deobfuscatedEnvironment", false );
 	}
 
 	@Override
@@ -56,15 +50,32 @@ public class ForgeLoader implements Loader {
 	}
 
 	@Override
+	public boolean isDedicatedServer() {
+		return false;
+	}
+
+	@Override
 	public boolean isModLoaded(String id) {
 		return net.minecraftforge.fml.common.Loader.isModLoaded(id);
 	}
 
 	@Override
-	public @NotNull Version getApiVersion() {
-		return new Version(
-			"0.1.3",
-			LocalDateTime.now().format( DateTimeFormatter.ofPattern("dd-MM-yyyy'T'HH:mm:ss") )
-		);
+	public @NotNull LoaderComplex getLoaderComplex() {
+		return LoaderComplexForge.INSTANCE;
+	}
+
+	@Override
+	public @NotNull EventSystem getEventSystem() {
+		return this.eventSystem;
+	}
+
+	@Override
+	public @NotNull I18nSystem getI18nSystem() {
+		return this.i18nSystem;
+	}
+
+	@Override
+	public @NotNull Path getConfigDir() {
+		return instance().getConfigDir().toPath();
 	}
 }

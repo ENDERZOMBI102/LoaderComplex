@@ -4,7 +4,7 @@ package com.enderzombi102.loadercomplex.forge12.impl.item;
 import com.enderzombi102.loadercomplex.minecraft.item.Item;
 import com.enderzombi102.loadercomplex.minecraft.util.Direction;
 import com.enderzombi102.loadercomplex.minecraft.util.Hand;
-import com.enderzombi102.loadercomplex.forge12.impl.ForgeRegistry;
+import com.enderzombi102.loadercomplex.forge12.impl.utils.ForgeRegistry;
 import com.enderzombi102.loadercomplex.forge12.impl.block.ForgeBlockstate;
 import com.enderzombi102.loadercomplex.forge12.impl.entity.ForgeEntity;
 import com.enderzombi102.loadercomplex.forge12.impl.entity.ForgeLivingEntity;
@@ -84,12 +84,10 @@ public class ForgeItem extends net.minecraft.item.Item {
 	@Override
 	@ParametersAreNonnullByDefault
 	public @NotNull ItemStack onItemUseFinish(ItemStack stack, World world, EntityLivingBase user) {
-		return (
-			(ForgeItemStack) this.itemImpl.finishUsing(
-				new ForgeItemStack(stack),
-				new ForgeWorld(world),
-				new ForgeLivingEntity(user)
-			)
+		return (ItemStack) this.itemImpl.finishUsing(
+			new ForgeItemStack(stack),
+			new ForgeWorld(world),
+			new ForgeLivingEntity(user)
 		).getStack();
 	}
 

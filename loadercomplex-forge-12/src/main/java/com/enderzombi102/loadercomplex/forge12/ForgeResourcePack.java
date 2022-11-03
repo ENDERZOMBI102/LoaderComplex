@@ -1,6 +1,5 @@
 package com.enderzombi102.loadercomplex.forge12;
 
-import com.enderzombi102.loadercomplex.impl.Utils;
 import com.google.common.base.Charsets;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
@@ -38,12 +37,12 @@ public class ForgeResourcePack extends AbstractResourcePack {
 		// try to get the entry
 		final JarEntry jarEntry = container.getAddon().getAddonJar().getJarEntry(filename);
 		if ( jarEntry == null ) {
-			// no entry, maybe its a fake file?
+			// no entry, maybe is it a fake file?
 			if ( "pack.mcmeta".equals(filename) ) {
 				// fake file, return a "custom" entry
 				return IOUtils.toInputStream(
-						Utils.format(
-								"{\"pack\":{\"pack_format\":{},\"description\":\"{}\"}}",
+						String.format(
+								"{\"pack\":{\"pack_format\":%s,\"description\":\"%s\"}}",
 								PACK_FORMAT_VERSION,
 								container.getName().replaceAll("\"", "\\\"")
 						),

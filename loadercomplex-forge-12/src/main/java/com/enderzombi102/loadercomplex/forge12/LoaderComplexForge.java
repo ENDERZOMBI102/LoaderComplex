@@ -1,8 +1,7 @@
 package com.enderzombi102.loadercomplex.forge12;
 
-import com.enderzombi102.loadercomplex.LoaderComplexBase;
-import com.enderzombi102.loadercomplex.Utils;
 import com.enderzombi102.loadercomplex.forge12.impl.ForgeLoader;
+import com.enderzombi102.loadercomplex.impl.LoaderComplexBase;
 import com.google.common.collect.ImmutableList;
 import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.common.LoadController;
@@ -50,7 +49,7 @@ public class LoaderComplexForge extends LoaderComplexBase {
 	}
 
 	public void injectContainer(FrogeModContainer frogeModContainer) {
-		LOGGER.info( Utils.format("Injecting ModContainer for \"{}\" into mods list!", frogeModContainer.getModId() ) );
+		LOGGER.info( String.format("Injecting ModContainer for \"%s\" into mods list!", frogeModContainer.getModId() ) );
 		Loader loader = Loader.instance();
 		// inject into modlist
 		try {
@@ -73,7 +72,7 @@ public class LoaderComplexForge extends LoaderComplexBase {
 	}
 
 	public void injectActiveContainer(FrogeModContainer frogeModContainer) {
-		LOGGER.info( Utils.format("Injecting ModContainer for \"{}\" into active mods list!", frogeModContainer.getModId() ) );
+		LOGGER.info( String.format("Injecting ModContainer for \"%s\" into active mods list!", frogeModContainer.getModId() ) );
 		try {
 			Field field = loader.getClass().getDeclaredField("modController");
 			field.setAccessible(true);

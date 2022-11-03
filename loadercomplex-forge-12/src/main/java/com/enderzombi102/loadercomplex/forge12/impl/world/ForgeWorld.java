@@ -1,12 +1,11 @@
 package com.enderzombi102.loadercomplex.forge12.impl.world;
 
-import com.enderzombi102.loadercomplex.Utils;
 import com.enderzombi102.loadercomplex.minecraft.block.Blockstate;
 import com.enderzombi102.loadercomplex.minecraft.entity.Entity;
 import com.enderzombi102.loadercomplex.minecraft.entity.Player;
 import com.enderzombi102.loadercomplex.minecraft.util.*;
 import com.enderzombi102.loadercomplex.minecraft.world.World;
-import com.enderzombi102.loadercomplex.forge12.impl.ForgeServer;
+import com.enderzombi102.loadercomplex.forge12.impl.utils.ForgeServer;
 import com.enderzombi102.loadercomplex.forge12.impl.block.ForgeBlockstate;
 import com.enderzombi102.loadercomplex.forge12.impl.utils.BlockUtils;
 import net.minecraft.block.state.IBlockState;
@@ -121,7 +120,7 @@ public class ForgeWorld implements World {
 		SoundEvent event = ForgeRegistries.SOUND_EVENTS.getValue( new ResourceLocation( sound.getNamespace(), sound.getPath() ) );
 
 		if ( event == null )
-			throw new IllegalArgumentException( Utils.format( "SoundEvent {} was not found!", sound ) );
+			throw new IllegalArgumentException( String.format( "SoundEvent %s was not found!", sound ) );
 
 		this.backingWorld.playSound(
 			(EntityPlayer) player.getObject(),

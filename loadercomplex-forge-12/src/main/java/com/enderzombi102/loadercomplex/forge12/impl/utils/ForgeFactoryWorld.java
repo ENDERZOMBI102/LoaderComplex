@@ -1,18 +1,17 @@
-package com.enderzombi102.loadercomplex.forge12.impl;
+package com.enderzombi102.loadercomplex.forge12.impl.utils;
 
-import com.enderzombi102.loadercomplex.Utils;
-import com.enderzombi102.loadercomplex.minecraft.block.Blockstate;
-import com.enderzombi102.loadercomplex.minecraft.entity.Entity;
-import com.enderzombi102.loadercomplex.minecraft.entity.ItemEntity;
-import com.enderzombi102.loadercomplex.minecraft.item.ItemStack;
 import com.enderzombi102.loadercomplex.api.utils.FactoryWorld;
-import com.enderzombi102.loadercomplex.minecraft.util.ResourceIdentifier;
-import com.enderzombi102.loadercomplex.minecraft.util.Server;
-import com.enderzombi102.loadercomplex.minecraft.world.World;
 import com.enderzombi102.loadercomplex.forge12.impl.block.ForgeBlockstate;
 import com.enderzombi102.loadercomplex.forge12.impl.entity.ForgeEntity;
 import com.enderzombi102.loadercomplex.forge12.impl.entity.ForgeItemEntity;
 import com.enderzombi102.loadercomplex.forge12.impl.item.ForgeItemStack;
+import com.enderzombi102.loadercomplex.minecraft.block.Blockstate;
+import com.enderzombi102.loadercomplex.minecraft.entity.Entity;
+import com.enderzombi102.loadercomplex.minecraft.entity.ItemEntity;
+import com.enderzombi102.loadercomplex.minecraft.item.ItemStack;
+import com.enderzombi102.loadercomplex.minecraft.util.ResourceIdentifier;
+import com.enderzombi102.loadercomplex.minecraft.util.Server;
+import com.enderzombi102.loadercomplex.minecraft.world.World;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.Item;
@@ -25,7 +24,7 @@ public class ForgeFactoryWorld implements FactoryWorld {
 	public ItemStack createStack(ResourceIdentifier type) {
 		Item item = ForgeRegistries.ITEMS.getValue( new ResourceLocation( type.getNamespace(), type.getPath() ) );
 		if ( item == null )
-			throw new IllegalArgumentException(	Utils.format( "\"{}\" is not a valid item!", type ) );
+			throw new IllegalArgumentException(	String.format( "\"%s\" is not a valid item!", type ) );
 		return new ForgeItemStack( new net.minecraft.item.ItemStack( item ) );
 	}
 
@@ -33,7 +32,7 @@ public class ForgeFactoryWorld implements FactoryWorld {
 	public Entity createEntity(World world, ResourceIdentifier type) {
 		EntityEntry entity = ForgeRegistries.ENTITIES.getValue( new ResourceLocation( type.getNamespace(), type.getPath() ) );
 		if ( entity == null )
-			throw new IllegalArgumentException(	Utils.format( "\"{}\" is not a valid entity!", type ) );
+			throw new IllegalArgumentException(	String.format( "\"%s\" is not a valid entity!", type ) );
 		return new ForgeEntity( entity.newInstance( (net.minecraft.world.World) world.getObject() ) );
 	}
 
@@ -51,7 +50,7 @@ public class ForgeFactoryWorld implements FactoryWorld {
 	public Blockstate createBlockstate(ResourceIdentifier type) {
 		Block block = ForgeRegistries.BLOCKS.getValue( new ResourceLocation( type.getNamespace(), type.getPath() ) );
 		if ( block == null )
-			throw new IllegalArgumentException(	Utils.format( "\"{}\" is not a valid block!", type ) );
+			throw new IllegalArgumentException(	String.format( "\"%s\" is not a valid block!", type ) );
 		return new ForgeBlockstate( block.getDefaultState() );
 	}
 

@@ -1,4 +1,4 @@
-package com.enderzombi102.loadercomplex.forge12.impl;
+package com.enderzombi102.loadercomplex.forge12.impl.utils;
 
 import com.enderzombi102.loadercomplex.minecraft.util.Server;
 import net.minecraft.server.MinecraftServer;

@@ -1,6 +1,5 @@
-package com.enderzombi102.loadercomplex.forge12.impl;
+package com.enderzombi102.loadercomplex.forge12.impl.utils;
 
-import com.enderzombi102.loadercomplex.Utils;
 import com.enderzombi102.loadercomplex.api.utils.Registry;
 import com.enderzombi102.loadercomplex.minecraft.block.Block;
 import com.enderzombi102.loadercomplex.minecraft.entity.Entity;
@@ -90,7 +89,7 @@ public class ForgeRegistry implements Registry {
 					return new ItemStack(
 						Objects.requireNonNull(
 							net.minecraft.item.Item.getByNameOrId( icon.toString() ),
-							Utils.format( "The icon given by {} was invalid", icon.getNamespace() )
+							String.format( "The icon given by %s was invalid", icon.getNamespace() )
 						)
 					);
 				}
