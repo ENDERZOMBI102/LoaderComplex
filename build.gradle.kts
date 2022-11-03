@@ -55,7 +55,7 @@ subprojects {
 
 	dependencies {
 		implementation( rootProject.libs.annotations )
-		if ( this != api ) {
+		if ( name != api.name ) {
 			implementation( project( api.path ) ) {
 				isTransitive = false
 			}
