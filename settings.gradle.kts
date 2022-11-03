@@ -32,7 +32,7 @@ pluginManagement {
 	}
 }
 
-include("loadercomplex-common")
+include("loadercomplex-api")
 include("loadercomplex-forge-12")
 include("loadercomplex-forge-18")
 //include("loadercomplex-fabric-common")
