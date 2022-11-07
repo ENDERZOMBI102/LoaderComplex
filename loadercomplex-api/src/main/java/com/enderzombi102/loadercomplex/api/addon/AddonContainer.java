@@ -19,6 +19,9 @@ public interface AddonContainer {
 	/** The version of this addon. */
 	@NotNull String getVersion();
 
+	/** The build date of this addon's jar. */
+	@NotNull String getBuildDate();
+
 	/** The ID of this addon. */
 	@NotNull String getId();
 

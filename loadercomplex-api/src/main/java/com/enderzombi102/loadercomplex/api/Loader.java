@@ -70,9 +70,7 @@ public interface Loader {
 	}
 
 	/**
-	 * Returns the current LoaderComplex implementation.<br>
-	 * If the underlying implementation doesn't support the required api level, a dummy object will be returned.<br>
-	 * You can check whether you got a dummy object by calling {@link LoaderComplex#isDummy()}
+	 * Returns the current LoaderComplex implementation.
 	 */
 	@AvailableSince("0.1.4")
 	@NotNull LoaderComplex getLoaderComplex();

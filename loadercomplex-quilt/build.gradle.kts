@@ -1,8 +1,4 @@
 @file:Suppress("UnstableApiUsage", "PropertyName")
-plugins {
-	id( "org.quiltmc.quilt-mappings-on-loom" )
-}
-
 val mappings: String by project
 val minecraft_version: String by project
 val modmenu_version: String by project
@@ -17,14 +13,10 @@ repositories {
 dependencies {
 	// To change the versions see the gradle.properties file
 	minecraft( "com.mojang:minecraft:$minecraft_version" )
-	mappings( loom.layered {
-		addLayer( quiltMappings.mappings( "org.quiltmc:quilt-mappings:$minecraft_version+build.$mappings:v2" ) )
-	})
+	mappings( "org.quiltmc:quilt-mappings:$minecraft_version+build.$mappings:intermediary-v2" )
 	modImplementation( "org.quiltmc:quilt-loader:$loader_version" )
-
 	modImplementation( "org.quiltmc.quilted-fabric-api:quilted-fabric-api:$qfapi_version-$minecraft_version-SNAPSHOT" )
-
-	modImplementation("com.terraformersmc:modmenu:$modmenu_version")
+	modImplementation( "com.terraformersmc:modmenu:$modmenu_version" )
 }
 
 tasks.withType<ProcessResources> {

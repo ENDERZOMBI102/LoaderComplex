@@ -7,6 +7,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.jar.Attributes;
 import java.util.jar.JarFile;
@@ -22,34 +24,44 @@ public class AddonContainerImpl implements AddonContainer {
 	private final JarFile addonJar;
 	private final String id;
 	private final String version;
+	private final String buildDate;
 	Addon implementation = null;
 
-	public AddonContainerImpl( Path file) throws IOException {
+	public AddonContainerImpl( Path file) throws IOException, IllegalStateException {
 		this.file = file;
-		addonJar = new JarFile( file.toFile(), false );
-		Attributes attributes = addonJar.getManifest().getMainAttributes();
+		Attributes attributes = ( addonJar = new JarFile( file.toFile(), false ) ).getManifest().getMainAttributes();
 		mainClass = attributes.getValue("LoaderComplex-Main");
 		version = attributes.getValue("LoaderComplex-Version");
+		buildDate = attributes.getValue("LoaderComplex-BuildDate");
 		id = attributes.getValue("LoaderComplex-AddonId");
-		if ( mainClass == null || version == null || id == null )
-			throw new IOException(
-				"Not a LoaderComplex Addon! ( " +
-				( mainClass == null ? "Missing LoaderComplex-Main attribute in manifest, " : "" ) +
-				( version == null ? "Missing LoaderComplex-Version attribute in manifest, " : "" ) +
-				"Missing LoaderComplex-AddonId attribute in manifest )"
-			);
+		List<String> parts = new ArrayList<>(4);
+		if ( mainClass == null )
+			parts.add( "Missing LoaderComplex-Main attribute in manifest" );
+		if ( version == null )
+			parts.add( "Missing LoaderComplex-Version attribute in manifest" );
+		if ( buildDate == null )
+			parts.add( "Missing LoaderComplex-BuildDate attribute in manifest" );
+		if ( buildDate == null )
+			parts.add( "Missing LoaderComplex-AddonId attribute in manifest" );
+		if ( parts.size() != 0 )
+			throw new IllegalStateException( "Not a LoaderComplex Addon! ( " + String.join( ", ", parts ) + ")" );
 	}
 
 	@Override
 	public @NotNull String getName() {
-		return implementation.getName() != null
-			? implementation.getName()
-			: file.getFileName().toString().replace(".lc.jar", "");
+		return implementation.getName() != null ?
+			implementation.getName() :
+			file.getFileName().toString().replace(".lc.jar", "");
 	}
 
 	@Override
 	public @NotNull String getVersion() {
 		return version;
+	}
+
+	@Override
+	public @NotNull String getBuildDate() {
+		return buildDate;
 	}
 
 	@Override
