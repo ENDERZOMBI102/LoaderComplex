@@ -7,20 +7,20 @@ version = "0.2.0"
 
 dependencies {
 	implementation( libs.slf4j )
-	implementation( libs.guava )
 	implementation( libs.jankson )
-	compileOnly( libs.brigadier )
-	compileOnly( libs.eventsystem )
+	implementation( libs.brigadier )
+	implementation( libs.eventsystem )
 	compileOnly( libs.enderlib )
 }
 
-artifacts {
-	jarz( tasks.jar )
-}
+java.withJavadocJar()
+java.withSourcesJar()
+artifacts.jarz(tasks.jar)
 
-java {
-	withJavadocJar()
-	withSourcesJar()
+tasks.withType<JavaCompile> {
+	sourceCompatibility = "8"
+	options.encoding = "UTF-8"
+	options.release.set(8)
 }
 
 tasks.withType<Javadoc> {

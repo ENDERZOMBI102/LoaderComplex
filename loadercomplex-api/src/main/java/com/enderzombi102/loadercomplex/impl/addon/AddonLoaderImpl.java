@@ -1,28 +1,24 @@
 package com.enderzombi102.loadercomplex.impl.addon;
 
+import com.enderzombi102.enderlib.reflection.Reflection;
 import com.enderzombi102.loadercomplex.api.addon.Addon;
 import com.enderzombi102.loadercomplex.api.addon.AddonContainer;
 import com.enderzombi102.loadercomplex.api.addon.AddonLoader;
 import com.enderzombi102.loadercomplex.api.annotation.Instance;
+import com.enderzombi102.loadercomplex.impl.addon.finder.AddonFinder;
+import com.enderzombi102.loadercomplex.impl.addon.finder.FolderAddonFinder;
 import org.jetbrains.annotations.ApiStatus.Internal;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
-import java.net.URL;
-import java.net.URLClassLoader;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
-import static com.enderzombi102.enderlib.reflection.Getters.get;
-import static com.enderzombi102.enderlib.reflection.Setters.set;
+import static com.enderzombi102.enderlib.collections.ListUtil.listOf;
+import static java.lang.reflect.Modifier.isStatic;
 
 /**
  * Internal class used to load jars and instantiate Addon implementations
@@ -30,94 +26,78 @@ import static com.enderzombi102.enderlib.reflection.Setters.set;
 @Internal
 public class AddonLoaderImpl implements AddonLoader {
 	private final Logger logger = LoggerFactory.getLogger( "LoaderComplex | AddonLoader" );
-	private final List<AddonContainer> addonContainerImpls = new ArrayList<>();
+	private final List<AddonContainerImpl> containers = new ArrayList<>();
 	private final DynamicClassLoader classLoader = new DynamicClassLoader();
-	private final Path addonsPath;
-	private final Path modsPath;
-
-	public AddonLoaderImpl() {
-		modsPath = Paths.get( System.getProperty( "user.dir" ), "mods" );
-		addonsPath = Paths.get( System.getProperty( "user.dir" ), "addons" );
-	}
+	private final List<AddonFinder> finders = listOf(
+		new FolderAddonFinder( "addons" ),
+		new FolderAddonFinder( "mods" )
+	);
 
 	@SuppressWarnings("unchecked")
 	public void loadAddons() {
 		logger.info( "Searching for addons" );
-		logger.info( "Scanning mods folder" );
-		for ( File file : Objects.requireNonNull( modsPath.toFile().listFiles() ) ) {
-			if ( file.getName().endsWith( ".lc.jar" ) ) {
-				logger.info( " - Found possible LoaderComplex addon: {}", file );
+		for ( AddonFinder finder : finders )
+			finder.findAddons( logger, path -> {
 				try {
-					classLoader.addURL( file.toURI().toURL() );
-					addonContainerImpls.add( new AddonContainerImpl( Paths.get( file.getPath() ) ) );
+					logger.info( " - Found possible LoaderComplex addon: {}", path );
+					containers.add( new AddonContainerImpl( path ) );
+					classLoader.addURL( path.toUri().toURL() );
+					return true;
 				} catch ( IOException | IllegalStateException e ) {
-					logger.error( "Failed to load possible LC addon {}: {}", file, e.getMessage() );
+					logger.error( "Failed to load possible LC addon {}: {}", path, e.getMessage() );
+					return false;
 				}
-			}
-		}
-		int addonFromModsFolder = addonContainerImpls.size();
-		logger.info( " - Found {} addons", addonFromModsFolder );
-		logger.info( "Scanning addons folder" );
-		//noinspection ResultOfMethodCallIgnored
-		addonsPath.toFile().mkdirs();
-		for ( File file : Objects.requireNonNull( addonsPath.toFile().listFiles() ) ) {
-			if ( file.getName().endsWith( ".jar" ) ) {
-				logger.info( " - Found possible LoaderComplex addon: {}", file );
-				try {
-					addonContainerImpls.add( new AddonContainerImpl( Paths.get( file.getPath() ) ) );
-					classLoader.addURL( file.toURI().toURL() );  // add to classloader only _after_ we made sure that it's an LC addon
-				} catch ( IOException | IllegalStateException e ) {
-					logger.error( "Failed to load possible LC addon {}: {}", file, e.getMessage() );
-				}
-			}
-		}
-		logger.info( " - Found {} addons", addonContainerImpls.size() - addonFromModsFolder );
-
-		logger.info( "Instantiating {} addons", addonContainerImpls.size() );
-		for ( AddonContainer container : addonContainerImpls ) {
+			} );
+		logger.info( "Instantiating {} addons", containers.size() );
+		for ( AddonContainerImpl container : containers ) {
 			try {
-				Class<?> classToLoad = Class.forName( container.getMainClass(), true, classLoader );
-				if ( Addon.class.isAssignableFrom( classToLoad ) ) {
-					Class<? extends Addon> addonToLoad = (Class<? extends Addon>) classToLoad;
-					// set the first Instance-annotated static field to the instance
-					for ( Field field : classToLoad.getFields() ) {
-						if ( Modifier.isStatic( field.getModifiers() ) && field.isAnnotationPresent( Instance.class ) ) {
-							logger.info( " - Addon {} is using the Instance annotation! Using their provided instance.", container.getId() );
-							field.setAccessible( true );
-							set( container, "implementation", (Addon) field.get( null ), Addon.class );
-							break;
-						}
-					}
-					if ( get( container, "implementation", Addon.class ) == null )
-						set( container, "implementation", addonToLoad.getDeclaredConstructor().newInstance(), Addon.class );
-				} else {
-					logger.error( "Addon " + container.getId() + " has a main class that doesn't implement the `Addon` interface!" );
-				}
+				Class<?> clazz = Class.forName( container.getMainClass(), true, classLoader );
+				if ( Addon.class.isAssignableFrom( clazz ) )
+					construct( container, (Class<? extends Addon>) clazz );
+				else
+					logger.error( "`{}`'s main class does not implement the `Addon` interface!", container.getId() );
 			} catch ( ReflectiveOperationException e ) {
 				logger.error( "can't load addon file: " + container.getPath(), e );
 			}
 		}
-		logger.info(
-			"Finished loading {} addons with {} fails",
-			addonContainerImpls.size(),
-			addonContainerImpls.stream().filter( AddonContainer::didFailToLoad ).count()
-		);
+		List<AddonContainer> list = containers.stream()
+			.filter( AddonContainer::didFailToLoad )
+			.collect( Collectors.toList());
+		logger.info( "Finished loading {} addons with {} fails", containers.size(), list.size() );
+		if ( Boolean.getBoolean( "lc.debug.crashOnFail" ) && !list.isEmpty() )
+			throw new RuntimeException( String.format( "LoaderComplex: %s addons failed to initialize!", list.size() ) );
 	}
 
 	@Override
 	public List<AddonContainer> getAddons() {
-		return this.addonContainerImpls.stream().map( AddonContainer.class::cast ).collect( Collectors.toList() );
+		return this.containers.stream()
+			.map( AddonContainer.class::cast )
+			.collect( Collectors.toList() );
 	}
 
-	private static class DynamicClassLoader extends URLClassLoader {
-		public DynamicClassLoader() {
-			super( new URL[] {}, AddonLoaderImpl.class.getClassLoader() );
+	/**
+	 * Handles the fields of this addon implementation class, setting and getting requested stuff.
+	 *
+	 * @param container the addon's container.
+	 * @param clazz     the addon's class.
+	 */
+	private void construct( AddonContainerImpl container, Class<? extends Addon> clazz ) throws ReflectiveOperationException {
+		boolean implemented = false;
+
+		for ( Field field : clazz.getFields() ) {
+			if ( field.isSynthetic() )
+				continue;
+
+			// set the first Instance-annotated static field to the instance
+			if ( !implemented && isStatic( field.getModifiers() ) && field.isAnnotationPresent( Instance.class ) ) {
+				logger.info( " - Addon {} is using the Instance annotation! Using their provided instance.", container.getId() );
+				field.setAccessible( true );
+				container.implementation = (Addon) field.get( null );
+				implemented = true;
+			}
 		}
 
-		@Override
-		public void addURL( URL url ) {
-			super.addURL( url );
-		}
+		if (! implemented )
+			container.implementation = clazz.getDeclaredConstructor().newInstance();
 	}
-
 }
