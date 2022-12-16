@@ -1,11 +1,10 @@
 package com.enderzombi102.loadercomplex.forge18.impl;
 
-import com.enderzombi102.loadercomplex.Utils;
 import com.enderzombi102.loadercomplex.minecraft.block.Blockstate;
 import com.enderzombi102.loadercomplex.minecraft.entity.Entity;
 import com.enderzombi102.loadercomplex.minecraft.entity.ItemEntity;
 import com.enderzombi102.loadercomplex.minecraft.item.ItemStack;
-import com.enderzombi102.loadercomplex.api.utils.FactoryWorld;
+import com.enderzombi102.loadercomplex.minecraft.util.FactoryWorld;
 import com.enderzombi102.loadercomplex.minecraft.util.ResourceIdentifier;
 import com.enderzombi102.loadercomplex.minecraft.util.Server;
 import com.enderzombi102.loadercomplex.minecraft.world.World;
@@ -26,7 +25,7 @@ public class ForgeFactoryWorld implements FactoryWorld {
 		Item item = RegistryManager.ACTIVE.getRegistry( Registry.ITEM_KEY )
 				.getValue( new Identifier( type.getNamespace(), type.getPath() ) );
 		if ( item == null )
-			throw new IllegalArgumentException( Utils.format( "Item \"{}\" does not exist!", type ) );
+			throw new IllegalArgumentException( String.format( "Item \"%s\" does not exist!", type ) );
 		return new ForgeItemStack( new net.minecraft.item.ItemStack( item ) );
 	}
 
@@ -35,7 +34,7 @@ public class ForgeFactoryWorld implements FactoryWorld {
 		var entityType = RegistryManager.ACTIVE.getRegistry( Registry.ENTITY_TYPE_KEY )
 				.getValue( new Identifier( type.getNamespace(), type.getPath() ) );
 		if ( entityType == null )
-			throw new IllegalArgumentException( Utils.format( "Entity \"{}\" does not exist!", type ) );
+			throw new IllegalArgumentException( String.format( "Entity \"%s\" does not exist!", type ) );
 		return new ForgeEntity( entityType.create( (net.minecraft.world.World) world.getObject() ) );
 	}
 
@@ -53,7 +52,7 @@ public class ForgeFactoryWorld implements FactoryWorld {
 		Block block = RegistryManager.ACTIVE.getRegistry( Registry.BLOCK_KEY )
 				.getValue( new Identifier( type.getNamespace(), type.getPath() ) );
 		if ( block == null )
-			throw new IllegalArgumentException( Utils.format( "Block \"{}\" does not exist!", type ) );
+			throw new IllegalArgumentException( String.format( "Block \"%s\" does not exist!", type ) );
 		return new ForgeBlockstate( block.getDefaultState() );
 	}
 

@@ -1,9 +1,9 @@
 package com.enderzombi102.loadercomplex.quilt.impl;
 
 import com.enderzombi102.loadercomplex.api.Loader;
-import com.enderzombi102.loadercomplex.api.utils.Registry;
-import com.enderzombi102.loadercomplex.api.utils.FactoryWorld;
-import com.enderzombi102.loadercomplex.api.utils.LoaderType;
+import com.enderzombi102.loadercomplex.minecraft.util.FactoryWorld;
+import com.enderzombi102.loadercomplex.api.utils.Platform;
+import com.enderzombi102.loadercomplex.minecraft.util.Registry;
 import com.enderzombi102.loadercomplex.api.utils.Version;
 import org.jetbrains.annotations.NotNull;
 
@@ -24,7 +24,7 @@ public class QuiltLoader implements Loader {
 	private final Registry registry = new QuiltRegistry();
 
 	@Override
-	public @NotNull LoaderType getPlatform() {
+	public @NotNull Platform getPlatform() {
 		return LoaderType.Quilt;
 	}
 

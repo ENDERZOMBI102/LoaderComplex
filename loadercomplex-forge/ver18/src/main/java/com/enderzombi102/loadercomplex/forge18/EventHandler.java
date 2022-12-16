@@ -1,7 +1,5 @@
 package com.enderzombi102.loadercomplex.forge18;
 
-import com.enderzombi102.loadercomplex.api.event.client.ClientChatEventData;
-import com.enderzombi102.loadercomplex.api.event.server.ServerChatEventData;
 import com.enderzombi102.loadercomplex.forge18.impl.ForgeRegistry;
 import com.enderzombi102.loadercomplex.forge18.impl.entity.ForgePlayer;
 import net.minecraft.block.Block;

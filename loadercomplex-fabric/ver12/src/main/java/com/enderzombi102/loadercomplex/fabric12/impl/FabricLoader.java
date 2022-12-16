@@ -3,9 +3,9 @@ package com.enderzombi102.loadercomplex.fabric12.impl;
 
 import com.enderzombi102.loadercomplex.api.Loader;
 import com.enderzombi102.loadercomplex.api.Registry;
-import com.enderzombi102.loadercomplex.api.utils.FactoryWorld;
-import com.enderzombi102.loadercomplex.api.utils.LoaderType;
-import com.enderzombi102.loadercomplex.api.utils.Version;
+import com.enderzombi102.loadercomplex.minecraft.util.FactoryWorld;
+import com.enderzombi102.loadercomplex.minecraft.util.LoaderType;
+import com.enderzombi102.loadercomplex.minecraft.util.Version;
 import net.fabricmc.loader.api.VersionParsingException;
 
 import java.time.LocalDateTime;

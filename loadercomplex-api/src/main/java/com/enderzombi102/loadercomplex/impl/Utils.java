@@ -33,13 +33,8 @@ public final class Utils {
 			);
 		// FIXME: only works on prod?
 		try {
-			final Attributes fest = new Manifest(
-					Utils.class.getResourceAsStream("META-INF/MANIFEST.MF")
-			).getMainAttributes();
-			return new Version(
-					fest.getValue("ApiVersion"),
-					fest.getValue("Implementation-Timestamp")
-			);
+			final Attributes fest = new Manifest( Utils.class.getResourceAsStream("/META-INF/MANIFEST.MF") ).getMainAttributes();
+			return new Version( fest.getValue( "Specification-Version" ), fest.getValue("Implementation-Timestamp") );
 		} catch (IOException ignored) {
 			throw new IllegalStateException("Failed to read manifest from LoaderComplex's jar");
 		}

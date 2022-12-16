@@ -5,11 +5,11 @@ import com.enderzombi102.loadercomplex.fabric12.imixin.IItemMixin;
 import com.enderzombi102.loadercomplex.fabric12.impl.block.FabricBlock;
 import com.enderzombi102.loadercomplex.fabric12.impl.item.FabricItem;
 import com.enderzombi102.loadercomplex.api.Registry;
-import com.enderzombi102.loadercomplex.api.block.Block;
-import com.enderzombi102.loadercomplex.api.entity.Entity;
-import com.enderzombi102.loadercomplex.api.item.Item;
-import com.enderzombi102.loadercomplex.api.utils.RegistryKey;
-import com.enderzombi102.loadercomplex.api.utils.ResourceIdentifier;
+import com.enderzombi102.loadercomplex.minecraft.block.Block;
+import com.enderzombi102.loadercomplex.minecraft.entity.Entity;
+import com.enderzombi102.loadercomplex.minecraft.item.Item;
+import com.enderzombi102.loadercomplex.minecraft.util.RegistryKey;
+import com.enderzombi102.loadercomplex.minecraft.util.ResourceIdentifier;
 import com.enderzombi102.loadercomplex.fabric12.impl.utils.ItemGroupBuilder;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.BlockItem;
@@ -24,7 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.enderzombi102.loadercomplex.api.utils.ResourceIdentifier.ri;
+import static com.enderzombi102.loadercomplex.minecraft.util.ResourceIdentifier.ri;
 
 public class FabricRegistry implements Registry {
 	private final List<net.minecraft.item.Item> registeredItems = new ArrayList<>();

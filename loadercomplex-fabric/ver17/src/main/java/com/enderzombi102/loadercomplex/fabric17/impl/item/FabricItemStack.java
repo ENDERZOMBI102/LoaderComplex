@@ -1,6 +1,6 @@
 package com.enderzombi102.loadercomplex.fabric17.impl.item;
 
-import com.enderzombi102.loadercomplex.api.item.ItemStack;
+import com.enderzombi102.loadercomplex.minecraft.item.ItemStack;
 import net.minecraft.text.LiteralText;
 
 public class FabricItemStack implements ItemStack {

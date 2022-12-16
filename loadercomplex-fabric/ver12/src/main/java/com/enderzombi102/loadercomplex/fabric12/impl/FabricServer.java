@@ -1,6 +1,6 @@
 package com.enderzombi102.loadercomplex.fabric12.impl;
 
-import com.enderzombi102.loadercomplex.api.utils.Server;
+import com.enderzombi102.loadercomplex.minecraft.util.Server;
 import net.minecraft.server.MinecraftServer;
 
 public class FabricServer implements Server {

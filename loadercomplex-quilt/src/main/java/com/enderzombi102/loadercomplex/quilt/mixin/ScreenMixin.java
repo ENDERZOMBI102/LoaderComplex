@@ -1,6 +1,5 @@
 package com.enderzombi102.loadercomplex.quilt.mixin;
 
-import com.enderzombi102.loadercomplex.api.event.client.ClientChatEventData;
 import com.enderzombi102.loadercomplex.quilt.LoaderComplexQuilt;
 import com.enderzombi102.loadercomplex.quilt.impl.entity.QuiltPlayer;
 import net.minecraft.client.MinecraftClient;

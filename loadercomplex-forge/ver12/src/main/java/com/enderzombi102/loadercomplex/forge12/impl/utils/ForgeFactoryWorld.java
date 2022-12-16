@@ -1,6 +1,6 @@
 package com.enderzombi102.loadercomplex.forge12.impl.utils;
 
-import com.enderzombi102.loadercomplex.api.utils.FactoryWorld;
+import com.enderzombi102.loadercomplex.minecraft.util.FactoryWorld;
 import com.enderzombi102.loadercomplex.forge12.impl.block.ForgeBlockstate;
 import com.enderzombi102.loadercomplex.forge12.impl.entity.ForgeEntity;
 import com.enderzombi102.loadercomplex.forge12.impl.entity.ForgeItemEntity;

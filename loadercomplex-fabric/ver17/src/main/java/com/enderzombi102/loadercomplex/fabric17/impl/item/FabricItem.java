@@ -1,8 +1,8 @@
 package com.enderzombi102.loadercomplex.fabric17.impl.item;
 
 
-import com.enderzombi102.loadercomplex.api.item.Item;
-import com.enderzombi102.loadercomplex.api.utils.Hand;
+import com.enderzombi102.loadercomplex.minecraft.item.Item;
+import com.enderzombi102.loadercomplex.minecraft.util.Hand;
 import com.enderzombi102.loadercomplex.fabric17.impl.block.FabricBlockstate;
 import com.enderzombi102.loadercomplex.fabric17.impl.entity.FabricEntity;
 import com.enderzombi102.loadercomplex.fabric17.impl.entity.FabricLivingEntity;
@@ -53,7 +53,7 @@ public class FabricItem extends net.minecraft.item.Item {
 				new FabricPlayer( ctx.getPlayer() ),
 				BlockUtils.toPosition( ctx.getBlockPos() ),
 				Hand.valueOf( ctx.getHand().name() ),
-				com.enderzombi102.loadercomplex.api.utils.Direction.valueOf( ctx.getPlayerFacing().name() )
+				com.enderzombi102.loadercomplex.minecraft.util.Direction.valueOf( ctx.getPlayerFacing().name() )
 			).name()
 		);
 	}

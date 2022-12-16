@@ -1,14 +1,14 @@
 package com.enderzombi102.loadercomplex.fabric12.impl.world;
 
 import com.enderzombi102.enderlib.Strings;
-import com.enderzombi102.loadercomplex.api.utils.*;
+import com.enderzombi102.loadercomplex.minecraft.util.*;
 import com.enderzombi102.loadercomplex.fabric12.impl.FabricServer;
 import com.enderzombi102.loadercomplex.fabric12.impl.block.FabricBlockstate;
 import com.enderzombi102.loadercomplex.fabric12.impl.utils.BlockUtils;
-import com.enderzombi102.loadercomplex.api.block.Blockstate;
-import com.enderzombi102.loadercomplex.api.entity.Entity;
-import com.enderzombi102.loadercomplex.api.entity.Player;
-import com.enderzombi102.loadercomplex.api.world.World;
+import com.enderzombi102.loadercomplex.minecraft.block.Blockstate;
+import com.enderzombi102.loadercomplex.minecraft.entity.Entity;
+import com.enderzombi102.loadercomplex.minecraft.entity.Player;
+import com.enderzombi102.loadercomplex.minecraft.world.World;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.sound.SoundCategory;
 import net.minecraft.entity.player.PlayerEntity;

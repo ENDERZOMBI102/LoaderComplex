@@ -1,9 +1,9 @@
 package com.enderzombi102.loadercomplex.fabric17.impl.entity;
 
 import com.enderzombi102.loadercomplex.fabric17.impl.utils.BlockUtils;
-import com.enderzombi102.loadercomplex.api.entity.Player;
-import com.enderzombi102.loadercomplex.api.utils.Gamemode;
-import com.enderzombi102.loadercomplex.api.utils.Position;
+import com.enderzombi102.loadercomplex.minecraft.entity.Player;
+import com.enderzombi102.loadercomplex.minecraft.util.Gamemode;
+import com.enderzombi102.loadercomplex.minecraft.util.Position;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;

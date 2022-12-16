@@ -1,7 +1,7 @@
 package com.enderzombi102.loadercomplex.forge12.impl.utils;
 
-import com.enderzombi102.loadercomplex.api.utils.Platform;
-import com.enderzombi102.loadercomplex.api.utils.Version;
+import com.enderzombi102.loadercomplex.minecraft.util.Platform;
+import com.enderzombi102.loadercomplex.minecraft.util.Version;
 import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.common.ForgeVersion;
 import org.jetbrains.annotations.NotNull;

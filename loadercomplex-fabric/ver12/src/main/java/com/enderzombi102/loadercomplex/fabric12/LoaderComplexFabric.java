@@ -1,7 +1,7 @@
 package com.enderzombi102.loadercomplex.fabric12;
 
 import com.enderzombi102.loadercomplex.fabric12.impl.FabricLoader;
-import com.enderzombi102.loadercomplex.impl.LoaderComplexBase;
+import com.enderzombi102.loadercomplex.impl.LoaderComplex;
 import com.enderzombi102.loadercomplex.api.Loader;
 import net.fabricmc.api.ModInitializer;
 import org.slf4j.Logger;
@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 
-public class LoaderComplexFabric extends LoaderComplexBase implements ModInitializer {
+public class LoaderComplexFabric extends LoaderComplex implements ModInitializer {
 	public static final Logger LOGGER = LoggerFactory.getLogger("LoaderComplex | Fabric12");
 	public static final ArrayList<FabricResourcePack> packs = new ArrayList<>();
 	public static LoaderComplexFabric INSTANCE;

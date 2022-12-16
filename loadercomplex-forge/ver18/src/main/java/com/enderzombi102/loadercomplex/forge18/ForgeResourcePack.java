@@ -1,7 +1,6 @@
 package com.enderzombi102.loadercomplex.forge18;
 
-import com.enderzombi102.loadercomplex.Utils;
-import com.enderzombi102.loadercomplex.impl.addon.AddonContainerImpl;
+import com.enderzombi102.loadercomplex.api.addon.AddonContainer;
 import com.google.common.base.Charsets;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
@@ -30,9 +29,9 @@ public class ForgeResourcePack extends AbstractFileResourcePack {
 	private static final Logger LOGGER = LogManager.getLogger("LoaderComplex | ResourceManager");
 	// https://minecraft.fandom.com/wiki/Tutorials/Creating_a_resource_pack#.22pack_format.22
 	private static final int PACK_FORMAT_VERSION = 8; // format for 1.6.1 – 1.8.9
-	private final List<AddonContainerImpl> containers;
+	private final List<AddonContainer> containers;
 
-	public ForgeResourcePack(List<AddonContainerImpl> containers) {
+	public ForgeResourcePack(List<AddonContainer> containers) {
 		super( null );
 		this.containers = containers;
 	}
@@ -48,8 +47,8 @@ public class ForgeResourcePack extends AbstractFileResourcePack {
 				if ( "pack.mcmeta".equals(filename) ) {
 					// fake file, return a "custom" entry
 					return IOUtils.toInputStream(
-						Utils.format(
-							"{\"pack\":{\"pack_format\":{},\"description\":\"Resources for {} addon{}\"}}",
+						String.format(
+							"{\"pack\":{\"pack_format\":%s,\"description\":\"Resources for %s addon%s\"}}",
 							PACK_FORMAT_VERSION,
 							containers.size(),
 							containers.size() == 1 ? "" : "s"
@@ -72,17 +71,17 @@ public class ForgeResourcePack extends AbstractFileResourcePack {
 					var lang = new StringBuilder("{");
 					for ( var line : lines ) {
 						var parts = line.split("=", 2);
-						lang.append( Utils.format(
-							"\"{}\": \"{}\",",
+						lang.append( String.format(
+							"\"%s\": \"%s\",",
 							parts[0].replace("tile", "block")
 									.replace(".name", ""),
 							parts[1]
 						));
 					}
 					var data = lang.substring( 0, lang.length() - 1 ) + "}";
-					LOGGER.debug( Utils.format( "--- START {} LANG JSON ----", container.getId() ) );
+					LOGGER.debug( String.format( "--- START %s LANG JSON ----", container.getId() ) );
 					LOGGER.debug( data );
-					LOGGER.debug( Utils.format( "--- END {} LANG JSON ----", container.getId() ) );
+					LOGGER.debug( String.format( "--- END %s LANG JSON ----", container.getId() ) );
 
 					return IOUtils.toInputStream( data, Charsets.UTF_8);
 				}
@@ -146,7 +145,7 @@ public class ForgeResourcePack extends AbstractFileResourcePack {
 	@Override
 	public Set<String> getNamespaces(ResourceType type) {
 		return containers.stream()
-			.map( AddonContainerImpl::getAddonJar )
+			.map( AddonContainer::getAddonJar )
 			.map( JarFile::entries )
 			.flatMap( entries -> Collections.list( entries ).stream() )
 			.filter( JarEntry::isDirectory )

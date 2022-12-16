@@ -1,6 +1,6 @@
 package com.enderzombi102.loadercomplex.fabric17.impl.utils;
 
-import com.enderzombi102.loadercomplex.api.utils.Position;
+import com.enderzombi102.loadercomplex.minecraft.util.Position;
 import net.minecraft.util.math.BlockPos;
 
 public class BlockUtils {

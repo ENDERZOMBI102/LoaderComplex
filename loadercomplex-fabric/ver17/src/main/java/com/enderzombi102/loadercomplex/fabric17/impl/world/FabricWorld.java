@@ -1,11 +1,11 @@
 package com.enderzombi102.loadercomplex.fabric17.impl.world;
 
 import com.enderzombi102.loadercomplex.Utils;
-import com.enderzombi102.loadercomplex.api.block.Blockstate;
-import com.enderzombi102.loadercomplex.api.entity.Entity;
-import com.enderzombi102.loadercomplex.api.entity.Player;
-import com.enderzombi102.loadercomplex.api.utils.*;
-import com.enderzombi102.loadercomplex.api.world.World;
+import com.enderzombi102.loadercomplex.minecraft.block.Blockstate;
+import com.enderzombi102.loadercomplex.minecraft.entity.Entity;
+import com.enderzombi102.loadercomplex.minecraft.entity.Player;
+import com.enderzombi102.loadercomplex.minecraft.util.*;
+import com.enderzombi102.loadercomplex.minecraft.world.World;
 import com.enderzombi102.loadercomplex.fabric17.impl.FabricServer;
 import com.enderzombi102.loadercomplex.fabric17.impl.block.FabricBlockstate;
 import com.enderzombi102.loadercomplex.fabric17.impl.utils.BlockUtils;

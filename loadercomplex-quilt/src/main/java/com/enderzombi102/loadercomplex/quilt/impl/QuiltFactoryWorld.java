@@ -1,11 +1,10 @@
 package com.enderzombi102.loadercomplex.quilt.impl;
 
-import com.enderzombi102.loadercomplex.Utils;
 import com.enderzombi102.loadercomplex.minecraft.block.Blockstate;
 import com.enderzombi102.loadercomplex.minecraft.entity.Entity;
 import com.enderzombi102.loadercomplex.minecraft.entity.ItemEntity;
 import com.enderzombi102.loadercomplex.minecraft.item.ItemStack;
-import com.enderzombi102.loadercomplex.api.utils.FactoryWorld;
+import com.enderzombi102.loadercomplex.minecraft.util.FactoryWorld;
 import com.enderzombi102.loadercomplex.minecraft.util.ResourceIdentifier;
 import com.enderzombi102.loadercomplex.minecraft.util.Server;
 import com.enderzombi102.loadercomplex.minecraft.world.World;
@@ -25,7 +24,7 @@ public class QuiltFactoryWorld implements FactoryWorld {
 		Item item = Registry.ITEM.get( new Identifier( type.getNamespace(), type.getPath() ) );
 		//noinspection ConstantConditions
 		if ( item == null )
-			throw new IllegalArgumentException( Utils.format( "Item \"{}\" does not exist!", type ) );
+			throw new IllegalArgumentException( String.format( "Item \"%s\" does not exist!", type ) );
 		return new QuiltItemStack( new net.minecraft.item.ItemStack( item ) );
 	}
 
@@ -34,7 +33,7 @@ public class QuiltFactoryWorld implements FactoryWorld {
 		var entityType = Registry.ENTITY_TYPE.get( new Identifier( type.getNamespace(), type.getPath() ) );
 		//noinspection ConstantConditions
 		if ( entityType == null )
-			throw new IllegalArgumentException( Utils.format( "Entity \"{}\" does not exist!", type ) );
+			throw new IllegalArgumentException( String.format( "Entity \"%s\" does not exist!", type ) );
 		return new QuiltEntity( entityType.create( (net.minecraft.world.World) world.getObject() ) );
 	}
 
@@ -52,7 +51,7 @@ public class QuiltFactoryWorld implements FactoryWorld {
 		Block block = Registry.BLOCK.get( new Identifier( type.getNamespace(), type.getPath() ) );
 		//noinspection ConstantConditions
 		if ( block == null )
-			throw new IllegalArgumentException( Utils.format( "Block \"{}\" does not exist!", type ) );
+			throw new IllegalArgumentException( String.format( "Block \"%s\" does not exist!", type ) );
 		return new QuiltBlockstate( block.getDefaultState() );
 	}
 

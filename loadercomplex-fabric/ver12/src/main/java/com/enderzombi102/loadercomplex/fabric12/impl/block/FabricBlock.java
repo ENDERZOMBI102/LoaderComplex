@@ -4,7 +4,7 @@ import com.enderzombi102.loadercomplex.fabric12.impl.entity.FabricEntity;
 import com.enderzombi102.loadercomplex.fabric12.impl.entity.FabricPlayer;
 import com.enderzombi102.loadercomplex.fabric12.impl.utils.BlockUtils;
 import com.enderzombi102.loadercomplex.fabric12.impl.world.FabricWorld;
-import com.enderzombi102.loadercomplex.api.block.Block;
+import com.enderzombi102.loadercomplex.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
 import net.minecraft.entity.Entity;
@@ -44,8 +44,8 @@ public class FabricBlock extends net.minecraft.block.Block {
 			BlockUtils.toPosition( pos ),
 			new FabricBlockstate( state ),
 			new FabricPlayer( player ),
-			com.enderzombi102.loadercomplex.api.utils.Hand.valueOf( hand.name() ),
-			com.enderzombi102.loadercomplex.api.utils.Direction.valueOf( facing.name() ),
+			com.enderzombi102.loadercomplex.minecraft.util.Hand.valueOf( hand.name() ),
+			com.enderzombi102.loadercomplex.minecraft.util.Direction.valueOf( facing.name() ),
 			hitX, hitY, hitZ
 		);
 	}

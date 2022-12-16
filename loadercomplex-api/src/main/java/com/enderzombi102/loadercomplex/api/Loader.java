@@ -1,10 +1,10 @@
 package com.enderzombi102.loadercomplex.api;
 
 import com.enderzombi102.eventsystem.EventSystem;
-import com.enderzombi102.loadercomplex.api.utils.FactoryWorld;
-import com.enderzombi102.loadercomplex.api.utils.I18nSystem;
+import com.enderzombi102.loadercomplex.minecraft.util.FactoryWorld;
+import com.enderzombi102.loadercomplex.minecraft.util.I18nSystem;
 import com.enderzombi102.loadercomplex.api.utils.Platform;
-import com.enderzombi102.loadercomplex.api.utils.Registry;
+import com.enderzombi102.loadercomplex.minecraft.util.Registry;
 import org.jetbrains.annotations.ApiStatus.AvailableSince;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;

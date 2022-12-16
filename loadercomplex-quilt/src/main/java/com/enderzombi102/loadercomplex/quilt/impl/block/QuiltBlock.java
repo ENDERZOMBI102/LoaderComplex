@@ -1,6 +1,6 @@
 package com.enderzombi102.loadercomplex.quilt.impl.block;
 
-import com.enderzombi102.loadercomplex.api.utils.Supplier;
+import com.enderzombi102.enderlib.interfaces.Getter;
 import com.enderzombi102.loadercomplex.minecraft.block.Block;
 import com.enderzombi102.loadercomplex.minecraft.util.Direction;
 import com.enderzombi102.loadercomplex.quilt.impl.entity.QuiltEntity;
@@ -30,7 +30,7 @@ public class QuiltBlock extends net.minecraft.block.Block {
 
 	public QuiltBlock(Block block) {
 		super(
-			( (Supplier<QuiltBlockSettings>) () -> {
+			( (Getter<QuiltBlockSettings>) () -> {
 				var settings =  QuiltBlockSettings.of( Material.STONE )
 					.slipperiness( block.slipperiness )
 					.hardness( block.hardness )
