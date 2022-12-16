@@ -3,7 +3,7 @@ plugins {
 	`maven-publish`
 }
 
-version = "0.2.0"
+version = project.ext["api"] as String
 
 dependencies {
 	implementation( libs.slf4j )

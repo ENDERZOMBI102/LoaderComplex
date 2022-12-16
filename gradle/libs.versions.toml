@@ -10,8 +10,6 @@
 	fabric_loader = '0.14.9'
 	mixins = '0.11.4+mixin.0.8.5'
 
-	api = "0.2.0"
-
 [libraries]
 	annotations = { module = 'org.jetbrains:annotations', version.ref = 'annotations' }
 	enderlib = { module = 'com.enderzombi102.EnderLib:jvm8', version.ref = 'enderlib' }

@@ -5,5 +5,5 @@ API 0.2.0
   - Separated packages into API and IMPL
 - Non-breaking Changes
   - Added an event system
-  - Added chat events: `lc.server.chat.receive`, `lc.client.chat.send`, `lc.client.chat.receive` events
-  - Added server events: `lc.server.command.register`
+  - Added chat client/server events: `lc.server.chat.receive`, `lc.client.chat.send`, `lc.client.chat.receive` events
+  - Added server command registration event: `lc.server.command.register`

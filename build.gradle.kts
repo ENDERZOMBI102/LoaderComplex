@@ -5,8 +5,8 @@ import java.time.format.DateTimeFormatter.ofPattern
 
 plugins {
 	// plugins for the subprojects, no need to apply here
-	id( "dev.architectury.loom" ) version "0.12.+" apply false
-	id( "org.quiltmc.loom" ) version "0.12.+" apply false
+	id( "dev.architectury.loom" ) version "1.+" apply false
+	id( "org.quiltmc.loom" ) version "1.+" apply false
 	// root project plugins
 	id( "com.github.johnrengelman.shadow") version "7.1.2"
 	java
@@ -47,7 +47,6 @@ subprojects {
 				}
 			}
 			runtimeOnlyLog4j.set(true)
-			shareRemapCaches.set(true)
 		}
 
 		artifacts.add( "jarz", tasks["remapJar"] )
@@ -67,14 +66,16 @@ subprojects {
 	}
 
 	tasks.withType<JavaCompile> {
-		sourceCompatibility = project.ext["java_version"] as String
+		val java_version: String by project
+		sourceCompatibility = java_version
 		options.encoding = "UTF-8"
-		options.release.set( Integer.valueOf( sourceCompatibility ) )
+		options.release.set( java_version.toInt() )
 	}
 }
 
 val subProjects: List<String> = rootProject.subprojects
 	.stream()
+	.filter { it.parent == rootProject }
 	.map( Project::getName )
 	.toList()
 
@@ -99,7 +100,7 @@ tasks.withType<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar> {
 	manifest.attributes(
 		"Specification-Title"      to "LoaderComplex",
 		"Specification-Vendor"     to "Aurora Inhabitants",
-		"Specification-Version"    to libs.versions.api, // bundled api version
+		"Specification-Version"    to project.ext["api"], // bundled api version
 		"Implementation-Title"     to project.name,
 		"Implementation-Version"   to archiveVersion, // mod version
 		"Implementation-Vendor"    to "Aurora Inhabitants",
