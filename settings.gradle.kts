@@ -3,7 +3,6 @@
 enableFeaturePreview("VERSION_CATALOGS")
 pluginManagement {
 	repositories {
-		mavenLocal()
 		mavenCentral()
 		gradlePluginPortal()
 		maven( url="https://jitpack.io" )
@@ -14,7 +13,6 @@ pluginManagement {
 		maven( url="https://files.minecraftforge.net/maven" )
 		maven( url="https://storage.googleapis.com/devan-maven" )
 		maven( url="https://maven.quiltmc.org/repository/release" )
-		maven( url="https://maven.quiltmc.org/repository/snapshot" )
 		maven( url="https://server.bbkr.space/artifactory/libs-release" )
 		ivy {
 			url = uri("https://github.com/CoolCrabs/brachyura/releases/download/v_962e7d8383220fdeff168b2ac521a6edda840c91")
@@ -33,12 +31,15 @@ pluginManagement {
 }
 
 include("loadercomplex-api")
-include("loadercomplex-forge-12")
-include("loadercomplex-forge-18")
-//include("loadercomplex-fabric-common")
-//include("loadercomplex-fabric-12")
-//include("loadercomplex-fabric-17")
-include("loadercomplex-fabric")
 include("loadercomplex-quilt")
+
+include("loadercomplex-forge")
+include("loadercomplex-forge:ver12")
+include("loadercomplex-forge:ver18")
+
+include("loadercomplex-fabric")
+include("loadercomplex-fabric:ver12")
+include("loadercomplex-fabric:ver17")
+include("loadercomplex-fabric:common")
 
 rootProject.name = "loadercomplex"

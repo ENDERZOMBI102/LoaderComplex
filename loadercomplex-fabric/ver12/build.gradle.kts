@@ -1,5 +1,4 @@
 @file:Suppress("UnstableApiUsage", "PropertyName")
-
 val mappings: String by project
 val minecraft_version: String by project
 val modmenu_version: String by project
@@ -17,5 +16,5 @@ dependencies {
 	modImplementation( libs.fabric.loader )
 
 	modImplementation( "com.enderzombi102:modmenu-legacy:$modmenu_version+$minecraft_version" )
-	implementation( project(":loadercomplex-fabric-common") )
+	implementation( project(":loadercomplex-fabric:common") )
 }

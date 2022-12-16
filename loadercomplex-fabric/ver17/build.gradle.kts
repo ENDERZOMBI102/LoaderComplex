@@ -1,5 +1,4 @@
 @file:Suppress("UnstableApiUsage", "PropertyName")
-
 val mappings: String by project
 val minecraft_version: String by project
 val modmenu_version: String by project
@@ -12,5 +11,5 @@ dependencies {
 
 	modImplementation( "net.fabricmc.fabric-api:fabric-api:$fabric_version" )
 	modImplementation( "com.terraformersmc:modmenu:$modmenu_version" )
-	implementation( project(":loadercomplex-fabric-common") )
+	implementation( project(":loadercomplex-fabric:common") )
 }
