@@ -33,7 +33,7 @@ public interface Platform {
 	 * Returns the API implementation version of this layer, might be different based on underlying loader.
 	 */
 	default @NotNull Version getApiVersion() {
-		return new Version( "0.2.0", Utils.getApiVersion( isDeveloperEnvironment() ).toString() );
+		return new Version( "0.2.0", Utils.getApiVersion().getBuildDate(), Utils.getApiVersion().getBuildTime() );
 	}
 
 	/**

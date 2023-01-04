@@ -15,7 +15,6 @@ public class LoaderComplexFabric extends LoaderComplex implements ModInitializer
 	public static LoaderComplexFabric INSTANCE;
 
 	public LoaderComplexFabric() {
-		super();
 		loader = new FabricLoader();
 		resourceHelper = mod -> packs.add( new FabricResourcePack(mod) );
 		INSTANCE = this;
@@ -29,5 +28,4 @@ public class LoaderComplexFabric extends LoaderComplex implements ModInitializer
 	public Loader getLoader() {
 		return loader;
 	}
-
 }

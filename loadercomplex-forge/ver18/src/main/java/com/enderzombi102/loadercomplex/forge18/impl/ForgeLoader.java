@@ -4,7 +4,6 @@ import com.enderzombi102.loadercomplex.api.Loader;
 import com.enderzombi102.loadercomplex.api.utils.Platform;
 import com.enderzombi102.loadercomplex.minecraft.util.Registry;
 import com.enderzombi102.loadercomplex.minecraft.util.FactoryWorld;
-import com.enderzombi102.loadercomplex.api.utils.Version;
 import com.enderzombi102.loadercomplex.forge18.LoaderComplexForge;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.loading.FMLLoader;
@@ -61,7 +60,7 @@ public class ForgeLoader implements Loader {
 	}
 
 	@Override
-	public @NotNull Version getApiVersion() {
-		return new Version( "0.1.3", LocalDateTime.now().format( DateTimeFormatter.ofPattern("dd-MM-yyyy'T'HH:mm:ss") ) );
+	public @NotNull Platform.Version getApiVersion() {
+		return new Platform.Version( "0.1.3", LocalDateTime.now().format( DateTimeFormatter.ofPattern("dd-MM-yyyy'T'HH:mm:ss") ) );
 	}
 }

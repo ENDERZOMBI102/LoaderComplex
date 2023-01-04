@@ -24,7 +24,6 @@ public interface Loader {
 	@AvailableSince( "0.2.0" )
 	@NotNull Platform getPlatform();
 
-
 	/**
 	 * Returns the registry implementation for this loader
 	 */

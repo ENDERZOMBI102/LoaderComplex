@@ -1,10 +1,10 @@
 package com.enderzombi102.loadercomplex.quilt.impl;
 
 import com.enderzombi102.loadercomplex.api.Loader;
+import com.enderzombi102.loadercomplex.api.utils.Version;
 import com.enderzombi102.loadercomplex.minecraft.util.FactoryWorld;
 import com.enderzombi102.loadercomplex.api.utils.Platform;
 import com.enderzombi102.loadercomplex.minecraft.util.Registry;
-import com.enderzombi102.loadercomplex.api.utils.Version;
 import org.jetbrains.annotations.NotNull;
 
 import java.time.LocalDateTime;

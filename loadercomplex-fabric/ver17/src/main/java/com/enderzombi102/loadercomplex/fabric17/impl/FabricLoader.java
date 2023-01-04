@@ -42,7 +42,7 @@ public class FabricLoader implements Loader {
 	}
 
 	@Override
-	public Registry getRegistry() {
+	public @NotNull Registry getRegistry() {
 		return registry;
 	}
 
@@ -67,7 +67,7 @@ public class FabricLoader implements Loader {
 	}
 
 	@Override
-	public FactoryWorld getFactoryWorld() {
+	public @NotNull FactoryWorld getFactoryWorld() {
 		return new FabricFactoryWorld();
 	}
 

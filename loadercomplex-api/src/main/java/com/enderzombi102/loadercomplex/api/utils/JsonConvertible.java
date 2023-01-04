@@ -1,4 +1,4 @@
-package com.enderzombi102.loadercomplex.minecraft.util;
+package com.enderzombi102.loadercomplex.api.utils;
 
 import blue.endless.jankson.JsonArray;
 import blue.endless.jankson.JsonElement;

@@ -17,7 +17,6 @@ public class LoaderComplexQuilt extends LoaderComplex implements ModInitializer 
 	public final List<QuiltResourcePack> packs = new ArrayList<>();
 
 	public LoaderComplexQuilt() {
-		super();
 		loader = new QuiltLoader();
 		resourceHelper = mod -> packs.add( new QuiltResourcePack(mod) );
 		INSTANCE = this;

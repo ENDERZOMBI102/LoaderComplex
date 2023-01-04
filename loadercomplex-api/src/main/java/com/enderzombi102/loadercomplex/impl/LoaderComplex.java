@@ -17,15 +17,17 @@ import java.util.function.Consumer;
 @Internal
 public abstract class LoaderComplex implements com.enderzombi102.loadercomplex.api.LoaderComplex {
 	private static boolean initialized = false;
+	public static LoaderComplex instance;
 	protected Consumer<AddonContainerImpl> resourceHelper = container -> { };
 	private final AddonLoaderImpl addonLoader = new AddonLoaderImpl();
 	protected Loader loader;
 
 	public LoaderComplex() {
 		this.addonLoader.loadAddons();
+		instance = this;
 	}
 
-	protected void initAddons() {
+    protected void initAddons() {
 		if (! initialized ) {
 			initialized = true;
 			for ( AddonContainer container : this.addonLoader.getAddons() ) {
@@ -42,9 +44,10 @@ public abstract class LoaderComplex implements com.enderzombi102.loadercomplex.a
 
 	@Override
 	public @NotNull Optional<AddonContainer> getContainer( @NotNull String id ) {
-		return this.addonLoader.getAddons().stream()
-				.filter( container -> container.getId().equals(id) )
-				.findFirst()
-				.map( AddonContainer.class::cast );
+		return this.addonLoader.getAddons()
+			.stream()
+			.filter( container -> container.getId().equals(id) )
+			.findFirst()
+			.map( AddonContainer.class::cast );
 	}
 }
