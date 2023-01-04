@@ -16,12 +16,20 @@ import java.util.stream.Collectors;
 import static com.enderzombi102.enderlib.collections.ListUtil.listOf;
 import static com.enderzombi102.enderlib.reflection.Getters.getStatic;
 
+/**
+ * Little helper class to bootstrap LoaderComplex with a classloader containing kotlin, no matter what.
+ */
 public class KotlinLoader {
     private static final ClassLoader LOADER = ensureKotlin();
+
+    /**
+     * Checks if the current {@link ClassLoader} has kotlin, if not, creates a new {@link DynamicClassLoader} with kotlin.
+     * @return a {@link ClassLoader} with kotlin on the classpath.
+     */
 	public static @NotNull ClassLoader ensureKotlin() {
 		Logger logger = LoggerFactory.getLogger( "LoaderComplex | KotlinLoader" );
 		ClassLoader loader = KotlinLoader.class.getClassLoader();
-		String version = "unknown";
+		String version;
 		logger.info( "Checking for kotlin..." );
 		try {
 			Class.forName( "kotlin.String", false, loader );
@@ -60,6 +68,11 @@ public class KotlinLoader {
 		return loader;
 	}
 
+    /**
+     * Creates an object of the specified class with the kotlin classloader.
+     * @param clazz path of the class to instantiate.
+     * @return an object of the given class.
+     */
     public static @NotNull Object bootstrap( @NotNull String clazz ) {
         try {
             return LOADER.loadClass( clazz ).getConstructor().newInstance();
