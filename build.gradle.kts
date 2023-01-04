@@ -1,10 +1,13 @@
 @file:Suppress("UnstableApiUsage", "LocalVariableName")
 import net.fabricmc.loom.LoomGradleExtension
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_1_8
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.time.LocalDateTime.now
 import java.time.format.DateTimeFormatter.ofPattern
 
 plugins {
 	// plugins for the subprojects, no need to apply here
+	id( "org.jetbrains.kotlin.jvm" ) version "1.8.0" apply false
 	id( "dev.architectury.loom" ) version "1.+" apply false
 	id( "org.quiltmc.loom" ) version "1.+" apply false
 	// root project plugins
@@ -28,6 +31,7 @@ allprojects {
 val api = project( ":loadercomplex-api" )
 subprojects {
 	apply( plugin = "java" )
+	apply( plugin = "org.jetbrains.kotlin.jvm" )
 
 	group = "com.enderzombi102.loadercomplex"
 	version = rootProject.version
@@ -40,10 +44,10 @@ subprojects {
 		( extensions["loom"] as LoomGradleExtension ).apply {
 			runConfigs {
 				named("client") {
-					runDir = rootProject.file("run").relativeTo(projectDir).path
+					runDir = rootProject.file("run").relativeTo( projectDir ).path
 				}
 				named("server") {
-					runDir = rootProject.file("run").relativeTo(projectDir).path
+					runDir = rootProject.file("run").relativeTo( projectDir ).path
 				}
 			}
 			runtimeOnlyLog4j.set(true)
@@ -54,6 +58,7 @@ subprojects {
 
 	dependencies {
 		implementation( rootProject.libs.annotations )
+		compileOnly( kotlin( "stdlib-jdk8" ) )
 		if ( name != api.name ) {
 			implementation( project( api.path ) ) {
 				isTransitive = false
@@ -70,6 +75,10 @@ subprojects {
 		sourceCompatibility = java_version
 		options.encoding = "UTF-8"
 		options.release.set( java_version.toInt() )
+	}
+
+	tasks.withType<KotlinCompile> {
+		compilerOptions.jvmTarget.set( JVM_1_8 )
 	}
 }
 

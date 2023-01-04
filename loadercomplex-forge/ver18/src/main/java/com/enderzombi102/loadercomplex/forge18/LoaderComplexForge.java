@@ -4,15 +4,12 @@ import com.enderzombi102.loadercomplex.impl.LoaderComplex;
 import com.enderzombi102.loadercomplex.api.Loader;
 import com.enderzombi102.loadercomplex.forge18.impl.ForgeLoader;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.Mod;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-// The value here should match an entry in the META-INF/mods.toml file
-@Mod("loadercomplex")
 public class LoaderComplexForge extends LoaderComplex {
 	// FIXME: Fix crash on start
-	public static final Logger LOGGER = LogManager.getLogger("LoaderComplex | Forge");
+	public static final Logger LOGGER = LoggerFactory.getLogger("LoaderComplex | Forge");
 	public static LoaderComplexForge INSTANCE;
 
 	public LoaderComplexForge() {
@@ -25,10 +22,5 @@ public class LoaderComplexForge extends LoaderComplex {
 
 	public Loader getLoader() {
 		return this.loader;
-	}
-
-	@Override
-	public void initAddons() {
-		super.initAddons();
 	}
 }

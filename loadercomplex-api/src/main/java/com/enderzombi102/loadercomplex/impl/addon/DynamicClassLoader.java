@@ -8,7 +8,7 @@ import java.net.URLClassLoader;
  */
 public class DynamicClassLoader extends URLClassLoader {
 	public DynamicClassLoader() {
-		super( new URL[0], AddonLoaderImpl.class.getClassLoader() );
+		super( new URL[0], DynamicClassLoader.class.getClassLoader() );
 	}
 
 	@Override

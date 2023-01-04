@@ -11,22 +11,16 @@ import net.minecraftforge.fml.common.ModContainer;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-@Mod(
-	modid = "loadercomplex",
-	name = "LoaderComplex",
-	version = "1.0.0",
-	acceptedMinecraftVersions = "1.12.2",
-	dependencies = "required:forge"
-)
+
 public class LoaderComplexForge extends LoaderComplex {
-	public static final Logger LOGGER = LogManager.getLogger("LoaderComplex | Forge12");
+	public static final Logger LOGGER = LoggerFactory.getLogger("LoaderComplex | Forge12");
 
 	public static LoaderComplexForge INSTANCE;
 	private final ModContainer container;

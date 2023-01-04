@@ -19,7 +19,7 @@
 		"environment": "*",
 		"entrypoints": {
 			"init": [
-				"com.enderzombi102.loadercomplex.quilt.LoaderComplexQuilt"
+				"com.enderzombi102.loadercomplex.quilt.QuiltBootstrap"
 			],
 			"modmenu": [
 				"com.enderzombi102.loadercomplex.quilt.compat.LoaderComplexModMenuEntrypoint"
