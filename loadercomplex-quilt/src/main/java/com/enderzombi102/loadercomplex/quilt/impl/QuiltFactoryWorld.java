@@ -1,13 +1,13 @@
 package com.enderzombi102.loadercomplex.quilt.impl;
 
-import com.enderzombi102.loadercomplex.minecraft.block.Blockstate;
-import com.enderzombi102.loadercomplex.minecraft.entity.Entity;
-import com.enderzombi102.loadercomplex.minecraft.entity.ItemEntity;
-import com.enderzombi102.loadercomplex.minecraft.item.ItemStack;
+import com.enderzombi102.loadercomplex.api.minecraft.block.Blockstate;
+import com.enderzombi102.loadercomplex.api.minecraft.entity.Entity;
+import com.enderzombi102.loadercomplex.api.minecraft.entity.ItemEntity;
+import com.enderzombi102.loadercomplex.api.minecraft.item.ItemStack;
 import com.enderzombi102.loadercomplex.minecraft.util.FactoryWorld;
-import com.enderzombi102.loadercomplex.minecraft.util.ResourceIdentifier;
-import com.enderzombi102.loadercomplex.minecraft.util.Server;
-import com.enderzombi102.loadercomplex.minecraft.world.World;
+import com.enderzombi102.loadercomplex.api.minecraft.util.ResourceIdentifier;
+import com.enderzombi102.loadercomplex.api.minecraft.util.Server;
+import com.enderzombi102.loadercomplex.api.minecraft.world.World;
 import com.enderzombi102.loadercomplex.quilt.impl.block.QuiltBlockstate;
 import com.enderzombi102.loadercomplex.quilt.impl.entity.QuiltEntity;
 import com.enderzombi102.loadercomplex.quilt.impl.entity.QuiltItemEntity;

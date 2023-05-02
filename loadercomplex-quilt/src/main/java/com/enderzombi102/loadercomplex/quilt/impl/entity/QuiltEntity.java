@@ -1,10 +1,10 @@
 package com.enderzombi102.loadercomplex.quilt.impl.entity;
 
-import com.enderzombi102.loadercomplex.minecraft.entity.Entity;
-import com.enderzombi102.loadercomplex.minecraft.entity.ItemEntity;
-import com.enderzombi102.loadercomplex.minecraft.entity.LivingEntity;
-import com.enderzombi102.loadercomplex.minecraft.util.Position;
-import com.enderzombi102.loadercomplex.minecraft.world.World;
+import com.enderzombi102.loadercomplex.api.minecraft.entity.Entity;
+import com.enderzombi102.loadercomplex.api.minecraft.entity.ItemEntity;
+import com.enderzombi102.loadercomplex.api.minecraft.entity.LivingEntity;
+import com.enderzombi102.loadercomplex.api.minecraft.util.Position;
+import com.enderzombi102.loadercomplex.api.minecraft.world.World;
 import com.enderzombi102.loadercomplex.quilt.impl.utils.BlockUtils;
 import com.enderzombi102.loadercomplex.quilt.impl.world.QuiltWorld;
 import net.minecraft.text.Text;

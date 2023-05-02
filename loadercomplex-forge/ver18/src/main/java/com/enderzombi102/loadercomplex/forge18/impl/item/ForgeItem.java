@@ -1,9 +1,9 @@
 package com.enderzombi102.loadercomplex.forge18.impl.item;
 
 
-import com.enderzombi102.loadercomplex.minecraft.item.Item;
-import com.enderzombi102.loadercomplex.minecraft.util.Direction;
-import com.enderzombi102.loadercomplex.minecraft.util.Hand;
+import com.enderzombi102.loadercomplex.api.minecraft.item.Item;
+import com.enderzombi102.loadercomplex.api.minecraft.util.Direction;
+import com.enderzombi102.loadercomplex.api.minecraft.util.Hand;
 import com.enderzombi102.loadercomplex.forge18.impl.block.ForgeBlockstate;
 import com.enderzombi102.loadercomplex.forge18.impl.entity.ForgeEntity;
 import com.enderzombi102.loadercomplex.forge18.impl.entity.ForgeLivingEntity;
@@ -43,7 +43,7 @@ public class ForgeItem extends net.minecraft.item.Item {
 
 	@Override
 	public void postProcessNbt(NbtCompound nbt ) {
-		this.itemImpl.postProcesstag( nbt );
+		this.itemImpl.postProcessTag( nbt );
 	}
 
 	@Override

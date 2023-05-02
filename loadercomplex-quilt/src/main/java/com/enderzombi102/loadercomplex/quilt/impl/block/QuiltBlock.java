@@ -1,8 +1,8 @@
 package com.enderzombi102.loadercomplex.quilt.impl.block;
 
 import com.enderzombi102.enderlib.interfaces.Getter;
-import com.enderzombi102.loadercomplex.minecraft.block.Block;
-import com.enderzombi102.loadercomplex.minecraft.util.Direction;
+import com.enderzombi102.loadercomplex.api.minecraft.block.Block;
+import com.enderzombi102.loadercomplex.api.minecraft.util.Direction;
 import com.enderzombi102.loadercomplex.quilt.impl.entity.QuiltEntity;
 import com.enderzombi102.loadercomplex.quilt.impl.entity.QuiltPlayer;
 import com.enderzombi102.loadercomplex.quilt.impl.utils.BlockUtils;
@@ -66,7 +66,7 @@ public class QuiltBlock extends net.minecraft.block.Block {
 			BlockUtils.toPosition( pos ),
 			new QuiltBlockstate( state ),
 			new QuiltPlayer( player ),
-			com.enderzombi102.loadercomplex.minecraft.util.Hand.valueOf( hand.name() ),
+			com.enderzombi102.loadercomplex.api.minecraft.util.Hand.valueOf( hand.name() ),
 			Direction.valueOf( hit.getSide().name() ),
 			hit.getBlockPos().getX(), hit.getBlockPos().getY(), hit.getBlockPos().getZ()
 		) ? ActionResult.SUCCESS : ActionResult.PASS;

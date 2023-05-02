@@ -1,6 +1,7 @@
 package com.enderzombi102.loadercomplex.fabric17.impl.block;
 
-import com.enderzombi102.loadercomplex.minecraft.block.Block;
+import com.enderzombi102.loadercomplex.api.minecraft.block.Block;
+import com.enderzombi102.loadercomplex.api.minecraft.util.Direction;
 import com.enderzombi102.loadercomplex.fabric17.impl.entity.FabricEntity;
 import com.enderzombi102.loadercomplex.fabric17.impl.entity.FabricPlayer;
 import com.enderzombi102.loadercomplex.fabric17.impl.utils.BlockUtils;
@@ -65,8 +66,8 @@ public class FabricBlock extends net.minecraft.block.Block {
 			BlockUtils.toPosition( pos ),
 			new FabricBlockstate( state ),
 			new FabricPlayer( player ),
-			com.enderzombi102.loadercomplex.minecraft.util.Hand.valueOf( hand.name() ),
-			com.enderzombi102.loadercomplex.minecraft.util.Direction.valueOf( hit.getSide().name() ),
+			com.enderzombi102.loadercomplex.api.minecraft.util.Hand.valueOf( hand.name() ),
+			Direction.valueOf( hit.getSide().name() ),
 			hit.getBlockPos().getX(), hit.getBlockPos().getY(), hit.getBlockPos().getZ()
 		) ? ActionResult.SUCCESS : ActionResult.PASS;
 	}

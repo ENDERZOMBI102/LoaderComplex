@@ -15,7 +15,6 @@
     ij_wrap_on_typing = false
 
 [*.java]
-    indent_style = space
     ij_java_align_consecutive_assignments = false
     ij_java_align_consecutive_variable_declarations = false
     ij_java_align_group_field_declarations = false
@@ -254,7 +253,7 @@
     ij_java_spaces_within_for_parentheses = false
     ij_java_spaces_within_if_parentheses = false
     ij_java_spaces_within_method_call_parentheses = false
-    ij_java_spaces_within_method_parentheses = false
+    ij_java_spaces_within_method_parentheses = true
     ij_java_spaces_within_parentheses = false
     ij_java_spaces_within_record_header = false
     ij_java_spaces_within_switch_parentheses = false
@@ -310,8 +309,6 @@
     ij_xml_use_custom_settings = false
 
 [{*.json,mcmod.info,pack.mcmeta}]
-    indent_style = space
-    ij_continuation_indent_size = 4
     ij_json_array_wrapping = split_into_lines
     ij_json_keep_blank_lines_in_code = 0
     ij_json_keep_indents_on_empty_lines = false
@@ -438,7 +435,6 @@
     ij_properties_spaces_around_key_value_delimiter = false
 
 [*.toml]
-    indent_style = space
     ij_toml_keep_indents_on_empty_lines = false
 
 [*.yml]

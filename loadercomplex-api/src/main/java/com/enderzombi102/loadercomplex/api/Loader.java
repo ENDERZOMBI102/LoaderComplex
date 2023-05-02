@@ -1,10 +1,7 @@
 package com.enderzombi102.loadercomplex.api;
 
 import com.enderzombi102.eventsystem.EventSystem;
-import com.enderzombi102.loadercomplex.minecraft.util.FactoryWorld;
-import com.enderzombi102.loadercomplex.minecraft.util.I18nSystem;
-import com.enderzombi102.loadercomplex.api.utils.Platform;
-import com.enderzombi102.loadercomplex.minecraft.util.Registry;
+import com.enderzombi102.loadercomplex.api.platform.*;
 import org.jetbrains.annotations.ApiStatus.AvailableSince;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
@@ -39,7 +36,7 @@ public interface Loader {
 
 	/**
 	 * Returns an implementation of {@link FactoryWorld}, an object capable
-	 * of creating stuff normally inacessible.
+	 * of creating stuff normally inaccessible.
 	 */
 	@AvailableSince("0.1.3")
 	@NotNull FactoryWorld getFactoryWorld();
@@ -61,11 +58,11 @@ public interface Loader {
 	/**
 	 * Factory method for logger implementations
 	 *
-	 * @param addonid id of the addon asking for a logger
+	 * @param addonId id of the addon asking for a logger
 	 * @return a Logger object
 	 */
-	default @NotNull Logger getLogger( String addonid ) {
-		return LoggerFactory.getLogger( addonid );
+	default @NotNull Logger getLogger( String addonId ) {
+		return LoggerFactory.getLogger( addonId );
 	}
 
 	/**
@@ -85,6 +82,12 @@ public interface Loader {
 	 */
 	@AvailableSince("0.2.0")
 	@NotNull I18nSystem getI18nSystem();
+
+	/**
+	 * The resource loader, used for, you guessed it, load resources!
+	 */
+	@AvailableSince("0.2.0")
+	@NotNull ResourceLoader getResourceLoader();
 
 	/**
 	 * The config directory for this game instance.

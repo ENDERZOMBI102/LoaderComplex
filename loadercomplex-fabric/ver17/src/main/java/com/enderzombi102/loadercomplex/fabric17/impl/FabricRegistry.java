@@ -1,11 +1,11 @@
 package com.enderzombi102.loadercomplex.fabric17.impl;
 
 import com.enderzombi102.loadercomplex.api.Registry;
-import com.enderzombi102.loadercomplex.minecraft.block.Block;
-import com.enderzombi102.loadercomplex.minecraft.entity.Entity;
-import com.enderzombi102.loadercomplex.minecraft.item.Item;
-import com.enderzombi102.loadercomplex.minecraft.util.RegistryKey;
-import com.enderzombi102.loadercomplex.minecraft.util.ResourceIdentifier;
+import com.enderzombi102.loadercomplex.api.minecraft.block.Block;
+import com.enderzombi102.loadercomplex.api.minecraft.entity.Entity;
+import com.enderzombi102.loadercomplex.api.minecraft.item.Item;
+import com.enderzombi102.loadercomplex.api.minecraft.util.RegistryKey;
+import com.enderzombi102.loadercomplex.api.minecraft.util.ResourceIdentifier;
 import com.enderzombi102.loadercomplex.fabric17.LoaderComplexFabric;
 import com.enderzombi102.loadercomplex.fabric17.imixin.IItemMixin;
 import com.enderzombi102.loadercomplex.fabric17.impl.block.FabricBlock;
@@ -21,7 +21,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.enderzombi102.loadercomplex.minecraft.util.ResourceIdentifier.ri;
+import static com.enderzombi102.loadercomplex.api.minecraft.util.ResourceIdentifier.ri;
 
 public class FabricRegistry implements Registry {
 	private static final Map<ResourceIdentifier, ItemGroup> ITEM_GROUPS = new HashMap<>() {{

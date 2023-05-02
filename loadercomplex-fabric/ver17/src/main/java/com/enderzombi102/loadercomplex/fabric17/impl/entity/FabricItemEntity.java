@@ -1,8 +1,8 @@
 package com.enderzombi102.loadercomplex.fabric17.impl.entity;
 
 import com.enderzombi102.loadercomplex.fabric17.impl.item.FabricItemStack;
-import com.enderzombi102.loadercomplex.minecraft.entity.ItemEntity;
-import com.enderzombi102.loadercomplex.minecraft.item.ItemStack;
+import com.enderzombi102.loadercomplex.api.minecraft.entity.ItemEntity;
+import com.enderzombi102.loadercomplex.api.minecraft.item.ItemStack;
 
 public class FabricItemEntity extends FabricEntity implements ItemEntity {
 	private final net.minecraft.entity.ItemEntity backingEntity;

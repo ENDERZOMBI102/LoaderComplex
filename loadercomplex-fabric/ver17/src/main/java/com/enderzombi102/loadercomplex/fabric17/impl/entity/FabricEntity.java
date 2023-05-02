@@ -2,11 +2,11 @@ package com.enderzombi102.loadercomplex.fabric17.impl.entity;
 
 import com.enderzombi102.loadercomplex.fabric17.impl.utils.BlockUtils;
 import com.enderzombi102.loadercomplex.fabric17.impl.world.FabricWorld;
-import com.enderzombi102.loadercomplex.minecraft.entity.Entity;
-import com.enderzombi102.loadercomplex.minecraft.entity.ItemEntity;
-import com.enderzombi102.loadercomplex.minecraft.entity.LivingEntity;
-import com.enderzombi102.loadercomplex.minecraft.util.Position;
-import com.enderzombi102.loadercomplex.minecraft.world.World;
+import com.enderzombi102.loadercomplex.api.minecraft.entity.Entity;
+import com.enderzombi102.loadercomplex.api.minecraft.entity.ItemEntity;
+import com.enderzombi102.loadercomplex.api.minecraft.entity.LivingEntity;
+import com.enderzombi102.loadercomplex.api.minecraft.util.Position;
+import com.enderzombi102.loadercomplex.api.minecraft.world.World;
 import net.minecraft.text.Text;
 
 import java.util.UUID;

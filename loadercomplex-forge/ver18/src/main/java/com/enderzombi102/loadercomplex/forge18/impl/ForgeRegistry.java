@@ -1,11 +1,11 @@
 package com.enderzombi102.loadercomplex.forge18.impl;
 
 import com.enderzombi102.loadercomplex.minecraft.util.Registry;
-import com.enderzombi102.loadercomplex.minecraft.block.Block;
-import com.enderzombi102.loadercomplex.minecraft.entity.Entity;
-import com.enderzombi102.loadercomplex.minecraft.item.Item;
-import com.enderzombi102.loadercomplex.minecraft.util.RegistryKey;
-import com.enderzombi102.loadercomplex.minecraft.util.ResourceIdentifier;
+import com.enderzombi102.loadercomplex.api.minecraft.block.Block;
+import com.enderzombi102.loadercomplex.api.minecraft.entity.Entity;
+import com.enderzombi102.loadercomplex.api.minecraft.item.Item;
+import com.enderzombi102.loadercomplex.api.minecraft.util.RegistryKey;
+import com.enderzombi102.loadercomplex.api.minecraft.util.ResourceIdentifier;
 import com.enderzombi102.loadercomplex.forge18.LoaderComplexForge;
 import com.enderzombi102.loadercomplex.forge18.imixin.IItemMixin;
 import com.enderzombi102.loadercomplex.forge18.impl.block.ForgeBlock;
@@ -23,7 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.enderzombi102.loadercomplex.minecraft.util.ResourceIdentifier.ri;
+import static com.enderzombi102.loadercomplex.api.minecraft.util.ResourceIdentifier.ri;
 
 public class ForgeRegistry implements Registry {
 	public final List<net.minecraft.block.Block> blocks = new ArrayList<>();

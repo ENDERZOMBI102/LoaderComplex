@@ -24,22 +24,23 @@ allprojects {
 		mavenCentral()
 		maven( url = "https://libraries.minecraft.net" )
 		maven( url = "https://repsy.io/mvn/enderzombi102/mc" )
-		maven( url = "https://maven.terraformersmc.com/releases" )
 	}
 }
 
 val api = project( ":loadercomplex-api" )
+val common = project( ":loadercomplex-common" )
 subprojects {
 	apply( plugin = "java" )
 	apply( plugin = "org.jetbrains.kotlin.jvm" )
 
 	group = "com.enderzombi102.loadercomplex"
-	version = rootProject.version
 
 	configurations.create("jarz")
 
 	if ( hasProperty("loom") ) {
 		apply( plugin = property("loom") as String )
+
+		repositories.maven( url = "https://maven.terraformersmc.com/releases" )
 
 		( extensions["loom"] as LoomGradleExtension ).apply {
 			runConfigs {
@@ -59,14 +60,9 @@ subprojects {
 	dependencies {
 		implementation( rootProject.libs.annotations )
 		compileOnly( kotlin( "stdlib-jdk8" ) )
-		if ( name != api.name ) {
-			implementation( project( api.path ) ) {
-				isTransitive = false
-			}
+		if ( name != api.name && name != common.name ) {
+			implementation( project( common.path ) )
 			compileOnly( rootProject.libs.brigadier )
-			implementation( rootProject.libs.slf4j )
-			implementation( rootProject.libs.eventsystem )
-			implementation( rootProject.libs.enderlib )
 		}
 	}
 
@@ -83,7 +79,7 @@ subprojects {
 }
 
 val subProjects: List<String> = rootProject.subprojects
-	.stream()
+	.asSequence()
 	.filter { it.parent == rootProject }
 	.map( Project::getName )
 	.toList()

@@ -1,5 +1,11 @@
 {
 	"schema_version": 1,
+    "experimental_quilt_loader_plugin": {
+        "class": "com.enderzombi102.loadercomplex.quilt.plugin.LoaderComplexPlugin",
+        "packages": [
+            "com.enderzombi102.loadercomplex.quilt.plugin"
+        ]
+    },
 	"quilt_loader": {
 		"group": "loadercomplex-quilt",
 		"id": "loadercomplex",
@@ -25,6 +31,7 @@
 				"com.enderzombi102.loadercomplex.quilt.compat.LoaderComplexModMenuEntrypoint"
 			]
 		},
+
 		"depends": [
 			{
 				"id": "quilt_loader",

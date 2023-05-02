@@ -1,6 +1,6 @@
 package com.enderzombi102.loadercomplex.forge18.impl.item;
 
-import com.enderzombi102.loadercomplex.minecraft.item.ItemStack;
+import com.enderzombi102.loadercomplex.api.minecraft.item.ItemStack;
 import net.minecraft.text.LiteralText;
 import org.jetbrains.annotations.NotNull;
 

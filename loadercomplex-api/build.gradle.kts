@@ -9,11 +9,10 @@ plugins {
 version = project.ext["api"] as String
 
 dependencies {
-	implementation( libs.slf4j )
-	implementation( libs.jankson )
-	implementation( libs.brigadier )
-	implementation( libs.eventsystem )
-	compileOnly( libs.enderlib )
+	api( libs.slf4j )
+	api( libs.jankson )
+	api( libs.brigadier )
+	api( libs.eventsystem )
 }
 
 java.withJavadocJar()
@@ -26,23 +25,7 @@ tasks.withType<JavaCompile> {
 	options.release.set(8)
 }
 
-tasks.withType<Javadoc> {
-	exclude( "com/enderzombi102/loadercomplex/impl/**" )
-}
-
 tasks.withType<ProcessResources> {
-	val configuration = configurations.detachedConfiguration(
-		dependencies.create( dependencies.kotlin( "stdlib-jdk8", kotlin.coreLibrariesVersion ) ),
-		dependencies.create( dependencies.kotlin( "stdlib-common", kotlin.coreLibrariesVersion ) )
-	)
-	// resolve configuration and add the jars
-	from( configuration.files ) {
-		into( "jars/" )
-	}
-	// list the jars in a file, so there is no hardcoding
-	filesMatching( "/jars/list" ) {
-		expand( "files" to configuration.files.joinToString("\n") { it.name })
-	}
 	// set the api version
 	filesMatching( "/api-version" ) {
 		expand(
