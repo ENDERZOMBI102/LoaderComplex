@@ -1,6 +1,5 @@
 package com.enderzombi102.loadercomplex.fabric17.mixin;
 
-import com.enderzombi102.loadercomplex.api.event.client.ClientChatEventData;
 import com.enderzombi102.loadercomplex.fabric17.LoaderComplexFabric;
 import com.enderzombi102.loadercomplex.fabric17.impl.entity.FabricPlayer;
 import net.minecraft.client.MinecraftClient;

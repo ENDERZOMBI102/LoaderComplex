@@ -2,17 +2,14 @@ package com.enderzombi102.loadercomplex.fabric17.impl;
 
 import com.enderzombi102.eventsystem.EventSystem;
 import com.enderzombi102.loadercomplex.api.Loader;
-import com.enderzombi102.loadercomplex.api.Registry;
-import com.enderzombi102.loadercomplex.minecraft.util.FactoryWorld;
-import com.enderzombi102.loadercomplex.minecraft.util.LoaderType;
-import com.enderzombi102.loadercomplex.minecraft.util.Version;
+import com.enderzombi102.loadercomplex.api.LoaderComplex;
+import com.enderzombi102.loadercomplex.api.platform.*;
+import com.enderzombi102.loadercomplex.fabric17.LoaderComplexFabric;
 import net.fabricmc.loader.api.VersionParsingException;
-import net.minecraft.client.option.KeyBinding;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.LoggerFactory;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.nio.file.Path;
 
 public class FabricLoader implements Loader {
 	private static final String FABRIC_VERSION;
@@ -37,7 +34,7 @@ public class FabricLoader implements Loader {
 	private final Registry registry = new FabricRegistry();
 
 	@Override
-	public LoaderType getLoaderType() {
+	public @NotNull Platform getPlatform() {
 		return LoaderType.Fabric;
 	}
 
@@ -47,23 +44,8 @@ public class FabricLoader implements Loader {
 	}
 
 	@Override
-	public String getMinecraftVersion() {
-		return MINECRAFT_VERSION.getFriendlyString();
-	}
-
-	@Override
-	public String getLoaderVersion() {
-		return FABRIC_VERSION;
-	}
-
-	@Override
 	public boolean isModLoaded(String id) {
 		return net.fabricmc.loader.api.FabricLoader.getInstance().isModLoaded( id );
-	}
-
-	@Override
-	public boolean isDeveloperEnvironment() {
-		return net.fabricmc.loader.api.FabricLoader.getInstance().isDevelopmentEnvironment();
 	}
 
 	@Override
@@ -81,13 +63,33 @@ public class FabricLoader implements Loader {
 	}
 
 	@Override
-	public Version getApiVersion() {
-		return new Version( "0.1.3", LocalDateTime.now().format( DateTimeFormatter.ofPattern("dd-MM-yyyy'T'HH:mm:ss") ) );
+	public boolean isDedicatedServer() {
+		return false;
+	}
+
+	@Override
+	public @NotNull LoaderComplex getLoaderComplex() {
+		return LoaderComplexFabric.instance;
 	}
 
 	@NotNull
 	@Override
 	public EventSystem getEventSystem() {
 		return EVENT_SYSTEM;
+	}
+
+	@Override
+	public @NotNull I18nSystem getI18nSystem() {
+		return null;
+	}
+
+	@Override
+	public @NotNull ResourceLoader getResourceLoader() {
+		return null;
+	}
+
+	@Override
+	public @NotNull Path getConfigDir() {
+		return null;
 	}
 }

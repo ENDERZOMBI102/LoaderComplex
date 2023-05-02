@@ -1,11 +1,9 @@
 package com.enderzombi102.loadercomplex.forge18.impl.world;
 
-import com.enderzombi102.loadercomplex.Utils;
 import com.enderzombi102.loadercomplex.api.minecraft.block.Blockstate;
 import com.enderzombi102.loadercomplex.api.minecraft.entity.Entity;
 import com.enderzombi102.loadercomplex.api.minecraft.entity.Player;
 import com.enderzombi102.loadercomplex.api.minecraft.util.*;
-import com.enderzombi102.loadercomplex.minecraft.util.*;
 import com.enderzombi102.loadercomplex.api.minecraft.world.World;
 import com.enderzombi102.loadercomplex.forge18.impl.ForgeServer;
 import com.enderzombi102.loadercomplex.forge18.impl.block.ForgeBlockstate;
@@ -22,12 +20,12 @@ import net.minecraft.world.Heightmap;
 public class ForgeWorld implements World {
 	private final net.minecraft.world.World backingWorld;
 
-	public ForgeWorld(net.minecraft.world.World world) {
+	public ForgeWorld( net.minecraft.world.World world ) {
 		backingWorld = world;
 	}
 
 	@Override
-	public void spawn(Entity entity, Position pos) {
+	public void spawn( Entity entity, Position pos ) {
 		entity.setPosition( pos );
 		this.backingWorld.spawnEntity( (net.minecraft.entity.Entity) entity.getObject() );
 	}
@@ -58,45 +56,45 @@ public class ForgeWorld implements World {
 	}
 
 	@Override
-	public boolean isAir(Position pos) {
+	public boolean isAir( Position pos ) {
 		return this.backingWorld.isAir( new BlockPos( pos.x, pos.y, pos.z ) );
 	}
 
 	@Override
-	public boolean isPositionLoaded(Position pos) {
+	public boolean isPositionLoaded( Position pos ) {
 		return this.backingWorld.isChunkLoaded( new BlockPos( pos.x, pos.y, pos.z ) );
 	}
 
 	@Override
-	public boolean hasBlockEntity(Position pos) {
+	public boolean hasBlockEntity( Position pos ) {
 		return this.backingWorld.getBlockEntity( new BlockPos( pos.x, pos.y, pos.z ) ) != null;
 	}
 
 	@Override
-	public boolean canSeeTheSky(Position pos) {
+	public boolean canSeeTheSky( Position pos ) {
 		return this.backingWorld.isSkyVisible( new BlockPos( pos.x, pos.y, pos.z ) );
 	}
 
 	@Override
-	public boolean canSnow(Position pos) {
+	public boolean canSnow( Position pos ) {
 		return this.backingWorld
-				.getBiome( new BlockPos( pos.x, pos.y, pos.z ) )
-				.value()
-				.canSetSnow(this.backingWorld, new BlockPos(pos.x, pos.y, pos.z));
+			.getBiome( new BlockPos( pos.x, pos.y, pos.z ) )
+			.value()
+			.canSetSnow( this.backingWorld, new BlockPos( pos.x, pos.y, pos.z ) );
 	}
 
 	@Override
-	public Blockstate getBlockState(Position pos) {
+	public Blockstate getBlockState( Position pos ) {
 		return new ForgeBlockstate( this.backingWorld.getBlockState( new BlockPos( pos.x, pos.y, pos.z ) ) );
 	}
 
 	@Override
-	public void setBlockState(Position pos, Blockstate state) {
+	public void setBlockState( Position pos, Blockstate state ) {
 		this.backingWorld.setBlockState( new BlockPos( pos.x, pos.y, pos.z ), (BlockState) state.getObject() );
 	}
 
 	@Override
-	public void removeBlock(Position pos) {
+	public void removeBlock( Position pos ) {
 		this.backingWorld.removeBlock( new BlockPos( pos.x, pos.y, pos.z ), false );
 	}
 
@@ -107,7 +105,7 @@ public class ForgeWorld implements World {
 
 	@Override
 	public Position getSpawnLocation() {
-		return BlockUtils.toPosition( this.backingWorld.getTopPosition( Heightmap.Type.WORLD_SURFACE, new BlockPos( 0, 0, 0  ) ) );
+		return BlockUtils.toPosition( this.backingWorld.getTopPosition( Heightmap.Type.WORLD_SURFACE, new BlockPos( 0, 0, 0 ) ) );
 	}
 
 	@Override
@@ -116,7 +114,7 @@ public class ForgeWorld implements World {
 	}
 
 	@Override
-	public int getRedstonePower(Position pos, Direction direction) {
+	public int getRedstonePower( Position pos, Direction direction ) {
 		return this.backingWorld.getEmittedRedstonePower(
 			new BlockPos( pos.x, pos.y, pos.z ),
 			net.minecraft.util.math.Direction.valueOf( direction.name() )
@@ -124,10 +122,10 @@ public class ForgeWorld implements World {
 	}
 
 	@Override
-	public void playsound( Player player, double x, double y, double z, ResourceIdentifier sound, float volume, float pitch) {
+	public void playsound( Player player, double x, double y, double z, ResourceIdentifier sound, float volume, float pitch ) {
 		SoundEvent event = Registry.SOUND_EVENT.get( new Identifier( sound.getNamespace(), sound.getPath() ) );
 		if ( event == null )
-			throw new IllegalArgumentException( Utils.format("SoundEvent \"{}\" was not found!", sound ) );
+			throw new IllegalArgumentException( String.format( "SoundEvent \"%s\" was not found!", sound ) );
 		this.backingWorld.playSound(
 			(PlayerEntity) player.getObject(),
 			x, y, z,

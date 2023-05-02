@@ -5,7 +5,6 @@ import com.enderzombi102.loadercomplex.api.minecraft.util.Direction;
 import com.enderzombi102.loadercomplex.fabric17.impl.entity.FabricEntity;
 import com.enderzombi102.loadercomplex.fabric17.impl.entity.FabricPlayer;
 import com.enderzombi102.loadercomplex.fabric17.impl.utils.BlockUtils;
-import com.enderzombi102.loadercomplex.minecraft.util.Supplier;
 import com.enderzombi102.loadercomplex.fabric17.impl.world.FabricWorld;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.BlockState;
@@ -22,16 +21,17 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
 import java.util.Random;
+import java.util.function.Supplier;
 
-@SuppressWarnings("deprecation")
+@SuppressWarnings( "deprecation" )
 public class FabricBlock extends net.minecraft.block.Block {
 
 	private final Block blockImpl;
 
-	public FabricBlock(Block block) {
+	public FabricBlock( Block block ) {
 		super(
-			( (Supplier<FabricBlockSettings>) () -> {
-				var settings =  FabricBlockSettings.of( Material.STONE )
+			((Supplier<FabricBlockSettings>) () -> {
+				var settings = FabricBlockSettings.of( Material.STONE )
 					.slipperiness( block.slipperiness )
 					.hardness( block.hardness )
 					.strength( block.hardness )
@@ -40,14 +40,14 @@ public class FabricBlock extends net.minecraft.block.Block {
 					.lightLevel( state -> block.lightLevel );
 
 
-				if (! block.opaque )
+				if ( !block.opaque )
 					settings.nonOpaque();
 
 				if ( block.randomTicks )
 					settings.ticksRandomly();
 
 				return settings;
-			} ).call()
+			}).get()
 		);
 		this.blockImpl = block;
 		block.implementationBlock = this;
@@ -55,12 +55,12 @@ public class FabricBlock extends net.minecraft.block.Block {
 
 	// logic method overrides
 
-	public boolean isEqualTo(net.minecraft.block.Block block) {
-		return block instanceof FabricBlock && ( (FabricBlock) block ).blockImpl == this.blockImpl;
+	public boolean isEqualTo( net.minecraft.block.Block block ) {
+		return block instanceof FabricBlock && ((FabricBlock) block).blockImpl == this.blockImpl;
 	}
 
 	@Override
-	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+	public ActionResult onUse( BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit ) {
 		return this.blockImpl.OnBlockInteracted(
 			new FabricWorld( world ),
 			BlockUtils.toPosition( pos ),
@@ -73,7 +73,7 @@ public class FabricBlock extends net.minecraft.block.Block {
 	}
 
 	@Override
-	public void onSteppedOn(World world, BlockPos pos, BlockState state, Entity entity) {
+	public void onSteppedOn( World world, BlockPos pos, BlockState state, Entity entity ) {
 		this.blockImpl.OnSteppedOn(
 			new FabricWorld( world ),
 			BlockUtils.toPosition( pos ),
@@ -82,7 +82,7 @@ public class FabricBlock extends net.minecraft.block.Block {
 	}
 
 	@Override
-	public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+	public void onBreak( World world, BlockPos pos, BlockState state, PlayerEntity player ) {
 		this.blockImpl.OnBreak(
 			new FabricWorld( world ),
 			BlockUtils.toPosition( pos ),
@@ -92,7 +92,7 @@ public class FabricBlock extends net.minecraft.block.Block {
 	}
 
 	@Override
-	public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
+	public void onEntityCollision( BlockState state, World world, BlockPos pos, Entity entity ) {
 		this.blockImpl.OnEntityCollision(
 			new FabricWorld( world ),
 			BlockUtils.toPosition( pos ),
@@ -102,7 +102,7 @@ public class FabricBlock extends net.minecraft.block.Block {
 	}
 
 	@Override
-	public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+	public void randomTick( BlockState state, ServerWorld world, BlockPos pos, Random random ) {
 		this.blockImpl.OnRandomTick(
 			new FabricWorld( world ),
 			BlockUtils.toPosition( pos ),
@@ -114,7 +114,7 @@ public class FabricBlock extends net.minecraft.block.Block {
 	// getter methods overrides
 
 	@Override
-	public BlockSoundGroup getSoundGroup(BlockState state) {
+	public BlockSoundGroup getSoundGroup( BlockState state ) {
 		return switch (this.blockImpl.soundGroup) {
 			case WOOD -> BlockSoundGroup.WOOD;
 			case GRAVEL -> BlockSoundGroup.GRAVEL;
@@ -132,12 +132,12 @@ public class FabricBlock extends net.minecraft.block.Block {
 	}
 
 	@Override
-	public int getOpacity(BlockState state, BlockView world, BlockPos pos) {
+	public int getOpacity( BlockState state, BlockView world, BlockPos pos ) {
 		return this.blockImpl.opacity;
 	}
 
 	@Override
-	public boolean isTranslucent(BlockState state, BlockView world, BlockPos pos) {
+	public boolean isTranslucent( BlockState state, BlockView world, BlockPos pos ) {
 		return this.blockImpl.translucent;
 	}
 

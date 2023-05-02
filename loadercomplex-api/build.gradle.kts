@@ -28,10 +28,7 @@ tasks.withType<JavaCompile> {
 tasks.withType<ProcessResources> {
 	// set the api version
 	filesMatching( "/api-version" ) {
-		expand(
-			"version" to version,
-			"timestamp" to now().format( ofPattern("dd-MM-yyyy'T'HH:mm:ss") )
-		)
+		expand( "version" to "$version+${now().format( ofPattern("ddMMyyyy") )}" )
 	}
 }
 

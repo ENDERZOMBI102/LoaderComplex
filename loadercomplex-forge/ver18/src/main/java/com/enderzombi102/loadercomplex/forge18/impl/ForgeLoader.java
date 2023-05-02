@@ -1,14 +1,15 @@
 package com.enderzombi102.loadercomplex.forge18.impl;
 
+import com.enderzombi102.eventsystem.EventSystem;
 import com.enderzombi102.loadercomplex.api.Loader;
-import com.enderzombi102.loadercomplex.api.platform.Platform;
-import com.enderzombi102.loadercomplex.minecraft.util.Registry;
-import com.enderzombi102.loadercomplex.minecraft.util.FactoryWorld;
+import com.enderzombi102.loadercomplex.api.LoaderComplex;
+import com.enderzombi102.loadercomplex.api.platform.*;
 import com.enderzombi102.loadercomplex.forge18.LoaderComplexForge;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.loading.FMLLoader;
 import org.jetbrains.annotations.NotNull;
 
+import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -29,23 +30,8 @@ public class ForgeLoader implements Loader {
 	}
 
 	@Override
-	public String getMinecraftVersion() {
-		return MINECRAFT_VERSION;
-	}
-
-	@Override
-	public String getLoaderVersion() {
-		return FORGE_VERSION;
-	}
-
-	@Override
 	public boolean isModLoaded(String id) {
 		return ModList.get().isLoaded( id );
-	}
-
-	@Override
-	public boolean isDeveloperEnvironment() {
-		return ! FMLLoader.isProduction();
 	}
 
 	@Override
@@ -60,7 +46,33 @@ public class ForgeLoader implements Loader {
 	}
 
 	@Override
-	public @NotNull Platform.Version getApiVersion() {
-		return new Platform.Version( "0.1.3", LocalDateTime.now().format( DateTimeFormatter.ofPattern("dd-MM-yyyy'T'HH:mm:ss") ) );
+	public boolean isDedicatedServer() {
+		return false;
+	}
+
+	@Override
+	public @NotNull LoaderComplex getLoaderComplex() {
+		return LoaderComplexForge.instance;
+	}
+
+	@NotNull
+	@Override
+	public EventSystem getEventSystem() {
+		return null;
+	}
+
+	@Override
+	public @NotNull I18nSystem getI18nSystem() {
+		return null;
+	}
+
+	@Override
+	public @NotNull ResourceLoader getResourceLoader() {
+		return null;
+	}
+
+	@Override
+	public @NotNull Path getConfigDir() {
+		return null;
 	}
 }

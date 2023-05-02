@@ -4,10 +4,10 @@ import com.enderzombi102.loadercomplex.api.minecraft.block.Blockstate;
 import com.enderzombi102.loadercomplex.api.minecraft.entity.Entity;
 import com.enderzombi102.loadercomplex.api.minecraft.entity.ItemEntity;
 import com.enderzombi102.loadercomplex.api.minecraft.item.ItemStack;
-import com.enderzombi102.loadercomplex.minecraft.util.FactoryWorld;
 import com.enderzombi102.loadercomplex.api.minecraft.util.ResourceIdentifier;
 import com.enderzombi102.loadercomplex.api.minecraft.util.Server;
 import com.enderzombi102.loadercomplex.api.minecraft.world.World;
+import com.enderzombi102.loadercomplex.api.platform.FactoryWorld;
 import com.enderzombi102.loadercomplex.quilt.impl.block.QuiltBlockstate;
 import com.enderzombi102.loadercomplex.quilt.impl.entity.QuiltEntity;
 import com.enderzombi102.loadercomplex.quilt.impl.entity.QuiltItemEntity;
@@ -20,7 +20,7 @@ import net.minecraft.util.registry.Registry;
 
 public class QuiltFactoryWorld implements FactoryWorld {
 	@Override
-	public ItemStack createStack(ResourceIdentifier type) {
+	public ItemStack createStack( ResourceIdentifier type ) {
 		Item item = Registry.ITEM.get( new Identifier( type.getNamespace(), type.getPath() ) );
 		//noinspection ConstantConditions
 		if ( item == null )
@@ -29,7 +29,7 @@ public class QuiltFactoryWorld implements FactoryWorld {
 	}
 
 	@Override
-	public Entity createEntity(World world, ResourceIdentifier type) {
+	public Entity createEntity( World world, ResourceIdentifier type ) {
 		var entityType = Registry.ENTITY_TYPE.get( new Identifier( type.getNamespace(), type.getPath() ) );
 		//noinspection ConstantConditions
 		if ( entityType == null )
@@ -38,7 +38,7 @@ public class QuiltFactoryWorld implements FactoryWorld {
 	}
 
 	@Override
-	public ItemEntity createItemEntity(World world, ItemStack stack) {
+	public ItemEntity createItemEntity( World world, ItemStack stack ) {
 		var entity = EntityType.ITEM.create( (net.minecraft.world.World) world.getObject() );
 		if ( entity == null )
 			throw new IllegalArgumentException( "ItemEntity failed to spawn!" );
@@ -47,7 +47,7 @@ public class QuiltFactoryWorld implements FactoryWorld {
 	}
 
 	@Override
-	public Blockstate createBlockstate(ResourceIdentifier type) {
+	public Blockstate createBlockstate( ResourceIdentifier type ) {
 		Block block = Registry.BLOCK.get( new Identifier( type.getNamespace(), type.getPath() ) );
 		//noinspection ConstantConditions
 		if ( block == null )
@@ -61,7 +61,7 @@ public class QuiltFactoryWorld implements FactoryWorld {
 	}
 
 	@Override
-	public World adaptWorld(Server server, int id) {
+	public World adaptWorld( Server server, int id ) {
 		return null;
 	}
 }

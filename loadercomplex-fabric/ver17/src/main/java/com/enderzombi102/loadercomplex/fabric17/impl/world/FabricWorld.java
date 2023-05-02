@@ -1,11 +1,9 @@
 package com.enderzombi102.loadercomplex.fabric17.impl.world;
 
-import com.enderzombi102.loadercomplex.Utils;
 import com.enderzombi102.loadercomplex.api.minecraft.block.Blockstate;
 import com.enderzombi102.loadercomplex.api.minecraft.entity.Entity;
 import com.enderzombi102.loadercomplex.api.minecraft.entity.Player;
 import com.enderzombi102.loadercomplex.api.minecraft.util.*;
-import com.enderzombi102.loadercomplex.minecraft.util.*;
 import com.enderzombi102.loadercomplex.api.minecraft.world.World;
 import com.enderzombi102.loadercomplex.fabric17.impl.FabricServer;
 import com.enderzombi102.loadercomplex.fabric17.impl.block.FabricBlockstate;
@@ -127,7 +125,7 @@ public class FabricWorld implements World {
 	public void playsound( Player player, double x, double y, double z, ResourceIdentifier sound, float volume, float pitch) {
 		SoundEvent event = Registry.SOUND_EVENT.get( new Identifier( sound.getNamespace(), sound.getPath() ) );
 		if ( event == null )
-			throw new IllegalArgumentException( Utils.format("SoundEvent \"{}\" was not found!", sound ) );
+			throw new IllegalArgumentException( String.format("SoundEvent \"%s\" was not found!", sound ) );
 		this.backingWorld.playSound(
 			(PlayerEntity) player.getObject(),
 			x, y, z,

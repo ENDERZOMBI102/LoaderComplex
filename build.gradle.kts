@@ -1,6 +1,7 @@
 @file:Suppress("UnstableApiUsage", "LocalVariableName")
 import net.fabricmc.loom.LoomGradleExtension
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_1_8
+import org.jetbrains.kotlin.gradle.targets.js.npm.includedRange
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.time.LocalDateTime.now
 import java.time.format.DateTimeFormatter.ofPattern
@@ -23,7 +24,12 @@ allprojects {
 		mavenLocal()
 		mavenCentral()
 		maven( url = "https://libraries.minecraft.net" )
-		maven( url = "https://repsy.io/mvn/enderzombi102/mc" )
+		maven( url = "https://repsy.io/mvn/enderzombi102/mc" ) {
+			content { includeGroup( "com.enderzombi102" ) }
+		}
+		maven( url = "https://repo.sleeping.town" ) {
+			content { includeGroup( "com.unascribed" ) }
+		}
 	}
 }
 

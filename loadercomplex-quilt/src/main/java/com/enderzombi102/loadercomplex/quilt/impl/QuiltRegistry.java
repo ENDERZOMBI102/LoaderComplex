@@ -1,11 +1,11 @@
 package com.enderzombi102.loadercomplex.quilt.impl;
 
-import com.enderzombi102.loadercomplex.minecraft.util.Registry;
 import com.enderzombi102.loadercomplex.api.minecraft.block.Block;
 import com.enderzombi102.loadercomplex.api.minecraft.entity.Entity;
 import com.enderzombi102.loadercomplex.api.minecraft.item.Item;
 import com.enderzombi102.loadercomplex.api.minecraft.util.RegistryKey;
 import com.enderzombi102.loadercomplex.api.minecraft.util.ResourceIdentifier;
+import com.enderzombi102.loadercomplex.api.platform.Registry;
 import com.enderzombi102.loadercomplex.quilt.LoaderComplexQuilt;
 import com.enderzombi102.loadercomplex.quilt.imixin.IItemMixin;
 import com.enderzombi102.loadercomplex.quilt.impl.block.QuiltBlock;
@@ -88,9 +88,7 @@ public class QuiltRegistry implements Registry {
 		ITEM_GROUPS.computeIfAbsent(
 			id,
 			key -> QuiltItemGroup.builder( new Identifier( id.toString() ) )
-				.icon( () -> new ItemStack(
-						net.minecraft.util.registry.Registry.ITEM.get( new Identifier( icon.toString() ) )
-				) )
+				.icon( () -> new ItemStack( net.minecraft.util.registry.Registry.ITEM.get( new Identifier( icon.toString() ) ) ) )
 				.displayText( new TranslatableText( "itemGroup." + ( name != null ? name : icon.getNamespace() ) ) )
 				.build()
 		);

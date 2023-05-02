@@ -1,6 +1,5 @@
 package com.enderzombi102.loadercomplex.api.platform;
 
-import com.enderzombi102.loadercomplex.impl.Utils;
 import org.jetbrains.annotations.ApiStatus.AvailableSince;
 import org.jetbrains.annotations.NotNull;
 
@@ -32,9 +31,7 @@ public interface Platform {
 	/**
 	 * Returns the API implementation version of this layer, might be different based on underlying loader.
 	 */
-	default @NotNull Version getApiVersion() {
-		return new Version( "0.2.0", Utils.getApiVersion().getBuildDate(), Utils.getApiVersion().getBuildTime() );
-	}
+	@NotNull String getApiVersion();
 
 	/**
 	 * Asks the underlying loader if we're on a developer environment

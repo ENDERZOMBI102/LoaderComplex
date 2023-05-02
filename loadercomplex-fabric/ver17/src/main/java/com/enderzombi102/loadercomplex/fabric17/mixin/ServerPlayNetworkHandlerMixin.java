@@ -1,6 +1,5 @@
 package com.enderzombi102.loadercomplex.fabric17.mixin;
 
-import com.enderzombi102.loadercomplex.api.event.server.ServerChatEventData;
 import com.enderzombi102.loadercomplex.fabric17.LoaderComplexFabric;
 import com.enderzombi102.loadercomplex.fabric17.imixin.IMessageMixin;
 import com.enderzombi102.loadercomplex.fabric17.impl.entity.FabricPlayer;
