@@ -9,6 +9,7 @@
 	slf4j = '1.8.0-beta4'
 	fabric_loader = '0.14.9'
 	mixins = '0.11.4+mixin.0.8.5'
+	flexver = '1.0.2'
 
 [libraries]
 	annotations = { module = 'org.jetbrains:annotations', version.ref = 'annotations' }
@@ -20,6 +21,7 @@
 	slf4j = { module = 'org.slf4j:slf4j-api', version.ref = 'slf4j' }
 	fabric_loader = { module = 'net.fabricmc:fabric-loader', version.ref = 'fabric-loader' }
 	mixins = { module = 'net.fabricmc:sponge-mixin', version.ref = 'mixins' }
+	flexver = { module = 'com.unascribed:flexver-java', version.ref = 'flexver' }
 
 [bundles]
 	shade = [ 'annotations', 'enderlib', 'eventsystem', 'brigadier', 'jankson' ]

@@ -1,4 +1,4 @@
-package com.enderzombi102.loadercomplex.api.utils;
+package com.enderzombi102.loadercomplex.api.platform;
 
 import com.enderzombi102.loadercomplex.impl.Utils;
 import org.jetbrains.annotations.ApiStatus.AvailableSince;

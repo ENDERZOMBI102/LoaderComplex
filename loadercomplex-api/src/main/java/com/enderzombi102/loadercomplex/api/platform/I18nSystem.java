@@ -1,4 +1,4 @@
-package com.enderzombi102.loadercomplex.minecraft.util;
+package com.enderzombi102.loadercomplex.api.platform;
 
 import org.jetbrains.annotations.NotNull;
 

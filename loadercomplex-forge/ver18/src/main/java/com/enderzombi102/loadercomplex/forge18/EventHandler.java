@@ -23,16 +23,16 @@ import static com.enderzombi102.loadercomplex.forge18.LoaderComplexForge.LOGGER;
 public class EventHandler {
 	@SubscribeEvent
 	public static void onBlocksRegistry( final RegistryEvent.Register<Block> evt ) {
-		// init LoaderComplex
-		LoaderComplexForge.INSTANCE.initAddons();
+		// init LoaderComplex, if not init'd already
+		LoaderComplexForge.instance.initAddons();
 		LOGGER.info( "Registering {} blocks!", getRegistry().blocks.size() );
 		getRegistry().blocks.forEach( evt.getRegistry()::register );
 	}
 
 	@SubscribeEvent
 	public static void onItemsRegistry( final RegistryEvent.Register<Item> evt ) {
-		// init LoaderComplex
-		LoaderComplexForge.INSTANCE.initAddons();
+		// init LoaderComplex, if not init'd already
+		LoaderComplexForge.instance.initAddons();
 		LOGGER.info( "Registering {} items!", getRegistry().items.size() );
 		getRegistry().items.forEach( evt.getRegistry()::register );
 	}
@@ -49,7 +49,7 @@ public class EventHandler {
 				ResourcePackProfile.of(
 					"LoaderComplex Resources",
 					true,
-					() -> new ForgeResourcePack( LoaderComplexForge.INSTANCE.getAddonLoader().getAddons() ),
+					() -> new ForgeResourcePack( LoaderComplexForge.instance.getAddonLoader().getAddons() ),
 					factory,
 					ResourcePackProfile.InsertionPosition.BOTTOM,
 					ResourcePackSource.PACK_SOURCE_BUILTIN
@@ -60,7 +60,7 @@ public class EventHandler {
 
 	@SubscribeEvent
 	public static void onClientSendChatMessage( ClientChatEvent evt ) {
-		ClientChatEventData data = LoaderComplexForge.INSTANCE
+		ClientChatEventData data = LoaderComplexForge.instance
 			.getLoader()
 			.getEventSystem()
 			.dispatch(
@@ -76,7 +76,7 @@ public class EventHandler {
 
 	@SubscribeEvent
 	public static void onServerReceiveChatMessage( ServerChatEvent evt ) {
-		ServerChatEventData data = LoaderComplexForge.INSTANCE
+		ServerChatEventData data = LoaderComplexForge.instance
 			.getLoader()
 			.getEventSystem()
 			.dispatch(
@@ -91,6 +91,6 @@ public class EventHandler {
 	}
 
 	private static ForgeRegistry getRegistry() {
-		return (ForgeRegistry) LoaderComplexForge.INSTANCE.getLoader().getRegistry();
+		return (ForgeRegistry) LoaderComplexForge.instance.getLoader().getRegistry();
 	}
 }
