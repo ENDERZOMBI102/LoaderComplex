@@ -1,6 +1,6 @@
 package com.enderzombi102.loadercomplex.quilt.compat;
 
-import com.enderzombi102.loadercomplex.impl.addon.AddonContainerImpl;
+import com.enderzombi102.loadercomplex.api.addon.AddonContainer;
 import com.enderzombi102.loadercomplex.quilt.LoaderComplexQuilt;
 import com.terraformersmc.modmenu.ModMenu;
 import com.terraformersmc.modmenu.util.mod.Mod;
@@ -19,9 +19,9 @@ import java.util.Objects;
 import java.util.Set;
 
 public class LoaderComplexModImpl implements Mod {
-	private final AddonContainerImpl container;
+	private final AddonContainer container;
 
-	public LoaderComplexModImpl( AddonContainerImpl container ) {
+	public LoaderComplexModImpl( AddonContainer container ) {
 		this.container = container;
 	}
 
@@ -126,7 +126,8 @@ public class LoaderComplexModImpl implements Mod {
 		return false;
 	}
 
-	private static NativeImageBackedTexture getDefaultIcon(ModIconHandler iconHandler) {
+	@SuppressWarnings( "deprecation" )
+	private static NativeImageBackedTexture getDefaultIcon( ModIconHandler iconHandler) {
 		return iconHandler.createIcon(
 			FabricLoader.getInstance()
 				.getModContainer(ModMenu.MOD_ID)

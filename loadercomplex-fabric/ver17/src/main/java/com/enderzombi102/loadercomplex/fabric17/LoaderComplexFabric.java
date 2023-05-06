@@ -10,10 +10,10 @@ import java.util.ArrayList;
 
 public class LoaderComplexFabric extends LoaderComplex implements ModInitializer {
 	public static final ArrayList<FabricResourcePack> packs = new ArrayList<>();
-	public static final Logger LOGGER = LoggerFactory.getLogger( "LoaderComplex | Fabric17" );
+	
 	public LoaderComplexFabric() {
-		super( new FabricLoader() );
-		resourceHelper = mod -> packs.add( new FabricResourcePack(mod) );
+		super( "Fabric17", new FabricLoader() );
+		this.setResourceHelper( mod -> packs.add( new FabricResourcePack(mod) ) );
 	}
 
 	@Override
