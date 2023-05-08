@@ -30,3 +30,4 @@ include("loadercomplex-fabric:ver17")
 include("loadercomplex-fabric:common")
 
 rootProject.name = "loadercomplex"
+include("loadercomplex-modmenu")

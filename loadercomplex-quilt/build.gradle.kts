@@ -25,7 +25,8 @@ dependencies {
 	mappings( "org.quiltmc:quilt-mappings:$minecraft_version+build.$mappings:intermediary-v2" )
 	modImplementation( "org.quiltmc:quilt-loader:$loader_version" )
 	modImplementation( "org.quiltmc.quilted-fabric-api:quilted-fabric-api:$qfapi_version-$minecraft_version-SNAPSHOT" )
-	modImplementation( "com.terraformersmc:modmenu:$modmenu_version" )
+	modRuntimeOnly( "com.terraformersmc:modmenu:$modmenu_version" )
+	modImplementation( project( ":loadercomplex-modmenu" ) )
 }
 
 tasks.withType<ProcessResources> {

@@ -1,4 +1,4 @@
-package com.enderzombi102.loadercomplex.quilt.compat;
+package com.enderzombi102.loadercomplex.compat;
 
 import com.enderzombi102.loadercomplex.api.LoaderComplex;
 import com.terraformersmc.modmenu.ModMenu;
@@ -8,7 +8,7 @@ public class LoaderComplexModMenuEntrypoint implements ModMenuApi {
 	static {
 		for ( var container : LoaderComplex.getInstance().getAddonLoader().getAddons() )
 			ModMenu.PARENT_MAP.put(
-				ModMenu.MODS.get("loadercomplex"),
+				ModMenu.MODS.get( "loadercomplex" ),
 				ModMenu.MODS.put( container.getId(), new LoaderComplexModImpl( container ) )
 			);
 	}

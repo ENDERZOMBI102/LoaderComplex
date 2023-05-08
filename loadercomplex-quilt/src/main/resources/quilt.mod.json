@@ -28,7 +28,7 @@
 				"com.enderzombi102.loadercomplex.quilt.QuiltBootstrap"
 			],
 			"modmenu": [
-				"com.enderzombi102.loadercomplex.quilt.compat.LoaderComplexModMenuEntrypoint"
+				"com.enderzombi102.loadercomplex.compat.LoaderComplexModMenuEntrypoint"
 			]
 		},
 

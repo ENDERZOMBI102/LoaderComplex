@@ -10,6 +10,7 @@ dependencies {
 	modImplementation( libs.fabric.loader )
 
 	modImplementation( "net.fabricmc.fabric-api:fabric-api:$fabric_version" )
-	modImplementation( "com.terraformersmc:modmenu:$modmenu_version" )
-	implementation( project(":loadercomplex-fabric:common") )
+	modRuntimeOnly( "com.terraformersmc:modmenu:$modmenu_version" )
+	implementation( project( ":loadercomplex-fabric:common" ) )
+	modImplementation( project( ":loadercomplex-modmenu" ) )
 }
