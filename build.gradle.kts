@@ -9,8 +9,8 @@ import java.time.format.DateTimeFormatter.ofPattern
 plugins {
 	// plugins for the subprojects, no need to apply here
 	id( "org.jetbrains.kotlin.jvm" ) version "1.8.0" apply false
-	id( "dev.architectury.loom" ) version "1.+" apply false
-	id( "org.quiltmc.loom" ) version "1.+" apply false
+	id( "dev.architectury.loom" ) version "1.1.+" apply false
+	id( "org.quiltmc.loom" ) version "1.1.+" apply false
 	// root project plugins
 	id( "com.github.johnrengelman.shadow") version "7.1.2"
 	java
