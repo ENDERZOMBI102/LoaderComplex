@@ -5,6 +5,7 @@ pluginManagement {
 		mavenCentral()
 		gradlePluginPortal()
 		maven( url="https://maven.fabricmc.net" )
+		maven( url="https://maven.wagyourtail.xyz/releases" ) //
 		maven( url="https://maven.architectury.dev" )
 		maven( url="https://maven.minecraftforge.net" )
 		maven( url="https://files.minecraftforge.net/maven" )
@@ -18,16 +19,17 @@ pluginManagement {
 
 include("loadercomplex-api")
 include("loadercomplex-common")
-include("loadercomplex-quilt")
+include("loadercomplex-modmenu")
 
-include("loadercomplex-forge")
+//include("loadercomplex-quilt")
+
+//include("loadercomplex-forge")
 //include("loadercomplex-forge:ver12")
-include("loadercomplex-forge:ver18")
+//include("loadercomplex-forge:ver18")
 
-include("loadercomplex-fabric")
+//include("loadercomplex-fabric")
 //include("loadercomplex-fabric:ver12")
-include("loadercomplex-fabric:ver17")
-include("loadercomplex-fabric:common")
+//include("loadercomplex-fabric:ver17")
+//include("loadercomplex-fabric:common")
 
 rootProject.name = "loadercomplex"
-include("loadercomplex-modmenu")
