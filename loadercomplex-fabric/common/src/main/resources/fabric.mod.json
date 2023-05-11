@@ -19,8 +19,7 @@
 			"com.enderzombi102.loadercomplex.fabric.FabricDispatcher"
 		],
 		"modmenu": [
-			"com.enderzombi102.loadercomplex.fabric12.compat.LoaderComplexModMenuEntrypoint",
-			"com.enderzombi102.loadercomplex.fabric17.compat.LoaderComplexModMenuEntrypoint"
+			"com.enderzombi102.loadercomplex.compat.LoaderComplexModMenuEntrypoint"
 		]
 	},
 
