@@ -9,7 +9,7 @@ unimined.minecraft {
 	mappings.quilt( 26 )
 
 	quilt {
-		loader( "0.19.0-beta.13" )
+		loader( "0.19.2-beta.6" )
 	}
 }
 
