@@ -36,24 +36,26 @@ public class LoaderComplexModImpl implements Mod {
 	}
 
 	@Override
-	public @NotNull NativeImageBackedTexture getIcon(ModIconHandler iconHandler, int i) {
+	public @NotNull NativeImageBackedTexture getIcon( ModIconHandler iconHandler, int i ) {
 		if ( container.getIconPath() == null ) {
 			LoaderComplex.get().getLogger().warn( "Addon {} has no icon! using default.", container.getId() );
-			return getDefaultIcon(iconHandler);
+			return getDefaultIcon( iconHandler );
 		}
 
 		var entry = container.getAddonJar().getJarEntry( container.getIconPath() );
 		if ( entry == null ) {
 			LoaderComplex.get().getLogger().warn( "Addon {} has an invalid icon! using default.", container.getId() );
-			return getDefaultIcon(iconHandler);
+			return getDefaultIcon( iconHandler );
 		}
 
 		try {
 			var inputStream = container.getAddonJar().getInputStream( entry );
 			NativeImage image = NativeImage.read( Objects.requireNonNull( inputStream ) );
-			Validate.validState(image.getHeight() == image.getWidth(), "Must be square icon");
-			return new NativeImageBackedTexture(image);
-		} catch (IOException e) { throw new IllegalStateException(e); }
+			Validate.validState( image.getHeight() == image.getWidth(), "Must be square icon" );
+			return new NativeImageBackedTexture( image );
+		} catch ( IOException e ) {
+			throw new IllegalStateException( e );
+		}
 	}
 
 	@Override
@@ -127,10 +129,10 @@ public class LoaderComplexModImpl implements Mod {
 	}
 
 	@SuppressWarnings( "deprecation" )
-	private static NativeImageBackedTexture getDefaultIcon( ModIconHandler iconHandler) {
+	private static NativeImageBackedTexture getDefaultIcon( ModIconHandler iconHandler ) {
 		return iconHandler.createIcon(
 			FabricLoader.getInstance()
-				.getModContainer(ModMenu.MOD_ID)
+				.getModContainer( ModMenu.MOD_ID )
 				.orElseThrow( () -> new RuntimeException( "Cannot get ModContainer for Fabric mod with id " + ModMenu.MOD_ID ) ),
 			"assets/" + ModMenu.MOD_ID + "/unknown_icon.png"
 		);
