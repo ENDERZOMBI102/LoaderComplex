@@ -6,8 +6,6 @@ plugins {
 	`maven-publish`
 }
 
-version = project.ext["api"] as String
-
 dependencies {
 	api( libs.slf4j )
 	api( libs.jankson )
@@ -18,12 +16,6 @@ dependencies {
 java.withJavadocJar()
 java.withSourcesJar()
 artifacts.jarz( tasks.jar )
-
-tasks.withType<JavaCompile> {
-	sourceCompatibility = "8"
-	options.encoding = "UTF-8"
-	options.release.set(8)
-}
 
 tasks.withType<ProcessResources> {
 	// set the api version

@@ -1,21 +1,22 @@
 @file:Suppress("UnstableApiUsage", "LocalVariableName")
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_1_8
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import xyz.wagyourtail.unimined.api.UniminedExtension
+import xyz.wagyourtail.unimined.api.runs.RunConfig
 import java.time.LocalDateTime.now
 import java.time.format.DateTimeFormatter.ofPattern
 
 plugins {
 	// plugins for the subprojects, no need to apply here
 	id( "org.jetbrains.kotlin.jvm" ) version "1.8.0" apply false
-//	id( "dev.architectury.loom" ) version "1.1.+" apply false
-//	id( "org.quiltmc.loom" ) version "1.1.+" apply false
+	id( "xyz.wagyourtail.unimined" ) version "1.0.0-SNAPSHOT" apply false
 	// root project plugins
 	id( "com.github.johnrengelman.shadow") version "7.1.2"
 	java
 	idea
 }
 
-val shade = configurations.create("shade")
+val shade = configurations.create( "shade" )
 
 allprojects {
 	repositories {
@@ -31,6 +32,11 @@ allprojects {
 	}
 }
 
+val configurer: RunConfig.() -> Unit = {
+	workingDir = rootProject.file( "run" )
+	jvmArgs += "-Dlog4j2.configurationFile=${rootProject.file( "log4j2.xml" ).absolutePath}"
+}
+
 val api = project( ":loadercomplex-api" )
 val common = project( ":loadercomplex-common" )
 subprojects {
@@ -41,25 +47,34 @@ subprojects {
 
 	configurations.create("jarz")
 
-//	if ( hasProperty("loom") ) {
-//		apply( plugin = property("loom") as String )
-//
-//		repositories.maven( url = "https://maven.terraformersmc.com/releases" )
-//
-//		( extensions["loom"] as LoomGradleExtension ).apply {
-//			runConfigs {
-//				named("client") {
-//					runDir = rootProject.file("run").relativeTo( projectDir ).path
-//				}
-//				named("server") {
-//					runDir = rootProject.file("run").relativeTo( projectDir ).path
-//				}
-//			}
-//			runtimeOnlyLog4j.set(true)
-//		}
-//
-//		artifacts.add( "jarz", tasks["remapJar"] )
-//	}
+	if ( hasProperty( "minecraftVersion" ) ) {
+		logger.lifecycle( "Found subproject: `$path` ( minecraft ${ext["minecraftVersion"]} )" )
+		// check for missing properties
+		val missing = listOf( "genRuns" ).filter { !hasProperty( it ) }
+		if ( missing.isNotEmpty() )
+			error( "Project `$name` is missing the following properties: $missing" )
+
+		// setup unimined
+		apply( plugin = "xyz.wagyourtail.unimined" )
+		( extensions[ "unimined" ] as UniminedExtension ).apply {
+			useGlobalCache = false
+			minecraft {
+				version( ext[ "minecraftVersion" ] as String )
+
+				if ( ( ext[ "genRuns" ] as String ).toBoolean() ) {
+					runs {
+						config( "client", configurer )
+						config( "server", configurer )
+					}
+				}
+			}
+		}
+
+		afterEvaluate {
+			artifacts.add( "jarz", tasks[ "remapJar" ] )
+		}
+	} else
+		logger.lifecycle( "Found subproject: `$path`" )
 
 	dependencies {
 		implementation( rootProject.libs.annotations )
@@ -71,14 +86,14 @@ subprojects {
 	}
 
 	tasks.withType<JavaCompile> {
-		val java_version: String by project
-		sourceCompatibility = java_version
+		val javaVersion: String by project
+		sourceCompatibility = javaVersion
 		options.encoding = "UTF-8"
-		options.release.set( java_version.toInt() )
+		options.release.set( javaVersion.toInt() )
 	}
 
 	tasks.withType<KotlinCompile> {
-		compilerOptions.jvmTarget.set( JVM_1_8 )
+		compilerOptions.jvmTarget.set( JvmTarget.JVM_1_8 )
 	}
 }
 
@@ -100,7 +115,7 @@ dependencies {
 
 tasks.withType<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar> {
     configurations = listOf( shade )
-	archiveClassifier.set("")
+	archiveClassifier.set( "" )
 
 	from( "LICENSE" ) {
 		rename { "${it}_$archiveBaseName" }
@@ -109,11 +124,11 @@ tasks.withType<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar> {
 	manifest.attributes(
 		"Specification-Title"      to "LoaderComplex",
 		"Specification-Vendor"     to "Aurora Inhabitants",
-		"Specification-Version"    to project.ext["api"], // bundled api version
+		"Specification-Version"    to api.version,    // bundled api version
 		"Implementation-Title"     to project.name,
 		"Implementation-Version"   to archiveVersion, // mod version
 		"Implementation-Vendor"    to "Aurora Inhabitants",
-		"Implementation-Timestamp" to now().format( ofPattern("dd-MM-yyyy'T'HH:mm:ss") ), // build date
+		"Implementation-Timestamp" to now().format( ofPattern( "dd-MM-yyyy'T'HH:mm:ss" ) ), // build date
 	)
 }
 

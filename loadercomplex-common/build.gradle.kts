@@ -11,12 +11,6 @@ dependencies {
 
 artifacts.jarz( tasks.jar )
 
-tasks.withType<JavaCompile> {
-	sourceCompatibility = "8"
-	options.encoding = "UTF-8"
-	options.release.set(8)
-}
-
 tasks.withType<ProcessResources> {
 	val configuration = listOf( "jdk8", "common" )
 		.asSequence()
