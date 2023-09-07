@@ -2,14 +2,13 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import xyz.wagyourtail.unimined.api.UniminedExtension
-import xyz.wagyourtail.unimined.api.runs.RunConfig
 import java.time.LocalDateTime.now
 import java.time.format.DateTimeFormatter.ofPattern
 
 plugins {
 	// plugins for the subprojects, no need to apply here
 	id( "org.jetbrains.kotlin.jvm" ) version "1.8.0" apply false
-	id( "xyz.wagyourtail.unimined" ) version "1.0.0-SNAPSHOT" apply false
+	id( "xyz.wagyourtail.unimined" ) apply false
 	// root project plugins
 	id( "com.github.johnrengelman.shadow") version "7.1.2"
 	java
@@ -32,10 +31,7 @@ allprojects {
 	}
 }
 
-val configurer: RunConfig.() -> Unit = {
-	workingDir = rootProject.file( "run" )
-	jvmArgs += "-Dlog4j2.configurationFile=${rootProject.file( "log4j2.xml" ).absolutePath}"
-}
+
 
 val api = project( ":loadercomplex-api" )
 val common = project( ":loadercomplex-common" )
@@ -45,30 +41,14 @@ subprojects {
 
 	group = "com.enderzombi102.loadercomplex"
 
-	configurations.create("jarz")
+	configurations.create( "jarz" )
 
 	if ( hasProperty( "minecraftVersion" ) ) {
 		logger.lifecycle( "Found subproject: `$path` ( minecraft ${ext["minecraftVersion"]} )" )
-		// check for missing properties
-		val missing = listOf( "genRuns" ).filter { !hasProperty( it ) }
-		if ( missing.isNotEmpty() )
-			error( "Project `$name` is missing the following properties: $missing" )
 
 		// setup unimined
 		apply( plugin = "xyz.wagyourtail.unimined" )
-		( extensions[ "unimined" ] as UniminedExtension ).apply {
-			useGlobalCache = false
-			minecraft {
-				version( ext[ "minecraftVersion" ] as String )
-
-				if ( ( ext[ "genRuns" ] as String ).toBoolean() ) {
-					runs {
-						config( "client", configurer )
-						config( "server", configurer )
-					}
-				}
-			}
-		}
+		( extensions[ "unimined" ] as UniminedExtension ).useGlobalCache = false
 
 		afterEvaluate {
 			artifacts.add( "jarz", tasks[ "remapJar" ] )

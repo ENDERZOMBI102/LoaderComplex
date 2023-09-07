@@ -17,13 +17,14 @@ tasks.withType<ProcessResources> {
 		.map { dependencies.create( dependencies.kotlin( "stdlib-$it", kotlin.coreLibrariesVersion ) ) }
 		.toList()
 		.toTypedArray()
-		.run( configurations::detachedConfiguration )
+		.run { configurations.detachedConfiguration( *this ) }
+
 	// resolve configuration and add the jars
 	from( configuration.files ) {
 		into( "jars/" )
 	}
 	// list the jars in a file, so there is no hardcoding
 	filesMatching( "/jars/list" ) {
-		expand( "files" to configuration.files.joinToString("\n") { it.name })
+		expand( "files" to configuration.files.joinToString("\n") { it.name } )
 	}
 }

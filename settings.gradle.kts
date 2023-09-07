@@ -1,22 +1,4 @@
 @file:Suppress("UnstableApiUsage")
-pluginManagement {
-	repositories {
-		mavenCentral()
-		gradlePluginPortal()
-		maven( url="https://maven.fabricmc.net" )
-		maven( url="https://maven.architectury.dev" )
-		maven( url="https://maven.minecraftforge.net" )
-		maven( url="https://files.minecraftforge.net/maven" )
-		maven( url="https://maven.wagyourtail.xyz/releases" )
-		maven( url="https://maven.wagyourtail.xyz/snapshots" )
-		maven( url="https://maven.quiltmc.org/repository/release" )
-	}
-	resolutionStrategy.eachPlugin {
-		if ( requested.id.id == "net.minecraftforge.gradle" )
-			useModule( "net.minecraftforge.gradle:ForgeGradle:${requested.version}" )
-	}
-}
-
 include("loadercomplex-api")
 include("loadercomplex-common")
 include("loadercomplex-modmenu")
