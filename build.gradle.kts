@@ -48,7 +48,18 @@ subprojects {
 
 		// setup unimined
 		apply( plugin = "xyz.wagyourtail.unimined" )
-		( extensions[ "unimined" ] as UniminedExtension ).useGlobalCache = false
+		val unimined = ( extensions[ "unimined" ] as UniminedExtension )
+		unimined.useGlobalCache = false
+
+		configurations.create( "modCompileOnly" ) {
+			configurations["compileOnly"].extendsFrom( this )
+			unimined.minecraft( lateApply=true ) { mods.remap( this@create ) }
+		}
+
+		configurations.create( "modRuntimeOnly" ) {
+			configurations["runtimeOnly"].extendsFrom( this )
+			unimined.minecraft( lateApply=true ) { mods.remap( this@create ) }
+		}
 
 		afterEvaluate {
 			artifacts.add( "jarz", tasks[ "remapJar" ] )
