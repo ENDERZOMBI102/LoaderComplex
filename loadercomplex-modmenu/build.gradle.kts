@@ -2,7 +2,7 @@ import xyz.wagyourtail.unimined.api.unimined
 
 repositories {
 	maven( url = "https://maven.terraformersmc.com/releases" )
-	maven( url = "https://maven.quiltmc.org/repository/release" )
+	unimined.quiltMaven()
 }
 
 unimined.minecraft( sourceSets["main"] ) {
@@ -17,7 +17,9 @@ unimined.minecraft( sourceSets["main"] ) {
 
 dependencies {
 	// To change the versions see the gradle.properties file
-	"modImplementation"( "com.terraformersmc:modmenu:3.1.0" ) {
+	"modImplementation"( "com.terraformersmc:modmenu:4.2.0-beta.2" ) {
 		isTransitive = false
 	}
+	"modImplementation"( "org.quiltmc:quilt-loader:0.22.0-beta.1" )
+	"modImplementation"( "org.quiltmc.quilted-fabric-api:quilted-fabric-api:4.0.0-beta.30+0.76.0-1.19.2" )
 }

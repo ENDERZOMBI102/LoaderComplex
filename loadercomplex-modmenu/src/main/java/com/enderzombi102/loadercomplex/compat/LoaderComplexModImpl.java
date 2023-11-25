@@ -4,9 +4,10 @@ import com.enderzombi102.loadercomplex.api.addon.AddonContainer;
 import com.enderzombi102.loadercomplex.impl.LoaderComplex;
 import com.terraformersmc.modmenu.ModMenu;
 import com.terraformersmc.modmenu.util.mod.Mod;
-import com.terraformersmc.modmenu.util.mod.ModIconHandler;
+import com.terraformersmc.modmenu.util.mod.ModrinthData;
+import com.terraformersmc.modmenu.util.mod.fabric.FabricIconHandler;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.client.texture.NativeImage;
+import com.mojang.blaze3d.texture.NativeImage;
 import net.minecraft.client.texture.NativeImageBackedTexture;
 import org.apache.commons.lang3.Validate;
 import org.jetbrains.annotations.NotNull;
@@ -20,6 +21,8 @@ import java.util.Set;
 
 public class LoaderComplexModImpl implements Mod {
 	private final AddonContainer container;
+	private @Nullable ModrinthData modrinthData = null;
+	private boolean childHasUpdate = false;
 
 	public LoaderComplexModImpl( AddonContainer container ) {
 		this.container = container;
@@ -36,7 +39,7 @@ public class LoaderComplexModImpl implements Mod {
 	}
 
 	@Override
-	public @NotNull NativeImageBackedTexture getIcon( ModIconHandler iconHandler, int i ) {
+	public @NotNull NativeImageBackedTexture getIcon( FabricIconHandler iconHandler, int i ) {
 		if ( container.getIconPath() == null ) {
 			LoaderComplex.get().getLogger().warn( "Addon {} has no icon! using default.", container.getId() );
 			return getDefaultIcon( iconHandler );
@@ -65,7 +68,7 @@ public class LoaderComplexModImpl implements Mod {
 
 	@Override
 	public @NotNull String getDescription() {
-		return "".equals( container.getDescription() ) ? "No description provided" : container.getDescription();
+		return container.getDescription().isEmpty() ? "No description provided" : container.getDescription();
 	}
 
 	@Override
@@ -85,6 +88,11 @@ public class LoaderComplexModImpl implements Mod {
 
 	@Override
 	public @NotNull List<String> getContributors() {
+		return List.of();
+	}
+
+	@Override
+	public @NotNull List<String> getCredits() {
 		return List.of();
 	}
 
@@ -128,8 +136,33 @@ public class LoaderComplexModImpl implements Mod {
 		return false;
 	}
 
+	@Override
+	public @Nullable ModrinthData getModrinthData() {
+		return this.modrinthData;
+	}
+
+	@Override
+	public boolean allowsUpdateChecks() {
+		return false;
+	}
+
+	@Override
+	public void setModrinthData( @Nullable ModrinthData modrinthData ) {
+		this.modrinthData = modrinthData;
+	}
+
+	@Override
+	public void setChildHasUpdate() {
+		this.childHasUpdate = true;
+	}
+
+	@Override
+	public boolean getChildHasUpdate() {
+		return this.childHasUpdate;
+	}
+
 	@SuppressWarnings( "deprecation" )
-	private static NativeImageBackedTexture getDefaultIcon( ModIconHandler iconHandler ) {
+	private static NativeImageBackedTexture getDefaultIcon( FabricIconHandler iconHandler ) {
 		return iconHandler.createIcon(
 			FabricLoader.getInstance()
 				.getModContainer( ModMenu.MOD_ID )
