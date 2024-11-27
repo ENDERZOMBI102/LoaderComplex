@@ -1,4 +1,5 @@
 package com.enderzombi102.loadercomplex.api.event;
 
-public interface EventData {
+public abstract class Event {
+
 }
