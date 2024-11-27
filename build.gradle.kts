@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter.ofPattern
 plugins {
 	// plugins for the subprojects, no need to apply here
 	id( "org.jetbrains.kotlin.jvm" ) version "1.8.0" apply false
-	id( "xyz.wagyourtail.unimined" ) apply false
+	id( "xyz.wagyourtail.unimined" ) version "1.3.9" apply false
 	// root project plugins
 	id( "com.github.johnrengelman.shadow") version "7.1.2"
 	java
@@ -18,6 +18,8 @@ plugins {
 val shade = configurations.create( "shade" )
 
 allprojects {
+	apply( plugin = "java" )
+
 	repositories {
 		mavenLocal()
 		mavenCentral()
@@ -36,7 +38,6 @@ allprojects {
 val api = project( ":loadercomplex-api" )
 val common = project( ":loadercomplex-common" )
 subprojects {
-	apply( plugin = "java" )
 	apply( plugin = "org.jetbrains.kotlin.jvm" )
 
 	group = "com.enderzombi102.loadercomplex"
@@ -49,7 +50,6 @@ subprojects {
 		// setup unimined
 		apply( plugin = "xyz.wagyourtail.unimined" )
 		val unimined = ( extensions[ "unimined" ] as UniminedExtension )
-		unimined.useGlobalCache = false
 
 		configurations.create( "modCompileOnly" ) {
 			configurations["compileOnly"].extendsFrom( this )

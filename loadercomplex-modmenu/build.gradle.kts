@@ -10,8 +10,8 @@ unimined.minecraft( sourceSets["main"] ) {
 
 	// check these on https://lambdaurora.dev/tools/import_quilt.html
 	mappings.quilt( "22" )
-	quilt {
-		loader( "0.20.2" )
+	fabric {
+		loader( "0.16.9" )
 	}
 }
 
@@ -20,6 +20,6 @@ dependencies {
 	"modImplementation"( "com.terraformersmc:modmenu:4.2.0-beta.2" ) {
 		isTransitive = false
 	}
-	"modImplementation"( "org.quiltmc:quilt-loader:0.22.0-beta.1" )
-	"modImplementation"( "org.quiltmc.quilted-fabric-api:quilted-fabric-api:4.0.0-beta.30+0.76.0-1.19.2" )
+	"modImplementation"( "net.fabricmc:fabric-loader:0.16.9" )
+	"modImplementation"( "net.fabricmc.fabric-api:fabric-api:0.77.0+1.19.2" )
 }

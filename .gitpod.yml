@@ -1,8 +1,0 @@
-
-tasks:
-  - init: sdk env # runs during prebuild
-
-vscode:
-  extensions:
-    - vscjava.vscode-java-pack
-    - eamodio.gitlens

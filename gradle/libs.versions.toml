@@ -1,5 +1,4 @@
 [versions]
-	enderlib = '0.3.1'
 	annotations = '23.0.0'
 	eventsystem = '1.0.0'
 	brigadier = '1.0.18'
@@ -7,13 +6,12 @@
 	guava = '21.0'
 	log4j = '2.17.0'
 	slf4j = '1.8.0-beta4'
-	fabric_loader = '0.14.9'
+	fabric_loader = '0.16.9'
 	mixins = '0.11.4+mixin.0.8.5'
 	flexver = '1.0.2'
 
 [libraries]
 	annotations = { module = 'org.jetbrains:annotations', version.ref = 'annotations' }
-	enderlib = { module = 'com.enderzombi102.EnderLib:jvm8', version.ref = 'enderlib' }
 	eventsystem = { module = 'com.enderzombi102:eventsystem', version.ref = 'eventsystem' }
 	brigadier = { module = 'com.mojang:brigadier', version.ref = 'brigadier' }
 	jankson = { module = 'blue.endless:jankson', version.ref = 'jankson' }
@@ -24,4 +22,4 @@
 	flexver = { module = 'com.unascribed:flexver-java', version.ref = 'flexver' }
 
 [bundles]
-	shade = [ 'annotations', 'enderlib', 'eventsystem', 'brigadier', 'jankson' ]
+	shade = [ 'annotations', 'eventsystem', 'brigadier', 'jankson' ]

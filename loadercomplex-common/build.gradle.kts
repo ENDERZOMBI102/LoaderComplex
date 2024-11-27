@@ -5,7 +5,6 @@ plugins {
 
 dependencies {
 	api( project( ":loadercomplex-api" ) )
-	compileOnly( libs.enderlib )
 	compileOnly( libs.flexver )
 }
 
