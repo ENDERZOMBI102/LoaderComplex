@@ -1,17 +1,17 @@
 package com.enderzombi102.loadercomplex.forge12.impl.utils;
 
-import com.enderzombi102.loadercomplex.minecraft.util.FactoryWorld;
+import com.enderzombi102.loadercomplex.api.minecraft.util.FactoryWorld;
 import com.enderzombi102.loadercomplex.forge12.impl.block.ForgeBlockstate;
 import com.enderzombi102.loadercomplex.forge12.impl.entity.ForgeEntity;
 import com.enderzombi102.loadercomplex.forge12.impl.entity.ForgeItemEntity;
 import com.enderzombi102.loadercomplex.forge12.impl.item.ForgeItemStack;
-import com.enderzombi102.loadercomplex.minecraft.block.Blockstate;
-import com.enderzombi102.loadercomplex.minecraft.entity.Entity;
-import com.enderzombi102.loadercomplex.minecraft.entity.ItemEntity;
-import com.enderzombi102.loadercomplex.minecraft.item.ItemStack;
-import com.enderzombi102.loadercomplex.minecraft.util.ResourceIdentifier;
-import com.enderzombi102.loadercomplex.minecraft.util.Server;
-import com.enderzombi102.loadercomplex.minecraft.world.World;
+import com.enderzombi102.loadercomplex.api.minecraft.block.Blockstate;
+import com.enderzombi102.loadercomplex.api.minecraft.entity.Entity;
+import com.enderzombi102.loadercomplex.api.minecraft.entity.ItemEntity;
+import com.enderzombi102.loadercomplex.api.minecraft.item.ItemStack;
+import com.enderzombi102.loadercomplex.api.minecraft.util.ResourceIdentifier;
+import com.enderzombi102.loadercomplex.api.minecraft.util.Server;
+import com.enderzombi102.loadercomplex.api.minecraft.world.World;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.Item;

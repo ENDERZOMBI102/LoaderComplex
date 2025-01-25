@@ -27,81 +27,89 @@ public class AddonContainerImpl implements AddonContainer {
 	private final String buildDate;
 	Addon implementation = null;
 
-	public AddonContainerImpl( Path file) throws IOException, IllegalStateException {
+	public AddonContainerImpl( Path file ) throws IOException, IllegalStateException {
 		this.file = file;
-		Attributes attributes = ( addonJar = new JarFile( file.toFile(), false ) ).getManifest().getMainAttributes();
-		mainClass = attributes.getValue("LoaderComplex-Main");
-		version = attributes.getValue("LoaderComplex-Version");
-		buildDate = attributes.getValue("LoaderComplex-BuildDate");
-		id = attributes.getValue("LoaderComplex-AddonId");
-		List<String> parts = new ArrayList<>(4);
-		if ( mainClass == null )
-			parts.add( "Missing LoaderComplex-Main attribute in manifest" );
-		if ( version == null )
-			parts.add( "Missing LoaderComplex-Version attribute in manifest" );
-		if ( buildDate == null )
-			parts.add( "Missing LoaderComplex-BuildDate attribute in manifest" );
-		if ( buildDate == null )
-			parts.add( "Missing LoaderComplex-AddonId attribute in manifest" );
-		if ( parts.size() != 0 )
-			throw new IllegalStateException( "Not a LoaderComplex Addon! ( " + String.join( ", ", parts ) + ")" );
+		this.addonJar = new JarFile( file.toFile(), false );
+		Attributes attributes = this.addonJar.getManifest().getMainAttributes();
+		this.id        = attributes.getValue( "LoaderComplex-Id" );
+		this.mainClass = attributes.getValue( "LoaderComplex-Main" );
+		this.version   = attributes.getValue( "LoaderComplex-Version" );
+		this.buildDate = attributes.getValue( "LoaderComplex-BuildDate" );
+		List<String> errors = new ArrayList<>( 4 );
+		if ( this.mainClass == null ) {
+			errors.add( "Missing LoaderComplex-Main attribute in manifest" );
+		}
+		if ( this.version == null ) {
+			errors.add( "Missing LoaderComplex-Version attribute in manifest" );
+		}
+		if ( this.buildDate == null ) {
+			errors.add( "Missing LoaderComplex-BuildDate attribute in manifest" );
+		}
+		if ( this.id == null ) {
+			errors.add( "Missing LoaderComplex-Id attribute in manifest" );
+		}
+		if ( !errors.isEmpty() ) {
+			throw new IllegalStateException( "Not a LoaderComplex Addon! ( " + String.join( ", ", errors ) + ")" );
+		}
 	}
 
 	@Override
 	public @NotNull String getName() {
-		return implementation.getName() != null ?
-			implementation.getName() :
-			file.getFileName().toString().replace(".lc.jar", "");
+		if ( this.implementation.getName() != null ) {
+			return this.implementation.getName();
+		}
+		String filename = this.file.getFileName().toString();
+		return filename.substring( 0, filename.length() - 8 );
 	}
 
 	@Override
 	public @NotNull String getVersion() {
-		return version;
+		return this.version;
 	}
 
 	@Override
 	public @NotNull String getBuildDate() {
-		return buildDate;
+		return this.buildDate;
 	}
 
 	@Override
 	public @NotNull String getId() {
-		return id;
+		return this.id;
 	}
 
 	@Override
 	public @NotNull JarFile getAddonJar() {
-		return addonJar;
+		return this.addonJar;
 	}
 
 	@Override
 	public @NotNull Path getPath() {
-		return file;
+		return this.file;
 	}
 
 	@Override
 	public @NotNull String getMainClass() {
-		return mainClass;
+		return this.mainClass;
 	}
 
 	@Override
 	public @NotNull String getAuthors() {
-		return implementation.getAuthors();
+		return this.implementation.getAuthors();
 	}
 
 	@Override
 	public @NotNull String getDescription() {
-		return implementation.getDescription();
+		return this.implementation.getDescription();
 	}
 
 	@Override
 	public @Nullable String getIconPath() {
-		return implementation.getIconPath();
+		return this.implementation.getIconPath();
 	}
 
 	@Override
 	public @NotNull Map<String, String> getLinks() {
-		return implementation.getLinks();
+		return this.implementation.getLinks();
 	}
 
 	@Override
@@ -111,6 +119,6 @@ public class AddonContainerImpl implements AddonContainer {
 
 	@Override
 	public @NotNull Addon getImplementation() {
-		return implementation;
+		return this.implementation;
 	}
 }

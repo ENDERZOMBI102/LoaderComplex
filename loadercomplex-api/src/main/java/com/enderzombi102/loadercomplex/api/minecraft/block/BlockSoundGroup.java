@@ -16,5 +16,4 @@ public enum BlockSoundGroup {
 	LADDER,
 	ANVIL,
 	SLIME
-	
 }

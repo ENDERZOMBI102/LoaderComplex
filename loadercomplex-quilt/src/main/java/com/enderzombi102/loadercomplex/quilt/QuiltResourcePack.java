@@ -24,7 +24,7 @@ import java.util.jar.JarEntry;
 
 public class QuiltResourcePack extends AbstractFileResourcePack {
 	private static final Splitter TYPE_NAMESPACE_SPLITTER = Splitter.on('/').omitEmptyStrings().limit(3);
-	private static final Logger LOGGER = LoggerFactory.getLogger("LoaderComplex | ResourceManager");
+	private static final Logger LOGGER = LoggerFactory.getLogger("LoaderComplex|ResourceManager");
 	// https://minecraft.fandom.com/wiki/Tutorials/Creating_a_resource_pack#.22pack_format.22
 	private static final int PACK_FORMAT_VERSION = 1; // format for 1.6.1 – 1.8.9
 	private final AddonContainerImpl container;

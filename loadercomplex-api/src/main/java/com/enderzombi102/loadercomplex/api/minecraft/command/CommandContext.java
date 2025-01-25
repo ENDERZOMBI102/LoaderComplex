@@ -7,6 +7,7 @@ import org.jetbrains.annotations.Nullable;
 @AvailableSince( "0.2.0" )
 public interface CommandContext {
 	@Nullable LivingEntity getSender();
+
 	default void reply( String text ) {
 		if ( this.getSender() != null && this.getSender().isPlayer() )
 			this.getSender().asPlayer().sendMessage( text );

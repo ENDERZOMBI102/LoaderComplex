@@ -1,6 +1,6 @@
 package com.enderzombi102.loadercomplex.api.event;
 
-public class CancellableEvent extends Event {
+public abstract class CancellableEvent extends Event {
 	private boolean cancelled = false;
 	private boolean othersMayRun = false;
 

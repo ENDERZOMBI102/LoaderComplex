@@ -1,6 +1,6 @@
 package com.enderzombi102.loadercomplex.impl;
 
-import com.enderzombi102.loadercomplex.api.Loader;
+import com.enderzombi102.loadercomplex.api.AddonContext;
 import com.enderzombi102.loadercomplex.api.addon.AddonLoader;
 import com.enderzombi102.loadercomplex.impl.addon.AddonLoaderImpl;
 import com.enderzombi102.loadercomplex.impl.addon.AddonContainerImpl;
@@ -23,17 +23,17 @@ public abstract class LoaderComplex implements com.enderzombi102.loadercomplex.a
 	private static LoaderComplex instance;
 
 	private boolean initialized = false;
-	private final @NotNull Loader loader;
+	private final @NotNull AddonContext context;
 	private final @NotNull Logger logger;
 	private final @NotNull AddonLoaderImpl addonLoader;
 	private @NotNull Consumer<AddonContainerImpl> resourceHelper;
 
-	public LoaderComplex( @NotNull String name, @NotNull Loader loader ) {
+	public LoaderComplex( @NotNull String name, @NotNull AddonContext context ) {
 		instance = this;
-		this.loader = loader;
+		this.context = context;
 		this.resourceHelper = container -> { };
 		this.addonLoader = new AddonLoaderImpl();
-		this.logger = LoggerFactory.getLogger( "LoaderComplex | " + name );
+		this.logger = LoggerFactory.getLogger( "LoaderComplex|" + name );
 	}
 
 	public void loadAddons( @NotNull List<AddonFinder> finders ) {
@@ -45,7 +45,7 @@ public abstract class LoaderComplex implements com.enderzombi102.loadercomplex.a
 			this.initialized = true;
 			for ( AddonContainer container : this.addonLoader.getAddons() ) {
 				this.resourceHelper.accept( (AddonContainerImpl) container);
-				container.getImplementation().init(this.loader);
+				container.getImplementation().init(this.context );
 			}
 		}
 	}
@@ -64,8 +64,8 @@ public abstract class LoaderComplex implements com.enderzombi102.loadercomplex.a
 			.map( AddonContainer.class::cast );
 	}
 
-	public @NotNull Loader getLoader() {
-		return this.loader;
+	public @NotNull AddonContext getContext() {
+		return this.context;
 	}
 
 	public @NotNull Logger getLogger() {

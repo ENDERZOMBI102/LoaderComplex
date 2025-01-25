@@ -1,8 +1,8 @@
 package com.enderzombi102.loadercomplex.forge12.impl.entity;
 
-import com.enderzombi102.loadercomplex.minecraft.entity.Player;
-import com.enderzombi102.loadercomplex.minecraft.util.Gamemode;
-import com.enderzombi102.loadercomplex.minecraft.util.Position;
+import com.enderzombi102.loadercomplex.api.minecraft.entity.Player;
+import com.enderzombi102.loadercomplex.api.minecraft.util.Gamemode;
+import com.enderzombi102.loadercomplex.api.minecraft.util.Position;
 import com.enderzombi102.loadercomplex.forge12.impl.utils.BlockUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;

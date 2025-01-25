@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Represents the thing that loaded you.
  */
-@ApiStatus.AvailableSince("0.1.4")
+@ApiStatus.AvailableSince( "0.1.4" )
 public interface AddonLoader {
 	/**
 	 * Returns the list of loaded addon containers

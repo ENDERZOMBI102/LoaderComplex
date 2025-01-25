@@ -1,6 +1,6 @@
 package com.enderzombi102.loadercomplex.forge12.impl.utils;
 
-import com.enderzombi102.loadercomplex.minecraft.util.I18nSystem;
+import com.enderzombi102.loadercomplex.api.minecraft.util.I18nSystem;
 import net.minecraft.client.resources.I18n;
 import org.jetbrains.annotations.NotNull;
 

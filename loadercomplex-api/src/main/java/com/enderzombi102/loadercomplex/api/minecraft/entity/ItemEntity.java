@@ -6,7 +6,7 @@ import org.jetbrains.annotations.ApiStatus;
 /**
  * Represents a dropped ItemStack
  */
-@ApiStatus.AvailableSince("0.1.3")
+@ApiStatus.AvailableSince( "0.1.3" )
 public interface ItemEntity extends Entity {
 
 	/**
@@ -17,5 +17,5 @@ public interface ItemEntity extends Entity {
 	/**
 	 * Setter for the {@link ItemStack} this entity holds
 	 */
-	void setStack(ItemStack stack);
+	void setStack( ItemStack stack );
 }

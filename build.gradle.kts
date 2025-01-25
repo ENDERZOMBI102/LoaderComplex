@@ -1,7 +1,6 @@
 @file:Suppress("UnstableApiUsage", "LocalVariableName")
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import xyz.wagyourtail.unimined.api.UniminedExtension
 import java.time.LocalDateTime.now
 import java.time.format.DateTimeFormatter.ofPattern
 
@@ -18,7 +17,7 @@ plugins {
 val shade = configurations.create( "shade" )
 
 allprojects {
-	apply( plugin = "java" )
+	apply( plugin = "xyz.wagyourtail.unimined" )
 
 	repositories {
 		mavenLocal()
@@ -33,54 +32,18 @@ allprojects {
 	}
 }
 
-
-
-val api = project( ":loadercomplex-api" )
-val common = project( ":loadercomplex-common" )
 subprojects {
 	apply( plugin = "org.jetbrains.kotlin.jvm" )
 
 	group = "com.enderzombi102.loadercomplex"
 
 	configurations.create( "jarz" )
-
-	if ( hasProperty( "minecraftVersion" ) ) {
-		logger.lifecycle( "Found subproject: `$path` ( minecraft ${ext["minecraftVersion"]} )" )
-
-		// setup unimined
-		apply( plugin = "xyz.wagyourtail.unimined" )
-		val unimined = ( extensions[ "unimined" ] as UniminedExtension )
-
-		configurations.create( "modCompileOnly" ) {
-			configurations["compileOnly"].extendsFrom( this )
-			unimined.minecraft( lateApply=true ) { mods.remap( this@create ) }
-		}
-
-		configurations.create( "modRuntimeOnly" ) {
-			configurations["runtimeOnly"].extendsFrom( this )
-			unimined.minecraft( lateApply=true ) { mods.remap( this@create ) }
-		}
-
-		afterEvaluate {
-			artifacts.add( "jarz", tasks[ "remapJar" ] )
-		}
-	} else
-		logger.lifecycle( "Found subproject: `$path`" )
-
-	dependencies {
-		implementation( rootProject.libs.annotations )
-		compileOnly( kotlin( "stdlib-jdk8" ) )
-		if ( name != api.name && name != common.name ) {
-			implementation( project( common.path ) )
-			compileOnly( rootProject.libs.brigadier )
-		}
-	}
+	logger.lifecycle( "Found subproject: `$path`" )
 
 	tasks.withType<JavaCompile> {
-		val javaVersion: String by project
-		sourceCompatibility = javaVersion
+		sourceCompatibility = "8"
+		targetCompatibility = "8"
 		options.encoding = "UTF-8"
-		options.release.set( javaVersion.toInt() )
 	}
 
 	tasks.withType<KotlinCompile> {
@@ -88,20 +51,28 @@ subprojects {
 	}
 }
 
-val subProjects: List<String> = rootProject.subprojects
-	.asSequence()
-	.filter { it.parent == rootProject }
-	.map( Project::getName )
-	.toList()
-
 dependencies {
-	for ( proj in subProjects ) {
-		shade( project( path=proj, configuration="jarz" ) ) {
-			isTransitive = false
+	// depend on all "type subprojects"
+	rootProject.subprojects.stream()
+		.filter { it.parent == rootProject }
+		.map( Project::getName )
+		.forEach {
+			shade( project( path=it, configuration="jarz" ) ) {
+				isTransitive = false
+			}
 		}
-	}
-
 	shade( libs.bundles.shade )
+}
+
+val genIntellijRuns: Task by tasks.creating {
+	group = "unimined_runs"
+	description = "Generate IntelliJ run configurations for all subprojects and versions."
+
+	rootProject.subprojects.forEach {
+		try {
+			dependsOn( it.tasks.getByName( "genIntellijRun" ).path )
+		} catch ( _: UnknownTaskException ) { }
+	}
 }
 
 tasks.withType<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar> {
@@ -112,6 +83,7 @@ tasks.withType<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar> {
 		rename { "${it}_$archiveBaseName" }
 	}
 
+	val api = project( ":loadercomplex-api" )
 	manifest.attributes(
 		"Specification-Title"      to "LoaderComplex",
 		"Specification-Vendor"     to "Aurora Inhabitants",

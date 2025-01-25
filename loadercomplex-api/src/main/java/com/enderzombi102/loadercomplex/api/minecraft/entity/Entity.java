@@ -10,12 +10,13 @@ import java.util.UUID;
 /**
  * Basically a LivingEntity equivalent
  */
-@ApiStatus.AvailableSince("0.1.3")
+@ApiStatus.AvailableSince( "0.1.3" )
 public interface Entity {
 	/**
 	 * Getter for the JSON-based display name.
 	 */
-	@Json String getDisplayName();
+	@Json
+	String getDisplayName();
 
 	/**
 	 * Getter for the string name of this entity
@@ -30,6 +31,7 @@ public interface Entity {
 
 	/**
 	 * Whether this entity is a {@link LivingEntity}
+	 *
 	 * @return true if it is
 	 */
 	boolean isLivingEntity();
@@ -41,6 +43,7 @@ public interface Entity {
 
 	/**
 	 * Whether this entity is a {@link ItemEntity}
+	 *
 	 * @return true if it is
 	 */
 	boolean isItem();
@@ -58,6 +61,7 @@ public interface Entity {
 
 	/**
 	 * Whether this entity is dead
+	 *
 	 * @return true if it is
 	 */
 	boolean isDead();
@@ -71,7 +75,7 @@ public interface Entity {
 	/**
 	 * Setter for the entity position
 	 */
-	void setPosition(Position pos);
+	void setPosition( Position pos );
 
 	/**
 	 * Getter for the entity pitch
@@ -85,6 +89,7 @@ public interface Entity {
 
 	/**
 	 * Getter for the entity world
+	 *
 	 * @return the world the entity is in
 	 */
 	World getWorld();

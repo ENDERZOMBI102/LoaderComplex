@@ -1,9 +1,9 @@
 package com.enderzombi102.loadercomplex.forge12.impl.entity;
 
-import com.enderzombi102.loadercomplex.minecraft.entity.LivingEntity;
-import com.enderzombi102.loadercomplex.minecraft.entity.Player;
-import com.enderzombi102.loadercomplex.minecraft.item.EquipmentSlot;
-import com.enderzombi102.loadercomplex.minecraft.item.ItemStack;
+import com.enderzombi102.loadercomplex.api.minecraft.entity.LivingEntity;
+import com.enderzombi102.loadercomplex.api.minecraft.entity.Player;
+import com.enderzombi102.loadercomplex.api.minecraft.item.EquipmentSlot;
+import com.enderzombi102.loadercomplex.api.minecraft.item.ItemStack;
 import com.enderzombi102.loadercomplex.forge12.impl.item.ForgeItemStack;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;

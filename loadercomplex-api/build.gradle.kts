@@ -1,7 +1,6 @@
 @file:Suppress("UnstableApiUsage")
 import java.time.LocalDateTime.now
 import java.time.format.DateTimeFormatter.ofPattern
-
 plugins {
 	`maven-publish`
 }
@@ -10,7 +9,7 @@ dependencies {
 	api( libs.slf4j )
 	api( libs.jankson )
 	api( libs.brigadier )
-	api( libs.eventsystem )
+	api( libs.annotations )
 }
 
 java.withJavadocJar()

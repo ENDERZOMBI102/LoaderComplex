@@ -1,7 +1,6 @@
 package com.enderzombi102.loadercomplex.impl;
 
 import blue.endless.jankson.Jankson;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.LoggerFactory;
 
@@ -20,8 +19,7 @@ import java.util.jar.Manifest;
 public final class Utils {
 	private static @Nullable String apiVersion;
 
-	private Utils() {
-	}
+	private Utils() { }
 
 	public static final Jankson JANKSON = Jankson.builder().build();
 

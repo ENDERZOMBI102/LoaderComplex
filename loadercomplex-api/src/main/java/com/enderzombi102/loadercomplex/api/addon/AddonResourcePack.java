@@ -7,7 +7,7 @@ import java.util.Set;
 /**
  * Represents an {@link Addon}'s resource pack
  */
-@ApiStatus.AvailableSince("0.1.4")
+@ApiStatus.AvailableSince( "0.1.4" )
 public interface AddonResourcePack {
 	/**
 	 * Getter for the id of the addon this rp represents.

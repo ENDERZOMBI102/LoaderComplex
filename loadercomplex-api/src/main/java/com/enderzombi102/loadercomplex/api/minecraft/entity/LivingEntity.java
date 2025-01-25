@@ -13,7 +13,7 @@ public interface LivingEntity extends Entity {
 	void setHealth(float health);
 
 	boolean isPlayer();
-	Player asPlayer();
+	PlayerEntity asPlayer();
 
 	boolean isChild();
 	boolean canBreathUnderwater();

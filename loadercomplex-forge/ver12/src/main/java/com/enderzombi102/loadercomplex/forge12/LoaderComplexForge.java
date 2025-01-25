@@ -20,7 +20,7 @@ import java.util.List;
 
 
 public class LoaderComplexForge extends LoaderComplex {
-	public static final Logger LOGGER = LoggerFactory.getLogger("LoaderComplex | Forge12");
+	public static final Logger LOGGER = LoggerFactory.getLogger("LoaderComplex|Forge12");
 
 	public static LoaderComplexForge INSTANCE;
 	private final ModContainer container;

@@ -6,9 +6,10 @@ import org.jetbrains.annotations.NotNull;
  * Used to identify a resource
  */
 public class ResourceIdentifier implements Comparable<ResourceIdentifier> {
-	private final String namespace, path;
+	private final String namespace;
+	private final String path;
 
-	public ResourceIdentifier(@NotNull String namespace, @NotNull String path) {
+	public ResourceIdentifier( @NotNull String namespace, @NotNull String path ) {
 		this.namespace = namespace;
 		this.path = path;
 	}
@@ -28,14 +29,14 @@ public class ResourceIdentifier implements Comparable<ResourceIdentifier> {
 		return this.namespace + ':' + this.path;
 	}
 
-	public boolean equals(Object object) {
-		if (this == object) {
+	public boolean equals( Object object ) {
+		if ( this == object ) {
 			return true;
-		} else if (! (object instanceof ResourceIdentifier) ) {
+		} else if ( !(object instanceof ResourceIdentifier) ) {
 			return false;
 		} else {
 			ResourceIdentifier identifier = (ResourceIdentifier) object;
-			return this.namespace.equals(identifier.namespace) && this.path.equals(identifier.path);
+			return this.namespace.equals( identifier.namespace ) && this.path.equals( identifier.path );
 		}
 	}
 
@@ -45,10 +46,10 @@ public class ResourceIdentifier implements Comparable<ResourceIdentifier> {
 	}
 
 	@Override
-	public int compareTo(ResourceIdentifier identifier) {
-		int i = this.path.compareTo(identifier.path);
-		if (i == 0) {
-			i = this.namespace.compareTo(identifier.namespace);
+	public int compareTo( ResourceIdentifier identifier ) {
+		int i = this.path.compareTo( identifier.path );
+		if ( i == 0 ) {
+			i = this.namespace.compareTo( identifier.namespace );
 		}
 
 		return i;
@@ -57,15 +58,22 @@ public class ResourceIdentifier implements Comparable<ResourceIdentifier> {
 	/**
 	 * @param string a string representing a resource identifier, may or may not be namespaced.
 	 * @return a {@link ResourceIdentifier} representation of that string
-	*/
+	 */
 	public static ResourceIdentifier ri( @NotNull String string ) {
-		if ( string.contains(":") ) {
+		if ( string.contains( ":" ) ) {
 			// it's a namespaced name
-			String[] parts = string.split(":");
+			String[] parts = string.split( ":" );
 			return new ResourceIdentifier( parts[0], parts[1] );
 		} else {
 			// not a namespaced name, default namespace to minecraft
 			return new ResourceIdentifier( "minecraft", string );
 		}
+	}
+
+	/**
+	 * Shorthand for `new ResourceIdentifier()`
+	 */
+	public static ResourceIdentifier ri( @NotNull String namespace, @NotNull String path ) {
+		return new ResourceIdentifier( namespace, path );
 	}
 }

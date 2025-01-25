@@ -6,7 +6,7 @@ package com.enderzombi102.loadercomplex.api.minecraft.util;
 public class Position {
 	public final int x, y, z;
 
-	public Position(int x, int y, int z) {
+	public Position( int x, int y, int z ) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
@@ -16,7 +16,7 @@ public class Position {
 		this( 0, 0, 0 );
 	}
 
-	public static Position of(int x, int y, int z) {
+	public static Position of( int x, int y, int z ) {
 		return new Position( x, y, z );
 	}
 }
