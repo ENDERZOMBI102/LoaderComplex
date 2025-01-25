@@ -214,14 +214,14 @@ public class Reflect<T> {
 	}
 
 	static {
-		UNSAFE = me.mrnavastar.r.R.of( Unsafe.class ).get( "theUnsafe", Unsafe.class );
 		try {
+			UNSAFE = (Unsafe) Unsafe.class.getDeclaredField( "theUnsafe" ).get( null );
 			final Field implLookupField = MethodHandles.Lookup.class.getDeclaredField( "IMPL_LOOKUP" );
 			IMPL_LOOKUP = (MethodHandles.Lookup) UNSAFE.getObject(
 				UNSAFE.staticFieldBase( implLookupField ),
 				UNSAFE.staticFieldOffset( implLookupField )
 			);
-		} catch ( NoSuchFieldException e ) {
+		} catch ( NoSuchFieldException | IllegalAccessException e ) {
 			throw new RuntimeException( e );
 		}
 	}
