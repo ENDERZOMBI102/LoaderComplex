@@ -1,6 +1,6 @@
 package com.enderzombi102.loadercomplex.quilt.impl;
 
-import com.enderzombi102.loadercomplex.minecraft.util.Server;
+import com.enderzombi102.loadercomplex.api.minecraft.util.Server;
 import net.minecraft.server.MinecraftServer;
 
 public class QuiltServer implements Server {

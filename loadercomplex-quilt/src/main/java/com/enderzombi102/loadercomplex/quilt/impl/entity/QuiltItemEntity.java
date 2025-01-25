@@ -1,7 +1,7 @@
 package com.enderzombi102.loadercomplex.quilt.impl.entity;
 
-import com.enderzombi102.loadercomplex.minecraft.entity.ItemEntity;
-import com.enderzombi102.loadercomplex.minecraft.item.ItemStack;
+import com.enderzombi102.loadercomplex.api.minecraft.entity.ItemEntity;
+import com.enderzombi102.loadercomplex.api.minecraft.item.ItemStack;
 import com.enderzombi102.loadercomplex.quilt.impl.item.QuiltItemStack;
 
 public class QuiltItemEntity extends QuiltEntity implements ItemEntity {

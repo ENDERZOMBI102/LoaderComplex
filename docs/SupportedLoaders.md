@@ -42,10 +42,9 @@ the "recent" version includes every version starting from 1.12.2, older is untes
 Fabric-based Loaders note
 -
 As almost all fabric-based loaders use fabric.mod.json to find and load mods, they might cause problems, so they're not
-garanteed to work.
+guaranteed to work.
 
 Fabric-based loaders are:
-
 - Fabric
 - Quilt
 - Legacy Fabric

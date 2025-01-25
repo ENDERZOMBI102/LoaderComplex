@@ -1,0 +1,6 @@
+{
+    "variants": {
+        "normal": { "model": "testaddon:food_bank" },
+        "inventory": { "model": "testaddon:food_bank" }
+    }
+}

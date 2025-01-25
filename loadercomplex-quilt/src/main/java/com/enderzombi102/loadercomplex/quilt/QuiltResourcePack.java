@@ -1,6 +1,5 @@
 package com.enderzombi102.loadercomplex.quilt;
 
-import com.enderzombi102.loadercomplex.Utils;
 import com.enderzombi102.loadercomplex.impl.addon.AddonContainerImpl;
 import com.google.common.base.Charsets;
 import com.google.common.base.Splitter;
@@ -11,8 +10,8 @@ import net.minecraft.resource.pack.AbstractFileResourcePack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.InvalidIdentifierException;
 import org.apache.commons.io.IOUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -25,7 +24,7 @@ import java.util.jar.JarEntry;
 
 public class QuiltResourcePack extends AbstractFileResourcePack {
 	private static final Splitter TYPE_NAMESPACE_SPLITTER = Splitter.on('/').omitEmptyStrings().limit(3);
-	private static final Logger LOGGER = LogManager.getLogger("LoaderComplex | ResourceManager");
+	private static final Logger LOGGER = LoggerFactory.getLogger("LoaderComplex|ResourceManager");
 	// https://minecraft.fandom.com/wiki/Tutorials/Creating_a_resource_pack#.22pack_format.22
 	private static final int PACK_FORMAT_VERSION = 1; // format for 1.6.1 – 1.8.9
 	private final AddonContainerImpl container;
@@ -49,8 +48,8 @@ public class QuiltResourcePack extends AbstractFileResourcePack {
 			if ( "pack.mcmeta".equals(filename) ) {
 				// fake file, return a "custom" entry
 				return IOUtils.toInputStream(
-					Utils.format(
-						"{\"pack\":{\"pack_format\":{},\"description\":\"{}\"}}",
+					String.format(
+						"{\"pack\":{\"pack_format\":%s,\"description\":\"%s\"}}",
 						PACK_FORMAT_VERSION,
 						container.getName().replaceAll("\"", "\\\"")
 					),
@@ -68,17 +67,17 @@ public class QuiltResourcePack extends AbstractFileResourcePack {
 				var lang = new StringBuilder("{");
 				for ( var line : lines ) {
 					var parts = line.split("=", 2);
-					lang.append( Utils.format(
-							"\"{}\": \"{}\",",
+					lang.append( String.format(
+							"\"%s\": \"%s\",",
 							parts[0].replace("tile", "block")
 									.replace(".name", ""),
 							parts[1]
 					));
 				}
 				var data = lang.substring( 0, lang.length() - 1 ) + "}";
-				LOGGER.debug( Utils.format( "--- START {} LANG JSON ----", container.getId() ) );
+				LOGGER.debug( String.format( "--- START %s LANG JSON ----", container.getId() ) );
 				LOGGER.debug( data );
-				LOGGER.debug( Utils.format( "--- END {} LANG JSON ----", container.getId() ) );
+				LOGGER.debug( String.format( "--- END %s LANG JSON ----", container.getId() ) );
 
 				return IOUtils.toInputStream( data, Charsets.UTF_8);
 			}

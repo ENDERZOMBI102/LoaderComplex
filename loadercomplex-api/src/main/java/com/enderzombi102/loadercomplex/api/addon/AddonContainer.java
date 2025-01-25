@@ -11,44 +11,70 @@ import java.util.jar.JarFile;
 /**
  * Represents a container for an addon
  */
-@ApiStatus.AvailableSince("0.1.4")
+@ApiStatus.AvailableSince( "0.1.4" )
 public interface AddonContainer {
-	/** The name of this addon. */
+	/**
+	 * The name of this addon.
+	 */
 	@NotNull String getName();
 
-	/** The version of this addon. */
+	/**
+	 * The version of this addon.
+	 */
 	@NotNull String getVersion();
 
-	/** The build date of this addon's jar. */
+	/**
+	 * The build date of this addon's jar.
+	 */
 	@NotNull String getBuildDate();
 
-	/** The ID of this addon. */
+	/**
+	 * The ID of this addon.
+	 */
 	@NotNull String getId();
 
-	/** The jar file of this addon. */
+	/**
+	 * The jar file of this addon.
+	 */
 	@NotNull JarFile getAddonJar();
 
-	/** The path of this addon's jar file. */
+	/**
+	 * The path of this addon's jar file.
+	 */
 	@NotNull Path getPath();
 
-	/** The main class of this addon. */
+	/**
+	 * The main class of this addon.
+	 */
 	@NotNull String getMainClass();
 
-	/** The authors of this addon. */
+	/**
+	 * The authors of this addon.
+	 */
 	@NotNull String getAuthors();
 
-	/** The description of this addon. */
+	/**
+	 * The description of this addon.
+	 */
 	@NotNull String getDescription();
 
-	/** The path of the icon of this addon. */
+	/**
+	 * The path of the icon of this addon.
+	 */
 	@Nullable String getIconPath();
 
-	/** The links for this addon. */
+	/**
+	 * The links for this addon.
+	 */
 	@NotNull Map<String, String> getLinks();
 
-	/** If this addon has failed to load. */
+	/**
+	 * If this addon has failed to load.
+	 */
 	boolean didFailToLoad();
 
-	/** The implementing class of this addon. */
+	/**
+	 * The implementing class of this addon.
+	 */
 	@Nullable Addon getImplementation();
 }

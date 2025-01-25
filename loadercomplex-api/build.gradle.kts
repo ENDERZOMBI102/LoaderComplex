@@ -1,30 +1,26 @@
 @file:Suppress("UnstableApiUsage")
+import java.time.LocalDateTime.now
+import java.time.format.DateTimeFormatter.ofPattern
 plugins {
 	`maven-publish`
 }
 
-version = "0.2.0"
-
 dependencies {
-	implementation( libs.slf4j )
-	implementation( libs.jankson )
-	implementation( libs.brigadier )
-	implementation( libs.eventsystem )
-	compileOnly( libs.enderlib )
+	api( libs.slf4j )
+	api( libs.jankson )
+	api( libs.brigadier )
+	api( libs.annotations )
 }
 
 java.withJavadocJar()
 java.withSourcesJar()
-artifacts.jarz(tasks.jar)
+artifacts.jarz( tasks.jar )
 
-tasks.withType<JavaCompile> {
-	sourceCompatibility = "8"
-	options.encoding = "UTF-8"
-	options.release.set(8)
-}
-
-tasks.withType<Javadoc> {
-	exclude( "com/enderzombi102/loadercomplex/impl/**" )
+tasks.withType<ProcessResources> {
+	// set the api version
+	filesMatching( "/api-version" ) {
+		expand( "version" to "$version+${now().format( ofPattern("ddMMyyyy") )}" )
+	}
 }
 
 publishing {
@@ -39,8 +35,8 @@ publishing {
 		mavenLocal()
 		maven {
 			name = "Repsy"
-			credentials(PasswordCredentials::class)
-			url = uri("https://repsy.io/mvn/enderzombi102/mc")
+			credentials( PasswordCredentials::class )
+			url = uri( "https://repsy.io/mvn/enderzombi102/mc" )
 		}
 	}
 }

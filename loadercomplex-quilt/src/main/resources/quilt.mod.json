@@ -1,5 +1,11 @@
 {
 	"schema_version": 1,
+    "experimental_quilt_loader_plugin": {
+        "class": "com.enderzombi102.loadercomplex.quilt.plugin.LoaderComplexPlugin",
+        "packages": [
+            "com.enderzombi102.loadercomplex.quilt.plugin"
+        ]
+    },
 	"quilt_loader": {
 		"group": "loadercomplex-quilt",
 		"id": "loadercomplex",
@@ -19,12 +25,13 @@
 		"environment": "*",
 		"entrypoints": {
 			"init": [
-				"com.enderzombi102.loadercomplex.quilt.LoaderComplexQuilt"
+				"com.enderzombi102.loadercomplex.quilt.QuiltBootstrap"
 			],
 			"modmenu": [
-				"com.enderzombi102.loadercomplex.quilt.compat.LoaderComplexModMenuEntrypoint"
+				"com.enderzombi102.loadercomplex.compat.LoaderComplexModMenuEntrypoint"
 			]
 		},
+
 		"depends": [
 			{
 				"id": "quilt_loader",
