@@ -43,7 +43,7 @@ public class FabricRegistry implements Registry {
 	}
 
 	@Override
-	public void register( @NotNull Block block, @NotNull ResourceIdentifier identifier, @Nullable ResourceIdentifier itemGroup ) {
+	public void register( @NotNull Block block, @NotNull ResourceIdentifier identifier, @Nullable ResourceIdentifier creativeTab ) {
 		final Identifier id = new Identifier( identifier.toString() );
 		final FabricBlock fabricBlock = new FabricBlock( block );
 		net.minecraft.util.registry.Registry.register(
@@ -51,13 +51,13 @@ public class FabricRegistry implements Registry {
 			id,
 			fabricBlock
 		);
-		if ( itemGroup != null ) {
+		if ( creativeTab != null ) {
 			net.minecraft.util.registry.Registry.register(
 				net.minecraft.util.registry.Registry.ITEM,
 				id,
 				new BlockItem(
 					fabricBlock,
-					new net.minecraft.item.Item.Settings().group( getOrCreateItemGroup( itemGroup, identifier ) )
+					new net.minecraft.item.Item.Settings().group( getOrCreateItemGroup( creativeTab, identifier ) )
 				)
 			);
 		}
@@ -72,7 +72,7 @@ public class FabricRegistry implements Registry {
 			fabricItem
 		);
 		//noinspection ConstantConditions
-		( (IItemMixin) fabricItem ).lc$setGroup( getOrCreateItemGroup( fabricItem.getItemImpl().group, identifier ) );
+		( (IItemMixin) fabricItem ).lc$setGroup( getOrCreateItemGroup( fabricItem.getItemImpl().creativeTab, identifier ) );
 	}
 
 	@Override
@@ -81,7 +81,7 @@ public class FabricRegistry implements Registry {
 	}
 
 	@Override
-	public ResourceIdentifier registerItemGroup(@Nullable String name, @NotNull ResourceIdentifier icon ) {
+	public ResourceIdentifier registerCreativeTab( @Nullable String name, @NotNull ResourceIdentifier icon ) {
 		ResourceIdentifier id = new ResourceIdentifier( icon.getNamespace(), name != null ? name : icon.getNamespace() );
 		ITEM_GROUPS.computeIfAbsent(
 			id,

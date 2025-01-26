@@ -6,8 +6,9 @@ public class Fabric12MixinPlugin extends BaseMixinPlugin {
 	public Fabric12MixinPlugin() {
 		super("1.12.2");
 		this.clientMixins.add( "SimpleReloadableResourceManagerMixin" );
-		this.clientMixins.add( "MinecraftMixin" );
+		this.clientMixins.add( "ItemRendererMixin" );
 		this.clientMixins.add( "ModelBakeryMixin" );
+		this.clientMixins.add( "MinecraftMixin" );
 		this.commonMixins.add( "CreativeModeTabMixin" );
 		this.commonMixins.add( "IdRegistryMixin" );
 		this.commonMixins.add( "ItemMixin" );

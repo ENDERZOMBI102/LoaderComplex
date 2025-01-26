@@ -11,6 +11,9 @@ import com.enderzombi102.loadercomplex.api.minecraft.item.Item;
 import com.enderzombi102.loadercomplex.api.minecraft.util.RegistryKey;
 import com.enderzombi102.loadercomplex.api.minecraft.util.ResourceIdentifier;
 import com.enderzombi102.loadercomplex.fabric12.impl.utils.ItemGroupBuilder;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.resource.ModelIdentifier;
+import net.minecraft.client.resource.model.ItemModelProvider;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.CreativeModeTab;
 import net.minecraft.item.ItemStack;
@@ -46,29 +49,29 @@ public class FabricRegistry implements Registry {
 	}
 
 	@Override
-	public void register( @NotNull Block block, @NotNull ResourceIdentifier identifier, @Nullable ResourceIdentifier tab ) {
+	public void register( @NotNull Block block, @NotNull ResourceIdentifier identifier, @Nullable ResourceIdentifier creativeTab ) {
 		final Identifier id = new Identifier( identifier.toString() );
 		final FabricBlock fabricBlock = (FabricBlock) new FabricBlock( block )
 			.setKey( identifier.getNamespace() + '.' + identifier.getPath() )
-			.setCreativeModeTab( getOrCreateCreativeTab( tab, identifier ) );
+			.setCreativeModeTab( getOrCreateCreativeTab( creativeTab, identifier ) );
 		net.minecraft.block.Block.REGISTRY.register(
 			net.minecraft.block.Block.REGISTRY.keySet().size(),
 			id,
 			fabricBlock
 		);
-		// THESE 4 LINES CONSTED SO MANY HOURS OF DEBUGGING
+		// THESE 4 LINES COSTED SO MANY HOURS OF DEBUGGING
 		for ( net.minecraft.block.state.BlockState state : fabricBlock.stateDefinition().all() ) {
 			int rawId = net.minecraft.block.Block.REGISTRY.getId( fabricBlock ) << 4 | fabricBlock.getMetadataFromState( state );
 			net.minecraft.block.Block.STATE_REGISTRY.put( state, rawId );
 		}
-		if ( tab != null ) {
+		if ( creativeTab != null ) {
 			net.minecraft.item.Item blockItem = new BlockItem( fabricBlock ).setKey( identifier.getNamespace() + '.' + identifier.getPath() );
 			net.minecraft.item.Item.REGISTRY.register(
 				net.minecraft.item.Item.REGISTRY.keySet().size(),
 				id, blockItem
 			);
 			( (IItemMixin) blockItem ).lc$getBlockItemRegistry().put( fabricBlock, blockItem );
-			registeredItems.add( blockItem );
+			this.registeredItems.add( blockItem );
 		}
 	}
 
@@ -80,8 +83,8 @@ public class FabricRegistry implements Registry {
 			new Identifier( identifier.toString() ),
 			fabricItem
 		);
-		registeredItems.add( fabricItem );
-		fabricItem.setCreativeModeTab( getOrCreateCreativeTab( fabricItem.getItemImpl().group, identifier ) );
+		this.registeredItems.add( fabricItem );
+		fabricItem.setCreativeModeTab( getOrCreateCreativeTab( fabricItem.getItemImpl().creativeTab, identifier ) );
 	}
 
 	@Override
@@ -90,7 +93,7 @@ public class FabricRegistry implements Registry {
 	}
 
 	@Override
-	public ResourceIdentifier registerItemGroup( @Nullable String name, @NotNull ResourceIdentifier icon ) {
+	public ResourceIdentifier registerCreativeTab( @Nullable String name, @NotNull ResourceIdentifier icon ) {
 		ResourceIdentifier id = new ResourceIdentifier( icon.getNamespace(), name != null ? name : icon.getNamespace() );
 		ITEM_GROUPS.computeIfAbsent(
 			id,
@@ -132,7 +135,7 @@ public class FabricRegistry implements Registry {
 	}
 
 	public List<net.minecraft.item.Item> getRegisteredItems() {
-		return registeredItems;
+		return this.registeredItems;
 	}
 
 	public static CreativeModeTab getOrCreateCreativeTab( @Nullable ResourceIdentifier tab, ResourceIdentifier icon ) {
@@ -140,7 +143,7 @@ public class FabricRegistry implements Registry {
 			return null;
 		}
 		if ( !ITEM_GROUPS.containsKey( tab ) ) {
-			LoaderComplexFabric.INSTANCE.getContext().getRegistry().registerItemGroup( null, icon );
+			LoaderComplexFabric.INSTANCE.getContext().getRegistry().registerCreativeTab( null, icon );
 		}
 		return ITEM_GROUPS.get( tab );
 	}

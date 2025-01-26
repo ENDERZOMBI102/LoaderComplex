@@ -23,13 +23,13 @@ import javax.naming.OperationNotSupportedException;
 public interface Registry {
 	void register( @NotNull Block block, @NotNull ResourceIdentifier identifier );
 
-	void register( @NotNull Block block, @NotNull ResourceIdentifier identifier, @Nullable ResourceIdentifier itemGroup );
+	void register( @NotNull Block block, @NotNull ResourceIdentifier identifier, @Nullable ResourceIdentifier creativeTab );
 
 	void register( @NotNull Item Item, @NotNull ResourceIdentifier identifier );
 
 	void register( @NotNull Entity entity, @NotNull ResourceIdentifier identifier );
 
-	ResourceIdentifier registerItemGroup( @Nullable String name, @NotNull ResourceIdentifier icon );
+	ResourceIdentifier registerCreativeTab( @Nullable String name, @NotNull ResourceIdentifier icon );
 
 	boolean isRegistered( @NotNull RegistryKey key, @NotNull String identifier ) throws OperationNotSupportedException;
 

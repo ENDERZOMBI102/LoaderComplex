@@ -38,7 +38,7 @@ public abstract class ModelBakeryMixin {
 	private Map<Item, List<String>> itemVariants;
 
 	@Inject( method = "loadItemModels", at = @At( "TAIL" ) )
-	public void onSetupItems( CallbackInfo ci ) {
+	public void onLoadItemModels( CallbackInfo ci ) {
 		List<Item> items = ((FabricRegistry) LoaderComplexFabric.INSTANCE.getContext().getRegistry()).getRegisteredItems();
 		for ( Item item : items ) {
 			Identifier id = Item.REGISTRY.getKey( item );

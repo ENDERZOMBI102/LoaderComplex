@@ -14,7 +14,7 @@ import org.jetbrains.annotations.ApiStatus;
  * Any item implemented by addons should extend this class.
  */
 public abstract class Item {
-	public ResourceIdentifier group = null;
+	public ResourceIdentifier creativeTab = null;
 	public int maxCount = 64;
 	public int maxDamage = 0;
 	public boolean is3D = false;
