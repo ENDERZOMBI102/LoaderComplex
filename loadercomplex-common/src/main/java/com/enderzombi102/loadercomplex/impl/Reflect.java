@@ -215,7 +215,9 @@ public class Reflect<T> {
 
 	static {
 		try {
-			UNSAFE = (Unsafe) Unsafe.class.getDeclaredField( "theUnsafe" ).get( null );
+			final Field unsafeField = Unsafe.class.getDeclaredField( "theUnsafe" );
+			unsafeField.setAccessible( true );
+			UNSAFE = (Unsafe) unsafeField.get( null );
 			final Field implLookupField = MethodHandles.Lookup.class.getDeclaredField( "IMPL_LOOKUP" );
 			IMPL_LOOKUP = (MethodHandles.Lookup) UNSAFE.getObject(
 				UNSAFE.staticFieldBase( implLookupField ),
