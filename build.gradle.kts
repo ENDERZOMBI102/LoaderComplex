@@ -7,7 +7,6 @@ import java.time.format.DateTimeFormatter.ofPattern
 plugins {
 	// plugins for the subprojects, no need to apply here
 	id( "org.jetbrains.kotlin.jvm" ) version "1.8.0" apply false
-	id( "xyz.wagyourtail.unimined" ) version "1.3.9" apply false
 	// root project plugins
 	id( "com.github.johnrengelman.shadow") version "7.1.2"
 	java

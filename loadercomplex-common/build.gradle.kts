@@ -1,8 +1,5 @@
 @file:Suppress("UnstableApiUsage")
-
 import java.util.jar.JarFile
-
-
 plugins {
 	`maven-publish`
 }
@@ -16,11 +13,7 @@ dependencies {
 
 artifacts.jarz( tasks.jar )
 
-
-/**
- * Copy our runtime dependencies into the jar and populate the jar list.
- * the list has this format:
- */
+// Copy our runtime dependencies into the jar and populate the jar list.
 tasks.withType<ProcessResources> {
 	inputs.property( "kotlin", kotlin.coreLibrariesVersion )
 	inputs.property( "log4j", libs.versions.log4j )
@@ -28,8 +21,8 @@ tasks.withType<ProcessResources> {
 
 	// resolve all the dependencies we might need at runtime
 	val configuration = configurations.detachedConfiguration(
-		dependencies.create( dependencies.kotlin( "stdlib-jdk8", kotlin.coreLibrariesVersion ) ),
-		dependencies.create( dependencies.kotlin( "stdlib-common", kotlin.coreLibrariesVersion ) ),
+		dependencies.create( "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlin.coreLibrariesVersion}" ),
+		dependencies.create( "org.jetbrains.kotlin:kotlin-stdlib-common:${kotlin.coreLibrariesVersion}" ),
 		dependencies.create( "org.apache.logging.log4j:log4j-slf4j-impl:${libs.versions.log4j.get()}" ),
 		dependencies.create( "org.apache.logging.log4j:log4j-slf4j2-impl:${libs.versions.log4j.get()}" ),
 		libs.brigadier.get()

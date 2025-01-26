@@ -1,5 +1,5 @@
 @file:Suppress("HasPlatformType")
-import xyz.wagyourtail.unimined.api.runs.RunsConfig
+import lc.setupRuns
 plugins {
 	id( "xyz.wagyourtail.unimined" )
 }
@@ -14,29 +14,11 @@ val ver122 by sourceSets.creating { }
 val ver171 by sourceSets.creating { }
 val ver202 by sourceSets.creating { }
 
-val setupRuns: RunsConfig.() -> Unit = {
-	arrayOf( "client", "server" ).forEach { type ->
-		config( type ) {
-			val version = name.substring( 3, 6 )
-				.chunked( 2 )
-				.joinToString( ".", "1." )
-			val loader = project.name.substring( 14 )
-
-			description = "$loader $version $type."
-
-			javaVersion = JavaVersion.VERSION_17
-
-			jvmArgs( "-Dlog4j.configurationFile=${rootProject.file("log4j2.xml").absolutePath}" )
-			jvmArgs( "-Dlog4j2.configurationFile=${rootProject.file("log4j2.xml").absolutePath}" )
-			workingDir( rootProject.file( "run/$type" ).absolutePath )
-		}
-	}
-}
-
 unimined.minecraft( ver122 ) {
 	combineWith( sourceSets["main"] )
 	version( "1.12.2" )
 
+	@Suppress("UnstableApiUsage")
 	mappings {
 		mapping( "net.ornithemc:feather-gen2:${minecraft.version}+build.4:v2", "feather" ) {
 			outputs( "feather", true ) { listOf("intermediary") }
@@ -51,7 +33,7 @@ unimined.minecraft( ver122 ) {
 		devFallbackNamespace( "intermediary" )
 	}
 
-	runs { setupRuns() }
+	runs.setupRuns()
 
 	fabric { loader( libs.versions.floader.get() ) }
 }
@@ -67,7 +49,7 @@ unimined.minecraft( ver171 ) {
 		devFallbackNamespace( "intermediary" )
 	}
 
-	runs { setupRuns() }
+	runs.setupRuns()
 
 	fabric { loader( libs.versions.floader.get() ) }
 }
@@ -83,7 +65,7 @@ unimined.minecraft( ver202 ) {
 		devFallbackNamespace( "intermediary" )
 	}
 
-	runs { setupRuns() }
+	runs.setupRuns()
 
 	fabric { loader( libs.versions.floader.get() ) }
 }
