@@ -4,10 +4,10 @@ import com.enderzombi102.loadercomplex.api.minecraft.entity.PlayerEntity;
 import com.enderzombi102.loadercomplex.api.minecraft.util.*;
 import com.enderzombi102.loadercomplex.fabric12.impl.FabricServer;
 import com.enderzombi102.loadercomplex.fabric12.impl.block.FabricBlockstate;
-import com.enderzombi102.loadercomplex.fabric12.impl.utils.BlockUtils;
 import com.enderzombi102.loadercomplex.api.minecraft.block.Blockstate;
 import com.enderzombi102.loadercomplex.api.minecraft.entity.Entity;
 import com.enderzombi102.loadercomplex.api.minecraft.world.World;
+import com.enderzombi102.loadercomplex.fabric12.impl.utils.ConversionKt;
 import net.minecraft.resource.Identifier;
 import net.minecraft.util.math.BlockPos;
 
@@ -101,7 +101,7 @@ public class FabricWorld implements World {
 
 	@Override
 	public Position getSpawnLocation() {
-		return BlockUtils.toPosition( this.backingWorld.getSpawnPoint() );
+		return ConversionKt.toLC( this.backingWorld.getSpawnPoint() );
 	}
 
 	@Override

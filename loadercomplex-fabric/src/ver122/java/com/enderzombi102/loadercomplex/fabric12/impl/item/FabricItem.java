@@ -7,7 +7,7 @@ import com.enderzombi102.loadercomplex.fabric12.impl.block.FabricBlockstate;
 import com.enderzombi102.loadercomplex.fabric12.impl.entity.FabricEntity;
 import com.enderzombi102.loadercomplex.fabric12.impl.entity.FabricLivingEntity;
 import com.enderzombi102.loadercomplex.fabric12.impl.entity.FabricPlayer;
-import com.enderzombi102.loadercomplex.fabric12.impl.utils.BlockUtils;
+import com.enderzombi102.loadercomplex.fabric12.impl.utils.ConversionKt;
 import com.enderzombi102.loadercomplex.fabric12.impl.world.FabricWorld;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -56,7 +56,7 @@ public class FabricItem extends net.minecraft.item.Item {
 			this.itemImpl.useOnBlock(
 				new FabricWorld( world ),
 				new FabricPlayer( player ),
-				BlockUtils.toPosition( pos ),
+				ConversionKt.toLC( pos ),
 				Hand.valueOf( hand.name() ),
 				com.enderzombi102.loadercomplex.api.minecraft.util.Direction.valueOf( face.name() )
 			).name()
@@ -104,7 +104,7 @@ public class FabricItem extends net.minecraft.item.Item {
 			new FabricItemStack( stack ),
 			new FabricWorld( world ),
 			new FabricBlockstate( state ),
-			BlockUtils.toPosition( pos ),
+			ConversionKt.toLC( pos ),
 			new FabricLivingEntity( entity )
 		);
 	}

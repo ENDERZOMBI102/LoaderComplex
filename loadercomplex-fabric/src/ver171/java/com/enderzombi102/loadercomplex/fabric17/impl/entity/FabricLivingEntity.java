@@ -41,17 +41,17 @@ public class FabricLivingEntity extends FabricEntity implements LivingEntity {
 	}
 
 	@Override
-	public boolean canBreathUnderwater() {
+	public boolean isWaterMob() {
 		return this.backingEntity.canBreatheInWater();
 	}
 
 	@Override
-	public boolean isAttachedToLadder() {
+	public boolean isClimbing() {
 		return this.backingEntity.isClimbing();
 	}
 
 	@Override
-	public int getArmorValue() {
+	public int getArmorProtection() {
 		return this.backingEntity.getArmor();
 	}
 
@@ -66,17 +66,17 @@ public class FabricLivingEntity extends FabricEntity implements LivingEntity {
 	}
 
 	@Override
-	public boolean hasItemInSlot(EquipmentSlot slot) {
+	public boolean hasEquipment( EquipmentSlot slot) {
 		return this.backingEntity.hasStackEquipped( net.minecraft.entity.EquipmentSlot.valueOf( slot.name() ) );
 	}
 
 	@Override
-	public ItemStack getStackInSlot(EquipmentSlot slot) {
+	public ItemStack getEquipment( EquipmentSlot slot) {
 		return new FabricItemStack( this.backingEntity.getEquippedStack( net.minecraft.entity.EquipmentSlot.valueOf( slot.name() ) ) );
 	}
 
 	@Override
-	public void setStackInSlot(EquipmentSlot slot, ItemStack stack) {
+	public void setEquipment( EquipmentSlot slot, ItemStack stack) {
 		// TODO: Find this
 	}
 }

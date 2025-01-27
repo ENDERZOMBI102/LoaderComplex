@@ -16,13 +16,13 @@ public interface LivingEntity extends Entity {
 	PlayerEntity asPlayer();
 
 	boolean isChild();
-	boolean canBreathUnderwater();
-	boolean isAttachedToLadder();
+	boolean isWaterMob();
+	boolean isClimbing();
 
-	int getArmorValue();
+	int getArmorProtection();
 	ItemStack getItemInMainHand();
 	ItemStack getItemInOffHand();
-	boolean hasItemInSlot( EquipmentSlot slot);
-	ItemStack getStackInSlot(EquipmentSlot slot);
-	void setStackInSlot(EquipmentSlot slot, ItemStack stack);
+	boolean hasEquipment( EquipmentSlot slot);
+	ItemStack getEquipment( EquipmentSlot slot);
+	void setEquipment( EquipmentSlot slot, ItemStack stack);
 }

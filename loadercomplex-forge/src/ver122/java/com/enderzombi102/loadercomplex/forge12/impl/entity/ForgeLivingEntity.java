@@ -53,17 +53,17 @@ public class ForgeLivingEntity extends ForgeEntity implements LivingEntity {
 	}
 
 	@Override
-	public boolean canBreathUnderwater() {
+	public boolean isWaterMob() {
 		return this.wrappedEntity.canBreatheUnderwater();
 	}
 
 	@Override
-	public boolean isAttachedToLadder() {
+	public boolean isClimbing() {
 		return this.wrappedEntity.isOnLadder();
 	}
 
 	@Override
-	public int getArmorValue() {
+	public int getArmorProtection() {
 		return this.wrappedEntity.getTotalArmorValue();
 	}
 
@@ -78,19 +78,19 @@ public class ForgeLivingEntity extends ForgeEntity implements LivingEntity {
 	}
 
 	@Override
-	public boolean hasItemInSlot( EquipmentSlot slot ) {
+	public boolean hasEquipment( EquipmentSlot slot ) {
 		return this.wrappedEntity.hasItemInSlot( EntityEquipmentSlot.valueOf( slot.name() ) );
 	}
 
 	@Override
-	public ItemStack getStackInSlot( EquipmentSlot slot ) {
+	public ItemStack getEquipment( EquipmentSlot slot ) {
 		return new ForgeItemStack(
 			this.wrappedEntity.getItemStackFromSlot( EntityEquipmentSlot.valueOf( slot.name() ) )
 		);
 	}
 
 	@Override
-	public void setStackInSlot( EquipmentSlot slot, ItemStack stack ) {
+	public void setEquipment( EquipmentSlot slot, ItemStack stack ) {
 		this.wrappedEntity.setItemStackToSlot(
 			EntityEquipmentSlot.valueOf( slot.name() ),
 			(net.minecraft.item.ItemStack) stack.getStack()

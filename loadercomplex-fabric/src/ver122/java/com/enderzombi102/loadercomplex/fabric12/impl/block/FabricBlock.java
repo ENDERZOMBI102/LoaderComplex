@@ -3,7 +3,7 @@ package com.enderzombi102.loadercomplex.fabric12.impl.block;
 import com.enderzombi102.loadercomplex.api.minecraft.block.Block;
 import com.enderzombi102.loadercomplex.fabric12.impl.entity.FabricEntity;
 import com.enderzombi102.loadercomplex.fabric12.impl.entity.FabricPlayer;
-import com.enderzombi102.loadercomplex.fabric12.impl.utils.BlockUtils;
+import com.enderzombi102.loadercomplex.fabric12.impl.utils.ConversionKt;
 import com.enderzombi102.loadercomplex.fabric12.impl.world.FabricWorld;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.sound.BlockSounds;
@@ -41,7 +41,7 @@ public class FabricBlock extends net.minecraft.block.Block {
 	public boolean use( World world, BlockPos pos, BlockState state, PlayerEntity player, InteractionHand hand, Direction face, float hitX, float hitY, float hitZ ) {
 		return this.blockImpl.onBlockInteracted(
 			new FabricWorld( world ),
-			BlockUtils.toPosition( pos ),
+			ConversionKt.toLC( pos ),
 			new FabricBlockstate( state ),
 			new FabricPlayer( player ),
 			com.enderzombi102.loadercomplex.api.minecraft.util.Hand.valueOf( hand.name() ),
@@ -52,14 +52,14 @@ public class FabricBlock extends net.minecraft.block.Block {
 
 	@Override
 	public void onSteppedOn( World world, BlockPos pos, Entity entity ) {
-		this.blockImpl.onSteppedOn( new FabricWorld( world ), BlockUtils.toPosition( pos ), new FabricEntity( entity ) );
+		this.blockImpl.onSteppedOn( new FabricWorld( world ), ConversionKt.toLC( pos ), new FabricEntity( entity ) );
 	}
 
 	@Override
 	public void beforeMinedByPlayer( World world, BlockPos pos, BlockState state, PlayerEntity player ) {
 		this.blockImpl.onBreak(
 			new FabricWorld( world ),
-			BlockUtils.toPosition( pos ),
+			ConversionKt.toLC( pos ),
 			new FabricBlockstate( state ),
 			new FabricPlayer( player )
 		);
@@ -68,7 +68,7 @@ public class FabricBlock extends net.minecraft.block.Block {
 	public void onEntityCollision( World world, BlockPos pos, BlockState state, Entity entity ) {
 		this.blockImpl.onEntityCollision(
 			new FabricWorld( world ),
-			BlockUtils.toPosition( pos ),
+			ConversionKt.toLC( pos ),
 			new FabricBlockstate( state ),
 			new FabricEntity( entity )
 		);
@@ -78,7 +78,7 @@ public class FabricBlock extends net.minecraft.block.Block {
 	public void randomTick( World world, BlockPos pos, BlockState state, Random random ) {
 		this.blockImpl.onRandomTick(
 			new FabricWorld( world ),
-			BlockUtils.toPosition( pos ),
+			ConversionKt.toLC( pos ),
 			new FabricBlockstate( state ),
 			random
 		);
