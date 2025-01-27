@@ -55,7 +55,7 @@ public class TestAddon implements Addon {
 				factory.createItemEntity( world, factory.createStack( ri( ID, "food_bank" ) ), pos );
 			}
 		};
-		ctx.getRegistry().register( foodBank, ri( ID, "food_bank" ), ri( "misc" ) );
+		ctx.getRegistry().register( foodBank, ri( ID, "food_bank" ), ri( "creativetab.misc" ) );
 	}
 
 	@Override

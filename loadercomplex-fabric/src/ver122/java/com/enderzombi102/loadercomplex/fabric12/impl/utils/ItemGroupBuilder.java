@@ -21,7 +21,7 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-import com.enderzombi102.loadercomplex.fabric12.imixin.IItemGroupMixin;
+import com.enderzombi102.loadercomplex.fabric12.imixin.ICreativeModeTabMixin;
 import net.minecraft.item.CreativeModeTab;
 import net.minecraft.item.ItemStack;
 import net.minecraft.resource.Identifier;
@@ -109,7 +109,7 @@ public final class ItemGroupBuilder {
 	 * @return An instance of the built CreativeModeTab
 	 */
 	public CreativeModeTab build() {
-		((IItemGroupMixin) CreativeModeTab.BUILDING_BLOCKS).lc$expandArray();
+		((ICreativeModeTabMixin) CreativeModeTab.BUILDING_BLOCKS).lc$expandArray();
 		return new CreativeModeTab( CreativeModeTab.ALL.length - 1, String.format( "%s.%s", identifier.getNamespace(), identifier.getPath() ) ) {
 			@Override
 			public ItemStack getIconItem() {

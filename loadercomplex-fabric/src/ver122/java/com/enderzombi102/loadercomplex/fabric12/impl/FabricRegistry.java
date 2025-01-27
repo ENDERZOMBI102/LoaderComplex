@@ -11,9 +11,6 @@ import com.enderzombi102.loadercomplex.api.minecraft.item.Item;
 import com.enderzombi102.loadercomplex.api.minecraft.util.RegistryKey;
 import com.enderzombi102.loadercomplex.api.minecraft.util.ResourceIdentifier;
 import com.enderzombi102.loadercomplex.fabric12.impl.utils.ItemGroupBuilder;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.resource.ModelIdentifier;
-import net.minecraft.client.resource.model.ItemModelProvider;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.CreativeModeTab;
 import net.minecraft.item.ItemStack;
@@ -30,17 +27,17 @@ import static com.enderzombi102.loadercomplex.api.minecraft.util.ResourceIdentif
 
 public class FabricRegistry implements Registry {
 	private final List<net.minecraft.item.Item> registeredItems = new ArrayList<>();
-	private static final Map<ResourceIdentifier, CreativeModeTab> ITEM_GROUPS = new HashMap<ResourceIdentifier, CreativeModeTab>() {{
-		put( ri( "itemgroup.brewing" ), CreativeModeTab.BREWING );
-		put( ri( "itemgroup.building_blocks" ), CreativeModeTab.BUILDING_BLOCKS );
-		put( ri( "itemgroup.combat" ), CreativeModeTab.COMBAT );
-		put( ri( "itemgroup.decorations" ), CreativeModeTab.DECORATIONS );
-		put( ri( "itemgroup.food" ), CreativeModeTab.FOOD );
-		put( ri( "itemgroup.materials" ), CreativeModeTab.MATERIALS );
-		put( ri( "itemgroup.redstone" ), CreativeModeTab.REDSTONE );
-		put( ri( "itemgroup.tools" ), CreativeModeTab.TOOLS );
-		put( ri( "itemgroup.transportation" ), CreativeModeTab.TRANSPORTATION );
-		put( ri( "itemgroup.misc" ), CreativeModeTab.MISC );
+	private static final Map<ResourceIdentifier, CreativeModeTab> CREATIVE_TABS = new HashMap<ResourceIdentifier, CreativeModeTab>() {{
+		put( ri( "creativetab.brewing" ), CreativeModeTab.BREWING );
+		put( ri( "creativetab.building_blocks" ), CreativeModeTab.BUILDING_BLOCKS );
+		put( ri( "creativetab.combat" ), CreativeModeTab.COMBAT );
+		put( ri( "creativetab.decorations" ), CreativeModeTab.DECORATIONS );
+		put( ri( "creativetab.food" ), CreativeModeTab.FOOD );
+		put( ri( "creativetab.materials" ), CreativeModeTab.MATERIALS );
+		put( ri( "creativetab.redstone" ), CreativeModeTab.REDSTONE );
+		put( ri( "creativetab.tools" ), CreativeModeTab.TOOLS );
+		put( ri( "creativetab.transportation" ), CreativeModeTab.TRANSPORTATION );
+		put( ri( "creativetab.misc" ), CreativeModeTab.MISC );
 	}};
 
 	@Override
@@ -95,7 +92,7 @@ public class FabricRegistry implements Registry {
 	@Override
 	public ResourceIdentifier registerCreativeTab( @Nullable String name, @NotNull ResourceIdentifier icon ) {
 		ResourceIdentifier id = new ResourceIdentifier( icon.getNamespace(), name != null ? name : icon.getNamespace() );
-		ITEM_GROUPS.computeIfAbsent(
+		CREATIVE_TABS.computeIfAbsent(
 			id,
 			key -> ItemGroupBuilder.build(
 				new Identifier( id.toString() ),
@@ -138,13 +135,13 @@ public class FabricRegistry implements Registry {
 		return this.registeredItems;
 	}
 
-	public static CreativeModeTab getOrCreateCreativeTab( @Nullable ResourceIdentifier tab, ResourceIdentifier icon ) {
+	public CreativeModeTab getOrCreateCreativeTab( @Nullable ResourceIdentifier tab, ResourceIdentifier icon ) {
 		if ( tab == null ) {
 			return null;
 		}
-		if ( !ITEM_GROUPS.containsKey( tab ) ) {
-			LoaderComplexFabric.INSTANCE.getContext().getRegistry().registerCreativeTab( null, icon );
+		if ( !CREATIVE_TABS.containsKey( tab ) ) {
+			registerCreativeTab( null, icon );
 		}
-		return ITEM_GROUPS.get( tab );
+		return CREATIVE_TABS.get( tab );
 	}
 }

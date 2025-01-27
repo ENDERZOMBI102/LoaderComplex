@@ -1,5 +1,5 @@
 package com.enderzombi102.loadercomplex.fabric12.imixin;
 
-public interface IItemGroupMixin {
+public interface ICreativeModeTabMixin {
 	void lc$expandArray();
 }
