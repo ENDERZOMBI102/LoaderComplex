@@ -1,27 +1,23 @@
 package com.enderzombi102.loadercomplex.fabric12.impl;
 
-import com.enderzombi102.loadercomplex.api.minecraft.command.CommandManager;
-import com.enderzombi102.loadercomplex.api.minecraft.keybind.KeybindManager;
-import com.enderzombi102.loadercomplex.api.minecraft.network.NetworkManager;
-import com.enderzombi102.loadercomplex.api.minecraft.util.Position;
-import com.enderzombi102.loadercomplex.api.platform.FactoryWorld;
-import com.enderzombi102.loadercomplex.fabric12.impl.block.FabricBlockstate;
-import com.enderzombi102.loadercomplex.fabric12.impl.entity.FabricEntity;
-import com.enderzombi102.loadercomplex.fabric12.impl.entity.FabricItemEntity;
-import com.enderzombi102.loadercomplex.fabric12.impl.item.FabricItemStack;
 import com.enderzombi102.loadercomplex.api.minecraft.block.Blockstate;
+import com.enderzombi102.loadercomplex.api.minecraft.command.CommandManager;
 import com.enderzombi102.loadercomplex.api.minecraft.entity.Entity;
 import com.enderzombi102.loadercomplex.api.minecraft.entity.ItemEntity;
 import com.enderzombi102.loadercomplex.api.minecraft.item.ItemStack;
+import com.enderzombi102.loadercomplex.api.minecraft.keybind.KeybindManager;
+import com.enderzombi102.loadercomplex.api.minecraft.network.NetworkManager;
+import com.enderzombi102.loadercomplex.api.minecraft.util.Position;
 import com.enderzombi102.loadercomplex.api.minecraft.util.ResourceIdentifier;
 import com.enderzombi102.loadercomplex.api.minecraft.util.Server;
 import com.enderzombi102.loadercomplex.api.minecraft.world.World;
+import com.enderzombi102.loadercomplex.api.platform.FactoryWorld;
+import com.enderzombi102.loadercomplex.fabric12.impl.block.FabricBlockstate;
+import com.enderzombi102.loadercomplex.fabric12.impl.entity.FabricItemEntity;
+import com.enderzombi102.loadercomplex.fabric12.impl.item.FabricItemStack;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.resource.Identifier;
-import net.minecraft.util.registry.Registry;
-
-import java.lang.reflect.InvocationTargetException;
 
 public class FabricFactoryWorld implements FactoryWorld {
 	@Override
@@ -35,19 +31,7 @@ public class FabricFactoryWorld implements FactoryWorld {
 
 	@Override
 	public Entity createEntity( World world, ResourceIdentifier type, Position pos ) {
-		Class<? extends net.minecraft.entity.Entity> entity = null; // EntityType.getEntityType( type.toString() );
-		if ( entity == null )
-			throw new IllegalArgumentException( String.format( "Entity \"%s\" does not exist!", type ) );
-		try {
-			//noinspection RedundantCast
-			return new FabricEntity(
-				entity
-					.getDeclaredConstructor( net.minecraft.world.World.class )
-					.newInstance( (net.minecraft.world.World) world.getObject() )
-			);
-		} catch ( InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e ) {
-			throw new RuntimeException( e );
-		}
+		throw new RuntimeException( "Not implemented" );
 	}
 
 	@Override

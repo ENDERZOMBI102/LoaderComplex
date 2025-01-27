@@ -25,8 +25,8 @@ public interface LoaderComplex {
     static LoaderComplex getInstance() {
 		try {
 			return (LoaderComplex) Class.forName( "com.enderzombi102.loadercomplex.impl.LoaderComplex" )
-				.getDeclaredField("instance")
-				.get(null);
+				.getDeclaredField( "instance" )
+				.get( null );
 		} catch ( Exception e ) {
 			throw new RuntimeException(e);
 		}

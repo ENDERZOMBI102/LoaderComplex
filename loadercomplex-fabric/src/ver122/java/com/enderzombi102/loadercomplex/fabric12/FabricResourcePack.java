@@ -36,7 +36,7 @@ public class FabricResourcePack extends CustomResourcePack implements AddonResou
 
 	@Override
 	protected InputStream openResource( String filename ) throws IOException {
-		LOGGER.info( "Minecraft is opening \"" + filename + "\"" );
+		LOGGER.info( "Minecraft is opening \"{}\"", filename );
 		// try to get the entry
 		final JarEntry jarEntry = this.container.getAddonJar().getJarEntry( filename );
 		if ( jarEntry == null ) {

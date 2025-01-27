@@ -79,11 +79,6 @@ public class FabricAddonContext implements AddonContext {
 	}
 
 	@Override
-	public @NotNull LoaderComplex getLoaderComplex() {
-		return null;
-	}
-
-	@Override
 	public @NotNull I18nSystem getI18nSystem() {
 		return null;
 	}

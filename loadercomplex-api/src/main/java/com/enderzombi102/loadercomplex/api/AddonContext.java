@@ -65,12 +65,6 @@ public interface AddonContext {
 	}
 
 	/**
-	 * Returns the current LoaderComplex implementation.
-	 */
-	@AvailableSince("0.1.4")
-	@NotNull LoaderComplex getLoaderComplex();
-
-	/**
 	 * The localization system, used to localize strings.
 	 */
 	@AvailableSince("0.2.0")

@@ -27,19 +27,26 @@ public class EnvironmentLoader {
 	private static void addLibraries( final List<URL> libraries ) {
 		ClassLoader loader = EnvironmentLoader.class.getClassLoader();
 
-		// if we're under fabric's knot, we need another type of patch
-		if ( loader.getClass().getSimpleName().startsWith( "Knot" ) ) {
-			// HACK: This is _very_ dirty
-			Consumer<URL> consumer = Reflect.that( loader )
+		Consumer<URL> consumer;
+
+		// find the right way to add jars to the classpath
+		if ( loader.getClass().getName().equals( "net.fabricmc.loader.impl.launch.knot.KnotClassLoader" ) ) {
+			// get the DynamicClassLoader from fabric's Knot
+			consumer = Reflect.that( loader )
 				.get( "urlLoader", "net.fabricmc.loader.impl.launch.knot.KnotClassLoader$DynamicURLClassLoader" )
 				.invokerTyped( "addURL", void.class, Consumer.class, URL.class );
-			// add all the libs
-			libraries.forEach( consumer );
+		} else if ( loader.getClass().getName().equals( "net.minecraft.launchwrapper.LaunchClassLoader" ) ) {
+			consumer = Reflect.that( loader )
+				.castTo( "net.minecraft.launchwrapper.LaunchClassLoader" )
+				.invokerTyped( "addURL", void.class, Consumer.class, URL.class );
 		} else {
+			// the direct way
 			Reflect.openModule( "java.base", "jdk.internal.loader" );
-			URLClassPath ucp = Reflect.that( ClassLoaders.appClassLoader() ).get( "ucp", URLClassPath.class ).unwrap();
-			libraries.forEach( ucp::addURL );
+			consumer = Reflect.that( ClassLoaders.appClassLoader() ).get( "ucp", URLClassPath.class ).unwrap()::addURL;
 		}
+
+		// add all the libs
+		libraries.forEach( consumer );
 	}
 
 	private static class Dependency {
@@ -69,76 +76,71 @@ public class EnvironmentLoader {
 		final Logger logger = LogManager.getLogger( "LoaderComplex|EnvironmentLoader" );
 		ClassLoader loader = EnvironmentLoader.class.getClassLoader();
 
-		logger.info( "Checking availability of dependencies on classpath..." );
+		// TODO: logger.info( "Checking availability of dependencies on classpath..." );
+		logger.info( "Enriching classpath with embedded dependency jars..." );
 
-		{
-			logger.info( "Trying to load kotlin from embedded jars..." );
-			//noinspection resource
-			DynamicClassLoader dynamic = new DynamicClassLoader();
-
-			// load jar names from the main jar
-			List<Dependency> deps = null;
-			InputStream stream = EnvironmentLoader.class.getResourceAsStream( "/jars/list" );
-			if ( stream != null ) {
-				try ( BufferedReader reader = new BufferedReader( new InputStreamReader( stream ) ) ) {
-					deps = reader.lines()
-						.filter( it -> !it.isEmpty() )
-						.map( Dependency::new )
-						.collect( Collectors.toList() );
-				} catch ( IOException ex ) {
-					throw new RuntimeException( ex );
-				}
+		// load jar names from the main jar
+		List<Dependency> deps = null;
+		InputStream stream = EnvironmentLoader.class.getResourceAsStream( "/jars/list" );
+		if ( stream != null ) {
+			try ( BufferedReader reader = new BufferedReader( new InputStreamReader( stream ) ) ) {
+				deps = reader.lines()
+					.filter( it -> !it.isEmpty() )
+					.map( Dependency::new )
+					.collect( Collectors.toList() );
+			} catch ( IOException ex ) {
+				throw new RuntimeException( ex );
 			}
+		}
 
-			// it should have been initialized by now...
-			assert deps != null;
+		// it should have been initialized by now...
+		assert deps != null;
 
-			// create cache directory if missing
-			Path cache = getGameDir().resolve( "cache/loadercomplex/lib" );
+		// create cache directory if missing
+		Path cache = getGameDir().resolve( "cache/loadercomplex/lib" );
+		try {
+			Files.createDirectories( cache );
+		} catch ( IOException e ) {
+			throw new RuntimeException( e );
+		}
+
+		// extract jars
+		List<URL> libraries = new ArrayList<>();
+		for ( Dependency dep : deps ) {
+			File file = cache.resolve( dep.file ).toFile();
+
 			try {
-				Files.createDirectories( cache );
+				// add to known libs
+				libraries.add( file.toURI().toURL() );
+
+				// file already exists, check it
+				if ( file.exists() && file.length() == dep.size ) {
+					continue;
+				}
+
+				// file either doesn't exist, or failed to be verified
+				Files.deleteIfExists( file.toPath() );
+				Files.copy( dep.getURL().openStream(), file.toPath() );
 			} catch ( IOException e ) {
 				throw new RuntimeException( e );
 			}
-
-			// extract jars
-			List<URL> libraries = new ArrayList<>();
-			for ( Dependency dep : deps ) {
-				File file = cache.resolve( dep.file ).toFile();
-
-				try {
-					// add to known libs
-					libraries.add( file.toURI().toURL() );
-
-					// file already exists, check it
-					if ( file.exists() && file.length() == dep.size ) {
-						continue;
-					}
-
-					// file either doesn't exist, or failed to be verified
-					Files.deleteIfExists( file.toPath() );
-					Files.copy( dep.getURL().openStream(), file.toPath() );
-				} catch ( IOException e ) {
-					throw new RuntimeException( e );
-				}
-			}
-
-			// add them to the classloader
-			libraries.forEach( dynamic::addURL );
-			addLibraries( libraries );
-
-			// load version
-			try {
-				String version = dynamic.loadClass( "kotlin.KotlinVersion" )
-					.getDeclaredField( "CURRENT" )
-					.get( null )
-					.toString();
-				logger.info( "Found kotlin {}, continuing loading process", version );
-			} catch ( Throwable throwable ) {
-				throw new RuntimeException( throwable );
-			}
-			loader = dynamic;
 		}
+
+		// add them to the classloader
+		addLibraries( libraries );
+
+		// load version
+		try {
+			String version = loader.loadClass( "kotlin.KotlinVersion" )
+				.getDeclaredField( "CURRENT" )
+				.get( null )
+				.toString();
+			logger.info( "Kotlin version check succeeded, found version {}", version );
+		} catch ( Throwable throwable ) {
+			throw new RuntimeException( throwable );
+		}
+
+		logger.info( "Continuing loading process for LoaderComplex" );
 		return loader;
 	}
 

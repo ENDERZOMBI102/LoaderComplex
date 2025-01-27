@@ -257,12 +257,16 @@ public class Reflect<T> {
 	/**
 	 * Loads a module and make it usable by the unnamed module
 	 * @param module module's name
+	 * @return the module object, or null if on a JVM lower than 9
 	 */
-	public static Object loadModule( @NotNull String module ) {
+	public static @Nullable Object loadModule( @NotNull String module ) {
 		try {
 			MethodType methodType = MethodType.methodType( Class.forName( "java.lang.Module" ), new Class[] { String.class } );
 			MethodHandle handle = IMPL_LOOKUP.findStatic( Class.forName( "jdk.internal.module.Modules" ), "loadModule", methodType );
 			return handle.invoke( module );
+		} catch ( ClassNotFoundException ignored ) {
+			// it is expected on JVM 8
+			return null;
 		} catch ( Throwable e ) {
 			throw new RuntimeException( e );
 		}
@@ -277,6 +281,8 @@ public class Reflect<T> {
 			MethodType methodType = MethodType.methodType( void.class, new Class[] { Class.forName( "java.lang.Module" ), String.class } );
 			MethodHandle handle = IMPL_LOOKUP.findStatic( Class.forName( "jdk.internal.module.Modules" ), "addOpensToAllUnnamed", methodType );
 			handle.invoke( loadModule( module ), pkg );
+		} catch ( ClassNotFoundException ignored ) {
+			// it is expected on JVM 8
 		} catch ( Throwable e ) {
 			throw new RuntimeException( e );
 		}

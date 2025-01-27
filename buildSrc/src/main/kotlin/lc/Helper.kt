@@ -12,7 +12,7 @@ fun RunsConfig.setupRuns() {
 				.joinToString( ".", "1." )
 			val loader = project.name.substring( 14 )
 
-			description = "$loader $version $type."
+			description = "$loader $version $type"
 
 			javaVersion = JavaVersion.VERSION_17
 

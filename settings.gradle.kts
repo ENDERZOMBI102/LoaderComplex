@@ -16,7 +16,7 @@ include( "loadercomplex-common" )
 include( "loadercomplex-test" )
 
 //include( "loadercomplex-quilt" )
-//include( "loadercomplex-forge" )
+include( "loadercomplex-forge" )
 include( "loadercomplex-fabric" )
 
 rootProject.name = "loadercomplex"
