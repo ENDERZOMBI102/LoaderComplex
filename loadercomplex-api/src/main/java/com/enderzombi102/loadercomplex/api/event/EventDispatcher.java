@@ -2,14 +2,13 @@ package com.enderzombi102.loadercomplex.api.event;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Arrays;
 import java.util.Objects;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 
+// TODO: use codegen to speed up listener invoking
 public abstract class EventDispatcher<T extends Event> {
-	private final Object lock = new Object();
-	@SuppressWarnings( "unchecked" )
-	protected Listener<T>[] listeners = (Listener<T>[]) new Listener[0];
+	protected CopyOnWriteArrayList<Listener<T>> listeners = new CopyOnWriteArrayList<>();
 
 	private EventDispatcher() { }
 
@@ -20,29 +19,17 @@ public abstract class EventDispatcher<T extends Event> {
 	public void register( @NotNull Listener<T> listener ) {
 		Objects.requireNonNull( listener, "Cannot register a null listener." );
 
-		synchronized ( this.lock ) {
-			@SuppressWarnings( "unchecked" )
-			Listener<T>[] newListeners = new Listener[this.listeners.length + 1];
-			newListeners[0] = listener;
-			System.arraycopy( this.listeners, 0, newListeners, 1, this.listeners.length );
-			this.listeners = newListeners;
-		}
+		this.listeners.add( listener );
 	}
 
 	/**
 	 * Unregisters a previously registered listener.
 	 * @param listener to unregister.
 	 */
-	@SuppressWarnings( "unchecked" )
 	public void unregister( @NotNull Listener<T> listener ) {
 		Objects.requireNonNull( listener, "Cannot unregister a null listener." );
 
-		synchronized ( this.lock ) {
-			this.listeners = Arrays
-				.stream( this.listeners )
-				.filter( it -> listener != it )
-				.toArray(Listener[]::new);
-		}
+		this.listeners.remove( listener );
 	}
 
 	/**
