@@ -8,7 +8,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotates a string that contains JSON data
+ * Annotates a string that _might_ contains JSON data
  */
 @Retention(RetentionPolicy.CLASS)
 @Target({ElementType.TYPE_USE, ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})

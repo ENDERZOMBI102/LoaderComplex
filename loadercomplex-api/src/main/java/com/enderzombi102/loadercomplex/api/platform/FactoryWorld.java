@@ -2,16 +2,17 @@ package com.enderzombi102.loadercomplex.api.platform;
 
 import com.enderzombi102.loadercomplex.api.minecraft.util.Position;
 import com.enderzombi102.loadercomplex.api.minecraft.util.ResourceIdentifier;
-import com.enderzombi102.loadercomplex.api.minecraft.util.Server;
+import com.enderzombi102.loadercomplex.api.minecraft.server.Server;
 import com.enderzombi102.loadercomplex.api.minecraft.command.CommandManager;
 import com.enderzombi102.loadercomplex.api.minecraft.keybind.KeybindManager;
-import com.enderzombi102.loadercomplex.api.minecraft.block.Blockstate;
+import com.enderzombi102.loadercomplex.api.minecraft.block.BlockState;
 import com.enderzombi102.loadercomplex.api.minecraft.entity.Entity;
 import com.enderzombi102.loadercomplex.api.minecraft.entity.ItemEntity;
 import com.enderzombi102.loadercomplex.api.minecraft.item.ItemStack;
 import com.enderzombi102.loadercomplex.api.minecraft.network.NetworkManager;
 import com.enderzombi102.loadercomplex.api.minecraft.world.World;
 import org.jetbrains.annotations.ApiStatus.AvailableSince;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * A factory class for various loader-specific objects
@@ -34,7 +35,7 @@ public interface FactoryWorld {
 	 * @param pos   where to span the entity
 	 * @return the spawned entity instance
 	 */
-	Entity createEntity( World world, ResourceIdentifier type, Position pos );
+	@Nullable Entity createEntity( World world, ResourceIdentifier type, Position pos );
 
 	/**
 	 * Creates an item entity in the world
@@ -44,19 +45,19 @@ public interface FactoryWorld {
 	 * @param pos   where to spawn the entity
 	 * @return an {@link ItemEntity} object
 	 */
-	ItemEntity createItemEntity( World world, ItemStack stack, Position pos );
+	@Nullable ItemEntity createItemEntity( World world, ItemStack stack, Position pos );
 
 	/**
-	 * Creates a {@link Blockstate} of a specified type
+	 * Creates a {@link BlockState} of a specified type
 	 *
-	 * @param type type of the {@link Blockstate}
+	 * @param type type of the {@link BlockState}
 	 */
-	Blockstate createBlockstate( ResourceIdentifier type );
+	BlockState createBlockstate( ResourceIdentifier type );
 
 	/**
 	 * Returns an Air blockstate
 	 */
-	Blockstate airBlockstate();
+	BlockState airBlockstate();
 
 	/**
 	 * Adapts a world in a server to a {@link World} object.

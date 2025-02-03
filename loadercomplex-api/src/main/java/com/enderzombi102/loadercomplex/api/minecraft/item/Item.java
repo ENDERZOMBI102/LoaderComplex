@@ -1,6 +1,6 @@
 package com.enderzombi102.loadercomplex.api.minecraft.item;
 
-import com.enderzombi102.loadercomplex.api.minecraft.block.Blockstate;
+import com.enderzombi102.loadercomplex.api.minecraft.block.BlockState;
 import com.enderzombi102.loadercomplex.api.minecraft.entity.Entity;
 import com.enderzombi102.loadercomplex.api.minecraft.entity.LivingEntity;
 import com.enderzombi102.loadercomplex.api.minecraft.entity.PlayerEntity;
@@ -39,7 +39,7 @@ public abstract class Item {
 	public ActionResult useOnBlock( World world, PlayerEntity player, Position pos, Hand hand, Direction facing ) { return ActionResult.PASS; }
 
 	@ApiStatus.AvailableSince("0.1.3")
-	public ActionResult startUsing( World world, PlayerEntity player, ItemStack stack ) { return ActionResult.PASS; }
+	public ActionResultHolder<ItemStack> startUsing( World world, PlayerEntity player, ItemStack stack ) { return ActionResultHolder.pass( stack ); }
 
 	@ApiStatus.AvailableSince("0.1.3")
 	public ItemStack finishUsing( ItemStack stack, World world, LivingEntity user ) { return stack; }
@@ -48,13 +48,13 @@ public abstract class Item {
 	public boolean postAttack( ItemStack stack, LivingEntity target, LivingEntity attacker ) { return false; }
 
 	@ApiStatus.AvailableSince("0.1.3")
-	public boolean postMine( ItemStack stack, World world, Blockstate state, Position pos, LivingEntity miner ) { return false; }
+	public boolean postMine( ItemStack stack, World world, BlockState state, Position pos, LivingEntity miner ) { return false; }
 
 	@ApiStatus.AvailableSince("0.1.3")
-	public boolean canMineBlock( Blockstate state ) { return false; }
+	public boolean canMineBlock( BlockState state ) { return false; }
 
 	@ApiStatus.AvailableSince("0.1.3")
-	public boolean useOnEntity( ItemStack stack, PlayerEntity user, LivingEntity entity, Hand hand ) { return false; }
+	public ActionResult useOnEntity( ItemStack stack, PlayerEntity user, LivingEntity entity, Hand hand ) { return ActionResult.PASS; }
 
 	@ApiStatus.AvailableSince("0.1.3")
 	public void inventoryTick( ItemStack stack, Entity entity, int slot, boolean selected ) { }

@@ -21,6 +21,7 @@ public interface Entity {
 	/**
 	 * Getter for the string name of this entity
 	 */
+	@Json
 	String getName();
 
 	/**

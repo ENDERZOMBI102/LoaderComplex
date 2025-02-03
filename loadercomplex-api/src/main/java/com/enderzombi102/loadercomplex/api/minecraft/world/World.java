@@ -2,9 +2,11 @@ package com.enderzombi102.loadercomplex.api.minecraft.world;
 
 import com.enderzombi102.loadercomplex.api.minecraft.entity.Entity;
 import com.enderzombi102.loadercomplex.api.minecraft.entity.PlayerEntity;
-import com.enderzombi102.loadercomplex.api.minecraft.block.Blockstate;
+import com.enderzombi102.loadercomplex.api.minecraft.block.BlockState;
+import com.enderzombi102.loadercomplex.api.minecraft.server.Server;
 import com.enderzombi102.loadercomplex.api.minecraft.util.*;
 import org.jetbrains.annotations.ApiStatus;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Represents a minecraft world
@@ -36,15 +38,15 @@ public interface World {
 
 	boolean canSnowFall( Position pos );
 
-	Blockstate getBlockState( Position pos );
+	BlockState getBlockState( Position pos );
 
-	void setBlockState( Position pos, Blockstate state );
+	boolean setBlockState( Position pos, BlockState state );
 
-	void breakBlock( Position pos, boolean dropItems );
+	boolean breakBlock( Position pos, boolean dropItems );
 
-	void removeBlock( Position pos );
+	boolean removeBlock( Position pos );
 
-	Server getServer();
+	@Nullable Server getServer();
 
 	Position getSpawnLocation();
 

@@ -4,6 +4,8 @@ import com.enderzombi102.loadercomplex.api.minecraft.util.Gamemode;
 import com.enderzombi102.loadercomplex.api.minecraft.util.Position;
 import org.jetbrains.annotations.ApiStatus;
 
+import java.util.Optional;
+
 /**
  * Represents a player entity
  */
@@ -11,7 +13,7 @@ import org.jetbrains.annotations.ApiStatus;
 public interface PlayerEntity extends LivingEntity {
 	boolean isSleeping();
 
-	Position getBedLocation();
+	Optional<Position> getBedLocation();
 
 	int getScore();
 

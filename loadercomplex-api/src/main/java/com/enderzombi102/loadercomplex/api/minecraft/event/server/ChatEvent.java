@@ -1,4 +1,4 @@
-package com.enderzombi102.loadercomplex.api.minecraft.event.client;
+package com.enderzombi102.loadercomplex.api.minecraft.event.server;
 
 import com.enderzombi102.loadercomplex.api.event.CancellableEvent;
 import com.enderzombi102.loadercomplex.api.event.EventDispatcher;
@@ -7,7 +7,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class ChatEvent extends CancellableEvent {
-	public static final EventDispatcher<ChatEvent> SEND_MESSAGE = EventDispatcher.createCancellable( ChatEvent.class );
 	public static final EventDispatcher<ChatEvent> RECV_MESSAGE = EventDispatcher.createCancellable( ChatEvent.class );
 
 	public @NotNull String message;
