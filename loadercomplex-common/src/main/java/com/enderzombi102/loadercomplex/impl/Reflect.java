@@ -4,10 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import sun.misc.Unsafe;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.MethodHandleProxies;
-import java.lang.invoke.MethodHandles;
-import java.lang.invoke.MethodType;
+import java.lang.invoke.*;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 
@@ -80,7 +77,7 @@ public class Reflect<T> {
 	public T call( Object... args ) {
 		try {
 			assert this.handle != null;
-			return (T) (args.length == 0 ? handle.invoke() : handle.invoke( args ));
+			return (T) (args.length == 0 ? handle.invoke() : handle.invokeWithArguments( args ));
 		} catch ( Throwable e ) {
 			throw new RuntimeException( e );
 		}
@@ -114,7 +111,7 @@ public class Reflect<T> {
 		try {
 			Class<?>[] classes = Arrays.stream( args ).map( Object::getClass ).toArray( Class[]::new );
 			MethodHandle handle = invoker( name, type, classes );
-			return new Reflect<>( type, (Result) (args.length == 0 ? handle.invoke() : handle.invoke( args )), handle );
+			return new Reflect<>( type, (Result) (args.length == 0 ? handle.invoke() : handle.invokeWithArguments( args )), handle );
 		} catch ( Throwable e ) {
 			throw new RuntimeException( e );
 		}
@@ -151,8 +148,7 @@ public class Reflect<T> {
 	 * @param type return type of the method to reflect.
 	 * @param alias the target functional interface.
 	 * @param args the types of the arguments.
-	 * @return
-	 * @param <Result>
+	 * @return an object implementing the given functional interface.
 	 * @implNote BROKEN
 	 */
 	@SuppressWarnings( "unchecked" )
@@ -162,7 +158,6 @@ public class Reflect<T> {
 			MethodHandle handle = this.object == null
 				? IMPL_LOOKUP.findStatic( this.clazz, name, methodType )
 				: IMPL_LOOKUP.bind( this.object, name, methodType );
-
 			return (Result) MethodHandleProxies.asInterfaceInstance( alias, handle );
 		} catch ( Throwable e ) {
 			throw new RuntimeException( e );
