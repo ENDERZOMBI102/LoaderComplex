@@ -69,7 +69,7 @@ public class Vec3i implements Comparable<Vec3i> {
 	}
 
 	/**
-	 * {@return a vector with all components multiplied by {@code scale}}
+	 * Returns a vector with all components multiplied by {@code scale}.
 	 *
 	 * @implNote This can return the same vector if {@code scale} equals {@code 1}.
 	 */
@@ -83,7 +83,7 @@ public class Vec3i implements Comparable<Vec3i> {
 	}
 
 	/**
-	 * {@return a vector which is offset by {@code 1} in the upward direction}
+	 * Returns a vector which is offset by {@code 1} in the upward direction.
 	 */
 	public Vec3i up() {
 		return this.up( 1 );
@@ -99,7 +99,7 @@ public class Vec3i implements Comparable<Vec3i> {
 	}
 
 	/**
-	 * {@return a vector which is offset by {@code 1} in the downward direction}
+	 * Returns a vector which is offset by {@code 1} in the downward direction.
 	 */
 	public Vec3i down() {
 		return this.down( 1 );
@@ -115,14 +115,14 @@ public class Vec3i implements Comparable<Vec3i> {
 	}
 
 	/**
-	 * {@return a vector which is offset by {@code 1} in the northward direction}
+	 * Returns a vector which is offset by {@code 1} in the northward direction.
 	 */
 	public Vec3i north() {
 		return this.north( 1 );
 	}
 
 	/**
-	 * {@return a vector which is offset by {@code distance} in the northward direction}
+	 * Returns a vector which is offset by {@code distance} in the northward direction.
 	 *
 	 * @implNote This can return the same vector if {@code distance} equals {@code 0}.
 	 */
@@ -131,7 +131,7 @@ public class Vec3i implements Comparable<Vec3i> {
 	}
 
 	/**
-	 * {@return a vector which is offset by {@code 1} in the southward direction}
+	 * Returns a vector which is offset by {@code 1} in the southward direction.
 	 */
 	public Vec3i south() {
 		return this.south( 1 );
@@ -147,14 +147,14 @@ public class Vec3i implements Comparable<Vec3i> {
 	}
 
 	/**
-	 * {@return a vector which is offset by {@code 1} in the westward direction}
+	 * Returns a vector which is offset by {@code 1} in the westward direction.
 	 */
 	public Vec3i west() {
 		return this.west( 1 );
 	}
 
 	/**
-	 * {@return a vector which is offset by {@code distance} in the westward direction}
+	 * Returns a vector which is offset by {@code distance} in the westward direction.
 	 *
 	 * @implNote This can return the same vector if {@code distance} equals {@code 0}.
 	 */
@@ -163,14 +163,14 @@ public class Vec3i implements Comparable<Vec3i> {
 	}
 
 	/**
-	 * {@return a vector which is offset by {@code 1} in the eastward direction}
+	 * Returns a vector which is offset by {@code 1} in the eastward direction.
 	 */
 	public Vec3i east() {
 		return this.east( 1 );
 	}
 
 	/**
-	 * {@return a vector which is offset by {@code distance} in the eastward direction}
+	 * Returns a vector which is offset by {@code distance} in the eastward direction.
 	 *
 	 * @implNote This can return the same vector if {@code distance} equals {@code 0}.
 	 */
@@ -179,14 +179,14 @@ public class Vec3i implements Comparable<Vec3i> {
 	}
 
 	/**
-	 * {@return a vector which is offset by {@code 1} in {@code direction} direction}
+	 * Returns a vector which is offset by {@code 1} in {@code direction} direction.
 	 */
 	public Vec3i offset( Direction direction ) {
 		return this.offset( direction, 1 );
 	}
 
 	/**
-	 * {@return a vector which is offset by {@code distance} in {@code direction} direction}
+	 * Returns a vector which is offset by {@code distance} in {@code direction} direction.
 	 *
 	 * @implNote This can return the same vector if {@code distance} equals {@code 0}.
 	 */
@@ -197,7 +197,7 @@ public class Vec3i implements Comparable<Vec3i> {
 	}
 
 	/**
-	 * {@return a vector which is offset by {@code distance} on {@code axis} axis}
+	 * Returns a vector which is offset by {@code distance} on {@code axis} axis.
 	 *
 	 * @implNote This can return the same vector if {@code distance} equals {@code 0}.
 	 */
@@ -221,21 +221,21 @@ public class Vec3i implements Comparable<Vec3i> {
 	}
 
 	/**
-	 * {@return whether the distance between here and {@code vec} is less than {@code distance}}
+	 * Returns whether the distance between here and {@code vec} is less than {@code distance}.
 	 */
 	public boolean isWithinDistance( Vec3i vec, double distance ) {
 		return this.getSquaredDistance( vec ) < Formulas.square( distance );
 	}
 
 	/**
-	 * {@return whether the distance between here and {@code pos} is less than {@code distance}}
+	 * Returns whether the distance between here and {@code pos} is less than {@code distance}.
 	 */
 	public boolean isWithinDistance( Vec3d pos, double distance ) {
 		return this.getSquaredDistance( pos.toVec3i() ) < Formulas.square( distance );
 	}
 
 	/**
-	 * {@return the squared distance between here (center) and {@code vec}}
+	 * Returns the squared distance between here (center) and {@code vec}.
 	 *
 	 * @see #getSquaredDistance(double, double, double)
 	 * @see #getSquaredDistanceFromCenter(double, double, double)
@@ -245,7 +245,7 @@ public class Vec3i implements Comparable<Vec3i> {
 	}
 
 	/**
-	 * {@return the squared distance between the center of this voxel and {@code (x, y, z)}}
+	 * Returns the squared distance between the center of this voxel and {@code (x, y, z)}.
 	 * This is equivalent to {@link Vec3d#ofCenter(Vec3i)
 	 * Vec3d.ofCenter(this).squaredDistanceTo(x, y, z)}.
 	 */
@@ -257,7 +257,7 @@ public class Vec3i implements Comparable<Vec3i> {
 	}
 
 	/**
-	 * {@return the squared distance between here and {@code (x, y, z)}}
+	 * Returns the squared distance between here and {@code (x, y, z)}.
 	 * This is equivalent to {@code Vec3d.of(this).squaredDistanceTo(x, y, z)}.
 	 */
 	public double getSquaredDistance( double x, double y, double z ) {
@@ -268,7 +268,7 @@ public class Vec3i implements Comparable<Vec3i> {
 	}
 
 	/**
-	 * {@return the Manhattan distance between here and {@code vec}}
+	 * Returns the Manhattan distance between here and {@code vec}.
 	 *
 	 * <p>Manhattan distance, also called taxicab distance or snake distance, is the
 	 * distance measured as the sum of the absolute differences of their coordinates.

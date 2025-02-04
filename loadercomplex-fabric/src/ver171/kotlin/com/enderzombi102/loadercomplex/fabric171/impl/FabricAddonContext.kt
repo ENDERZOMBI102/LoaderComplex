@@ -1,6 +1,9 @@
 package com.enderzombi102.loadercomplex.fabric171.impl
 
 import com.enderzombi102.loadercomplex.api.AddonContext
+import com.enderzombi102.loadercomplex.api.minecraft.command.CommandManager
+import com.enderzombi102.loadercomplex.api.minecraft.keybind.KeybindManager
+import com.enderzombi102.loadercomplex.api.minecraft.network.NetworkManager
 import com.enderzombi102.loadercomplex.api.platform.*
 import com.enderzombi102.loadercomplex.fabric171.impl.platform.FabricFactoryWorld
 import com.enderzombi102.loadercomplex.fabric171.impl.platform.FabricRegistry
@@ -66,6 +69,15 @@ class FabricAddonContext : AddonContext {
 
 	//	override getApiVersion(): Version =
 	//		Version( "0.1.3", LocalDateTime.now().format( DateTimeFormatter.ofPattern( "dd-MM-yyyy'T'HH:mm:ss" ) ) )
+
+	override fun getKeybindManager(): KeybindManager =
+		throw NotImplementedError()
+
+	override fun getNetworkManager(): NetworkManager =
+		throw NotImplementedError()
+
+	override fun getCommandManager(): CommandManager =
+		throw NotImplementedError()
 
 	companion object {
 		const val MINECRAFT_VERSION: String = "1.17.1"

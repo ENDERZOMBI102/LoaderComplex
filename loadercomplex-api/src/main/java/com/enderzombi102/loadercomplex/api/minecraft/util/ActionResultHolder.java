@@ -22,6 +22,8 @@ public class ActionResultHolder<Result> {
 
 	/**
 	 * Same thing as `new`.
+	 * @param result the action's result.
+	 * @param object the final object to turn back.
 	 */
 	public static <Result> ActionResultHolder<Result> of( ActionResult result, Result object ) {
 		return new ActionResultHolder<>( result, object );

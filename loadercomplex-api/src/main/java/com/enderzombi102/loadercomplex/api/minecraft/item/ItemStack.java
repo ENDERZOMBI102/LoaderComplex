@@ -35,6 +35,13 @@ public interface ItemStack {
 
 	int getDamage();
 
+	/**
+	 * Removes 1 damage from this stack.
+	 */
+	default void damage() {
+		this.setDamage( this.getDamage() - 1 );
+	}
+
 	int getMaxDurability();
 
 	int getMaxStackSize();

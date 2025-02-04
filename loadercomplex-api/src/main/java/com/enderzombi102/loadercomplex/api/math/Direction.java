@@ -236,11 +236,10 @@ public enum Direction {
 	}
 
 	/**
-	 * {@return whether the given yaw points to the direction}
-	 *
-	 * @implNote This returns whether the yaw can make an acute angle with the direction.
+	 * This returns whether the yaw can make an acute angle with the direction.
 	 *
 	 * <p>This always returns {@code false} for vertical directions.
+	 * @return whether the given yaw points to the direction
 	 */
 	public boolean pointsTo( float yaw ) {
 		float f = yaw * (float) (Math.PI / 180.0);

@@ -1,5 +1,6 @@
 package com.enderzombi102.loadercomplex.fabric171.impl.platform
 
+import com.enderzombi102.loadercomplex.api.math.Vec3d
 import com.enderzombi102.loadercomplex.api.minecraft.block.BlockState
 import com.enderzombi102.loadercomplex.api.minecraft.command.CommandManager
 import com.enderzombi102.loadercomplex.api.minecraft.entity.Entity
@@ -8,7 +9,6 @@ import com.enderzombi102.loadercomplex.api.minecraft.item.ItemStack
 import com.enderzombi102.loadercomplex.api.minecraft.keybind.KeybindManager
 import com.enderzombi102.loadercomplex.api.minecraft.network.NetworkManager
 import com.enderzombi102.loadercomplex.api.minecraft.server.Server
-import com.enderzombi102.loadercomplex.api.minecraft.util.Position
 import com.enderzombi102.loadercomplex.api.minecraft.util.ResourceIdentifier
 import com.enderzombi102.loadercomplex.api.minecraft.world.World
 import com.enderzombi102.loadercomplex.api.platform.FactoryWorld
@@ -29,7 +29,7 @@ class FabricFactoryWorld : FactoryWorld {
 		return FabricItemStack( McItemStack( Registry.ITEM[ type.toMC() ] ) )
 	}
 
-	override fun createEntity( world: World, type: ResourceIdentifier, pos: Position ): Entity? =
+	override fun createEntity( world: World, type: ResourceIdentifier, pos: Vec3d ): Entity? =
 		Registry.ENTITY_TYPE[ type.toMC() ]
 			.create( world.getObject() as McWorld )
 			?.let {
@@ -37,7 +37,7 @@ class FabricFactoryWorld : FactoryWorld {
 				return FabricEntity( it )
 			}
 
-	override fun createItemEntity( world: World, stack: ItemStack, pos: Position ): ItemEntity? =
+	override fun createItemEntity( world: World, stack: ItemStack, pos: Vec3d ): ItemEntity? =
 		EntityType.ITEM
 			.create( world.getObject() as McWorld )
 			?.let {
@@ -53,14 +53,5 @@ class FabricFactoryWorld : FactoryWorld {
 		FabricBlockState( Blocks.AIR.defaultState )
 
 	override fun adaptWorld( server: Server, id: Int ): World =
-		throw NotImplementedError()
-
-	override fun getKeybindManager(): KeybindManager =
-		throw NotImplementedError()
-
-	override fun getNetworkManager(): NetworkManager =
-		throw NotImplementedError()
-
-	override fun getCommandManager(): CommandManager =
 		throw NotImplementedError()
 }

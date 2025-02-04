@@ -1,8 +1,8 @@
 package com.enderzombi102.loadercomplex.fabric171.impl.entity
 
+import com.enderzombi102.loadercomplex.api.math.Vec3i
 import com.enderzombi102.loadercomplex.api.minecraft.entity.PlayerEntity
 import com.enderzombi102.loadercomplex.api.minecraft.util.Gamemode
-import com.enderzombi102.loadercomplex.api.minecraft.util.Position
 import com.enderzombi102.loadercomplex.fabric171.impl.utils.toLC
 import com.enderzombi102.loadercomplex.fabric171.impl.utils.toMC
 import net.minecraft.client.MinecraftClient
@@ -17,7 +17,7 @@ class FabricPlayerEntity( private val backingEntity: McPlayerEntity ) : FabricLi
 	override fun isSleeping(): Boolean =
 		backingEntity.isSleeping
 
-	override fun getBedLocation(): Optional<Position> =
+	override fun getBedLocation(): Optional<Vec3i> =
 		backingEntity.sleepingPosition.map { it.toLC() }
 
 	override fun getScore(): Int =
@@ -31,7 +31,7 @@ class FabricPlayerEntity( private val backingEntity: McPlayerEntity ) : FabricLi
 		backingEntity.sendMessage( LiteralText( msg ), false )
 	}
 
-	override fun setRespawnPoint( pos: Position ) {
+	override fun setRespawnPoint( pos: Vec3i ) {
 		backingEntity.setSleepingPosition( pos.toMC() )
 	}
 

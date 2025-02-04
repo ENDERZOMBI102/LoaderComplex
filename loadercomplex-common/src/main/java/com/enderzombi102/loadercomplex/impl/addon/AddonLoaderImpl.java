@@ -30,7 +30,7 @@ public class AddonLoaderImpl implements AddonLoader {
 	@SuppressWarnings( "unchecked" )
 	public void loadAddons( @NotNull List<AddonFinder> finders ) {
 		this.logger.info( "Searching for addons" );
-		for ( AddonFinder finder : finders )
+		for ( AddonFinder finder : finders ) {
 			finder.findAddons( this.logger, path -> {
 				try {
 					this.logger.info( " - Found possible LoaderComplex addon: {}", path );
@@ -42,6 +42,7 @@ public class AddonLoaderImpl implements AddonLoader {
 					return false;
 				}
 			} );
+		}
 		this.logger.info( "Instantiating {} addons", this.containers.size() );
 		for ( AddonContainerImpl container : this.containers ) {
 			try {
@@ -59,8 +60,9 @@ public class AddonLoaderImpl implements AddonLoader {
 			.filter( AddonContainer::didFailToLoad )
 			.collect( Collectors.toList() );
 		logger.info( "Finished loading {} addons with {} fails", this.containers.size(), list.size() );
-		if ( Boolean.getBoolean( "lc.debug.crashOnFail" ) && !list.isEmpty() )
-			throw new RuntimeException( String.format( "LoaderComplex: %s addons failed to initialize!", list.size() ) );
+		if ( Boolean.getBoolean( "lc.debug.crashOnFail" ) && !list.isEmpty() ) {
+			throw new RuntimeException( String.format( "LoaderComplex: %s addons failed to load!", list.size() ) );
+		}
 	}
 
 	@Override

@@ -1,9 +1,9 @@
 package com.enderzombi102.loadercomplex.fabric171.impl.entity
 
+import com.enderzombi102.loadercomplex.api.math.Vec3d
 import com.enderzombi102.loadercomplex.api.minecraft.entity.Entity
 import com.enderzombi102.loadercomplex.api.minecraft.entity.ItemEntity
 import com.enderzombi102.loadercomplex.api.minecraft.entity.LivingEntity
-import com.enderzombi102.loadercomplex.api.minecraft.util.Position
 import com.enderzombi102.loadercomplex.api.minecraft.world.World
 import com.enderzombi102.loadercomplex.fabric171.impl.utils.toLC
 import com.enderzombi102.loadercomplex.fabric171.impl.world.FabricWorld
@@ -43,10 +43,10 @@ open class FabricEntity( private val backingEntity: McEntity ) : Entity {
 	override fun isDead(): Boolean =
 		backingEntity.isRemoved
 
-	override fun getPosition(): Position =
-		backingEntity.blockPos.toLC()
+	override fun getPosition(): Vec3d =
+		backingEntity.blockPos.toLC().toVec3d()
 
-	override fun setPosition( pos: Position ) {
+	override fun setPosition( pos: Vec3d) {
 		backingEntity.setPosition( pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble() )
 	}
 

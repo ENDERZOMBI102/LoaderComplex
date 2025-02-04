@@ -1,6 +1,7 @@
 package com.enderzombi102.loadercomplex.fabric171.impl.utils
 
 import com.enderzombi102.loadercomplex.api.math.Direction
+import com.enderzombi102.loadercomplex.api.math.Vec3i
 import com.enderzombi102.loadercomplex.api.minecraft.entity.PlayerEntity
 import com.enderzombi102.loadercomplex.api.minecraft.item.EquipmentSlot
 import com.enderzombi102.loadercomplex.api.minecraft.item.ItemStack
@@ -23,10 +24,10 @@ fun EquipmentSlot.toMC(): McEquipmentSlot =
 fun ItemStack.toMC(): McItemStack =
 	stack as McItemStack
 
-fun BlockPos.toLC(): Position =
-	Position( x, y, z )
+fun BlockPos.toLC(): Vec3i =
+	Vec3i( x, y, z )
 
-fun Position.toMC(): BlockPos =
+fun Vec3i.toMC(): BlockPos =
 	BlockPos( x, y, z )
 
 fun Gamemode.toMC(): McGameMode =

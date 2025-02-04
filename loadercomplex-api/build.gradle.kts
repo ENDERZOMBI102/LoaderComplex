@@ -22,6 +22,10 @@ tasks.withType<ProcessResources> {
 		expand( "version" to "$version+${now().format( ofPattern("ddMMyyyy") )}" )
 	}
 }
+tasks.withType<Javadoc> {
+	title = "LoaderComplex $version API"
+	(options as StandardJavadocDocletOptions).addStringOption( "tag" ).value = "implNote:a:Implementation note:"
+}
 
 publishing {
 	publications {
