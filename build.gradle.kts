@@ -37,7 +37,6 @@ subprojects {
 	group = "com.enderzombi102.loadercomplex"
 
 	configurations.create( "jarz" )
-	logger.lifecycle( "Found subproject: `$path`" )
 
 	tasks.withType<JavaCompile> {
 		sourceCompatibility = "8"

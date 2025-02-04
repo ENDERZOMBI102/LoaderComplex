@@ -1,4 +1,4 @@
-package com.enderzombi102.loadercomplex.forge12;
+package com.enderzombi102.loadercomplex.forge122;
 
 import com.enderzombi102.loadercomplex.impl.EnvironmentLoader;
 import net.minecraftforge.fml.common.Mod;
@@ -20,14 +20,7 @@ public class ForgeBootstrap {
 	 * This is the first initialization event. Register tile entities here.
 	 * The registry events will have fired prior to entry to this method.
 	 */
-	@Mod.EventHandle
-			mirror
-				.get( "modController", LoadController.class )
-				.unwrap()
-				.getActiveModList()
-				.add( frogeModContainer );
-			LOGGER.info( " - Container injected into active mod list" );
-		}r
+	@Mod.EventHandler
 	public void preinit( FMLPreInitializationEvent evt ) {
 		this.impl.preinit( evt );
 	}

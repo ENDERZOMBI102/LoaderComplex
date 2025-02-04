@@ -1,6 +1,6 @@
-package com.enderzombi102.loadercomplex.forge12;
+package com.enderzombi102.loadercomplex.forge122;
 
-import com.enderzombi102.loadercomplex.forge12.impl.utils.ForgeRegistry;
+import com.enderzombi102.loadercomplex.forge122.impl.platform.ForgeRegistry;
 import com.enderzombi102.loadercomplex.impl.LoaderComplex;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;

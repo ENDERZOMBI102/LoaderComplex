@@ -1,4 +1,4 @@
-package com.enderzombi102.loadercomplex.forge12;
+package com.enderzombi102.loadercomplex.forge122;
 
 import com.google.common.base.Charsets;
 import com.google.common.base.Splitter;

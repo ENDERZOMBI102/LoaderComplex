@@ -20,7 +20,7 @@ unimined.minecraft( ver122 ) {
 
 	@Suppress("UnstableApiUsage")
 	mappings {
-		mapping( "net.ornithemc:feather-gen2:${minecraft.version}+build.4:v2", "feather" ) {
+		mapping( "net.ornithemc:feather-gen2:${minecraft.version}+build.1:v2", "feather" ) {
 			outputs( "feather", true ) { listOf("intermediary") }
 			mapNamespace( "named", "feather" )
 			sourceNamespace( "intermediary" )
