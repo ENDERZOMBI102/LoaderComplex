@@ -3,18 +3,18 @@ package lctest;
 import com.enderzombi102.loadercomplex.api.AddonContext;
 import com.enderzombi102.loadercomplex.api.addon.Addon;
 import com.enderzombi102.loadercomplex.api.annotation.Instance;
-import com.enderzombi102.loadercomplex.api.minecraft.block.Block;
-import com.enderzombi102.loadercomplex.api.minecraft.block.Blockstate;
-import com.enderzombi102.loadercomplex.api.minecraft.entity.PlayerEntity;
-import com.enderzombi102.loadercomplex.api.minecraft.util.Direction;
-import com.enderzombi102.loadercomplex.api.minecraft.util.Gamemode;
-import com.enderzombi102.loadercomplex.api.minecraft.util.Hand;
-import com.enderzombi102.loadercomplex.api.minecraft.util.Position;
-import com.enderzombi102.loadercomplex.api.minecraft.world.World;
-import com.enderzombi102.loadercomplex.api.platform.FactoryWorld;
+import com.enderzombi102.loadercomplex.api.minecraft.command.CommandManager;
+import com.enderzombi102.loadercomplex.api.minecraft.item.Item;
+import com.enderzombi102.loadercomplex.api.minecraft.keybind.KeybindManager;
+import com.enderzombi102.loadercomplex.api.minecraft.network.NetworkManager;
+import com.enderzombi102.loadercomplex.api.minecraft.util.ResourceIdentifier;
+import lctest.block.FoodBank;
+import lctest.item.TeleportScroll;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.slf4j.Logger;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,38 +24,43 @@ import static com.enderzombi102.loadercomplex.api.minecraft.util.ResourceIdentif
 public class TestAddon implements Addon {
 	@Instance
 	private static final TestAddon INSTANCE = new TestAddon();
-	private static final String ID = "testaddon";
+	public static final String ID = "testaddon";
 
 	@Override
 	public void init( AddonContext ctx ) {
-		ctx.getLogger( ID ).info( "[LC|TA] TestAddon initialized! lets hope everything works as intended!" );
-		final Block foodBank = new Block() {
-			{
-				this.opaque = false;
-				this.hardness = 3.0f;
-			}
+		Logger logger = ctx.getLogger( ID );
+		try {
+			Config.init( ctx.getConfigDir() );
+		} catch ( IOException e ) {
+			logger.info( "[LC|TA] TestAddon initialized! lets hope everything works as intended!" );
+			throw new RuntimeException( e );
+		}
 
-			@Override
-			public boolean onBlockInteracted( World world, Position pos, Blockstate state, PlayerEntity player, Hand hand, Direction direction, double hitX, double hitY, double hitZ ) {
-				if (! world.isClient() ) {
-					if ( player.getGamemode() == Gamemode.SURVIVAL ) {
-						player.sendMessage( "You feel well fed" );
-						player.setFoodLevel( 20 );
-						player.setSaturationLevel( 20 );
-					} else {
-						player.sendMessage( "You feel as nothing had changed" );
-					}
-				}
-				return true;
-			}
+		if ( Config.get().item ) {
+			Item teleportScroll = new TeleportScroll();
+			teleportScroll.creativeTab = ri( "creativetab.misc" );
+			ctx.getRegistry().register( teleportScroll, getId( "teleport_scroll" ) );
+		}
+		if ( Config.get().itemGroup ) {
+			ctx.getRegistry().register( new FoodBank( ctx ), getId( "food_bank" ), ri( "creativetab.misc" ) );
+		}
+		if ( Config.get().block ) {
+			ctx.getRegistry().register( new FoodBank( ctx ), getId( "food_bank" ), ri( "creativetab.misc" ) );
+		}
+		if ( Config.get().command ) {
+			CommandManager manager = ctx.getCommandManager();
+		}
+		if ( Config.get().keybind ) {
+			KeybindManager manager = ctx.getKeybindManager();
+		}
+		if ( Config.get().network ) {
+			NetworkManager manager = ctx.getNetworkManager();
+		}
+		if ( Config.get().entity ) {
+//			ctx.getRegistry().register(  );
+		}
 
-			@Override
-			public void onBreak( World world, Position pos, Blockstate state, PlayerEntity player ) {
-				FactoryWorld factory = ctx.getFactoryWorld();
-				factory.createItemEntity( world, factory.createStack( ri( ID, "food_bank" ) ), pos );
-			}
-		};
-		ctx.getRegistry().register( foodBank, ri( ID, "food_bank" ), ri( "creativetab.misc" ) );
+		logger.info( "[LC|TA] TestAddon initialized! lets hope everything works as intended!" );
 	}
 
 	@Override
@@ -83,5 +88,9 @@ public class TestAddon implements Addon {
 		return new HashMap<String, String>() {{
 			put( "source", "https://github.com/ENDERZOMBI102/LoaderComplex" );
 		}};
+	}
+
+	public static ResourceIdentifier getId( String path ) {
+		return new ResourceIdentifier( ID, path );
 	}
 }
