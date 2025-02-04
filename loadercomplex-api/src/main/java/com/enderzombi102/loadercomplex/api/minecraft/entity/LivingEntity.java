@@ -10,7 +10,7 @@ import org.jetbrains.annotations.ApiStatus;
 @ApiStatus.AvailableSince("0.1.3")
 public interface LivingEntity extends Entity {
 	float getHealth();
-	void setHealth(float health);
+	void setHealth( float health );
 
 	boolean isPlayer();
 	PlayerEntity asPlayer();
@@ -22,7 +22,7 @@ public interface LivingEntity extends Entity {
 	int getArmorProtection();
 	ItemStack getItemInMainHand();
 	ItemStack getItemInOffHand();
-	boolean hasEquipment( EquipmentSlot slot);
-	ItemStack getEquipment( EquipmentSlot slot);
-	void setEquipment( EquipmentSlot slot, ItemStack stack);
+	boolean hasEquipment( EquipmentSlot slot );
+	ItemStack getEquipment( EquipmentSlot slot );
+	void setEquipment( EquipmentSlot slot, ItemStack stack );
 }

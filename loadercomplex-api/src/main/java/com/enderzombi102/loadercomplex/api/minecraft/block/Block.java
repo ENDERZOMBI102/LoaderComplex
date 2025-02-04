@@ -1,12 +1,12 @@
 package com.enderzombi102.loadercomplex.api.minecraft.block;
 
+import com.enderzombi102.loadercomplex.api.math.Vec3i;
 import com.enderzombi102.loadercomplex.api.minecraft.entity.Entity;
 import com.enderzombi102.loadercomplex.api.minecraft.entity.PlayerEntity;
 import com.enderzombi102.loadercomplex.api.minecraft.util.ActionResult;
 import com.enderzombi102.loadercomplex.api.minecraft.world.World;
-import com.enderzombi102.loadercomplex.api.minecraft.util.Direction;
+import com.enderzombi102.loadercomplex.api.math.Direction;
 import com.enderzombi102.loadercomplex.api.minecraft.util.Hand;
-import com.enderzombi102.loadercomplex.api.minecraft.util.Position;
 import org.jetbrains.annotations.ApiStatus;
 
 import java.util.Random;
@@ -49,7 +49,7 @@ public abstract class Block {
 	 * @param player player that broke the block
 	 */
 	@ApiStatus.AvailableSince( "0.1.3" )
-	public void onBreak( World world, Position pos, BlockState state, PlayerEntity player ) {
+	public void onBreak( World world, Vec3i pos, BlockState state, PlayerEntity player ) {
 	}
 
 	/**
@@ -60,7 +60,7 @@ public abstract class Block {
 	 * @param entity entity that stepped on the block
 	 */
 	@ApiStatus.AvailableSince( "0.1.3" )
-	public void onSteppedOn( World world, Position pos, Entity entity ) {
+	public void onSteppedOn( World world, Vec3i pos, Entity entity ) {
 	}
 
 	/**
@@ -78,7 +78,7 @@ public abstract class Block {
 	 * @return i have no idea
 	 */
 	@ApiStatus.AvailableSince( "0.1.3" )
-	public ActionResult onBlockInteracted( World world, Position pos, BlockState state, PlayerEntity player, Hand hand, Direction direction, double hitX, double hitY, double hitZ ) {
+	public ActionResult onBlockInteracted( World world, Vec3i pos, BlockState state, PlayerEntity player, Hand hand, Direction direction, double hitX, double hitY, double hitZ ) {
 		return ActionResult.PASS;
 	}
 
@@ -90,7 +90,7 @@ public abstract class Block {
 	 * @param state  state of the block the player interacted with
 	 * @param random a {@link java.util.Random} instance
 	 */
-	public void onRandomTick( World world, Position pos, BlockState state, Random random ) { }
+	public void onRandomTick( World world, Vec3i pos, BlockState state, Random random ) { }
 
 	/**
 	 * Called when an entity collides with this block
@@ -101,7 +101,7 @@ public abstract class Block {
 	 * @param entity entity that collided with this block
 	 */
 	@ApiStatus.AvailableSince( "0.1.3" )
-	public void onEntityCollision( World world, Position pos, BlockState state, Entity entity ) { }
+	public void onEntityCollision( World world, Vec3i pos, BlockState state, Entity entity ) { }
 
 	// methods used to set values
 

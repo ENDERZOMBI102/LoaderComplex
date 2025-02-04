@@ -1,7 +1,7 @@
 package com.enderzombi102.loadercomplex.api.minecraft.entity;
 
 import com.enderzombi102.loadercomplex.api.annotation.Json;
-import com.enderzombi102.loadercomplex.api.minecraft.util.Position;
+import com.enderzombi102.loadercomplex.api.math.Vec3d;
 import com.enderzombi102.loadercomplex.api.minecraft.world.World;
 import org.jetbrains.annotations.ApiStatus;
 
@@ -71,12 +71,12 @@ public interface Entity {
 	/**
 	 * Getter for the entity position
 	 */
-	Position getPosition();
+	Vec3d getPosition();
 
 	/**
 	 * Setter for the entity position
 	 */
-	void setPosition( Position pos );
+	void setPosition( Vec3d pos );
 
 	/**
 	 * Getter for the entity pitch

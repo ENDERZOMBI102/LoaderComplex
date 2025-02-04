@@ -1,5 +1,8 @@
 package com.enderzombi102.loadercomplex.api;
 
+import com.enderzombi102.loadercomplex.api.minecraft.command.CommandManager;
+import com.enderzombi102.loadercomplex.api.minecraft.keybind.KeybindManager;
+import com.enderzombi102.loadercomplex.api.minecraft.network.NetworkManager;
 import com.enderzombi102.loadercomplex.api.platform.*;
 import org.jetbrains.annotations.ApiStatus.AvailableSince;
 import org.jetbrains.annotations.NotNull;
@@ -81,4 +84,33 @@ public interface AddonContext {
 	 */
 	@AvailableSince("0.2.0")
 	@NotNull Path getConfigDir();
+
+	/**
+	 * Getter for the loader's {@link KeybindManager}, an object capable of:<br>
+	 * - Registering keybindings<br>
+	 * - Querying registered keybindings<br>
+	 */
+	@AvailableSince( "0.2.0" )
+	default KeybindManager getKeybindManager() {
+		throw new IllegalStateException( "This function has not been implemented in this impl!" );
+	}
+
+	/**
+	 * Getter for the loader's {@link NetworkManager}, an object capable of creating network channels.<br>
+	 * Channels can:<br>
+	 * - Send data between client server ( full-duplex )<br>
+	 * - Nothing else, what do you expect??
+	 */
+	@AvailableSince( "0.2.0" )
+	default NetworkManager getNetworkManager() {
+		throw new IllegalStateException( "This function has not been implemented in this impl!" );
+	}
+
+	/**
+	 * Getter for the loader's {@link CommandManager}, an object capable of creating commands.
+	 */
+	@AvailableSince( "0.2.0" )
+	default CommandManager getCommandManager() {
+		throw new IllegalStateException( "This function has not been implemented in this impl!" );
+	}
 }

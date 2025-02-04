@@ -1,7 +1,7 @@
 package com.enderzombi102.loadercomplex.api.minecraft.entity;
 
+import com.enderzombi102.loadercomplex.api.math.Vec3i;
 import com.enderzombi102.loadercomplex.api.minecraft.util.Gamemode;
-import com.enderzombi102.loadercomplex.api.minecraft.util.Position;
 import org.jetbrains.annotations.ApiStatus;
 
 import java.util.Optional;
@@ -13,7 +13,7 @@ import java.util.Optional;
 public interface PlayerEntity extends LivingEntity {
 	boolean isSleeping();
 
-	Optional<Position> getBedLocation();
+	Optional<Vec3i> getBedLocation();
 
 	int getScore();
 
@@ -21,7 +21,7 @@ public interface PlayerEntity extends LivingEntity {
 
 	void sendMessage( String msg );
 
-	void setRespawnPoint( Position pos );
+	void setRespawnPoint( Vec3i pos );
 
 	int getFoodLevel();
 

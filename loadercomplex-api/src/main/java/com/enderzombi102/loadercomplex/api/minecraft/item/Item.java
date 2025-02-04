@@ -1,5 +1,7 @@
 package com.enderzombi102.loadercomplex.api.minecraft.item;
 
+import com.enderzombi102.loadercomplex.api.math.Direction;
+import com.enderzombi102.loadercomplex.api.math.Vec3i;
 import com.enderzombi102.loadercomplex.api.minecraft.block.BlockState;
 import com.enderzombi102.loadercomplex.api.minecraft.entity.Entity;
 import com.enderzombi102.loadercomplex.api.minecraft.entity.LivingEntity;
@@ -36,7 +38,7 @@ public abstract class Item {
 
 	// methods
 	@ApiStatus.AvailableSince("0.1.3")
-	public ActionResult useOnBlock( World world, PlayerEntity player, Position pos, Hand hand, Direction facing ) { return ActionResult.PASS; }
+	public ActionResult useOnBlock( World world, PlayerEntity player, Vec3i pos, Hand hand, Direction facing ) { return ActionResult.PASS; }
 
 	@ApiStatus.AvailableSince("0.1.3")
 	public ActionResultHolder<ItemStack> startUsing( World world, PlayerEntity player, ItemStack stack ) { return ActionResultHolder.pass( stack ); }
@@ -48,7 +50,7 @@ public abstract class Item {
 	public boolean postAttack( ItemStack stack, LivingEntity target, LivingEntity attacker ) { return false; }
 
 	@ApiStatus.AvailableSince("0.1.3")
-	public boolean postMine( ItemStack stack, World world, BlockState state, Position pos, LivingEntity miner ) { return false; }
+	public boolean postMine( ItemStack stack, World world, BlockState state, Vec3i pos, LivingEntity miner ) { return false; }
 
 	@ApiStatus.AvailableSince("0.1.3")
 	public boolean canMineBlock( BlockState state ) { return false; }

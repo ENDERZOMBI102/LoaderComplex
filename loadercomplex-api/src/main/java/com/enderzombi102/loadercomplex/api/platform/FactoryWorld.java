@@ -1,15 +1,15 @@
 package com.enderzombi102.loadercomplex.api.platform;
 
-import com.enderzombi102.loadercomplex.api.minecraft.util.Position;
-import com.enderzombi102.loadercomplex.api.minecraft.util.ResourceIdentifier;
-import com.enderzombi102.loadercomplex.api.minecraft.server.Server;
-import com.enderzombi102.loadercomplex.api.minecraft.command.CommandManager;
-import com.enderzombi102.loadercomplex.api.minecraft.keybind.KeybindManager;
+import com.enderzombi102.loadercomplex.api.math.Vec3d;
 import com.enderzombi102.loadercomplex.api.minecraft.block.BlockState;
+import com.enderzombi102.loadercomplex.api.minecraft.command.CommandManager;
 import com.enderzombi102.loadercomplex.api.minecraft.entity.Entity;
 import com.enderzombi102.loadercomplex.api.minecraft.entity.ItemEntity;
 import com.enderzombi102.loadercomplex.api.minecraft.item.ItemStack;
+import com.enderzombi102.loadercomplex.api.minecraft.keybind.KeybindManager;
 import com.enderzombi102.loadercomplex.api.minecraft.network.NetworkManager;
+import com.enderzombi102.loadercomplex.api.minecraft.server.Server;
+import com.enderzombi102.loadercomplex.api.minecraft.util.ResourceIdentifier;
 import com.enderzombi102.loadercomplex.api.minecraft.world.World;
 import org.jetbrains.annotations.ApiStatus.AvailableSince;
 import org.jetbrains.annotations.Nullable;
@@ -35,7 +35,7 @@ public interface FactoryWorld {
 	 * @param pos   where to span the entity
 	 * @return the spawned entity instance
 	 */
-	@Nullable Entity createEntity( World world, ResourceIdentifier type, Position pos );
+	@Nullable Entity createEntity( World world, ResourceIdentifier type, Vec3d pos );
 
 	/**
 	 * Creates an item entity in the world
@@ -45,7 +45,7 @@ public interface FactoryWorld {
 	 * @param pos   where to spawn the entity
 	 * @return an {@link ItemEntity} object
 	 */
-	@Nullable ItemEntity createItemEntity( World world, ItemStack stack, Position pos );
+	@Nullable ItemEntity createItemEntity( World world, ItemStack stack, Vec3d pos );
 
 	/**
 	 * Creates a {@link BlockState} of a specified type
@@ -67,33 +67,4 @@ public interface FactoryWorld {
 	 */
 	@AvailableSince( "0.1.4" )
 	World adaptWorld( Server server, int id );
-
-	/**
-	 * Getter for the loader's {@link KeybindManager}, an object capable of:<br>
-	 * - Registering keybindings<br>
-	 * - Querying registered keybindings<br>
-	 */
-	@AvailableSince( "0.2.0" )
-	default KeybindManager getKeybindManager() {
-		throw new IllegalStateException( "This function has not been implemented in this impl!" );
-	}
-
-	/**
-	 * Getter for the loader's {@link NetworkManager}, an object capable of creating network channels.<br>
-	 * Channels can:<br>
-	 * - Send data between client server ( full-duplex )<br>
-	 * - Nothing else, what do you expect??
-	 */
-	@AvailableSince( "0.2.0" )
-	default NetworkManager getNetworkManager() {
-		throw new IllegalStateException( "This function has not been implemented in this impl!" );
-	}
-
-	/**
-	 * Getter for the loader's {@link CommandManager}, an object capable of creating commands.
-	 */
-	@AvailableSince( "0.2.0" )
-	default CommandManager getCommandManager() {
-		throw new IllegalStateException( "This function has not been implemented in this impl!" );
-	}
 }
