@@ -1,12 +1,14 @@
 package com.enderzombi102.loadercomplex.forge12.impl.world;
 
-import com.enderzombi102.loadercomplex.api.minecraft.block.Blockstate;
+import com.enderzombi102.loadercomplex.api.math.Direction;
+import com.enderzombi102.loadercomplex.api.minecraft.block.BlockState;
 import com.enderzombi102.loadercomplex.api.minecraft.entity.Entity;
 import com.enderzombi102.loadercomplex.api.minecraft.entity.PlayerEntity;
+import com.enderzombi102.loadercomplex.api.minecraft.server.Server;
 import com.enderzombi102.loadercomplex.api.minecraft.util.*;
 import com.enderzombi102.loadercomplex.api.minecraft.world.World;
 import com.enderzombi102.loadercomplex.forge12.impl.utils.ForgeServer;
-import com.enderzombi102.loadercomplex.forge12.impl.block.ForgeBlockstate;
+import com.enderzombi102.loadercomplex.forge12.impl.block.ForgeBlockState;
 import com.enderzombi102.loadercomplex.forge12.impl.utils.BlockUtils;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -81,23 +83,23 @@ public class ForgeWorld implements World {
 	}
 
 	@Override
-	public Blockstate getBlockState( Position pos ) {
-		return new ForgeBlockstate( this.backingWorld.getBlockState( new BlockPos( pos.x, pos.y, pos.z ) ) );
+	public BlockState getBlockState( Position pos ) {
+		return new ForgeBlockState( this.backingWorld.getBlockState( new BlockPos( pos.x, pos.y, pos.z ) ) );
 	}
 
 	@Override
-	public void setBlockState( Position pos, Blockstate state ) {
-		this.backingWorld.setBlockState( new BlockPos( pos.x, pos.y, pos.z ), (IBlockState) state.getObject() );
+	public boolean setBlockState( Position pos, BlockState state ) {
+		return this.backingWorld.setBlockState( new BlockPos( pos.x, pos.y, pos.z ), (IBlockState) state.getObject() );
 	}
 
 	@Override
-	public void breakBlock( Position pos, boolean dropItems ) {
-		this.backingWorld.destroyBlock( new BlockPos( pos.x, pos.y, pos.z ), dropItems );
+	public boolean breakBlock( Position pos, boolean dropItems ) {
+		return this.backingWorld.destroyBlock( new BlockPos( pos.x, pos.y, pos.z ), dropItems );
 	}
 
 	@Override
-	public void removeBlock( Position pos ) {
-		this.backingWorld.setBlockToAir( new BlockPos( pos.x, pos.y, pos.z ) );
+	public boolean removeBlock( Position pos ) {
+		return this.backingWorld.setBlockToAir( new BlockPos( pos.x, pos.y, pos.z ) );
 	}
 
 	@Override

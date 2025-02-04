@@ -14,19 +14,19 @@ public class FabricDispatcher implements ModInitializer {
 	public FabricDispatcher() {
 		switch ( getMinecraftVersion() ) {
 			case "1.12.2":
-				impl = construct( "com.enderzombi102.loadercomplex.fabric12.LoaderComplexFabric" );
+				this.impl = construct( "com.enderzombi102.loadercomplex.fabric122.LoaderComplexFabric" );
 				break;
 			case "1.17.1":
-				impl = construct( "com.enderzombi102.loadercomplex.fabric17.LoaderComplexFabric" );
+				this.impl = construct( "com.enderzombi102.loadercomplex.fabric171.LoaderComplexFabric" );
 				break;
 			case "b1.7.3":
-				impl = construct( "com.enderzombi102.loadercomplex.fabric173.LoaderComplexFabric" );
+				this.impl = construct( "com.enderzombi102.loadercomplex.fabric73b.LoaderComplexFabric" );
 				break;
 			default:
 				throw new IllegalStateException( String.format( "Fabric for %s is not supported!", getMinecraftVersion() ) );
 		}
 
-		System.out.println("Hello world!");
+		System.out.println( "Hello world!" );
 	}
 
 	private static @NotNull ModInitializer construct( @NotNull String path ) {
@@ -41,7 +41,7 @@ public class FabricDispatcher implements ModInitializer {
 	public static String getMinecraftVersion() {
 		//noinspection OptionalGetWithoutIsPresent
 		return FabricLoader.getInstance()
-			.getModContainer("minecraft")
+			.getModContainer( "minecraft" )
 			.get()
 			.getMetadata()
 			.getVersion()

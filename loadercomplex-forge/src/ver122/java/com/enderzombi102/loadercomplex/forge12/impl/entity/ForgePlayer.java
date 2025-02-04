@@ -11,6 +11,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.GameType;
 
+import java.util.Optional;
+
 public class ForgePlayer extends ForgeLivingEntity implements PlayerEntity {
 	private final EntityPlayer wrappedEntity;
 
@@ -25,8 +27,8 @@ public class ForgePlayer extends ForgeLivingEntity implements PlayerEntity {
 	}
 
 	@Override
-	public Position getBedLocation() {
-		return BlockUtils.toPosition( this.wrappedEntity.getBedLocation() );
+	public Optional<Position> getBedLocation() {
+		return Optional.ofNullable( this.wrappedEntity.getBedLocation() ).map( BlockUtils::toPosition );
 	}
 
 	@Override

@@ -11,22 +11,22 @@
 	},
 
 	"license": "MIT",
-	"icon": "assets/loadercomplex/icon4fabric.png",
+	"icon": "assets/loadercomplex/icon.png",
 
 	"environment": "*",
 	"entrypoints": {
-		"main": [
-			"com.enderzombi102.loadercomplex.fabric.FabricDispatcher"
-		],
+		"main":    [ "com.enderzombi102.loadercomplex.fabric.FabricDispatcher" ],
 		"modmenu": [
-            "com.enderzombi102.loadercomplex.fabric17.compat.LoaderComplexModMenuEntrypoint"
+			"com.enderzombi102.loadercomplex.fabric122.compat.LoaderComplexModMenuEntrypoint",
+			"com.enderzombi102.loadercomplex.fabric171.compat.LoaderComplexModMenuEntrypoint",
+			"com.enderzombi102.loadercomplex.fabric73b.compat.LoaderComplexModMenuEntrypoint"
 		]
 	},
 
 	"mixins": [
-		"loadercomplex-fabric12.mixins.json",
-		"loadercomplex-fabric17.mixins.json",
-		"loadercomplex-fabric173.mixins.json"
+		"loadercomplex-fabric122.mixins.json",
+		"loadercomplex-fabric171.mixins.json",
+		"loadercomplex-fabric73b.mixins.json"
 	],
 
 	"depends": {

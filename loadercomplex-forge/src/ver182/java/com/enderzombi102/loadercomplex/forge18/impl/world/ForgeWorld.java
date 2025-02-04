@@ -1,14 +1,15 @@
 package com.enderzombi102.loadercomplex.forge18.impl.world;
 
-import com.enderzombi102.loadercomplex.api.minecraft.block.Blockstate;
+import com.enderzombi102.loadercomplex.api.math.Direction;
+import com.enderzombi102.loadercomplex.api.minecraft.block.BlockState;
 import com.enderzombi102.loadercomplex.api.minecraft.entity.Entity;
 import com.enderzombi102.loadercomplex.api.minecraft.entity.Player;
+import com.enderzombi102.loadercomplex.api.minecraft.server.Server;
 import com.enderzombi102.loadercomplex.api.minecraft.util.*;
 import com.enderzombi102.loadercomplex.api.minecraft.world.World;
 import com.enderzombi102.loadercomplex.forge18.impl.ForgeServer;
-import com.enderzombi102.loadercomplex.forge18.impl.block.ForgeBlockstate;
+import com.enderzombi102.loadercomplex.forge18.impl.block.ForgeBlockState;
 import com.enderzombi102.loadercomplex.forge18.impl.utils.BlockUtils;
-import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
@@ -84,13 +85,13 @@ public class ForgeWorld implements World {
 	}
 
 	@Override
-	public Blockstate getBlockState( Position pos ) {
-		return new ForgeBlockstate( this.backingWorld.getBlockState( new BlockPos( pos.x, pos.y, pos.z ) ) );
+	public BlockState getBlockState( Position pos ) {
+		return new ForgeBlockState( this.backingWorld.getBlockState( new BlockPos( pos.x, pos.y, pos.z ) ) );
 	}
 
 	@Override
-	public void setBlockState( Position pos, Blockstate state ) {
-		this.backingWorld.setBlockState( new BlockPos( pos.x, pos.y, pos.z ), (BlockState) state.getObject() );
+	public void setBlockState( Position pos, BlockState state ) {
+		this.backingWorld.setBlockState( new BlockPos( pos.x, pos.y, pos.z ), (net.minecraft.block.BlockState) state.getObject() );
 	}
 
 	@Override

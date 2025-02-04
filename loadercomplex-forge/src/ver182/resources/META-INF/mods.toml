@@ -10,7 +10,7 @@ issueTrackerURL = '${repo_url}/issues'
 	displayName = 'LoaderComplex'
 	# updateJSONURL = "https://changeme.dev/updates.json"
 	displayURL = '${repo_url}'
-	logoFile = 'icon.png'
+	logoFile = 'assets/loadercomplex/icon.png'
 	authors = 'ENDERZOMBi102'
 	description = '${description}'
 

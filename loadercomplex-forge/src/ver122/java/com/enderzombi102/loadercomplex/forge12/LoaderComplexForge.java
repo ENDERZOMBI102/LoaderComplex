@@ -5,6 +5,7 @@ import com.enderzombi102.loadercomplex.impl.LoaderComplex;
 import com.enderzombi102.loadercomplex.impl.Reflect;
 import com.enderzombi102.loadercomplex.impl.addon.finder.FolderAddonFinder;
 import com.google.common.collect.ImmutableList;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.common.LoadController;
 import net.minecraftforge.fml.common.Loader;
@@ -43,29 +44,28 @@ public class LoaderComplexForge extends LoaderComplex {
 
 	public void injectContainer( FrogeModContainer frogeModContainer ) {
 		LOGGER.info( "Injecting ModContainer for \"{}\" into mods list", frogeModContainer.getModId() );
-		// inject into modlist
 		Reflect<Loader> mirror = Reflect.that( Loader.instance() );
-		@SuppressWarnings( "unchecked" )
-		List<ModContainer> mods = mirror.get( "mods", List.class ).unwrap();
-		if ( mods instanceof ImmutableList ) {
-			LOGGER.info( "Mod list is immutable! making mutable..." );
-			// make it mutable again
-			mirror.set( "mods", new ArrayList<>( mods ), List.class );
-			LOGGER.info( "Mod list is now mutable!" );
+		{	// inject into "loaded mods"
+			@SuppressWarnings( "unchecked" )
+			List<ModContainer> mods = mirror.get( "mods", List.class ).unwrap();
+			if ( mods instanceof ImmutableList ) {
+				LOGGER.info( "Mod list is immutable! making mutable..." );
+				// make it mutable again
+				mirror.set( "mods", new ArrayList<>( mods ), List.class );
+				LOGGER.info( "Mod list is now mutable!" );
+			}
+			//noinspection unchecked
+			((List<ModContainer>) mirror.get( "mods", List.class ).unwrap()).add( frogeModContainer );
+			LOGGER.info( " - Container injected into 'loaded mods' list" );
 		}
-		//noinspection unchecked
-		((List<ModContainer>) mirror.get( "mods", List.class ).unwrap()).add( frogeModContainer );
-		LOGGER.info( " - Container injected into inactive mod list" );
-	}
-
-	public void injectActiveContainer( FrogeModContainer frogeModContainer ) {
-		LOGGER.info( "Injecting ModContainer for \"{}\" into active mods list", frogeModContainer.getModId() );
-		Reflect.that( Loader.instance() )
-			.get( "modController", LoadController.class )
-			.unwrap()
-			.getActiveModList()
-			.add( frogeModContainer );
-		LOGGER.info( " - Container injected into active mod list" );
+//		{
+//			mirror
+//				.get( "modController", LoadController.class )
+//				.unwrap()
+//				.getActiveModList()
+//				.add( frogeModContainer );
+//			LOGGER.info( " - Container injected into active mod list" );
+//		}
 	}
 
 	/**
@@ -73,7 +73,10 @@ public class LoaderComplexForge extends LoaderComplex {
 	 * The registry events will have fired prior to entry to this method.
 	 */
 	@Mod.EventHandler
-	public void preinit( FMLPreInitializationEvent evt ) { }
+	public void preinit( FMLPreInitializationEvent evt ) {
+		// add child mods
+		evt.getModMetadata().childMods.addAll( containers );
+	}
 
 	/**
 	 * This is the second initialization event. Register custom recipes

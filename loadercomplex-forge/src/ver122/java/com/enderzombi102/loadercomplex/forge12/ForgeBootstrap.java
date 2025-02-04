@@ -20,7 +20,14 @@ public class ForgeBootstrap {
 	 * This is the first initialization event. Register tile entities here.
 	 * The registry events will have fired prior to entry to this method.
 	 */
-	@Mod.EventHandler
+	@Mod.EventHandle
+			mirror
+				.get( "modController", LoadController.class )
+				.unwrap()
+				.getActiveModList()
+				.add( frogeModContainer );
+			LOGGER.info( " - Container injected into active mod list" );
+		}r
 	public void preinit( FMLPreInitializationEvent evt ) {
 		this.impl.preinit( evt );
 	}

@@ -2,9 +2,9 @@ package com.enderzombi102.loadercomplex.forge18.impl.item;
 
 
 import com.enderzombi102.loadercomplex.api.minecraft.item.Item;
-import com.enderzombi102.loadercomplex.api.minecraft.util.Direction;
+import com.enderzombi102.loadercomplex.api.math.Direction;
 import com.enderzombi102.loadercomplex.api.minecraft.util.Hand;
-import com.enderzombi102.loadercomplex.forge18.impl.block.ForgeBlockstate;
+import com.enderzombi102.loadercomplex.forge18.impl.block.ForgeBlockState;
 import com.enderzombi102.loadercomplex.forge18.impl.entity.ForgeEntity;
 import com.enderzombi102.loadercomplex.forge18.impl.entity.ForgeLivingEntity;
 import com.enderzombi102.loadercomplex.forge18.impl.entity.ForgePlayer;
@@ -99,7 +99,7 @@ public class ForgeItem extends net.minecraft.item.Item {
 		return this.itemImpl.postMine(
 			new ForgeItemStack( stack ),
 			new ForgeWorld( world ),
-			new ForgeBlockstate( state ),
+			new ForgeBlockState( state ),
 			BlockUtils.toPosition( pos ),
 			new ForgeLivingEntity( miner )
 		);
@@ -107,7 +107,7 @@ public class ForgeItem extends net.minecraft.item.Item {
 
 	@Override
 	public boolean isSuitableFor(BlockState state) {
-		return this.itemImpl.isEffectiveOn( new ForgeBlockstate( state ) );
+		return this.itemImpl.isEffectiveOn( new ForgeBlockState( state ) );
 	}
 
 	@Override

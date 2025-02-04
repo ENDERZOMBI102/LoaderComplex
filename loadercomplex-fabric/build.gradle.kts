@@ -83,7 +83,7 @@ dependencies {
 	"ver171Implementation"( libs.annotations )
 	"ver171Implementation"( project( ":loadercomplex-common" ) )
 	"ver171ModImplementation"( unimined.fabricApi.fabric( "0.46.1+1.17" ) )
-	"ver171ModImplementation"( "com.terraformersmc:modmenu:4.2.0-beta.2" ) { isTransitive = false }
+	"ver171ModImplementation"( "com.terraformersmc:modmenu:2.0.17" ) { isTransitive = false }
 //	"ver171CompileOnly"( libs.brigadier )
 
 	"ver202Implementation"( libs.annotations )

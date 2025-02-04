@@ -5,7 +5,7 @@ import com.enderzombi102.loadercomplex.forge18.impl.entity.ForgePlayer;
 import com.enderzombi102.loadercomplex.forge18.impl.utils.BlockUtils;
 import com.enderzombi102.loadercomplex.forge18.impl.world.ForgeWorld;
 import com.enderzombi102.loadercomplex.api.minecraft.block.Block;
-import com.enderzombi102.loadercomplex.api.minecraft.util.Direction;
+import com.enderzombi102.loadercomplex.api.math.Direction;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
 import net.minecraft.entity.Entity;
@@ -64,7 +64,7 @@ public class ForgeBlock extends net.minecraft.block.Block {
 		return this.blockImpl.OnBlockInteracted(
 			new ForgeWorld( world ),
 			BlockUtils.toPosition( pos ),
-			new ForgeBlockstate( state ),
+			new ForgeBlockState( state ),
 			new ForgePlayer( player ),
 			com.enderzombi102.loadercomplex.api.minecraft.util.Hand.valueOf( hand.name() ),
 			Direction.valueOf( hit.getSide().name() ),
@@ -86,7 +86,7 @@ public class ForgeBlock extends net.minecraft.block.Block {
 		this.blockImpl.OnBreak(
 			new ForgeWorld( world ),
 			BlockUtils.toPosition( pos ),
-			new ForgeBlockstate( state ),
+			new ForgeBlockState( state ),
 			new ForgePlayer( player )
 		);
 	}
@@ -96,7 +96,7 @@ public class ForgeBlock extends net.minecraft.block.Block {
 		this.blockImpl.OnEntityCollision(
 			new ForgeWorld( world ),
 			BlockUtils.toPosition( pos ),
-			new ForgeBlockstate( state ),
+			new ForgeBlockState( state ),
 			new ForgeEntity( entity )
 		);
 	}
@@ -106,7 +106,7 @@ public class ForgeBlock extends net.minecraft.block.Block {
 		this.blockImpl.OnRandomTick(
 			new ForgeWorld( world ),
 			BlockUtils.toPosition( pos ),
-			new ForgeBlockstate( state ),
+			new ForgeBlockState( state ),
 			random
 		);
 	}

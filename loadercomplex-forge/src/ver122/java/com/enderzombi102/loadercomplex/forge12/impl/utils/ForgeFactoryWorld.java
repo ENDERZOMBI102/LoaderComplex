@@ -2,16 +2,16 @@ package com.enderzombi102.loadercomplex.forge12.impl.utils;
 
 import com.enderzombi102.loadercomplex.api.minecraft.util.Position;
 import com.enderzombi102.loadercomplex.api.platform.FactoryWorld;
-import com.enderzombi102.loadercomplex.forge12.impl.block.ForgeBlockstate;
+import com.enderzombi102.loadercomplex.forge12.impl.block.ForgeBlockState;
 import com.enderzombi102.loadercomplex.forge12.impl.entity.ForgeEntity;
 import com.enderzombi102.loadercomplex.forge12.impl.entity.ForgeItemEntity;
 import com.enderzombi102.loadercomplex.forge12.impl.item.ForgeItemStack;
-import com.enderzombi102.loadercomplex.api.minecraft.block.Blockstate;
+import com.enderzombi102.loadercomplex.api.minecraft.block.BlockState;
 import com.enderzombi102.loadercomplex.api.minecraft.entity.Entity;
 import com.enderzombi102.loadercomplex.api.minecraft.entity.ItemEntity;
 import com.enderzombi102.loadercomplex.api.minecraft.item.ItemStack;
 import com.enderzombi102.loadercomplex.api.minecraft.util.ResourceIdentifier;
-import com.enderzombi102.loadercomplex.api.minecraft.util.Server;
+import com.enderzombi102.loadercomplex.api.minecraft.server.Server;
 import com.enderzombi102.loadercomplex.api.minecraft.world.World;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
@@ -51,16 +51,16 @@ public class ForgeFactoryWorld implements FactoryWorld {
 	}
 
 	@Override
-	public Blockstate createBlockstate( ResourceIdentifier type ) {
+	public BlockState createBlockstate( ResourceIdentifier type ) {
 		Block block = ForgeRegistries.BLOCKS.getValue( new ResourceLocation( type.getNamespace(), type.getPath() ) );
 		if ( block == null ) {
 			throw new IllegalArgumentException( String.format( "\"%s\" is not a valid block!", type ) );
 		}
-		return new ForgeBlockstate( block.getDefaultState() );
+		return new ForgeBlockState( block.getDefaultState() );
 	}
 
 	@Override
-	public Blockstate airBlockstate() {
+	public BlockState airBlockstate() {
 		return createBlockstate( new ResourceIdentifier( "minecraft", "air" ) );
 	}
 

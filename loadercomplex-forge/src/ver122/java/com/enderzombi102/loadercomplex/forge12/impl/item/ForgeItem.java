@@ -2,10 +2,10 @@ package com.enderzombi102.loadercomplex.forge12.impl.item;
 
 
 import com.enderzombi102.loadercomplex.api.minecraft.item.Item;
-import com.enderzombi102.loadercomplex.api.minecraft.util.Direction;
+import com.enderzombi102.loadercomplex.api.math.Direction;
 import com.enderzombi102.loadercomplex.api.minecraft.util.Hand;
 import com.enderzombi102.loadercomplex.forge12.impl.utils.ForgeRegistry;
-import com.enderzombi102.loadercomplex.forge12.impl.block.ForgeBlockstate;
+import com.enderzombi102.loadercomplex.forge12.impl.block.ForgeBlockState;
 import com.enderzombi102.loadercomplex.forge12.impl.entity.ForgeEntity;
 import com.enderzombi102.loadercomplex.forge12.impl.entity.ForgeLivingEntity;
 import com.enderzombi102.loadercomplex.forge12.impl.entity.ForgePlayer;
@@ -68,12 +68,8 @@ public class ForgeItem extends net.minecraft.item.Item {
 	@Override
 	public @NotNull ActionResult<ItemStack> onItemRightClick( @NotNull World world, @NotNull EntityPlayer user, @NotNull net.minecraft.util.EnumHand hand ) {
 		ItemStack stack = user.getHeldItem( hand );
-		return new ActionResult<>(
-			EnumActionResult.valueOf(
-				this.itemImpl.startUsing( new ForgeWorld( world ), new ForgePlayer( user ), new ForgeItemStack( stack ) ).name()
-			),
-			stack
-		);
+		com.enderzombi102.loadercomplex.api.minecraft.util.ActionResultHolder<com.enderzombi102.loadercomplex.api.minecraft.item.ItemStack> x = this.itemImpl.startUsing( new ForgeWorld( world ), new ForgePlayer( user ), new ForgeItemStack( stack ) );
+		return new ActionResult<>( EnumActionResult.valueOf( x.getResult().name() ), (ItemStack) x.getObject().getStack() );
 	}
 
 	@Override
@@ -99,7 +95,7 @@ public class ForgeItem extends net.minecraft.item.Item {
 		return this.itemImpl.postMine(
 			new ForgeItemStack( stack ),
 			new ForgeWorld( world ),
-			new ForgeBlockstate( state ),
+			new ForgeBlockState( state ),
 			BlockUtils.toPosition( pos ),
 			new ForgeLivingEntity( miner )
 		);
@@ -107,7 +103,7 @@ public class ForgeItem extends net.minecraft.item.Item {
 
 	@Override
 	public boolean canHarvestBlock( @NotNull IBlockState state ) {
-		return this.itemImpl.canMineBlock( new ForgeBlockstate( state ) );
+		return this.itemImpl.canMineBlock( new ForgeBlockState( state ) );
 	}
 
 	@Override
@@ -117,7 +113,7 @@ public class ForgeItem extends net.minecraft.item.Item {
 			new ForgePlayer( user ),
 			new ForgeLivingEntity( entity ),
 			Hand.valueOf( hand.name() )
-		);
+		) == com.enderzombi102.loadercomplex.api.minecraft.util.ActionResult.SUCCESS;
 	}
 
 	@Override
