@@ -1,23 +1,22 @@
-package com.enderzombi102.loadercomplex.forge122.impl
+package com.enderzombi102.loadercomplex.forge182.impl
 
 import com.enderzombi102.loadercomplex.api.AddonContext
 import com.enderzombi102.loadercomplex.api.minecraft.command.CommandManager
 import com.enderzombi102.loadercomplex.api.minecraft.keybind.KeybindManager
 import com.enderzombi102.loadercomplex.api.minecraft.network.NetworkManager
 import com.enderzombi102.loadercomplex.api.platform.*
-import com.enderzombi102.loadercomplex.forge122.impl.platform.ForgeFactoryWorld
-import com.enderzombi102.loadercomplex.forge122.impl.platform.ForgeI18nSystem
-import com.enderzombi102.loadercomplex.forge122.impl.platform.ForgeRegistry
-import com.unascribed.flexver.FlexVerComparator
-import net.minecraft.launchwrapper.Launch
-import net.minecraftforge.common.ForgeVersion
-import net.minecraftforge.fml.common.FMLCommonHandler
-import net.minecraftforge.fml.common.Loader
+import com.enderzombi102.loadercomplex.forge182.impl.platform.ForgeFactoryWorld
+import com.enderzombi102.loadercomplex.forge182.impl.platform.ForgeRegistry
+import net.minecraftforge.api.distmarker.Dist
+import net.minecraftforge.fml.ModList
+import net.minecraftforge.fml.loading.FMLEnvironment
+import net.minecraftforge.fml.loading.FMLLoader
+import net.minecraftforge.versions.forge.ForgeVersion
 import java.nio.file.Path
 
+
 class ForgeAddonContext : AddonContext {
-	private val registry = ForgeRegistry()
-	private val i18nSystem = ForgeI18nSystem()
+	private val registry: Registry = ForgeRegistry()
 
 	override fun getPlatformInfo(): PlatformInfo {
 		return object : PlatformInfo {
@@ -28,42 +27,44 @@ class ForgeAddonContext : AddonContext {
 				ForgeVersion.getVersion()
 
 			override fun id(): String =
-				"forge-legacy"
+				"forge"
 
 			override fun minecraftVersion(): String =
-				"1.12.2"
+				"1.18.2"
 
 			override fun getApiVersion(): String =
 				"0.1.3"
 
 			override fun isDeveloperEnvironment(): Boolean =
-				Launch.blackboard.getOrDefault("fml.deobfuscatedEnvironment", false) as Boolean
+				FMLEnvironment.production
 		}
 	}
 
-	override fun getRegistry(): Registry =
-		this.registry
+	override fun isModLoaded(id: String): Boolean {
+		return ModList.get().isLoaded(id)
+	}
 
 	override fun getFactoryWorld(): FactoryWorld =
 		ForgeFactoryWorld()
 
-	override fun isAtLeastMinecraft(version: String): Boolean =
-		FlexVerComparator.compare( ForgeVersion.mcVersion, version ) <= 0
+	override fun isAtLeastMinecraft(version: String): Boolean {
+		throw NotImplementedError()
+	}
 
 	override fun isDedicatedServer(): Boolean =
-		FMLCommonHandler.instance().side.isServer
+		FMLLoader.getDist() == Dist.DEDICATED_SERVER
 
-	override fun isModLoaded(id: String): Boolean =
-		Loader.isModLoaded(id)
+	override fun getRegistry(): Registry =
+		this.registry
 
 	override fun getI18nSystem(): I18nSystem =
-		this.i18nSystem
+		throw NotImplementedError()
 
 	override fun getResourceLoader(): ResourceLoader =
 		throw NotImplementedError()
 
 	override fun getConfigDir(): Path =
-		Loader.instance().configDir.toPath()
+		FMLLoader.getGamePath().resolve( "config" )
 
 	override fun getKeybindManager(): KeybindManager =
 		throw NotImplementedError()

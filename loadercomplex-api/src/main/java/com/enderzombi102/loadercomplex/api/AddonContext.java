@@ -34,7 +34,7 @@ public interface AddonContext {
 	 * @param id of the mod to check
 	 * @return true if it is
 	 */
-	boolean isModLoaded( String id );
+	boolean isModLoaded( @NotNull String id );
 
 	/**
 	 * Returns an implementation of {@link FactoryWorld}, an object capable
@@ -49,7 +49,7 @@ public interface AddonContext {
 	 * @param version minecraft version to check
 	 */
 	@AvailableSince("0.1.3")
-	boolean isAtLeastMinecraft( String version );
+	boolean isAtLeastMinecraft( @NotNull String version );
 
 	/**
 	 * Returns true if LC is running on a dedicated server
@@ -63,7 +63,7 @@ public interface AddonContext {
 	 * @param addonId id of the addon asking for a logger
 	 * @return a Logger object
 	 */
-	default @NotNull Logger getLogger( String addonId ) {
+	default @NotNull Logger getLogger( @NotNull String addonId ) {
 		return LoggerFactory.getLogger( addonId );
 	}
 
